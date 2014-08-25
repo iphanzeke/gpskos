@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class name="com.ivanbiz.model.SettingGL" table="SETTING_GL">
+    <id column="ID" name="id">
+      <generator class="native"/>
+    </id>
+    <many-to-one name="glAccount" column="GLACCOUNT_ID" class="com.ivanbiz.model.GLAccount"/>
+    <property column="DEBET_OR_CREDIT" name="debetOrCredit" type="string" length="1"/>
+    <many-to-one name="proCode" column="PRO_CODE_ID" class="com.ivanbiz.model.ProCode"/>
+    
+    
+  </class>
+</hibernate-mapping>

@@ -1,0 +1,11 @@
+package com.ivanbiz.dao;
+
+import java.util.List;
+import org.hibernate.Session;
+
+public interface JurnalDAO extends GenericDAO {
+
+	public String saveJurnal(String proCode,double amount,String transRef,Session session)throws Exception;
+	public String reversalJurnal(String accRef)throws Exception;
+        public String saveJurnalMore(List listItem,Session session)throws Exception;
+}
