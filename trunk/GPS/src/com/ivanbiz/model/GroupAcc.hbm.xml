@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class name="com.ivanbiz.model.GroupAcc" table="GROUP_ACC">
+    <id column="ID" name="id">
+      <generator class="native"/>
+    </id>
+    <property column="NAMA_GROUP" name="namaGroup" type="string" length="30"/>
+    <property column="DESKRIPSI" name="deskripsi" type="string" length="50"/>
+    
+  </class>
+</hibernate-mapping>
