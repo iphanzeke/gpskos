@@ -12,15 +12,16 @@ import java.util.Date;
  *
  * @author ivan
  */
-public class Murid {
+public class Pengajar {
     private long id;
-    private String NIM;
+    private String NIP;
     private String nama;
     private String email;
     private String alamat;
     private String telp;
     private String handphone;
     private Date date;
+
     /**
      * @return the id
      */
@@ -33,6 +34,20 @@ public class Murid {
      */
     public void setId(long id) {
         this.id = id;
+    }
+
+    /**
+     * @return the NIP
+     */
+    public String getNIP() {
+        return NIP;
+    }
+
+    /**
+     * @param NIP the NIP to set
+     */
+    public void setNIP(String NIP) {
+        this.NIP = NIP;
     }
 
     /**
@@ -106,20 +121,6 @@ public class Murid {
     }
 
     /**
-     * @return the NIM
-     */
-    public String getNIM() {
-        return NIM;
-    }
-
-    /**
-     * @param NIM the NIM to set
-     */
-    public void setNIM(String NIM) {
-        this.NIM = NIM;
-    }
-
-    /**
      * @return the date
      */
     public Date getDate() {
@@ -132,6 +133,5 @@ public class Murid {
     public void setDate(Date date) {
         this.date = date;
     }
-    
     
 }

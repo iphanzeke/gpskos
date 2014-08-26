@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class name="com.ivanbiz.model.Murid" table="MURID">
+    <class name="com.ivanbiz.model.Pengajar" table="Pengajar">
         <id column="ID" name="id">
             <generator class="native"/>
         </id>
-        <property column="NIM" name="NIM" type="string" length="10"/>
+        <property column="NIP" name="NIP" type="string" length="10"/>
         <property column="NAMA" name="nama" type="string" length="30"/>
         <property column="EMAIL" name="email" type="string" length="10"/>
         <property column="ALAMAT" name="alamat" type="string" length="100"/>
