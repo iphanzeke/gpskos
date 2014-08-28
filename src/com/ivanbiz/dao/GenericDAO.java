@@ -20,6 +20,8 @@ public interface GenericDAO {
 
     public void save(Object obj) throws Exception;
 
+    public void saveOrUpdate(Object obj) throws Exception;
+
     public List getAll(Class claz) throws Exception;
 
     public List getDataByLike(Class clazImpl, String variable, Object input) throws Exception;
