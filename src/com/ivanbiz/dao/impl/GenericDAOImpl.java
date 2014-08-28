@@ -16,8 +16,9 @@ import org.hibernate.criterion.Restrictions;
  *
  * @author City_Z
  */
-public class GenericDAOImpl implements GenericDAO{
-     public void delete(Object obj) throws Exception {
+public class GenericDAOImpl implements GenericDAO {
+
+    public void delete(Object obj) throws Exception {
         try {
             HibernateUtil.beginTransaction();
             Session session = HibernateUtil.getSession();
@@ -57,12 +58,26 @@ public class GenericDAOImpl implements GenericDAO{
         }
     }
 
+    public void saveOrUpdate(Object obj) throws Exception {
+        try {
+            HibernateUtil.beginTransaction();
+            Session session = HibernateUtil.getSession();
+            session.saveOrUpdate(obj);
+            HibernateUtil.commitTransaction();
+        } catch (Exception e) {
+            HibernateUtil.rollbackTransaction();
+            throw e;
+        } finally {
+            HibernateUtil.closeSession();
+        }
+    }
+
     public List getAll(Class claz) throws Exception {
         try {
             Session session = HibernateUtil.getSession();
             HibernateUtil.beginTransaction();
             Criteria criteria = session.createCriteria(claz);
-             HibernateUtil.commitTransaction();
+            HibernateUtil.commitTransaction();
             return criteria.list();
         } catch (Exception e) {
             HibernateUtil.rollbackTransaction();
@@ -89,7 +104,7 @@ public class GenericDAOImpl implements GenericDAO{
     public List getDataByLike(Class clasImpl, String variable, Object input) throws Exception {
         try {
             Session session = HibernateUtil.getSession();
-             HibernateUtil.beginTransaction();
+            HibernateUtil.beginTransaction();
             Criteria crit = session.createCriteria(clasImpl);
             crit.add(Restrictions.like(variable, "%" + input + "%"));
             List list = crit.list();
@@ -110,7 +125,7 @@ public class GenericDAOImpl implements GenericDAO{
             Criteria crit = session.createCriteria(clazImpl);
             crit.add(Restrictions.eq(variable, input));
             List list = crit.list();
-             HibernateUtil.commitTransaction();
+            HibernateUtil.commitTransaction();
             return list;
         } catch (Exception e) {
             HibernateUtil.rollbackTransaction();
@@ -123,9 +138,9 @@ public class GenericDAOImpl implements GenericDAO{
     public Object getDataByEqual(Class clazImpl, String variable, Object input) throws Exception {
         try {
             Session session = HibernateUtil.getSession();
-             HibernateUtil.beginTransaction();
+            HibernateUtil.beginTransaction();
             Criteria crit = session.createCriteria(clazImpl);
-            crit.add(Restrictions.eq(variable, input));            
+            crit.add(Restrictions.eq(variable, input));
             Object obj = crit.uniqueResult();
             HibernateUtil.commitTransaction();
             return obj;
@@ -147,9 +162,9 @@ public class GenericDAOImpl implements GenericDAO{
             end.setHours(0);
             end.setMinutes(0);
             end.setSeconds(0);
-            Criteria crit = session.createCriteria(claz).add(Restrictions.ge("createDate", start)).add(Restrictions.le("createDate", end));
+            Criteria crit = session.createCriteria(claz).add(Restrictions.ge("dateReference", start)).add(Restrictions.le("dateReference", end));
             List list = crit.list();
-             HibernateUtil.commitTransaction();
+            HibernateUtil.commitTransaction();
             return list;
         } catch (Exception e) {
             HibernateUtil.rollbackTransaction();
