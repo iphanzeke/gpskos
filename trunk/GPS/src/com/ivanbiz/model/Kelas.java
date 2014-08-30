@@ -21,6 +21,7 @@ public class Kelas {
     private String alamatKelas;
     private Pengajar pengajar;
     private String statusKelas;
+    private String transactionReference;
 
     /**
      * @return the id
@@ -133,6 +134,20 @@ public class Kelas {
      */
     public void setTanggalKelas(Date tanggalKelas) {
         this.tanggalKelas = tanggalKelas;
+    }
+
+    /**
+     * @return the transactionReference
+     */
+    public String getTransactionReference() {
+        return transactionReference;
+    }
+
+    /**
+     * @param transactionReference the transactionReference to set
+     */
+    public void setTransactionReference(String transactionReference) {
+        this.transactionReference = transactionReference;
     }
     
     
