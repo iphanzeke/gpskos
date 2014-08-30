@@ -98,4 +98,85 @@ public class JurnalDAOImpl extends GenericDAOImpl implements JurnalDAO {
         return status;
 
     }
+
+    @Override
+    public String saveJurnalWithVA(String proCode, double amount, String transRef, String virtualAccount, Session session) throws Exception {
+         String status = "";
+        try {
+         //   Session session = HibernateUtil.getSession();
+            SettingGLDAO settingGL = new SettingGLDAOImpl();
+            List listGL = settingGL.getListByNoGL(proCode, session);
+            String ref = proCode +"-"+ System.currentTimeMillis();
+            for (int x = 0; x < listGL.size(); x++) {
+                SettingGL settingGl = (SettingGL) listGL.get(x);
+                Jurnal jurnal = new Jurnal();
+                jurnal.setAccountingReference(ref);
+                jurnal.setDateReference(new Date());
+                jurnal.setCurrency("IDR");
+                jurnal.setStatus("2000");
+                jurnal.setTransactionReference(transRef);
+                jurnal.setGLAccount(settingGl.getGlAccount().getNoGL()+"-"+virtualAccount);
+                if (settingGl.getDebetOrCredit().equals("C")) {
+                    jurnal.setCredit(amount);
+                } else {
+                    jurnal.setDebit(amount);
+                }
+                session.save(jurnal);
+
+            }
+          //  HibernateUtil.commitTransaction();
+            status = "sukses";
+        } catch (Exception e) {
+            status = "gagal";
+           // HibernateUtil.rollbackTransaction();
+            throw e;
+        } finally {
+           // HibernateUtil.closeSession();
+        }
+        return status;
+    }
+
+    @Override
+    public String saveJurnalMoreWithVA(List listItem, Session session) throws Exception {
+        String status = "";
+        try {
+           // Session session = HibernateUtil.getSession();
+            SettingGLDAO settingGL = new SettingGLDAOImpl();
+            long refTime = System.currentTimeMillis();
+            for (int y = 0; y < listItem.size(); y++) {
+                String[] splitVal = listItem.get(y).toString().split("#");
+                String proCode = splitVal[0];
+                double amount = Double.parseDouble(splitVal[1]);
+                String transRef = splitVal[2];
+                String virtualAccount = splitVal[3];
+                List listGL = settingGL.getListByNoGL(proCode, session);
+                String ref = proCode +"-"+ refTime;
+                for (int x = 0; x < listGL.size(); x++) {
+                    SettingGL settingGl = (SettingGL) listGL.get(x);
+                    Jurnal jurnal = new Jurnal();
+                    jurnal.setAccountingReference(ref);
+                    jurnal.setDateReference(new Date());
+                    jurnal.setCurrency("IDR");
+                    jurnal.setStatus("2000");
+                    jurnal.setTransactionReference(transRef);
+                    jurnal.setGLAccount(settingGl.getGlAccount().getNoGL()+"-"+virtualAccount);
+                    if (settingGl.getDebetOrCredit().equals("C")) {
+                        jurnal.setCredit(amount);
+                    } else {
+                        jurnal.setDebit(amount);
+                    }
+                    session.save(jurnal);                    
+                }
+            }
+           // HibernateUtil.commitTransaction();
+            status = "sukses";
+        } catch (Exception e) {
+            status = "gagal";
+            //HibernateUtil.rollbackTransaction();
+            throw e;
+        } finally {
+           // HibernateUtil.closeSession();
+        }
+        return status;
+    }
 }
