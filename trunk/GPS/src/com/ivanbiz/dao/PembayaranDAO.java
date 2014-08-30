@@ -6,10 +6,13 @@
 
 package com.ivanbiz.dao;
 
+import com.ivanbiz.model.Pembayaran;
+
 /**
  *
  * @author ivan
  */
 public interface PembayaranDAO extends GenericDAO{
-    
+    public String postingJurnalPembayaran(Pembayaran pembayaran)throws Exception;
+    public String postingJurnalPembayaranVA(Pembayaran pembayaran,String virtualAccount)throws Exception;
 }
