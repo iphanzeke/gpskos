@@ -14,6 +14,7 @@ public class DaftarKelas {
     private long id;
     private Kelas kelas;
     private Murid murid;
+    private String transactionReference;
 
     /**
      * @return the id
@@ -55,6 +56,20 @@ public class DaftarKelas {
      */
     public void setMurid(Murid murid) {
         this.murid = murid;
+    }
+
+    /**
+     * @return the transactionReference
+     */
+    public String getTransactionReference() {
+        return transactionReference;
+    }
+
+    /**
+     * @param transactionReference the transactionReference to set
+     */
+    public void setTransactionReference(String transactionReference) {
+        this.transactionReference = transactionReference;
     }
     
     
