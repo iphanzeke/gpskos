@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class name="com.ivanbiz.model.AksesMatrix" table="AKSES_MATRIX">
+    <id column="ID" name="id">
+      <generator class="native"/>
+    </id>
+    <many-to-one class="com.ivanbiz.model.Groups" column="GROUPS_ID" lazy="false" name="groups"/>
+    <many-to-one class="com.ivanbiz.model.MenuAkses" column="MENU_AKSES_ID" lazy="false" name="menuAkses"/>
+  </class>
+</hibernate-mapping>
