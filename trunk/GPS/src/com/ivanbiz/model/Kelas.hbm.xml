@@ -12,6 +12,6 @@
         <property column="ALAMAT_KELAS" name="alamatKelas" type="string" length="100"/>
         <many-to-one column="PENGAJAR_ID" name="pengajar" class="com.ivanbiz.model.Pengajar" lazy="false"/>        
         <property column="STATUS_KELAS" name="statusKelas" type="string" length='2'/>
-        <property column="TRANSACTION_REFERENCE" name="transactionReference" type="string" length='20'/>
+        <property column="TRANSACTION_REFERENCE" name="transactionReference" type="string" length='50'/>
     </class>
 </hibernate-mapping>

@@ -20,6 +20,7 @@ public class Murid {
     private String alamat;
     private String telp;
     private String handphone;
+    private String namaBank;
     private Date date;
     /**
      * @return the id

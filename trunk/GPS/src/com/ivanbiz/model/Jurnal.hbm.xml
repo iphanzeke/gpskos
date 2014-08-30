@@ -7,7 +7,7 @@
     </id>
     <property column="ACCOUNTING_REFERENCE" name="accountingReference" type="string"/>
     <property column="DATE_REFERENCE" name="dateReference" type="date"/>
-    <property column="TRANSACTION_REFERENCE" name="transactionReference" type="string" length="20"/>
+    <property column="TRANSACTION_REFERENCE" name="transactionReference" type="string" length="50"/>
     <property column="DEBIT" name="debit" type="double" length="12"/>
     <property column="CREDIT" name="credit" type="double" length="12"/>
     <property column="CURRENCY" name="currency" type="string" length="4"/>

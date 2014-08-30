@@ -11,6 +11,7 @@
         <property column="ALAMAT" name="alamat" type="string" length="100"/>
         <property column="TELP" name="telp" type="string" length="20"/>
         <property column="HANDPHONE" name="handphone" type="string" length="20"/>
+        <property column="NAMA_BANK" name="namaBank" type="string" length="100"/>
         <property column="DATE" name="date" type="date"/>
     </class>
 </hibernate-mapping>
