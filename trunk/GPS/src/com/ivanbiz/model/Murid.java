@@ -133,6 +133,14 @@ public class Murid {
     public void setDate(Date date) {
         this.date = date;
     }
+
+    public String getNamaBank() {
+        return namaBank;
+    }
+
+    public void setNamaBank(String namaBank) {
+        this.namaBank = namaBank;
+    }
     
     
 }
