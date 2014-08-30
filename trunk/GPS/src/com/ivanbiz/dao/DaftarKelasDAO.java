@@ -6,10 +6,14 @@
 
 package com.ivanbiz.dao;
 
+import com.ivanbiz.model.DaftarKelas;
+import com.ivanbiz.model.Murid;
+
 /**
  *
  * @author ivan
  */
 public interface DaftarKelasDAO extends GenericDAO{
-    
+    public String saveWithMurid(DaftarKelas daftarKelas,Murid murid)throws Exception;
+    public String saveWithUpdateMurid(DaftarKelas daftarKelas,Murid murid)throws Exception;
 }
