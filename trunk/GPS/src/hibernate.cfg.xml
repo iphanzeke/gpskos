@@ -31,5 +31,8 @@
         <mapping resource="com/ivanbiz/model/GroupAcc.hbm.xml"/>
         <mapping resource="com/ivanbiz/model/Murid.hbm.xml"/>
         <mapping resource="com/ivanbiz/model/Pengajar.hbm.xml"/>
+        <mapping resource="com/ivanbiz/model/Kelas.hbm.xml"/>
+        <mapping resource="com/ivanbiz/model/DaftarKelas.hbm.xml"/>
+        <mapping resource="com/ivanbiz/model/BankAccount.hbm.xml"/>
     </session-factory>
 </hibernate-configuration>
