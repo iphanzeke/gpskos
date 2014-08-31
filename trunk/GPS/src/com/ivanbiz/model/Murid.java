@@ -20,7 +20,7 @@ public class Murid {
     private String alamat;
     private String telp;
     private String handphone;
-    private String namaBank;
+    private Bank bank;
     private Date date;
     /**
      * @return the id
@@ -134,13 +134,21 @@ public class Murid {
         this.date = date;
     }
 
-    public String getNamaBank() {
-        return namaBank;
+    /**
+     * @return the bank
+     */
+    public Bank getBank() {
+        return bank;
     }
 
-    public void setNamaBank(String namaBank) {
-        this.namaBank = namaBank;
+    /**
+     * @param bank the bank to set
+     */
+    public void setBank(Bank bank) {
+        this.bank = bank;
     }
+
+    
     
     
 }
