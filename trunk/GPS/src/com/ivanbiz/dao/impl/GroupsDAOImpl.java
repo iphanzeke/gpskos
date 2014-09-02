@@ -34,4 +34,22 @@ public class GroupsDAOImpl extends GenericDAOImpl implements GroupsDAO {
             HibernateUtil.closeSession();
         }
     }
+
+    @Override
+    public void delete(Groups groups, List<AksesMatrix> listAksesMatrix) throws Exception {
+        try {
+            HibernateUtil.beginTransaction();
+            Session session = HibernateUtil.getSession();
+            for (AksesMatrix aksesMatrix : listAksesMatrix) {
+                session.delete(aksesMatrix);
+            }
+            session.delete(groups);
+            HibernateUtil.commitTransaction();
+        } catch (Exception e) {
+            HibernateUtil.rollbackTransaction();
+            throw e;
+        } finally {
+            HibernateUtil.closeSession();
+        }
+    }
 }

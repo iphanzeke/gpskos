@@ -24,11 +24,19 @@ public enum MenuAksesConstant {
     LIHAT_KELAS("Lihat Kelas"),
     TAMBAH_KELAS("Tambah Kelas"),
     UBAH_KELAS("Ubah Kelas"),
-    HAPUS_KELAS("Hapus Kelas");
+    HAPUS_KELAS("Hapus Kelas"),
+    LIHAT_BANK("Lihat Bank"),
+    TAMBAH_BANK("Tambah Bank"),
+    UBAH_BANK("Ubah Bank"),
+    HAPUS_BANK("Hapus Bank"),
+    LIHAT_GROUP("Lihat Group"),
+    TAMBAH_GROUP("Tambah Group"),
+    UBAH_GROUP("Ubah Group"),
+    HAPUS_GROUP("Hapus Group"),;
 
     public static boolean validate(MenuAksesConstant menuAksesConstant, List<AksesMatrix> listAksesMatrix) {
         for (AksesMatrix aksesMatrix : listAksesMatrix) {
-            if (aksesMatrix.getMenuAkses().getNama().equals(menuAksesConstant.toString())) {
+            if (aksesMatrix.getNama().equals(menuAksesConstant.toString())) {
                 return true;
             }
         }

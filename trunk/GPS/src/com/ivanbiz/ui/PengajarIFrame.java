@@ -37,7 +37,7 @@ public class PengajarIFrame extends javax.swing.JInternalFrame {
         initComponents();
         renderHakAkses(listAksesMatrix);
         pengajarDAO = new PengajarDAOImpl();
-        refresh();        
+        refresh();
     }
 
     /** This method is called from within the constructor to
@@ -200,6 +200,7 @@ public class PengajarIFrame extends javax.swing.JInternalFrame {
         );
 
         setClosable(true);
+        setMaximizable(true);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24));
         jLabel1.setText("Daftar Pengajar");
@@ -270,7 +271,6 @@ public class PengajarIFrame extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTambahActionPerformed
-        renderPengajarUpdateDialog();
         labelPengajar.setText("Tambah Pengajar Baru");
         textNIP.setText("");
         textNama.setText("");
@@ -279,6 +279,7 @@ public class PengajarIFrame extends javax.swing.JInternalFrame {
         textEmail.setText("");
         textTanggal.setDate(new Date());
         textAlamat.setText("");
+        renderPengajarUpdateDialog();
     }//GEN-LAST:event_buttonTambahActionPerformed
 
     private void buttonSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSimpanActionPerformed
@@ -293,9 +294,7 @@ public class PengajarIFrame extends javax.swing.JInternalFrame {
             pengajar.setEmail(textEmail.getText());
             pengajar.setDate(textTanggal.getDate());
             pengajar.setAlamat(textAlamat.getText());
-            pengajarDAO.saveOrUpdate(pengajar);
-            PengajarUpdateDialog.dispose();
-            refresh();
+            validate(pengajar);
         } catch (Exception ex) {
             Logger.getLogger(PengajarIFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -309,7 +308,6 @@ public class PengajarIFrame extends javax.swing.JInternalFrame {
         if (tablePengajar.getSelectedRow() == -1) {
             JOptionPane.showMessageDialog(this, "Pilih salah satu data", "warning", JOptionPane.WARNING_MESSAGE);
         } else {
-            renderPengajarUpdateDialog();
             labelPengajar.setText("Update Pengajar");
             pengajar = listPengajar.get(tablePengajar.getSelectedRow());
             textNIP.setText(pengajar.getNIP());
@@ -319,6 +317,7 @@ public class PengajarIFrame extends javax.swing.JInternalFrame {
             textEmail.setText(pengajar.getEmail());
             textTanggal.setDate(pengajar.getDate());
             textAlamat.setText(pengajar.getAlamat());
+            renderPengajarUpdateDialog();
         }
     }//GEN-LAST:event_buttonUbahActionPerformed
 
@@ -398,11 +397,51 @@ public class PengajarIFrame extends javax.swing.JInternalFrame {
     private void renderPengajarUpdateDialog() {
         PengajarUpdateDialog.setSize(400, 570);
         PengajarUpdateDialog.setVisible(true);
+        PengajarUpdateDialog.setLocationRelativeTo(this);
+        PengajarUpdateDialog.setModal(true);
     }
 
     private void renderHakAkses(List<AksesMatrix> listAksesMatrix) {
         buttonTambah.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.TAMBAH_JABATAN, listAksesMatrix));
         buttonUbah.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.UBAH_JABATAN, listAksesMatrix));
         buttonHapus.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.HAPUS_JABATAN, listAksesMatrix));
+    }
+
+    private void validate(Pengajar pengajar) {
+        if (pengajar == null) {
+            JOptionPane.showMessageDialog(this, "Pengajar tidak boleh null");
+        } else if (pengajar.getNIP() == null) {
+            JOptionPane.showMessageDialog(this, "NIP tidak boleh null");
+        } else if (pengajar.getNIP().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "NIP tidak boleh kosong");
+        } else if (pengajar.getNama() == null) {
+            JOptionPane.showMessageDialog(this, "Nama tidak boleh null");
+        } else if (pengajar.getNama().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Nama tidak boleh kosong");
+        } else if (pengajar.getTelp() == null) {
+            JOptionPane.showMessageDialog(this, "Telp tidak boleh null");
+        } else if (pengajar.getTelp().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Telp tidak boleh kosong");
+        } else if (pengajar.getHandphone() == null) {
+            JOptionPane.showMessageDialog(this, "HP tidak boleh null");
+        } else if (pengajar.getHandphone().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "HP tidak boleh kosong");
+        } else if (pengajar.getEmail() == null) {
+            JOptionPane.showMessageDialog(this, "Email tidak boleh null");
+        } else if (pengajar.getEmail().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Email tidak boleh kosong");
+        } else if (pengajar.getAlamat() == null) {
+            JOptionPane.showMessageDialog(this, "Alamat tidak boleh null");
+        } else if (pengajar.getAlamat().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Alamat tidak boleh kosong");
+        } else {
+            try {
+                pengajarDAO.saveOrUpdate(pengajar);
+                PengajarUpdateDialog.dispose();
+                refresh();
+            } catch (Exception ex) {
+                Logger.getLogger(PengajarIFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 }

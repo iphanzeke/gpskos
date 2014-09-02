@@ -4,7 +4,9 @@
  */
 package com.ivanbiz.model;
 
+import com.ivanbiz.service.MenuAksesConstant;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  *
@@ -13,9 +15,17 @@ import java.io.Serializable;
 public class AksesMatrix implements Serializable {
 
     private long id;
-    private MenuAkses menuAkses;
     private Groups groups;
     private boolean menuChecked;
+    private String nama;
+
+    public String getNama() {
+        return nama;
+    }
+
+    public void setNama(String nama) {
+        this.nama = nama;
+    }
 
     public boolean isMenuChecked() {
         return menuChecked;
@@ -39,13 +49,5 @@ public class AksesMatrix implements Serializable {
 
     public void setGroups(Groups groups) {
         this.groups = groups;
-    }
-
-    public MenuAkses getMenuAkses() {
-        return menuAkses;
-    }
-
-    public void setMenuAkses(MenuAkses menuAkses) {
-        this.menuAkses = menuAkses;
     }
 }

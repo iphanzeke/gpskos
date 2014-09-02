@@ -220,6 +220,7 @@ public class MuridIFrame extends javax.swing.JInternalFrame {
         );
 
         setClosable(true);
+        setMaximizable(true);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24));
         jLabel1.setText("Daftar Murid");
@@ -310,13 +311,14 @@ public class MuridIFrame extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 435, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 443, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
-        pack();
+        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+        setBounds((screenSize.width-800)/2, (screenSize.height-632)/2, 800, 632);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTextFieldCariKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldCariKeyReleased
@@ -324,7 +326,6 @@ public class MuridIFrame extends javax.swing.JInternalFrame {
 
     private void buttonTambahactionButton(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTambahactionButton
         try {
-            renderMuridUpdateDialog();
             jLabelMurid.setText("Tambah Murid Baru");
             jTextFieldNIM.setText("");
             jTextFieldNama.setText("");
@@ -334,6 +335,7 @@ public class MuridIFrame extends javax.swing.JInternalFrame {
             jTextAreaAlamat.setText("");
             jDateChooserTanggal.setDate(new Date());
             jComboBoxBank.setSelectedItem(listBank);
+            renderMuridUpdateDialog();
         } catch (Exception ex) {
             Logger.getLogger(MuridIFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -344,7 +346,6 @@ public class MuridIFrame extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Pilih salah satu data", "warning", JOptionPane.WARNING_MESSAGE);
         } else {
             try {
-                renderMuridUpdateDialog();
                 murid = listMurid.get(tableMurid.getSelectedRow());
                 jLabelMurid.setText("Ubah Murid");
                 jTextFieldNIM.setText(murid.getNIM());
@@ -355,6 +356,7 @@ public class MuridIFrame extends javax.swing.JInternalFrame {
                 jTextAreaAlamat.setText(murid.getAlamat());
                 jDateChooserTanggal.setDate(murid.getDate());
                 jComboBoxBank.setSelectedItem(murid.getBank().getNama());
+                renderMuridUpdateDialog();
             } catch (Exception ex) {
                 Logger.getLogger(MuridIFrame.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -464,6 +466,8 @@ public class MuridIFrame extends javax.swing.JInternalFrame {
     private void renderMuridUpdateDialog() {
         MuridUpdateDialog.setSize(400, 625);
         MuridUpdateDialog.setVisible(true);
+        MuridUpdateDialog.setLocationRelativeTo(this);
+        MuridUpdateDialog.setModal(true);
     }
 
     private void updateComboBank() {

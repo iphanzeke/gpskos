@@ -90,7 +90,7 @@ public class KelasIFrame extends javax.swing.JInternalFrame {
         buttonUbah = new javax.swing.JButton();
         buttonHapus = new javax.swing.JButton();
 
-        jLabelKelas.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabelKelas.setFont(new java.awt.Font("Tahoma", 1, 24));
         jLabelKelas.setText("{} Kelas");
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Data Kelas"));
@@ -217,7 +217,10 @@ public class KelasIFrame extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        setClosable(true);
+        setMaximizable(true);
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24));
         jLabel1.setText("Daftar Kelas");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Pencarian Kelas"));
@@ -289,7 +292,6 @@ public class KelasIFrame extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 784, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -301,27 +303,26 @@ public class KelasIFrame extends javax.swing.JInternalFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 571, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 411, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 419, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
-        pack();
+        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+        setBounds((screenSize.width-800)/2, (screenSize.height-608)/2, 800, 608);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTextFieldCariKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldCariKeyReleased
 }//GEN-LAST:event_jTextFieldCariKeyReleased
 
     private void buttonTambahactionButton(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTambahactionButton
-        renderKelasDialog();
         jLabelKelas.setText("Tambah Kelas Baru");
         textTransaksiReference.setText("");
         textNIK.setText("");
@@ -331,6 +332,7 @@ public class KelasIFrame extends javax.swing.JInternalFrame {
         textStatus.setText("");
         textTempat.setText("");
         textAlamat.setText("");
+        renderKelasDialog();
 }//GEN-LAST:event_buttonTambahactionButton
 
     private void buttonUbahactionButton(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonUbahactionButton
@@ -338,7 +340,6 @@ public class KelasIFrame extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Pilih salah satu data", "warning", JOptionPane.WARNING_MESSAGE);
         } else {
             kelas = listKelas.get(tableKelas.getSelectedRow());
-            renderKelasDialog();
             jLabelKelas.setText("Ubah Kelas");
             textTransaksiReference.setText(kelas.getTransactionReference());
             textNIK.setText(kelas.getNIK());
@@ -348,6 +349,7 @@ public class KelasIFrame extends javax.swing.JInternalFrame {
             textStatus.setText(kelas.getStatusKelas());
             textTempat.setText(kelas.getTempatKelas());
             textAlamat.setText(kelas.getAlamatKelas());
+            renderKelasDialog();
         }
 }//GEN-LAST:event_buttonUbahactionButton
 
@@ -470,6 +472,8 @@ public class KelasIFrame extends javax.swing.JInternalFrame {
     private void renderKelasDialog() {
         KelasUpdateDialog.setSize(400, 625);
         KelasUpdateDialog.setVisible(true);
+        KelasUpdateDialog.setLocationRelativeTo(this);
+        KelasUpdateDialog.setModal(true);
     }
 
     private void validate(Kelas kelas) {
