@@ -30,13 +30,10 @@ public class AppFrame extends javax.swing.JFrame {
     List<AksesMatrix> listAksesMatrix;
 
     /** Creates new form AppFrame */
-    public AppFrame() {
-        initComponents();
-    }
-
     public AppFrame(Pengguna penggunas) {
         try {
             initComponents();
+            setExtendedState(MAXIMIZED_BOTH);
             pengguna = penggunas;
             aksesMatrixDAO = new AksesMatrixDAOImpl();
             aksesMatrixDAO = new AksesMatrixDAOImpl();
@@ -65,6 +62,10 @@ public class AppFrame extends javax.swing.JFrame {
         menuItemPengajar = new javax.swing.JMenuItem();
         menuItemMurid = new javax.swing.JMenuItem();
         menuItemKelas = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JSeparator();
+        menuItemBank = new javax.swing.JMenuItem();
+        menuAkses = new javax.swing.JMenu();
+        menuItemGroup = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -76,7 +77,7 @@ public class AppFrame extends javax.swing.JFrame {
         );
         panelLayoutLayout.setVerticalGroup(
             panelLayoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 579, Short.MAX_VALUE)
+            .addGap(0, 577, Short.MAX_VALUE)
         );
 
         menuFile.setText("File");
@@ -124,8 +125,29 @@ public class AppFrame extends javax.swing.JFrame {
             }
         });
         menuMaster.add(menuItemKelas);
+        menuMaster.add(jSeparator1);
+
+        menuItemBank.setText("Bank");
+        menuItemBank.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemBankActionPerformed(evt);
+            }
+        });
+        menuMaster.add(menuItemBank);
 
         jMenuBar1.add(menuMaster);
+
+        menuAkses.setText("Hak Akses");
+
+        menuItemGroup.setText("Group");
+        menuItemGroup.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemGroupActionPerformed(evt);
+            }
+        });
+        menuAkses.add(menuItemGroup);
+
+        jMenuBar1.add(menuAkses);
 
         setJMenuBar(jMenuBar1);
 
@@ -165,9 +187,21 @@ public class AppFrame extends javax.swing.JFrame {
         panelLayout.add(new KelasIFrame(listAksesMatrix)).setVisible(true);
     }//GEN-LAST:event_menuItemKelasActionPerformed
 
+    private void menuItemBankActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemBankActionPerformed
+        panelLayout.add(new BankIFrame(listAksesMatrix)).setVisible(true);
+    }//GEN-LAST:event_menuItemBankActionPerformed
+
+    private void menuItemGroupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemGroupActionPerformed
+        panelLayout.add(new GroupIFrame(listAksesMatrix)).setVisible(true);
+    }//GEN-LAST:event_menuItemGroupActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JMenu menuAkses;
     private javax.swing.JMenu menuFile;
+    private javax.swing.JMenuItem menuItemBank;
+    private javax.swing.JMenuItem menuItemGroup;
     private javax.swing.JMenuItem menuItemKelas;
     private javax.swing.JMenuItem menuItemMurid;
     private javax.swing.JMenuItem menuItemPengajar;
@@ -180,5 +214,8 @@ public class AppFrame extends javax.swing.JFrame {
     private void renderHakAses() {
         menuItemPengajar.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.LIHAT_JABATAN, listAksesMatrix));
         menuItemMurid.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.LIHAT_MURID, listAksesMatrix));
+        menuItemKelas.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.LIHAT_KELAS, listAksesMatrix));
+        menuItemBank.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.LIHAT_BANK, listAksesMatrix));
+        menuItemGroup.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.LIHAT_GROUP, listAksesMatrix));
     }
 }

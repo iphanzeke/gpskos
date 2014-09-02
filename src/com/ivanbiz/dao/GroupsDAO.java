@@ -14,5 +14,7 @@ import java.util.List;
  */
 public interface GroupsDAO extends GenericDAO {
 
+    public void delete(Groups groups, List<AksesMatrix> listAksesMatrix) throws Exception;
+
     public void saveOrUpdate(Groups groups, List<AksesMatrix> listAksesMatrixView) throws Exception;
 }

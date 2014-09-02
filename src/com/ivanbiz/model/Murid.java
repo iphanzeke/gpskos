@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.ivanbiz.model;
 
 import java.util.Date;
@@ -13,6 +12,7 @@ import java.util.Date;
  * @author ivan
  */
 public class Murid {
+
     private long id;
     private String NIM;
     private String nama;
@@ -22,6 +22,7 @@ public class Murid {
     private String handphone;
     private Bank bank;
     private Date date;
+
     /**
      * @return the id
      */
@@ -147,8 +148,4 @@ public class Murid {
     public void setBank(Bank bank) {
         this.bank = bank;
     }
-
-    
-    
-    
 }

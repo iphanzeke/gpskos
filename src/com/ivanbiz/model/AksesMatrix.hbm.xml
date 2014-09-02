@@ -6,6 +6,6 @@
       <generator class="native"/>
     </id>
     <many-to-one class="com.ivanbiz.model.Groups" column="GROUPS_ID" lazy="false" name="groups"/>
-    <many-to-one class="com.ivanbiz.model.MenuAkses" column="MENU_AKSES_ID" lazy="false" name="menuAkses"/>
+    <property column="NAMA" length="100" name="nama" type="string"/>
   </class>
 </hibernate-mapping>

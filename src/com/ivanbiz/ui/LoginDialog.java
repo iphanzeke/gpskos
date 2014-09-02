@@ -1,5 +1,19 @@
 package com.ivanbiz.ui;
 
+import com.ivanbiz.dao.AksesMatrixDAO;
+import com.ivanbiz.dao.GroupsDAO;
+import com.ivanbiz.dao.PenggunaDAO;
+import com.ivanbiz.dao.impl.AksesMatrixDAOImpl;
+import com.ivanbiz.dao.impl.GroupsDAOImpl;
+import com.ivanbiz.dao.impl.PenggunaDAOImpl;
+import com.ivanbiz.model.AksesMatrix;
+import com.ivanbiz.model.Groups;
+import com.ivanbiz.model.Pengguna;
+import com.ivanbiz.service.MenuAksesConstant;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 
 /*
  * To change this template, choose Tools | Templates
@@ -11,26 +25,6 @@ package com.ivanbiz.ui;
  *
  * Created on Aug 30, 2014, 6:39:01 PM
  */
-import com.ivanbiz.dao.AksesMatrixDAO;
-import com.ivanbiz.dao.GroupsDAO;
-import com.ivanbiz.dao.MenuAksesDAO;
-import com.ivanbiz.dao.PenggunaDAO;
-import com.ivanbiz.dao.impl.AksesMatrixDAOImpl;
-import com.ivanbiz.dao.impl.GroupsDAOImpl;
-import com.ivanbiz.dao.impl.MenuAksesDAOImpl;
-import com.ivanbiz.dao.impl.PenggunaDAOImpl;
-import com.ivanbiz.model.AksesMatrix;
-import com.ivanbiz.model.Groups;
-import com.ivanbiz.model.MenuAkses;
-import com.ivanbiz.model.Pengguna;
-import com.ivanbiz.service.MenuAksesConstant;
-import com.ivanbiz.ui.AppFrame;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JOptionPane;
-
 /**
  *
  * @author Shbt Peterpan
@@ -206,19 +200,6 @@ public class LoginDialog extends javax.swing.JDialog {
 
     private void saveData() {
         try {
-            //save MenuAkses
-            MenuAksesDAO menuAksesDAO = new MenuAksesDAOImpl();
-            List<MenuAkses> list = new ArrayList<MenuAkses>();
-            for (MenuAksesConstant constant : MenuAksesConstant.values()) {
-                try {
-                    MenuAkses menuAkses = new MenuAkses();
-                    menuAkses.setNama(constant.toString());
-                    menuAksesDAO.save(menuAkses);
-                    list.add(menuAkses);
-                } catch (Exception ex) {
-                    Logger.getLogger(LoginDialog.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
             //save Group
             GroupsDAO groupsDAO = new GroupsDAOImpl();
             Groups groups = new Groups();
@@ -226,9 +207,9 @@ public class LoginDialog extends javax.swing.JDialog {
             groupsDAO.save(groups);
             //save Akses Matrix
             AksesMatrixDAO aksesMatrixDAO = new AksesMatrixDAOImpl();
-            for (MenuAkses MenuAkses : list) {
+            for (MenuAksesConstant menuAkses : MenuAksesConstant.values()) {
                 AksesMatrix aksesMatrix = new AksesMatrix();
-                aksesMatrix.setMenuAkses(MenuAkses);
+                aksesMatrix.setNama(menuAkses.toString());
                 aksesMatrix.setGroups(groups);
                 aksesMatrixDAO.save(aksesMatrix);
             }
