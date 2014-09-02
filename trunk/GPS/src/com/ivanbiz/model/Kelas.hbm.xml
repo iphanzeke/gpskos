@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class name="com.ivanbiz.model.Kelas" table="KELAS">
-        <id column="ID" name="id">
-            <generator class="native"/>
-        </id>
-        <property column="NIK" name="NIK" type="string" length="10"/>
-        <property column="DESKRIPSI" name="deskripsi" type="string" length="50"/>
-        <property column="TANGGAL_KELAS" name="tanggalKelas" type="date"/>
-        <property column="TEMPAT_KELAS" name="tempatKelas" type="string" length="100"/>
-        <property column="ALAMAT_KELAS" name="alamatKelas" type="string" length="100"/>
-        <many-to-one column="PENGAJAR_ID" name="pengajar" class="com.ivanbiz.model.Pengajar" lazy="false"/>        
-        <property column="STATUS_KELAS" name="statusKelas" type="string" length='2'/>
-        <property column="TRANSACTION_REFERENCE" name="transactionReference" type="string" length='50'/>
-    </class>
+  <class name="com.ivanbiz.model.Kelas" table="KELAS">
+    <id column="ID" name="id">
+      <generator class="native"/>
+    </id>
+    <property column="NIK" length="10" name="NIK" type="string"/>
+    <property column="DESKRIPSI" length="50" name="deskripsi" type="string"/>
+    <property column="TANGGAL_KELAS" name="tanggalKelas" type="date"/>
+    <property column="TEMPAT_KELAS" length="100" name="tempatKelas" type="string"/>
+    <property column="ALAMAT_KELAS" length="100" name="alamatKelas" type="string"/>
+    <many-to-one class="com.ivanbiz.model.Pengajar" column="PENGAJAR_ID" lazy="false" name="pengajar"/>
+    <property column="STATUS_KELAS" length="2" name="statusKelas" type="string"/>
+    <property column="TRANSACTION_REFERENCE" length="50" name="transactionReference" type="string"/>
+  </class>
 </hibernate-mapping>

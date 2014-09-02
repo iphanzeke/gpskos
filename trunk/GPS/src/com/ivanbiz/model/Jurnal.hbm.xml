@@ -7,11 +7,11 @@
     </id>
     <property column="ACCOUNTING_REFERENCE" name="accountingReference" type="string"/>
     <property column="DATE_REFERENCE" name="dateReference" type="date"/>
-    <property column="TRANSACTION_REFERENCE" name="transactionReference" type="string" length="50"/>
-    <property column="DEBIT" name="debit" type="double" length="12"/>
-    <property column="CREDIT" name="credit" type="double" length="12"/>
-    <property column="CURRENCY" name="currency" type="string" length="4"/>
-    <property column="GL_ACCOUNT" name="GLAccount" type="string" length="20"/>
-    <property column="STATUS" name="status" type="string" length="8"/>
+    <property column="TRANSACTION_REFERENCE" length="50" name="transactionReference" type="string"/>
+    <property column="DEBIT" length="12" name="debit" type="double"/>
+    <property column="CREDIT" length="12" name="credit" type="double"/>
+    <property column="CURRENCY" length="4" name="currency" type="string"/>
+    <property column="GL_ACCOUNT" length="20" name="GLAccount" type="string"/>
+    <property column="STATUS" length="8" name="status" type="string"/>
   </class>
 </hibernate-mapping>

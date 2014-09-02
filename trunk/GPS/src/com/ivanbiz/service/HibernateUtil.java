@@ -6,7 +6,6 @@
  * To change this template, choose Tools | Template Manager
  * and open the template in the editor.
  */
-
 package com.ivanbiz.service;
 
 import org.hibernate.HibernateException;
@@ -20,42 +19,46 @@ import org.hibernate.cfg.Configuration;
  * @author Ivan
  */
 public class HibernateUtil {
+
     private static final SessionFactory sessionFactory;
     private static final ThreadLocal threadSession = new ThreadLocal();
     private static final ThreadLocal threadTransaction = new ThreadLocal();
-    static{
-        try{
+
+    static {
+        try {
             sessionFactory = new Configuration().configure().buildSessionFactory();
-        }catch(Throwable ex){
-            System.err.println("Initial SessionFactory failed. "+ex);
+        } catch (Throwable ex) {
+            System.err.println("Initial SessionFactory failed. " + ex);
             throw new ExceptionInInitializerError(ex);
         }
     }
-    public static Session getSession(){
-        Session s = (Session)threadSession.get();
-        try{
-            if(s==null){
+
+    public static Session getSession() {
+        Session s = (Session) threadSession.get();
+        try {
+            if (s == null) {
                 s = sessionFactory.openSession();
                 threadSession.set(s);
             }
-        }catch(HibernateException ex){
+        } catch (HibernateException ex) {
             throw ex;
         }
         return s;
     }
 
-    public static void closeSession(){
-        try{
-            Session s = (Session)threadSession.get();
+    public static void closeSession() {
+        try {
+            Session s = (Session) threadSession.get();
             threadSession.set(null);
-            if(s!=null && s.isOpen())
+            if (s != null && s.isOpen()) {
                 s.close();
-        }catch(HibernateException ex){
+            }
+        } catch (HibernateException ex) {
             throw ex;
         }
     }
 
-    public static void beginTransaction(){
+    public static void beginTransaction() {
         Transaction tx = (Transaction) threadTransaction.get();
         try {
             if (tx == null) {
@@ -70,8 +73,9 @@ public class HibernateUtil {
     public static void commitTransaction() {
         Transaction tx = (Transaction) threadTransaction.get();
         try {
-            if ( tx != null && !tx.wasCommitted() && !tx.wasRolledBack() )
+            if (tx != null && !tx.wasCommitted() && !tx.wasRolledBack()) {
                 tx.commit();
+            }
             threadTransaction.set(null);
         } catch (HibernateException ex) {
             rollbackTransaction();
@@ -79,20 +83,21 @@ public class HibernateUtil {
         }
     }
 
-    public static void rollbackTransaction(){
-        Transaction tx = (Transaction)threadTransaction.get();
-        try{
+    public static void rollbackTransaction() {
+        Transaction tx = (Transaction) threadTransaction.get();
+        try {
             threadTransaction.set(null);
-            if(tx!=null && !tx.wasCommitted() && !tx.wasRolledBack()){
+            if (tx != null && !tx.wasCommitted() && !tx.wasRolledBack()) {
                 tx.rollback();
             }
-        }catch(HibernateException ex){
+        } catch (HibernateException ex) {
             throw ex;
-        }finally{
+        } finally {
             closeSession();
         }
     }
-     public static SessionFactory getSessionFactory(){
+
+    public static SessionFactory getSessionFactory() {
         return sessionFactory;
     }
 }

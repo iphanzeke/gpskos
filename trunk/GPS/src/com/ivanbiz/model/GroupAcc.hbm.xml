@@ -5,8 +5,7 @@
     <id column="ID" name="id">
       <generator class="native"/>
     </id>
-    <property column="NAMA_GROUP" name="namaGroup" type="string" length="30"/>
-    <property column="DESKRIPSI" name="deskripsi" type="string" length="50"/>
-    
+    <property column="NAMA_GROUP" length="30" name="namaGroup" type="string"/>
+    <property column="DESKRIPSI" length="50" name="deskripsi" type="string"/>
   </class>
 </hibernate-mapping>

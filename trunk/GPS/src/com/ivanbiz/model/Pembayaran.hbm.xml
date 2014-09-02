@@ -5,14 +5,14 @@
     <id column="ID" name="id">
       <generator class="native"/>
     </id>
-    <many-to-one column="DEBIT_BANK_ACCOUNT" name="debitBankAccount" class="com.ivanbiz.model.BankAccount" lazy="false"/>
-    <many-to-one column="KREDIT_BANK_ACCOUNT" name="kreditBankAccount" class="com.ivanbiz.model.BankAccount" lazy="false"/>
-    <property column="JUMLAH" name="jumlah" type="double" length="12"/>
-    <property column="DESKRIPSI" name="deskripsi" type="string" length="100"/>
-    <property column="STATUS" name="status" type="string" length="4"/>
-    <property column="DATE_CREATED" name="dateCreated" type="date" />
-    <property column="DATE_POSTING" name="datePosting" type="date" />
+    <many-to-one class="com.ivanbiz.model.BankAccount" column="DEBIT_BANK_ACCOUNT" lazy="false" name="debitBankAccount"/>
+    <many-to-one class="com.ivanbiz.model.BankAccount" column="KREDIT_BANK_ACCOUNT" lazy="false" name="kreditBankAccount"/>
+    <property column="JUMLAH" length="12" name="jumlah" type="double"/>
+    <property column="DESKRIPSI" length="100" name="deskripsi" type="string"/>
+    <property column="STATUS" length="4" name="status" type="string"/>
+    <property column="DATE_CREATED" name="dateCreated" type="date"/>
+    <property column="DATE_POSTING" name="datePosting" type="date"/>
     <property column="PATH_IMAGE" name="pathImage" type="string"/>
-    <property column="TRANSACTION_REFERENCE" name="transactionReference" type="string" length="50"/>
+    <property column="TRANSACTION_REFERENCE" length="50" name="transactionReference" type="string"/>
   </class>
 </hibernate-mapping>

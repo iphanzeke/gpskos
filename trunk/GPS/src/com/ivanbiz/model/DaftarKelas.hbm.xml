@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class name="com.ivanbiz.model.DaftarKelas" table="DAFTAR_KELAS">
-        <id column="ID" name="id">
-            <generator class="native"/>
-        </id>      
-        <many-to-one column="KELAS_ID" name="kelas" class="com.ivanbiz.model.Kelas" lazy="false"/>        
-        <many-to-one column="MURID_ID" name="murid" class="com.ivanbiz.model.Murid" lazy="false"/>
-        <property column="TRANSACTION_REFERENCE" name="transactionReference" type="string" length='50'/>
-    </class>
+  <class name="com.ivanbiz.model.DaftarKelas" table="DAFTAR_KELAS">
+    <id column="ID" name="id">
+      <generator class="native"/>
+    </id>
+    <many-to-one class="com.ivanbiz.model.Kelas" column="KELAS_ID" lazy="false" name="kelas"/>
+    <many-to-one class="com.ivanbiz.model.Murid" column="MURID_ID" lazy="false" name="murid"/>
+    <property column="TRANSACTION_REFERENCE" length="50" name="transactionReference" type="string"/>
+  </class>
 </hibernate-mapping>

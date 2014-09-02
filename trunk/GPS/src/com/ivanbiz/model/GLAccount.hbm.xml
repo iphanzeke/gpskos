@@ -5,8 +5,8 @@
     <id column="ID" name="id">
       <generator class="native"/>
     </id>
-    <property column="NO_GL" name="noGL" type="string" length="10"/>
-    <property column="NAME_GL" name="nameGL" type="string" length="30"/>
-    <property column="GROUP_ACC" name="groupACC" type="string" length="10"/>
+    <property column="NO_GL" length="10" name="noGL" type="string"/>
+    <property column="NAME_GL" length="30" name="nameGL" type="string"/>
+    <property column="GROUP_ACC" length="10" name="groupACC" type="string"/>
   </class>
 </hibernate-mapping>
