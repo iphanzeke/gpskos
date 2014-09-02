@@ -7,6 +7,7 @@ package com.ivanbiz.dao.impl;
 import com.ivanbiz.dao.PenggunaDAO;
 import com.ivanbiz.model.Pengguna;
 import com.ivanbiz.service.HibernateUtil;
+import com.sun.org.apache.bcel.internal.generic.BREAKPOINT;
 import java.util.List;
 import javax.swing.JOptionPane;
 import org.hibernate.Criteria;
@@ -27,11 +28,6 @@ public class PenggunaDAOImpl extends GenericDAOImpl implements PenggunaDAO {
             Criteria crit = session.createCriteria(Pengguna.class);
             crit.add(Restrictions.eq("userName", penggunaName));
             pengguna = (Pengguna) crit.uniqueResult();
-            if (!pengguna.getPassword().equals(password)) {
-                JOptionPane.showMessageDialog(null, "password salah");
-                System.exit(0);
-            }
-
         } catch (Exception e) {
             HibernateUtil.rollbackTransaction();
             throw e;
