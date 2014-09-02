@@ -76,13 +76,11 @@ public class AppFrame extends javax.swing.JFrame {
         );
         panelLayoutLayout.setVerticalGroup(
             panelLayoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 576, Short.MAX_VALUE)
+            .addGap(0, 579, Short.MAX_VALUE)
         );
 
-        menuFile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/gui/icon/aplikasi.png"))); // NOI18N
         menuFile.setText("File");
 
-        menuKeluar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/gui/icon/keluar.png"))); // NOI18N
         menuKeluar.setText("Keluar Pengguna");
         menuKeluar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -91,7 +89,6 @@ public class AppFrame extends javax.swing.JFrame {
         });
         menuFile.add(menuKeluar);
 
-        menuTutup.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/gui/icon/tutup.png"))); // NOI18N
         menuTutup.setText("Tutup Aplikasi");
         menuTutup.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -102,10 +99,8 @@ public class AppFrame extends javax.swing.JFrame {
 
         jMenuBar1.add(menuFile);
 
-        menuMaster.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/gui/icon/master-data.png"))); // NOI18N
         menuMaster.setText("Data Master");
 
-        menuItemPengajar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/gui/icon/karyawan.png"))); // NOI18N
         menuItemPengajar.setText("Pengajar");
         menuItemPengajar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -114,7 +109,6 @@ public class AppFrame extends javax.swing.JFrame {
         });
         menuMaster.add(menuItemPengajar);
 
-        menuItemMurid.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/gui/icon/pelanggan.png"))); // NOI18N
         menuItemMurid.setText("Murid");
         menuItemMurid.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
