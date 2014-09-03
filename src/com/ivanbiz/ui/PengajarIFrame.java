@@ -402,9 +402,9 @@ public class PengajarIFrame extends javax.swing.JInternalFrame {
     }
 
     private void renderHakAkses(List<AksesMatrix> listAksesMatrix) {
-        buttonTambah.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.TAMBAH_JABATAN, listAksesMatrix));
-        buttonUbah.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.UBAH_JABATAN, listAksesMatrix));
-        buttonHapus.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.HAPUS_JABATAN, listAksesMatrix));
+        buttonTambah.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.TAMBAH_PENGAJAR, listAksesMatrix));
+        buttonUbah.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.UBAH_PENGAJAR, listAksesMatrix));
+        buttonHapus.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.HAPUS_PENGAJAR, listAksesMatrix));
     }
 
     private void validate(Pengajar pengajar) {

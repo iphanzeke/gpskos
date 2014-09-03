@@ -56,8 +56,8 @@ public class LoginDialog extends javax.swing.JDialog {
         jLabel3 = new javax.swing.JLabel();
         jPasswordFieldPassword = new javax.swing.JPasswordField();
         jPanel2 = new javax.swing.JPanel();
-        jButtonLogin = new javax.swing.JButton();
-        jButtonBatal = new javax.swing.JButton();
+        buttonLogin = new javax.swing.JButton();
+        buttonBatal = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setAlwaysOnTop(true);
@@ -99,21 +99,21 @@ public class LoginDialog extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jButtonLogin.setText("Login");
-        jButtonLogin.addActionListener(new java.awt.event.ActionListener() {
+        buttonLogin.setText("Login");
+        buttonLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                actionButton(evt);
+                buttonLoginActionPerformed(evt);
             }
         });
-        jPanel2.add(jButtonLogin);
+        jPanel2.add(buttonLogin);
 
-        jButtonBatal.setText("Batal");
-        jButtonBatal.addActionListener(new java.awt.event.ActionListener() {
+        buttonBatal.setText("Batal");
+        buttonBatal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                actionButton(evt);
+                buttonBatalActionPerformed(evt);
             }
         });
-        jPanel2.add(jButtonBatal);
+        jPanel2.add(buttonBatal);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -143,39 +143,25 @@ public class LoginDialog extends javax.swing.JDialog {
         setBounds((screenSize.width-416)/2, (screenSize.height-258)/2, 416, 258);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void actionButton(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actionButton
-        if (evt.getSource() == jButtonLogin) {
-            try {
-                if (jTextFieldPengguna.getText().equals("admin")) {
-                    pengguna = (Pengguna) penggunaDAO.getDataByEqual(Pengguna.class, "userName", jTextFieldPengguna.getText());
-                    if (pengguna == null) {
-                        saveData();
-                    }
-                    pengguna = penggunaDAO.login(jTextFieldPengguna.getText(), jPasswordFieldPassword.getText());
-                    if (!pengguna.getPassword().equals(jPasswordFieldPassword.getText())) {
-                        JOptionPane.showMessageDialog(this, "password salah");
-                    } else {
-                        dispose();
-                        new AppFrame(pengguna).setVisible(true);
-                    }
-                } else {
-                    pengguna = penggunaDAO.login(jTextFieldPengguna.getText(), jPasswordFieldPassword.getText());
-                    if (pengguna == null) {
-                        JOptionPane.showMessageDialog(this, "username tidak ada");
-                    } else if (!pengguna.getPassword().equals(jPasswordFieldPassword.getText())) {
-                        JOptionPane.showMessageDialog(this, "password salah");
-                    } else {
-                        dispose();
-                        new AppFrame(pengguna).setVisible(true);
-                    }
-                }
-            } catch (Exception ex) {
-                Logger.getLogger(LoginDialog.class.getName()).log(Level.SEVERE, null, ex);
+    private void buttonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonLoginActionPerformed
+        try {
+            pengguna = penggunaDAO.login(jTextFieldPengguna.getText(), jPasswordFieldPassword.getText());
+            if (pengguna == null) {
+                JOptionPane.showMessageDialog(this, "username tidak ada");
+            } else if (!pengguna.getPassword().equals(jPasswordFieldPassword.getText())) {
+                JOptionPane.showMessageDialog(this, "password salah");
+            } else {
+                dispose();
+                new AppFrame(pengguna).setVisible(true);
             }
-        } else {
-            System.exit(0);
+        } catch (Exception ex) {
+            Logger.getLogger(LoginDialog.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_actionButton
+    }//GEN-LAST:event_buttonLoginActionPerformed
+
+    private void buttonBatalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBatalActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_buttonBatalActionPerformed
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -187,8 +173,8 @@ public class LoginDialog extends javax.swing.JDialog {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButtonBatal;
-    private javax.swing.JButton jButtonLogin;
+    private javax.swing.JButton buttonBatal;
+    private javax.swing.JButton buttonLogin;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
