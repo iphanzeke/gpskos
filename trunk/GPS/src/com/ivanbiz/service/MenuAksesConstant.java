@@ -13,26 +13,36 @@ import java.util.List;
  */
 public enum MenuAksesConstant {
 
-    LIHAT_JABATAN("Lihat Jabatan"),
-    TAMBAH_JABATAN("Tambah Jabatan"),
-    UBAH_JABATAN("Ubah Jabatan"),
-    HAPUS_JABATAN("Hapus Jabatan"),
+    //lihat
+    LIHAT_PENGAJAR("Lihat Pengajar"),
     LIHAT_MURID("Lihat Murid"),
-    TAMBAH_MURID("Tambah Murid"),
-    UBAH_MURID("Ubah Murid"),
-    HAPUS_MURID("Hapus Murid"),
     LIHAT_KELAS("Lihat Kelas"),
-    TAMBAH_KELAS("Tambah Kelas"),
-    UBAH_KELAS("Ubah Kelas"),
-    HAPUS_KELAS("Hapus Kelas"),
     LIHAT_BANK("Lihat Bank"),
-    TAMBAH_BANK("Tambah Bank"),
-    UBAH_BANK("Ubah Bank"),
-    HAPUS_BANK("Hapus Bank"),
     LIHAT_GROUP("Lihat Group"),
+    LIHAT_JURNAL("Lihat Jurnal"),
+    LIHAT_PENGGUNA("Lihat Pengguna"),   
+    //tambah
+    TAMBAH_PENGAJAR("Tambah Pengajar"),
+    TAMBAH_MURID("Tambah Murid"),
+    TAMBAH_KELAS("Tambah Kelas"),
+    TAMBAH_BANK("Tambah Bank"),
     TAMBAH_GROUP("Tambah Group"),
+    TAMBAH_PENGGUNA("Tambah Pengguna"),
+    //ubah
+    UBAH_PENGAJAR("Ubah Pengajar"),
+    UBAH_MURID("Ubah Murid"),
+    UBAH_KELAS("Ubah Kelas"),
+    UBAH_BANK("Ubah Bank"),
     UBAH_GROUP("Ubah Group"),
-    HAPUS_GROUP("Hapus Group"),;
+    UBAH_PENGGUNA("Ubah Pengguna"),
+    UBAH_PASSWORD("Ubah Password"),
+    //hapus
+    HAPUS_PENGAJAR("Hapus Pengajar"),
+    HAPUS_KELAS("Hapus Kelas"),
+    HAPUS_MURID("Hapus Murid"),
+    HAPUS_BANK("Hapus Bank"),
+    HAPUS_GROUP("Hapus Group"),
+    HAPUS_PENGGUNA("Ubah Pengguna");
 
     public static boolean validate(MenuAksesConstant menuAksesConstant, List<AksesMatrix> listAksesMatrix) {
         for (AksesMatrix aksesMatrix : listAksesMatrix) {

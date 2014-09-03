@@ -66,6 +66,11 @@ public class AppFrame extends javax.swing.JFrame {
         menuItemBank = new javax.swing.JMenuItem();
         menuAkses = new javax.swing.JMenu();
         menuItemGroup = new javax.swing.JMenuItem();
+        menuItemPengguna = new javax.swing.JMenuItem();
+        jSeparator2 = new javax.swing.JSeparator();
+        menuItemPassword = new javax.swing.JMenuItem();
+        menuLaporan = new javax.swing.JMenu();
+        menuItemJurnal = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -147,7 +152,36 @@ public class AppFrame extends javax.swing.JFrame {
         });
         menuAkses.add(menuItemGroup);
 
+        menuItemPengguna.setText("Pengguna");
+        menuItemPengguna.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemPenggunaActionPerformed(evt);
+            }
+        });
+        menuAkses.add(menuItemPengguna);
+        menuAkses.add(jSeparator2);
+
+        menuItemPassword.setText("Ubah Password");
+        menuItemPassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemPasswordActionPerformed(evt);
+            }
+        });
+        menuAkses.add(menuItemPassword);
+
         jMenuBar1.add(menuAkses);
+
+        menuLaporan.setText("Laporan");
+
+        menuItemJurnal.setText("Jurnal");
+        menuItemJurnal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemJurnalActionPerformed(evt);
+            }
+        });
+        menuLaporan.add(menuItemJurnal);
+
+        jMenuBar1.add(menuLaporan);
 
         setJMenuBar(jMenuBar1);
 
@@ -195,27 +229,47 @@ public class AppFrame extends javax.swing.JFrame {
         panelLayout.add(new GroupIFrame(listAksesMatrix)).setVisible(true);
     }//GEN-LAST:event_menuItemGroupActionPerformed
 
+    private void menuItemJurnalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemJurnalActionPerformed
+        panelLayout.add(new JurnalIFrame(listAksesMatrix)).setVisible(true);
+    }//GEN-LAST:event_menuItemJurnalActionPerformed
+
+    private void menuItemPenggunaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemPenggunaActionPerformed
+        panelLayout.add(new PenggunaIFrame(listAksesMatrix)).setVisible(true);
+    }//GEN-LAST:event_menuItemPenggunaActionPerformed
+
+    private void menuItemPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemPasswordActionPerformed
+        panelLayout.add(new PasswordIFrame(listAksesMatrix, pengguna)).setVisible(true);
+    }//GEN-LAST:event_menuItemPasswordActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JMenu menuAkses;
     private javax.swing.JMenu menuFile;
     private javax.swing.JMenuItem menuItemBank;
     private javax.swing.JMenuItem menuItemGroup;
+    private javax.swing.JMenuItem menuItemJurnal;
     private javax.swing.JMenuItem menuItemKelas;
     private javax.swing.JMenuItem menuItemMurid;
+    private javax.swing.JMenuItem menuItemPassword;
     private javax.swing.JMenuItem menuItemPengajar;
+    private javax.swing.JMenuItem menuItemPengguna;
     private javax.swing.JMenuItem menuKeluar;
+    private javax.swing.JMenu menuLaporan;
     private javax.swing.JMenu menuMaster;
     private javax.swing.JMenuItem menuTutup;
     private javax.swing.JPanel panelLayout;
     // End of variables declaration//GEN-END:variables
 
     private void renderHakAses() {
-        menuItemPengajar.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.LIHAT_JABATAN, listAksesMatrix));
+        menuItemPengajar.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.LIHAT_PENGAJAR, listAksesMatrix));
         menuItemMurid.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.LIHAT_MURID, listAksesMatrix));
         menuItemKelas.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.LIHAT_KELAS, listAksesMatrix));
         menuItemBank.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.LIHAT_BANK, listAksesMatrix));
         menuItemGroup.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.LIHAT_GROUP, listAksesMatrix));
+        menuItemJurnal.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.LIHAT_JURNAL, listAksesMatrix));
+        menuItemPengguna.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.LIHAT_PENGGUNA, listAksesMatrix));
+        menuItemPassword.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.UBAH_PASSWORD, listAksesMatrix));
     }
 }
