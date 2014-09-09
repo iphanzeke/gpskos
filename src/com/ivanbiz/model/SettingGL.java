@@ -3,7 +3,7 @@ package com.ivanbiz.model;
 public class SettingGL {
 
 	private long id;
-	private GLAccount glAccount;
+	private String glAccount;
 	private String debetOrCredit;
 	private ProCode proCode;
 	public long getId() {
@@ -12,12 +12,7 @@ public class SettingGL {
 	public void setId(long id) {
 		this.id = id;
 	}
-	public GLAccount getGlAccount() {
-		return glAccount;
-	}
-	public void setGlAccount(GLAccount glAccount) {
-		this.glAccount = glAccount;
-	}
+	
 	public String getDebetOrCredit() {
 		return debetOrCredit;
 	}
@@ -30,4 +25,18 @@ public class SettingGL {
 	public void setProCode(ProCode proCode) {
 		this.proCode = proCode;
 	}
+
+    /**
+     * @return the glAccount
+     */
+    public String getGlAccount() {
+        return glAccount;
+    }
+
+    /**
+     * @param glAccount the glAccount to set
+     */
+    public void setGlAccount(String glAccount) {
+        this.glAccount = glAccount;
+    }
 }

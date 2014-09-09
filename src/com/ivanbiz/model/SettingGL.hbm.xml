@@ -5,7 +5,7 @@
     <id column="ID" name="id">
       <generator class="native"/>
     </id>
-    <many-to-one class="com.ivanbiz.model.GLAccount" column="GLACCOUNT_ID" name="glAccount"/>
+    <property column="GL_ACCOUNT" length="10" name="glAccount" type="string"/>    
     <property column="DEBET_OR_CREDIT" length="1" name="debetOrCredit" type="string"/>
     <many-to-one class="com.ivanbiz.model.ProCode" column="PRO_CODE_ID" name="proCode"/>
   </class>
