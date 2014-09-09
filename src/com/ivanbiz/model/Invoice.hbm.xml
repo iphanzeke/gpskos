@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.ivanbiz.model.Invoice" table="INVOICE">
+        <id column="ID" name="id">
+            <generator class="native"/>
+        </id>
+        <property column="NII" length="100" name="nama" type="string"/>
+        <many-to-one class="com.ivanbiz.model.Kelas" column="KELAS_ID" name="kelas" lazy="false"/>
+        <many-to-one class="com.ivanbiz.model.Bank" column="BANK_ID" name="bank" lazy="false"/>
+        <property column="DESKRIPSI" length="100" name="deskripsi" type="string"/>
+        <property column="DESKRIPSI" length="100" name="deskripsi" type="string"/>
+        <property column="DESKRIPSI" length="100" name="deskripsi" type="string"/>
+        <property column="DESKRIPSI" length="100" name="deskripsi" type="string"/>
+        <property column="DESKRIPSI" length="100" name="deskripsi" type="string"/>
+    </class>
+</hibernate-mapping>
