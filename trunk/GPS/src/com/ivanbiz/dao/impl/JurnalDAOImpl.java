@@ -28,7 +28,7 @@ public class JurnalDAOImpl extends GenericDAOImpl implements JurnalDAO {
                 jurnal.setCurrency("IDR");
                 jurnal.setStatus("2000");
                 jurnal.setTransactionReference(transRef);
-                jurnal.setGLAccount(settingGl.getGlAccount().getNoGL());
+                jurnal.setGLAccount(settingGl.getGlAccount());
                 if (settingGl.getDebetOrCredit().equals("C")) {
                     jurnal.setCredit(amount);
                 } else {
@@ -77,7 +77,7 @@ public class JurnalDAOImpl extends GenericDAOImpl implements JurnalDAO {
                     jurnal.setCurrency("IDR");
                     jurnal.setStatus("2000");
                     jurnal.setTransactionReference(transRef);
-                    jurnal.setGLAccount(settingGl.getGlAccount().getNoGL());
+                    jurnal.setGLAccount(settingGl.getGlAccount());
                     if (settingGl.getDebetOrCredit().equals("C")) {
                         jurnal.setCredit(amount);
                     } else {
@@ -115,7 +115,7 @@ public class JurnalDAOImpl extends GenericDAOImpl implements JurnalDAO {
                 jurnal.setCurrency("IDR");
                 jurnal.setStatus("2000");
                 jurnal.setTransactionReference(transRef);
-                jurnal.setGLAccount(settingGl.getGlAccount().getNoGL()+"-"+virtualAccount);
+                jurnal.setGLAccount(settingGl.getGlAccount()+"-"+virtualAccount);
                 if (settingGl.getDebetOrCredit().equals("C")) {
                     jurnal.setCredit(amount);
                 } else {
@@ -159,7 +159,7 @@ public class JurnalDAOImpl extends GenericDAOImpl implements JurnalDAO {
                     jurnal.setCurrency("IDR");
                     jurnal.setStatus("2000");
                     jurnal.setTransactionReference(transRef);
-                    jurnal.setGLAccount(settingGl.getGlAccount().getNoGL()+"-"+virtualAccount);
+                    jurnal.setGLAccount(settingGl.getGlAccount()+"-"+virtualAccount);
                     if (settingGl.getDebetOrCredit().equals("C")) {
                         jurnal.setCredit(amount);
                     } else {
