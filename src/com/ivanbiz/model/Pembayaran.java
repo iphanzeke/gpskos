@@ -23,7 +23,7 @@ public class Pembayaran {
     private Date datePosting;
     private String pathImage;
     private String transactionReference;
-
+    private Invoice invoice;
     /**
      * @return the id
      */
@@ -162,5 +162,19 @@ public class Pembayaran {
      */
     public void setTransactionReference(String transactionReference) {
         this.transactionReference = transactionReference;
+    }
+
+    /**
+     * @return the invoice
+     */
+    public Invoice getInvoice() {
+        return invoice;
+    }
+
+    /**
+     * @param invoice the invoice to set
+     */
+    public void setInvoice(Invoice invoice) {
+        this.invoice = invoice;
     }
 }
