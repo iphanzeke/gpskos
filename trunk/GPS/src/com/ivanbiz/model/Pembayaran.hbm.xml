@@ -14,5 +14,6 @@
     <property column="DATE_POSTING" name="datePosting" type="date"/>
     <property column="PATH_IMAGE" name="pathImage" type="string"/>
     <property column="TRANSACTION_REFERENCE" length="50" name="transactionReference" type="string"/>
+    <many-to-one class="com.ivanbiz.model.Invoice" column="INVOICE_ID" lazy="false" name="invoice"/>
   </class>
 </hibernate-mapping>
