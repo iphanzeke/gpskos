@@ -14,8 +14,8 @@ import java.util.Date;
  */
 public class Pembayaran {
     private long id;
-    private BankAccount debitBankAccount;
-    private BankAccount kreditBankAccount;
+    private GLAccount debitBankAccount;
+    private GLAccount kreditBankAccount;
     private double jumlah;
     private String deskripsi;
     private String status;
@@ -38,34 +38,7 @@ public class Pembayaran {
         this.id = id;
     }
 
-    /**
-     * @return the debitBankAccount
-     */
-    public BankAccount getDebitBankAccount() {
-        return debitBankAccount;
-    }
-
-    /**
-     * @param debitBankAccount the debitBankAccount to set
-     */
-    public void setDebitBankAccount(BankAccount debitBankAccount) {
-        this.debitBankAccount = debitBankAccount;
-    }
-
-    /**
-     * @return the kreditBankAccount
-     */
-    public BankAccount getKreditBankAccount() {
-        return kreditBankAccount;
-    }
-
-    /**
-     * @param kreditBankAccount the kreditBankAccount to set
-     */
-    public void setKreditBankAccount(BankAccount kreditBankAccount) {
-        this.kreditBankAccount = kreditBankAccount;
-    }
-
+    
     /**
      * @return the jumlah
      */
@@ -176,5 +149,33 @@ public class Pembayaran {
      */
     public void setInvoice(Invoice invoice) {
         this.invoice = invoice;
+    }
+
+    /**
+     * @return the debitBankAccount
+     */
+    public GLAccount getDebitBankAccount() {
+        return debitBankAccount;
+    }
+
+    /**
+     * @param debitBankAccount the debitBankAccount to set
+     */
+    public void setDebitBankAccount(GLAccount debitBankAccount) {
+        this.debitBankAccount = debitBankAccount;
+    }
+
+    /**
+     * @return the kreditBankAccount
+     */
+    public GLAccount getKreditBankAccount() {
+        return kreditBankAccount;
+    }
+
+    /**
+     * @param kreditBankAccount the kreditBankAccount to set
+     */
+    public void setKreditBankAccount(GLAccount kreditBankAccount) {
+        this.kreditBankAccount = kreditBankAccount;
     }
 }
