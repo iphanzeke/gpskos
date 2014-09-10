@@ -13,10 +13,10 @@ public class JurnalDAOImpl extends GenericDAOImpl implements JurnalDAO {
 
     @Override
     public String saveJurnal(String proCode, double amount, String transRef, String glDebit,Session session) throws Exception {
-        // HibernateUtil.beginTransaction();
+         HibernateUtil.beginTransaction();
         String status = "";
         try {
-            //   Session session = HibernateUtil.getSession();
+            session = HibernateUtil.getSession();
             
                 SettingGLDAO settingGL = new SettingGLDAOImpl();
                 List listGL = settingGL.getListByNoGL(proCode, session);
@@ -33,7 +33,7 @@ public class JurnalDAOImpl extends GenericDAOImpl implements JurnalDAO {
                     if (settingGl.getDebetOrCredit().equals("C")) {
                         jurnal.setCredit(amount);
                     } else {
-                        if(proCode.startsWith("XXX")){
+                        if(settingGl.getGlAccount().equals("XXX")){
                             jurnal.setGLAccount(glDebit);
                         }
                         jurnal.setDebit(amount);
@@ -43,11 +43,11 @@ public class JurnalDAOImpl extends GenericDAOImpl implements JurnalDAO {
                 }
             
 
-            //  HibernateUtil.commitTransaction();
+             HibernateUtil.commitTransaction();
             status = "sukses";
         } catch (Exception e) {
             status = "gagal";
-            // HibernateUtil.rollbackTransaction();
+             HibernateUtil.rollbackTransaction();
             throw e;
         } finally {
             // HibernateUtil.closeSession();
