@@ -10,6 +10,9 @@ package com.ivanbiz.model;
  */
 public class GLAccount {
     private long id;
+    private String nama;
+    private String deskripsi;
+    private String kode;
     private String noGL;
     private String nameGL;
     private String groupACC;
@@ -67,6 +70,48 @@ public class GLAccount {
      */
     public void setGroupACC(String groupACC) {
         this.groupACC = groupACC;
+    }
+
+    /**
+     * @return the nama
+     */
+    public String getNama() {
+        return nama;
+    }
+
+    /**
+     * @param nama the nama to set
+     */
+    public void setNama(String nama) {
+        this.nama = nama;
+    }
+
+    /**
+     * @return the deskripsi
+     */
+    public String getDeskripsi() {
+        return deskripsi;
+    }
+
+    /**
+     * @param deskripsi the deskripsi to set
+     */
+    public void setDeskripsi(String deskripsi) {
+        this.deskripsi = deskripsi;
+    }
+
+    /**
+     * @return the kode
+     */
+    public String getKode() {
+        return kode;
+    }
+
+    /**
+     * @param kode the kode to set
+     */
+    public void setKode(String kode) {
+        this.kode = kode;
     }
     
 }

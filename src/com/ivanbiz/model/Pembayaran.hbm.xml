@@ -5,8 +5,8 @@
     <id column="ID" name="id">
       <generator class="native"/>
     </id>
-    <many-to-one class="com.ivanbiz.model.BankAccount" column="DEBIT_BANK_ACCOUNT" lazy="false" name="debitBankAccount"/>
-    <many-to-one class="com.ivanbiz.model.BankAccount" column="KREDIT_BANK_ACCOUNT" lazy="false" name="kreditBankAccount"/>
+    <many-to-one class="com.ivanbiz.model.GLAccount" column="DEBIT_BANK_ACCOUNT" lazy="false" name="debitBankAccount"/>
+    <many-to-one class="com.ivanbiz.model.GLAccount" column="KREDIT_BANK_ACCOUNT" lazy="false" name="kreditBankAccount"/>
     <property column="JUMLAH" length="12" name="jumlah" type="double"/>
     <property column="DESKRIPSI" length="100" name="deskripsi" type="string"/>
     <property column="STATUS" length="4" name="status" type="string"/>
