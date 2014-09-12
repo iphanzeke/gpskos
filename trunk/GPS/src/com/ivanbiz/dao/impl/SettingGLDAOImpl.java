@@ -13,7 +13,7 @@ public class SettingGLDAOImpl extends GenericDAOImpl implements SettingGLDAO{
 	@Override
 	public List getListByNoGL(String proCode,Session session) throws Exception {
 		List list = new ArrayList();		
-		Query query = session.createQuery("from com.ivanbiz.model.SettingGL s where s.proCode.noProCode='"+proCode+"'");
+		Query query = session.createQuery("from com.ivanbiz.model.SettingGL s where s.proCode='"+proCode+"'");
 		list = query.list();
 		return list;
 	}

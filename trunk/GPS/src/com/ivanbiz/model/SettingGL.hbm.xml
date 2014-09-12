@@ -7,6 +7,6 @@
     </id>
     <property column="GL_ACCOUNT" length="10" name="glAccount" type="string"/>    
     <property column="DEBET_OR_CREDIT" length="1" name="debetOrCredit" type="string"/>
-    <many-to-one class="com.ivanbiz.model.ProCode" column="PRO_CODE_ID" name="proCode"/>
+    <property column="PRO_CODE_ID" length="6" name="proCode" type="string"/>    
   </class>
 </hibernate-mapping>

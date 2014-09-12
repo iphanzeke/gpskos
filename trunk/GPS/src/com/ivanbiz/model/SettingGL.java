@@ -5,7 +5,7 @@ public class SettingGL {
 	private long id;
 	private String glAccount;
 	private String debetOrCredit;
-	private ProCode proCode;
+	private String proCode;
 	public long getId() {
 		return id;
 	}
@@ -19,12 +19,7 @@ public class SettingGL {
 	public void setDebetOrCredit(String debetOrCredit) {
 		this.debetOrCredit = debetOrCredit;
 	}
-	public ProCode getProCode() {
-		return proCode;
-	}
-	public void setProCode(ProCode proCode) {
-		this.proCode = proCode;
-	}
+	
 
     /**
      * @return the glAccount
@@ -38,5 +33,19 @@ public class SettingGL {
      */
     public void setGlAccount(String glAccount) {
         this.glAccount = glAccount;
+    }
+
+    /**
+     * @return the proCode
+     */
+    public String getProCode() {
+        return proCode;
+    }
+
+    /**
+     * @param proCode the proCode to set
+     */
+    public void setProCode(String proCode) {
+        this.proCode = proCode;
     }
 }
