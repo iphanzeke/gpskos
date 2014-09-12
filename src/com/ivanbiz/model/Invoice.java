@@ -4,6 +4,8 @@
  */
 package com.ivanbiz.model;
 
+import java.util.Date;
+
 /**
  *
  * @author City_Z
@@ -17,7 +19,7 @@ public class Invoice {
     private String deskripsiUntukPembayaran;
     private String deskripsiJumlahPeserta;
     private double jumlahTagihan;
-    private String terbilang;
+    private Date date;
 
     /**
      * @return the id
@@ -132,16 +134,18 @@ public class Invoice {
     }
 
     /**
-     * @return the terbilang
+     * @return the date
      */
-    public String getTerbilang() {
-        return terbilang;
+    public Date getDate() {
+        return date;
     }
 
     /**
-     * @param terbilang the terbilang to set
+     * @param date the date to set
      */
-    public void setTerbilang(String terbilang) {
-        this.terbilang = terbilang;
+    public void setDate(Date date) {
+        this.date = date;
     }
+
+   
 }
