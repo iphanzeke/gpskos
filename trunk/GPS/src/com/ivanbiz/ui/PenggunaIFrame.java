@@ -17,6 +17,7 @@ import com.ivanbiz.dao.impl.PenggunaDAOImpl;
 import com.ivanbiz.model.AksesMatrix;
 import com.ivanbiz.model.Groups;
 import com.ivanbiz.model.Pengguna;
+import com.ivanbiz.service.JTextFieldLimit;
 import com.ivanbiz.service.MenuAksesConstant;
 import com.ivanbiz.service.ServiceHelper;
 import java.util.List;
@@ -80,6 +81,8 @@ public class PenggunaIFrame extends javax.swing.JInternalFrame {
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Data Pengguna"));
 
         jLabel3.setText("User Name :");
+
+        textUserName.setDocument(new JTextFieldLimit(10));
 
         jLabel5.setText("Group :");
 
@@ -199,9 +202,9 @@ public class PenggunaIFrame extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 563, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 539, Short.MAX_VALUE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 563, Short.MAX_VALUE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 539, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -210,14 +213,14 @@ public class PenggunaIFrame extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-599)/2, (screenSize.height-348)/2, 599, 348);
+        setBounds((screenSize.width-575)/2, (screenSize.height-400)/2, 575, 400);
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTambahActionPerformed
@@ -305,7 +308,7 @@ public class PenggunaIFrame extends javax.swing.JInternalFrame {
     }
 
     private void renderPenggunaUpdateDialog() {
-        PenggunaUpdateDialog.setSize(400, 275);
+        PenggunaUpdateDialog.setSize(400, 260);
         PenggunaUpdateDialog.setLocationRelativeTo(this);
         PenggunaUpdateDialog.setModal(true);
         PenggunaUpdateDialog.setVisible(true);

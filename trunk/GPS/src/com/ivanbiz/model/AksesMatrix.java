@@ -4,9 +4,7 @@
  */
 package com.ivanbiz.model;
 
-import com.ivanbiz.service.MenuAksesConstant;
 import java.io.Serializable;
-import java.util.List;
 
 /**
  *

@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.ivanbiz.dao;
 
 /**
  *
  * @author ivan
  */
-public interface KelasDAO extends GenericDAO{
-    
+public interface KelasDAO extends GenericDAO {
+
+    public String getLastNoTransaksi() throws Exception;
 }
