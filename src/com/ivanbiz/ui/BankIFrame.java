@@ -14,6 +14,7 @@ import com.ivanbiz.dao.BankDAO;
 import com.ivanbiz.dao.impl.BankDAOImpl;
 import com.ivanbiz.model.AksesMatrix;
 import com.ivanbiz.model.Bank;
+import com.ivanbiz.service.JTextFieldLimit;
 import com.ivanbiz.service.MenuAksesConstant;
 import com.ivanbiz.service.ServiceHelper;
 import java.util.List;
@@ -73,7 +74,11 @@ public class BankIFrame extends javax.swing.JInternalFrame {
 
         jLabel2.setText("Nama :");
 
+        textNama.setDocument(new JTextFieldLimit(100));
+
         jLabel3.setText("Deskripsi :");
+
+        textDeskripsi.setDocument(new JTextFieldLimit(100));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -188,12 +193,12 @@ public class BankIFrame extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 764, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 764, Short.MAX_VALUE)
-                    .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, 764, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 764, Short.MAX_VALUE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 764, Short.MAX_VALUE)
+                    .addComponent(jPanel9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 764, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -202,14 +207,14 @@ public class BankIFrame extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 442, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 475, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(8, 8, 8))
+                .addContainerGap())
         );
 
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-800)/2, (screenSize.height-561)/2, 800, 561);
+        setBounds((screenSize.width-800)/2, (screenSize.height-600)/2, 800, 600);
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTambahActionPerformed
@@ -220,7 +225,7 @@ public class BankIFrame extends javax.swing.JInternalFrame {
 }//GEN-LAST:event_buttonTambahActionPerformed
 
     private void buttonBatalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBatalActionPerformed
-        BankUpdateDialog.dispose();        
+        BankUpdateDialog.dispose();
     }//GEN-LAST:event_buttonBatalActionPerformed
 
     private void buttonSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSimpanActionPerformed
@@ -240,7 +245,7 @@ public class BankIFrame extends javax.swing.JInternalFrame {
             textNama.setText(bank.getNama());
             textDeskripsi.setText(bank.getDeskripsi());
             labelBank.setText("Ubah Bank");
-            renderBankUpdateDialog();            
+            renderBankUpdateDialog();
         }
     }//GEN-LAST:event_buttonUbahActionPerformed
 
@@ -288,10 +293,10 @@ public class BankIFrame extends javax.swing.JInternalFrame {
     }
 
     private void renderBankUpdateDialog() {
-        BankUpdateDialog.setSize(400, 300);
-        BankUpdateDialog.setVisible(true);
+        BankUpdateDialog.setSize(375, 250);
         BankUpdateDialog.setLocationRelativeTo(this);
         BankUpdateDialog.setModal(true);
+        BankUpdateDialog.setVisible(true);
     }
 
     private void renderHakAkses(List<AksesMatrix> listAksesMatrix) {

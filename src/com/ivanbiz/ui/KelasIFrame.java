@@ -10,15 +10,26 @@
  */
 package com.ivanbiz.ui;
 
+import com.ivanbiz.dao.BankDAO;
+import com.ivanbiz.dao.DaftarKelasDAO;
 import com.ivanbiz.dao.KelasDAO;
+import com.ivanbiz.dao.MuridDAO;
 import com.ivanbiz.dao.PengajarDAO;
+import com.ivanbiz.dao.impl.BankDAOImpl;
+import com.ivanbiz.dao.impl.DaftarKelasDAOImpl;
 import com.ivanbiz.dao.impl.KelasDAOImpl;
+import com.ivanbiz.dao.impl.MuridDAOImpl;
 import com.ivanbiz.dao.impl.PengajarDAOImpl;
 import com.ivanbiz.model.AksesMatrix;
+import com.ivanbiz.model.Bank;
+import com.ivanbiz.model.DaftarKelas;
 import com.ivanbiz.model.Kelas;
+import com.ivanbiz.model.Murid;
 import com.ivanbiz.model.Pengajar;
+import com.ivanbiz.service.JTextFieldLimit;
 import com.ivanbiz.service.MenuAksesConstant;
 import com.ivanbiz.service.ServiceHelper;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -37,14 +48,51 @@ public class KelasIFrame extends javax.swing.JInternalFrame {
     PengajarDAO pengajarDAO;
     List<Kelas> listKelas;
     List<Pengajar> listPengajar;
+    DaftarKelas daftarKelas;
+    DaftarKelasDAO daftarKelasDAO;
+    List<DaftarKelas> listDaftarKelas;
+    Murid murid;
+    MuridDAO muridDAO;
+    List<Murid> listMurid;
+    Bank bank;
+    BankDAO bankDAO;
+    List<Bank> listBank;
+    SimpleDateFormat sdf;
 
     /** Creates new form KelasIFrame */
     public KelasIFrame(List<AksesMatrix> listAksesMatrix) {
         initComponents();
+        buttonUbah.setVisible(false);
         renderHakAkses(listAksesMatrix);
         kelasDAO = new KelasDAOImpl();
         pengajarDAO = new PengajarDAOImpl();
+        daftarKelasDAO = new DaftarKelasDAOImpl();
+        muridDAO = new MuridDAOImpl();
+        bankDAO = new BankDAOImpl();
         refresh();
+    }
+
+    private String getNoTransaksi() {
+        String noTransaksi = null;
+        try {
+            noTransaksi = kelasDAO.getLastNoTransaksi();
+            sdf = new SimpleDateFormat("yyMMdd");
+            if (!"".equals(noTransaksi)) {
+                String[] splitNoTransaksi = noTransaksi.split("-");
+                int count = Integer.parseInt(splitNoTransaksi[1]);
+                count += 1;
+                if (count > 99999) {
+                    noTransaksi = sdf.format(new Date()) + "-" + String.format("%05d", 1);
+                } else {
+                    noTransaksi = sdf.format(new Date()) + "-" + String.format("%05d", count);
+                }
+            } else {
+                noTransaksi = sdf.format(new Date()) + "-" + String.format("%05d", 1);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(KelasIFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return noTransaksi;
     }
 
     /** This method is called from within the constructor to
@@ -65,8 +113,6 @@ public class KelasIFrame extends javax.swing.JInternalFrame {
         textDeskripsi = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         textTempat = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        textStatus = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         textTanggal = new com.toedter.calendar.JDateChooser();
@@ -79,16 +125,62 @@ public class KelasIFrame extends javax.swing.JInternalFrame {
         jPanel4 = new javax.swing.JPanel();
         jButtonSimpan = new javax.swing.JButton();
         jButtonBatal = new javax.swing.JButton();
+        DetailDaftarKelas = new javax.swing.JDialog();
+        jLabel10 = new javax.swing.JLabel();
+        jPanel5 = new javax.swing.JPanel();
+        jLabel11 = new javax.swing.JLabel();
+        textKelas = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tableDaftarKelas = new javax.swing.JTable();
+        buttonTambahDaftarMurid = new javax.swing.JButton();
+        buttonHapusDaftarMurid = new javax.swing.JButton();
+        MuridDialog = new javax.swing.JDialog();
+        jLabel13 = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        tableMurid = new javax.swing.JTable();
+        jPanel6 = new javax.swing.JPanel();
+        comboCariMurid = new javax.swing.JComboBox();
+        textCariMurid = new javax.swing.JTextField();
+        jPanel7 = new javax.swing.JPanel();
+        buttonTambahMurid = new javax.swing.JButton();
+        buttonUbahMurid = new javax.swing.JButton();
+        buttonHapusMurid = new javax.swing.JButton();
+        MuridUpdateDialog = new javax.swing.JDialog();
+        jLabelMurid = new javax.swing.JLabel();
+        jPanel8 = new javax.swing.JPanel();
+        jLabel14 = new javax.swing.JLabel();
+        jTextFieldNIM = new javax.swing.JTextField();
+        jLabel15 = new javax.swing.JLabel();
+        jTextFieldNama = new javax.swing.JTextField();
+        jLabel16 = new javax.swing.JLabel();
+        jTextFieldTelp = new javax.swing.JTextField();
+        jLabel17 = new javax.swing.JLabel();
+        jTextFieldHP = new javax.swing.JTextField();
+        jLabel18 = new javax.swing.JLabel();
+        jTextFieldEmail = new javax.swing.JTextField();
+        jLabel19 = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
+        jDateChooserTanggal = new com.toedter.calendar.JDateChooser();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        jTextAreaAlamat = new javax.swing.JTextArea();
+        jLabel21 = new javax.swing.JLabel();
+        jComboBoxBank = new javax.swing.JComboBox();
+        jPanel9 = new javax.swing.JPanel();
+        buttonSimpanMurid = new javax.swing.JButton();
+        buttonBatalMurid = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        jComboBoxCari = new javax.swing.JComboBox();
-        jTextFieldCari = new javax.swing.JTextField();
+        comboCariKelas = new javax.swing.JComboBox();
+        textCariKelas = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableKelas = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         buttonTambah = new javax.swing.JButton();
         buttonUbah = new javax.swing.JButton();
         buttonHapus = new javax.swing.JButton();
+        buttonDetail = new javax.swing.JButton();
+        buttonTutup = new javax.swing.JButton();
 
         jLabelKelas.setFont(new java.awt.Font("Tahoma", 1, 24));
         jLabelKelas.setText("{} Kelas");
@@ -97,21 +189,29 @@ public class KelasIFrame extends javax.swing.JInternalFrame {
 
         jLabel2.setText("NIK :");
 
+        textNIK.setDocument(new JTextFieldLimit(10));
+
         jLabel3.setText("Deskripsi :");
+
+        textDeskripsi.setDocument(new JTextFieldLimit(50));
 
         jLabel4.setText("Tempat :");
 
-        jLabel5.setText("Status Kelas :");
+        textTempat.setDocument(new JTextFieldLimit(100));
 
         jLabel7.setText("Tanggal :");
 
         jLabel8.setText("Alamat :");
 
         textAlamat.setColumns(20);
+        textAlamat.setDocument(new JTextFieldLimit(100));
         textAlamat.setRows(5);
         jScrollPane2.setViewportView(textAlamat);
 
         jLabel9.setText("Pengajar :");
+
+        textTransaksiReference.setDocument(new JTextFieldLimit(50));
+        textTransaksiReference.setEditable(false);
 
         jLabel6.setText("Transaksi Reference :");
 
@@ -122,12 +222,6 @@ public class KelasIFrame extends javax.swing.JInternalFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(textStatus, javax.swing.GroupLayout.DEFAULT_SIZE, 348, Short.MAX_VALUE)
-                    .addComponent(jLabel5)
-                    .addComponent(textTempat, javax.swing.GroupLayout.DEFAULT_SIZE, 348, Short.MAX_VALUE)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel8)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 348, Short.MAX_VALUE)
                     .addComponent(textDeskripsi, javax.swing.GroupLayout.DEFAULT_SIZE, 348, Short.MAX_VALUE)
                     .addComponent(jLabel3)
                     .addComponent(jLabel9)
@@ -137,12 +231,16 @@ public class KelasIFrame extends javax.swing.JInternalFrame {
                     .addComponent(textNIK, javax.swing.GroupLayout.DEFAULT_SIZE, 348, Short.MAX_VALUE)
                     .addComponent(jLabel2)
                     .addComponent(textTransaksiReference, javax.swing.GroupLayout.DEFAULT_SIZE, 348, Short.MAX_VALUE)
-                    .addComponent(jLabel6))
+                    .addComponent(jLabel6)
+                    .addComponent(textTempat, javax.swing.GroupLayout.DEFAULT_SIZE, 348, Short.MAX_VALUE)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel8)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 348, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+            .addGroup(jPanel3Layout.createSequentialGroup()
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(textTransaksiReference, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -162,10 +260,6 @@ public class KelasIFrame extends javax.swing.JInternalFrame {
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(textTanggal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -200,9 +294,9 @@ public class KelasIFrame extends javax.swing.JInternalFrame {
             .addGroup(KelasUpdateDialogLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(KelasUpdateDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelKelas)
                     .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE))
+                    .addComponent(jLabelKelas)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE))
                 .addContainerGap())
         );
         KelasUpdateDialogLayout.setVerticalGroup(
@@ -217,6 +311,339 @@ public class KelasIFrame extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 24));
+        jLabel10.setText("Detail Daftar Kelas");
+
+        jPanel5.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        jLabel11.setText("Kelas :");
+
+        textKelas.setEditable(false);
+
+        jLabel12.setText("Daftar Murid :");
+
+        tableDaftarKelas.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane3.setViewportView(tableDaftarKelas);
+
+        buttonTambahDaftarMurid.setText("+");
+        buttonTambahDaftarMurid.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonTambahDaftarMuridActionPerformed(evt);
+            }
+        });
+
+        buttonHapusDaftarMurid.setText("-");
+        buttonHapusDaftarMurid.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonHapusDaftarMuridActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 654, Short.MAX_VALUE)
+                    .addComponent(textKelas, javax.swing.GroupLayout.DEFAULT_SIZE, 654, Short.MAX_VALUE)
+                    .addComponent(jLabel11)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(jLabel12)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonTambahDaftarMurid)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonHapusDaftarMurid)))
+                .addContainerGap())
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel11)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(textKelas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel12)
+                    .addComponent(buttonTambahDaftarMurid)
+                    .addComponent(buttonHapusDaftarMurid))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 335, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        javax.swing.GroupLayout DetailDaftarKelasLayout = new javax.swing.GroupLayout(DetailDaftarKelas.getContentPane());
+        DetailDaftarKelas.getContentPane().setLayout(DetailDaftarKelasLayout);
+        DetailDaftarKelasLayout.setHorizontalGroup(
+            DetailDaftarKelasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DetailDaftarKelasLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(DetailDaftarKelasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 680, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        DetailDaftarKelasLayout.setVerticalGroup(
+            DetailDaftarKelasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(DetailDaftarKelasLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 24));
+        jLabel13.setText("Daftar Murid :");
+
+        tableMurid.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        tableMurid.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableMuridMouseClicked(evt);
+            }
+        });
+        jScrollPane4.setViewportView(tableMurid);
+
+        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder("Pencarian Murid"));
+
+        textCariMurid.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                textCariMuridKeyReleased(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(comboCariMurid, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(textCariMurid, javax.swing.GroupLayout.DEFAULT_SIZE, 562, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(comboCariMurid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(textCariMurid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        buttonTambahMurid.setText("Tambah Murid Baru");
+        buttonTambahMurid.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonTambahMuridActionPerformed(evt);
+            }
+        });
+        jPanel7.add(buttonTambahMurid);
+
+        buttonUbahMurid.setText("Ubah Murid Terseleksi");
+        buttonUbahMurid.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonUbahMuridActionPerformed(evt);
+            }
+        });
+        jPanel7.add(buttonUbahMurid);
+
+        buttonHapusMurid.setText("Hapus Murid Terseleksi");
+        buttonHapusMurid.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonHapusMuridActionPerformed(evt);
+            }
+        });
+        jPanel7.add(buttonHapusMurid);
+
+        javax.swing.GroupLayout MuridDialogLayout = new javax.swing.GroupLayout(MuridDialog.getContentPane());
+        MuridDialog.getContentPane().setLayout(MuridDialogLayout);
+        MuridDialogLayout.setHorizontalGroup(
+            MuridDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MuridDialogLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(MuridDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 780, Short.MAX_VALUE)
+                    .addComponent(jPanel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 780, Short.MAX_VALUE)
+                    .addComponent(jPanel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 780, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        MuridDialogLayout.setVerticalGroup(
+            MuridDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(MuridDialogLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel13)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        jLabelMurid.setFont(new java.awt.Font("Tahoma", 1, 24));
+        jLabelMurid.setText("{} Murid");
+
+        jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder("Data Murid"));
+
+        jLabel14.setText("NIM :");
+
+        jTextFieldNIM.setDocument(new JTextFieldLimit(10));
+
+        jLabel15.setText("Nama :");
+
+        jTextFieldNama.setDocument(new JTextFieldLimit(30));
+
+        jLabel16.setText("Telp :");
+
+        jTextFieldTelp.setDocument(new JTextFieldLimit(20));
+
+        jLabel17.setText("Handphone :");
+
+        jTextFieldHP.setDocument(new JTextFieldLimit(20));
+
+        jLabel18.setText("Email :");
+
+        jTextFieldEmail.setDocument(new JTextFieldLimit(50));
+
+        jLabel19.setText("Tanggal Lahir :");
+
+        jLabel20.setText("Alamat :");
+
+        jTextAreaAlamat.setDocument(new JTextFieldLimit(100));
+        jTextAreaAlamat.setRows(5);
+        jScrollPane5.setViewportView(jTextAreaAlamat);
+
+        jLabel21.setText("Bank :");
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTextFieldNIM, javax.swing.GroupLayout.DEFAULT_SIZE, 348, Short.MAX_VALUE)
+                    .addComponent(jLabel14)
+                    .addComponent(jTextFieldNama, javax.swing.GroupLayout.DEFAULT_SIZE, 348, Short.MAX_VALUE)
+                    .addComponent(jLabel15)
+                    .addComponent(jLabel21)
+                    .addComponent(jComboBoxBank, 0, 348, Short.MAX_VALUE)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 348, Short.MAX_VALUE)
+                    .addComponent(jLabel20)
+                    .addComponent(jDateChooserTanggal, javax.swing.GroupLayout.DEFAULT_SIZE, 348, Short.MAX_VALUE)
+                    .addComponent(jLabel19)
+                    .addComponent(jTextFieldEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 348, Short.MAX_VALUE)
+                    .addComponent(jLabel18)
+                    .addComponent(jTextFieldHP, javax.swing.GroupLayout.DEFAULT_SIZE, 348, Short.MAX_VALUE)
+                    .addComponent(jLabel17)
+                    .addComponent(jTextFieldTelp, javax.swing.GroupLayout.DEFAULT_SIZE, 348, Short.MAX_VALUE)
+                    .addComponent(jLabel16))
+                .addContainerGap())
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addComponent(jLabel14)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextFieldNIM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel15)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextFieldNama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel21)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jComboBoxBank, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel16)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextFieldTelp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel17)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextFieldHP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextFieldEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel19)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jDateChooserTanggal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel20)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        buttonSimpanMurid.setText("Simpan");
+        buttonSimpanMurid.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonSimpanMuridactionButton(evt);
+            }
+        });
+        jPanel9.add(buttonSimpanMurid);
+
+        buttonBatalMurid.setText("Batal");
+        buttonBatalMurid.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonBatalMuridactionButton(evt);
+            }
+        });
+        jPanel9.add(buttonBatalMurid);
+
+        javax.swing.GroupLayout MuridUpdateDialogLayout = new javax.swing.GroupLayout(MuridUpdateDialog.getContentPane());
+        MuridUpdateDialog.getContentPane().setLayout(MuridUpdateDialogLayout);
+        MuridUpdateDialogLayout.setHorizontalGroup(
+            MuridUpdateDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(MuridUpdateDialogLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(MuridUpdateDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabelMurid)
+                    .addComponent(jPanel9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        MuridUpdateDialogLayout.setVerticalGroup(
+            MuridUpdateDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 572, Short.MAX_VALUE)
+            .addGroup(MuridUpdateDialogLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabelMurid)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         setClosable(true);
         setMaximizable(true);
 
@@ -225,9 +652,9 @@ public class KelasIFrame extends javax.swing.JInternalFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Pencarian Kelas"));
 
-        jTextFieldCari.addKeyListener(new java.awt.event.KeyAdapter() {
+        textCariKelas.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTextFieldCariKeyReleased(evt);
+                textCariKelasKeyReleased(evt);
             }
         });
 
@@ -237,17 +664,17 @@ public class KelasIFrame extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jComboBoxCari, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextFieldCari, javax.swing.GroupLayout.DEFAULT_SIZE, 612, Short.MAX_VALUE)
+                .addComponent(comboCariKelas, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(textCariKelas, javax.swing.GroupLayout.DEFAULT_SIZE, 653, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBoxCari, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldCari, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(comboCariKelas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(textCariKelas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -288,6 +715,22 @@ public class KelasIFrame extends javax.swing.JInternalFrame {
         });
         jPanel2.add(buttonHapus);
 
+        buttonDetail.setText("Detail Daftar Kelas Terseleksi");
+        buttonDetail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonDetailActionPerformed(evt);
+            }
+        });
+        jPanel2.add(buttonDetail);
+
+        buttonTutup.setText("Tutup Kelas");
+        buttonTutup.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonTutupActionPerformed(evt);
+            }
+        });
+        jPanel2.add(buttonTutup);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -296,9 +739,9 @@ public class KelasIFrame extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel1)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 764, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 764, Short.MAX_VALUE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 864, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 864, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 864, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -309,27 +752,32 @@ public class KelasIFrame extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 419, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 411, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-800)/2, (screenSize.height-608)/2, 800, 608);
+        setBounds((screenSize.width-900)/2, (screenSize.height-600)/2, 900, 600);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextFieldCariKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldCariKeyReleased
-}//GEN-LAST:event_jTextFieldCariKeyReleased
+    private void textCariKelasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textCariKelasKeyReleased
+        try {
+            listKelas = kelasDAO.getDataByLike(Kelas.class, (String) comboCariKelas.getSelectedItem(), textCariKelas.getText());
+            updateTableKelas();
+        } catch (Exception ex) {
+            Logger.getLogger(KelasIFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+}//GEN-LAST:event_textCariKelasKeyReleased
 
     private void buttonTambahactionButton(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTambahactionButton
         jLabelKelas.setText("Tambah Kelas Baru");
-        textTransaksiReference.setText("");
+        textTransaksiReference.setText(getNoTransaksi());
         textNIK.setText("");
         textDeskripsi.setText("");
         comboPengajar.setSelectedItem(listPengajar);
         textTanggal.setDate(new Date());
-        textStatus.setText("");
         textTempat.setText("");
         textAlamat.setText("");
         renderKelasDialog();
@@ -346,7 +794,6 @@ public class KelasIFrame extends javax.swing.JInternalFrame {
             textDeskripsi.setText(kelas.getDeskripsi());
             comboPengajar.setSelectedItem(kelas.getPengajar().getNama());
             textTanggal.setDate(kelas.getTanggalKelas());
-            textStatus.setText(kelas.getStatusKelas());
             textTempat.setText(kelas.getTempatKelas());
             textAlamat.setText(kelas.getAlamatKelas());
             renderKelasDialog();
@@ -376,7 +823,7 @@ public class KelasIFrame extends javax.swing.JInternalFrame {
         kelas.setDeskripsi(textDeskripsi.getText());
         kelas.setPengajar((Pengajar) listPengajar.get(comboPengajar.getSelectedIndex()));
         kelas.setTanggalKelas(textTanggal.getDate());
-        kelas.setStatusKelas(textStatus.getText());
+        kelas.setStatusKelas("N");
         kelas.setTempatKelas(textTempat.getText());
         kelas.setAlamatKelas(textAlamat.getText());
         validate(kelas);
@@ -385,37 +832,234 @@ public class KelasIFrame extends javax.swing.JInternalFrame {
     private void jButtonBatalactionButton(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBatalactionButton
         KelasUpdateDialog.dispose();
 }//GEN-LAST:event_jButtonBatalactionButton
+
+    private void textCariMuridKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textCariMuridKeyReleased
+        try {
+            listMurid = muridDAO.getDataByLike(Murid.class, (String) comboCariMurid.getSelectedItem(), textCariMurid.getText());
+            updateTableMurid();
+        } catch (Exception ex) {
+            Logger.getLogger(KelasIFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_textCariMuridKeyReleased
+
+    private void buttonSimpanMuridactionButton(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSimpanMuridactionButton
+        if (jLabelMurid.getText().equals("Tambah Murid Baru")) {
+            murid = new Murid();
+        }
+        murid.setNIM(jTextFieldNIM.getText());
+        murid.setNama(jTextFieldNama.getText());
+        murid.setTelp(jTextFieldTelp.getText());
+        murid.setHandphone(jTextFieldHP.getText());
+        murid.setEmail(jTextFieldEmail.getText());
+        murid.setAlamat(jTextAreaAlamat.getText());
+        murid.setDate(jDateChooserTanggal.getDate());
+        murid.setBank((Bank) listBank.get(jComboBoxBank.getSelectedIndex()));
+        validateMurid(murid);
+}//GEN-LAST:event_buttonSimpanMuridactionButton
+
+    private void buttonBatalMuridactionButton(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBatalMuridactionButton
+        MuridUpdateDialog.dispose();
+}//GEN-LAST:event_buttonBatalMuridactionButton
+
+    private void buttonDetailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDetailActionPerformed
+        if (tableKelas.getSelectedRow() == -1) {
+            JOptionPane.showMessageDialog(this, "Pilih salah satu data", "warning", JOptionPane.WARNING_MESSAGE);
+        } else {
+            try {
+                kelas = listKelas.get(tableKelas.getSelectedRow());
+                textKelas.setText(kelas.getTransactionReference());
+                listDaftarKelas = daftarKelasDAO.getDataByEquals(DaftarKelas.class, "kelas.id", kelas.getId());
+                updateTableDaftarKelas();
+                renderDetailDaftarKelas();
+            } catch (Exception ex) {
+                Logger.getLogger(KelasIFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_buttonDetailActionPerformed
+
+    private void buttonTambahDaftarMuridActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTambahDaftarMuridActionPerformed
+        try {
+            listMurid = muridDAO.getAll(Murid.class);
+            updateTableMurid();
+            updateComboMurid();
+            renderMuridDialog();
+        } catch (Exception ex) {
+            Logger.getLogger(KelasIFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_buttonTambahDaftarMuridActionPerformed
+
+    private void buttonHapusDaftarMuridActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonHapusDaftarMuridActionPerformed
+        if (tableDaftarKelas.getSelectedRow() == -1) {
+            JOptionPane.showMessageDialog(this, "Pilih salah satu data", "warning", JOptionPane.WARNING_MESSAGE);
+        } else {
+            try {
+                daftarKelas = listDaftarKelas.get(tableDaftarKelas.getSelectedRow());
+                daftarKelasDAO.delete(daftarKelas);
+                listDaftarKelas = daftarKelasDAO.getDataByEquals(DaftarKelas.class, "kelas.id", kelas.getId());
+                updateTableDaftarKelas();
+            } catch (Exception ex) {
+                Logger.getLogger(KelasIFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_buttonHapusDaftarMuridActionPerformed
+
+    private void buttonTambahMuridActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTambahMuridActionPerformed
+        refreshBank();
+        jLabelMurid.setText("Tambah Murid Baru");
+        jTextFieldNIM.setText("");
+        jTextFieldNama.setText("");
+        jTextFieldTelp.setText("");
+        jTextFieldHP.setText("");
+        jTextFieldEmail.setText("");
+        jTextAreaAlamat.setText("");
+        jDateChooserTanggal.setDate(new Date());
+        jComboBoxBank.setSelectedItem(listBank);
+        renderMuridUpdateDialog();
+    }//GEN-LAST:event_buttonTambahMuridActionPerformed
+
+    private void buttonUbahMuridActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonUbahMuridActionPerformed
+        if (tableMurid.getSelectedRow() == -1) {
+            JOptionPane.showMessageDialog(this, "Pilih salah satu data", "warning", JOptionPane.WARNING_MESSAGE);
+        } else {
+            refreshBank();
+            murid = listMurid.get(tableMurid.getSelectedRow());
+            jLabelMurid.setText("Ubah Murid");
+            jTextFieldNIM.setText(murid.getNIM());
+            jTextFieldNama.setText(murid.getNama());
+            jTextFieldTelp.setText(murid.getTelp());
+            jTextFieldHP.setText(murid.getHandphone());
+            jTextFieldEmail.setText(murid.getEmail());
+            jTextAreaAlamat.setText(murid.getAlamat());
+            jDateChooserTanggal.setDate(murid.getDate());
+            jComboBoxBank.setSelectedItem(murid.getBank().getNama());
+            renderMuridUpdateDialog();
+        }
+    }//GEN-LAST:event_buttonUbahMuridActionPerformed
+
+    private void buttonHapusMuridActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonHapusMuridActionPerformed
+        if (tableMurid.getSelectedRow() == -1) {
+            JOptionPane.showMessageDialog(this, "Pilih salah satu data", "warning", JOptionPane.WARNING_MESSAGE);
+        } else {
+            try {
+                murid = listMurid.get(tableMurid.getSelectedRow());
+                muridDAO.delete(murid);
+                refresh();
+            } catch (Exception ex) {
+                Logger.getLogger(KelasIFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_buttonHapusMuridActionPerformed
+
+    private void tableMuridMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMuridMouseClicked
+        if (evt.getClickCount() == 2) {
+            int response = JOptionPane.showConfirmDialog(null, "Tambah murid Ke Daftar Kelas ?", "Konfirmasi", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if (response == JOptionPane.YES_OPTION) {
+                murid = listMurid.get(tableMurid.getSelectedRow());
+                for (DaftarKelas daftarKelass : listDaftarKelas) {
+                    if (daftarKelass.getMurid().getId() == murid.getId()) {
+                        JOptionPane.showMessageDialog(MuridDialog, "Murid sudah ada pada daftar Kelas", "warning", JOptionPane.WARNING_MESSAGE);
+                        return;
+                    }
+                }
+                daftarKelas = new DaftarKelas();
+                daftarKelas.setKelas(kelas);
+                daftarKelas.setMurid(murid);
+                daftarKelas.setTransactionReference(kelas.getTransactionReference());
+                validateDaftarKelas(daftarKelas);
+            }
+        }
+    }//GEN-LAST:event_tableMuridMouseClicked
+
+    private void buttonTutupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTutupActionPerformed
+        if (tableKelas.getSelectedRow() == -1) {
+            JOptionPane.showMessageDialog(this, "Pilih salah satu data", "warning", JOptionPane.WARNING_MESSAGE);
+        } else {
+            try {
+                kelas = listKelas.get(tableKelas.getSelectedRow());
+                kelas.setStatusKelas("Y");
+                kelasDAO.update(kelas);
+                refresh();
+            } catch (Exception ex) {
+                Logger.getLogger(KelasIFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_buttonTutupActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JDialog DetailDaftarKelas;
     private javax.swing.JDialog KelasUpdateDialog;
+    private javax.swing.JDialog MuridDialog;
+    private javax.swing.JDialog MuridUpdateDialog;
+    private javax.swing.JButton buttonBatalMurid;
+    private javax.swing.JButton buttonDetail;
     private javax.swing.JButton buttonHapus;
+    private javax.swing.JButton buttonHapusDaftarMurid;
+    private javax.swing.JButton buttonHapusMurid;
+    private javax.swing.JButton buttonSimpanMurid;
     private javax.swing.JButton buttonTambah;
+    private javax.swing.JButton buttonTambahDaftarMurid;
+    private javax.swing.JButton buttonTambahMurid;
+    private javax.swing.JButton buttonTutup;
     private javax.swing.JButton buttonUbah;
+    private javax.swing.JButton buttonUbahMurid;
+    private javax.swing.JComboBox comboCariKelas;
+    private javax.swing.JComboBox comboCariMurid;
     private javax.swing.JComboBox comboPengajar;
     private javax.swing.JButton jButtonBatal;
     private javax.swing.JButton jButtonSimpan;
-    private javax.swing.JComboBox jComboBoxCari;
+    private javax.swing.JComboBox jComboBoxBank;
+    private com.toedter.calendar.JDateChooser jDateChooserTanggal;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabelKelas;
+    private javax.swing.JLabel jLabelMurid;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextField jTextFieldCari;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JTextArea jTextAreaAlamat;
+    private javax.swing.JTextField jTextFieldEmail;
+    private javax.swing.JTextField jTextFieldHP;
+    private javax.swing.JTextField jTextFieldNIM;
+    private javax.swing.JTextField jTextFieldNama;
+    private javax.swing.JTextField jTextFieldTelp;
+    private javax.swing.JTable tableDaftarKelas;
     private javax.swing.JTable tableKelas;
+    private javax.swing.JTable tableMurid;
     private javax.swing.JTextArea textAlamat;
+    private javax.swing.JTextField textCariKelas;
+    private javax.swing.JTextField textCariMurid;
     private javax.swing.JTextField textDeskripsi;
+    private javax.swing.JTextField textKelas;
     private javax.swing.JTextField textNIK;
-    private javax.swing.JTextField textStatus;
     private com.toedter.calendar.JDateChooser textTanggal;
     private javax.swing.JTextField textTempat;
     private javax.swing.JTextField textTransaksiReference;
@@ -425,14 +1069,22 @@ public class KelasIFrame extends javax.swing.JInternalFrame {
         buttonTambah.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.TAMBAH_KELAS, listAksesMatrix));
         buttonUbah.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.UBAH_KELAS, listAksesMatrix));
         buttonHapus.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.HAPUS_KELAS, listAksesMatrix));
+        buttonTutup.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.TUTUP_KELAS, listAksesMatrix));
+        buttonTambahDaftarMurid.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.TAMBAH_DAFTAR_KELAS, listAksesMatrix));
+        buttonTambahDaftarMurid.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.TAMBAH_DAFTAR_KELAS, listAksesMatrix));
+        buttonHapusDaftarMurid.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.HAPUS_DAFTAR_KELAS, listAksesMatrix));
+        buttonTambahMurid.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.TAMBAH_MURID, listAksesMatrix));
+        buttonUbahMurid.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.UBAH_MURID, listAksesMatrix));
+        buttonHapusMurid.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.HAPUS_MURID, listAksesMatrix));
     }
 
     private void refresh() {
         try {
-            listKelas = kelasDAO.getAll(Kelas.class);
+            listKelas = kelasDAO.getDataByEquals(Kelas.class, "statusKelas", "N");
             listPengajar = pengajarDAO.getAll(Pengajar.class);
             updateTableKelas();
             updateComboPengajar();
+            updateComboKelas();
         } catch (Exception ex) {
             Logger.getLogger(KelasIFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -463,17 +1115,18 @@ public class KelasIFrame extends javax.swing.JInternalFrame {
         Object data[] = new Object[listPengajar.size()];
         int x = 0;
         for (Pengajar pengajar : listPengajar) {
-            data[x] = "(" + pengajar.getNIP() + ")" + pengajar.getNama();
+            data[x] = "(" + pengajar.getNIP() + ") - " + pengajar.getNama();
             x++;
         }
         comboPengajar.setModel(new DefaultComboBoxModel(data));
     }
 
     private void renderKelasDialog() {
-        KelasUpdateDialog.setSize(400, 625);
-        KelasUpdateDialog.setVisible(true);
+        KelasUpdateDialog.setSize(400, 560);
         KelasUpdateDialog.setLocationRelativeTo(this);
         KelasUpdateDialog.setModal(true);
+        KelasUpdateDialog.setVisible(true);
+
     }
 
     private void validate(Kelas kelas) {
@@ -491,10 +1144,6 @@ public class KelasIFrame extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Deskripsi tidak boleh null");
         } else if (kelas.getDeskripsi().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Deskripsi tidak boleh kosong");
-        } else if (kelas.getStatusKelas() == null) {
-            JOptionPane.showMessageDialog(this, "Status Kelas tidak boleh null");
-        } else if (kelas.getStatusKelas().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Status Kelas tidak boleh kosong");
         } else if (kelas.getTempatKelas() == null) {
             JOptionPane.showMessageDialog(this, "Tempat tidak boleh null");
         } else if (kelas.getTempatKelas().trim().isEmpty()) {
@@ -512,5 +1161,163 @@ public class KelasIFrame extends javax.swing.JInternalFrame {
                 Logger.getLogger(KelasIFrame.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+    }
+
+    private void renderDetailDaftarKelas() {
+        DetailDaftarKelas.setSize(700, 500);
+        DetailDaftarKelas.setLocationRelativeTo(this);
+        DetailDaftarKelas.setModal(true);
+        DetailDaftarKelas.setVisible(true);
+    }
+
+    private void updateTableDaftarKelas() {
+        String[] judul = {"No", "NIM", "Nama"};
+        Object[][] isi = new Object[listDaftarKelas.size()][3];
+        int x = 0;
+        int no = 0;
+        for (DaftarKelas daftarKelass : listDaftarKelas) {
+            no += 1;
+            isi[x][0] = no;
+            isi[x][1] = daftarKelass.getMurid().getNIM();
+            isi[x][2] = daftarKelass.getMurid().getNama();
+            x++;
+        }
+        new ServiceHelper().setAutoRize(isi, judul, tableDaftarKelas);
+    }
+
+    private void renderMuridDialog() {
+        MuridDialog.setSize(800, 600);
+        MuridDialog.setLocationRelativeTo(this);
+        MuridDialog.setModal(true);
+        MuridDialog.setVisible(true);
+    }
+
+    private void updateTableMurid() {
+        String[] judul = {"No", "NIM", "Nama", "Telp", "Handphone", "Email", "Date", "Nama Bank", "Alamat"};
+        Object[][] isi = new Object[listMurid.size()][9];
+        int x = 0;
+        int no = 0;
+        for (Murid murids : listMurid) {
+            no += 1;
+            isi[x][0] = no;
+            isi[x][1] = murids.getNIM();
+            isi[x][2] = murids.getNama();
+            isi[x][3] = murids.getTelp();
+            isi[x][4] = murids.getHandphone();
+            isi[x][5] = murids.getEmail();
+            isi[x][6] = murids.getDate();
+            isi[x][7] = murids.getBank().getNama();
+            isi[x][8] = murids.getAlamat();
+            x++;
+        }
+        new ServiceHelper().setAutoRize(isi, judul, tableMurid);
+    }
+
+    private void validateDaftarKelas(DaftarKelas daftarKelas) {
+        if (daftarKelas == null) {
+            JOptionPane.showMessageDialog(this, "Daftar Kelas tidak boleh null");
+        } else if (daftarKelas.getKelas() == null) {
+            JOptionPane.showMessageDialog(this, "Kelas tidak boleh null");
+        } else if (daftarKelas.getMurid() == null) {
+            JOptionPane.showMessageDialog(this, "Murid tidak boleh null");
+        } else {
+            try {
+                daftarKelasDAO.save(daftarKelas);
+                MuridDialog.dispose();
+                listDaftarKelas = daftarKelasDAO.getDataByEquals(DaftarKelas.class, "kelas.id", kelas.getId());
+                updateTableDaftarKelas();
+            } catch (Exception ex) {
+                Logger.getLogger(KelasIFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
+    private void renderMuridUpdateDialog() {
+        MuridUpdateDialog.setSize(400, 625);
+        MuridUpdateDialog.setLocationRelativeTo(this);
+        MuridUpdateDialog.setModal(true);
+        MuridUpdateDialog.setVisible(true);
+    }
+
+    private void updateComboBank() {
+        Object data[] = new Object[listBank.size()];
+        int x = 0;
+        for (Bank banks : listBank) {
+            data[x] = banks.getNama();
+            x++;
+        }
+        jComboBoxBank.setModel(new DefaultComboBoxModel(data));
+    }
+
+    private void validateMurid(Murid murid) {
+        if (murid == null) {
+            JOptionPane.showMessageDialog(this, "Murid tidak boleh null");
+        } else if (murid.getNIM() == null) {
+            JOptionPane.showMessageDialog(this, "NIM tidak boleh null");
+        } else if (murid.getNIM().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "NIM tidak boleh kosong");
+        } else if (murid.getNama() == null) {
+            JOptionPane.showMessageDialog(this, "Nama tidak boleh null");
+        } else if (murid.getNama().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Nama tidak boleh kosong");
+        } else if (murid.getTelp() == null) {
+            JOptionPane.showMessageDialog(this, "Telp tidak boleh null");
+        } else if (murid.getTelp().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Telp tidak boleh kosong");
+        } else if (murid.getHandphone() == null) {
+            JOptionPane.showMessageDialog(this, "HP tidak boleh null");
+        } else if (murid.getHandphone().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "HP tidak boleh kosong");
+        } else if (murid.getEmail() == null) {
+            JOptionPane.showMessageDialog(this, "Email tidak boleh null");
+        } else if (murid.getEmail().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Email tidak boleh kosong");
+        } else if (murid.getAlamat() == null) {
+            JOptionPane.showMessageDialog(this, "Alamat tidak boleh null");
+        } else if (murid.getAlamat().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Alamat tidak boleh kosong");
+        } else {
+            try {
+                muridDAO.saveOrUpdate(murid);
+                MuridUpdateDialog.dispose();
+                refreshMurid();
+            } catch (Exception ex) {
+                Logger.getLogger(KelasIFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
+    private void refreshMurid() {
+        try {
+            listMurid = muridDAO.getAll(Murid.class);
+            updateTableMurid();
+        } catch (Exception ex) {
+            Logger.getLogger(KelasIFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void refreshBank() {
+        try {
+            listBank = bankDAO.getAll(Bank.class);
+            updateComboBank();
+        } catch (Exception ex) {
+            Logger.getLogger(KelasIFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void updateComboKelas() {
+        Object[] dataClass = new ServiceHelper().getPropertyClass(Kelas.class);
+        Object[] dataSearch = new Object[2];
+        dataSearch[0] = dataClass[1];
+        dataSearch[1] = dataClass[8];
+        comboCariKelas.setModel(new DefaultComboBoxModel(dataSearch));
+    }
+
+    private void updateComboMurid() {
+        Object[] dataClass = new ServiceHelper().getPropertyClass(Murid.class);
+        Object[] dataSearch = new Object[2];
+        dataSearch[0] = dataClass[1];
+        dataSearch[1] = dataClass[8];
+        comboCariMurid.setModel(new DefaultComboBoxModel(dataSearch));
     }
 }

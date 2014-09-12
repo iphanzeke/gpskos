@@ -16,6 +16,7 @@ import com.ivanbiz.dao.impl.AksesMatrixDAOImpl;
 import com.ivanbiz.dao.impl.GroupsDAOImpl;
 import com.ivanbiz.model.AksesMatrix;
 import com.ivanbiz.model.Groups;
+import com.ivanbiz.service.JTextFieldLimit;
 import com.ivanbiz.service.MenuAksesConstant;
 import com.ivanbiz.service.ServiceHelper;
 import java.util.ArrayList;
@@ -23,6 +24,8 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 
 /**
  *
@@ -74,11 +77,14 @@ public class GroupIFrame extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tableGroup = new javax.swing.JTable();
 
+        labelGroup.setFont(new java.awt.Font("Tahoma", 1, 24));
         labelGroup.setText("{} Group");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Data Group"));
 
         jLabel2.setText("Nama :");
+
+        textNama.setDocument(new JTextFieldLimit(50));
 
         jLabel3.setText("Hak Akses :");
 
@@ -238,7 +244,7 @@ public class GroupIFrame extends javax.swing.JInternalFrame {
         listAksesMatrix = new ArrayList<AksesMatrix>();
         listAksesMatrixView = new ArrayList<AksesMatrix>();
         renderTableAkses();
-        renderBankUpdateDialog();
+        renderGroupUpdateDialog();
 }//GEN-LAST:event_buttonTambahActionPerformed
 
     private void buttonHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonHapusActionPerformed
@@ -271,7 +277,7 @@ public class GroupIFrame extends javax.swing.JInternalFrame {
                 textNama.setText(groups.getNama());
                 labelGroup.setText("Update Group");
                 renderTableAkses();
-                renderBankUpdateDialog();
+                renderGroupUpdateDialog();
             } catch (Exception ex) {
                 Logger.getLogger(GroupIFrame.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -320,11 +326,11 @@ public class GroupIFrame extends javax.swing.JInternalFrame {
         }
     }
 
-    private void renderBankUpdateDialog() {
-        GroupUpdateDialog.setSize(400, 400);
-        GroupUpdateDialog.setVisible(true);
+    private void renderGroupUpdateDialog() {
+        GroupUpdateDialog.setSize(400, 415);
         GroupUpdateDialog.setLocationRelativeTo(this);
         GroupUpdateDialog.setModal(true);
+        GroupUpdateDialog.setVisible(true);
     }
     // End of variables declaration
 
@@ -354,7 +360,30 @@ public class GroupIFrame extends javax.swing.JInternalFrame {
             isi[x][1] = aksesMatrix.getNama();
             x++;
         }
-        new ServiceHelper().setAutoRize(isi, judul, tableAkses);
+
+        tableAkses.setModel(new DefaultTableModel(isi, judul) {
+
+            @Override
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                if (columnIdentifiers.get(columnIndex).equals("Choose")) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+
+            @Override
+            public Class getColumnClass(int columnIndex) {
+                if (columnIdentifiers.get(columnIndex).equals("Choose")) {
+                    return Boolean.class;
+                } else {
+                    return columnIdentifiers.get(columnIndex).getClass();
+                }
+            }
+        });
+
+        TableColumn column0 = tableAkses.getColumnModel().getColumn(0);
+        column0.setMaxWidth(50);
     }
 
     private void updateTableGroups() {

@@ -1,18 +1,19 @@
 package com.ivanbiz.ui;
 
-import com.ivanbiz.dao.AksesMatrixDAO;
-import com.ivanbiz.dao.GroupsDAO;
 import com.ivanbiz.dao.PenggunaDAO;
-import com.ivanbiz.dao.impl.AksesMatrixDAOImpl;
-import com.ivanbiz.dao.impl.GroupsDAOImpl;
+import com.ivanbiz.dao.PerusahaanDAO;
 import com.ivanbiz.dao.impl.PenggunaDAOImpl;
-import com.ivanbiz.model.AksesMatrix;
-import com.ivanbiz.model.Groups;
+import com.ivanbiz.dao.impl.PerusahaanDAOImpl;
 import com.ivanbiz.model.Pengguna;
-import com.ivanbiz.service.MenuAksesConstant;
+import com.ivanbiz.model.Perusahaan;
+import com.ivanbiz.service.GlobalSession;
+import com.sun.java.swing.plaf.windows.WindowsLookAndFeel;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 
 /*
@@ -33,11 +34,15 @@ public class LoginDialog extends javax.swing.JDialog {
 
     Pengguna pengguna;
     PenggunaDAO penggunaDAO;
+    PerusahaanDAO perusahaanDAO;
+    List<Perusahaan> listPerusahaan;
 
     /** Creates new form LoginDialog */
     public LoginDialog() {
-        penggunaDAO = new PenggunaDAOImpl();
         initComponents();
+        penggunaDAO = new PenggunaDAOImpl();
+        perusahaanDAO = new PerusahaanDAOImpl();
+//        refresh();
     }
 
     /** This method is called from within the constructor to
@@ -49,7 +54,7 @@ public class LoginDialog extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        labelJudul = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jTextFieldPengguna = new javax.swing.JTextField();
@@ -59,13 +64,12 @@ public class LoginDialog extends javax.swing.JDialog {
         buttonLogin = new javax.swing.JButton();
         buttonBatal = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setAlwaysOnTop(true);
         setModal(true);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24));
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("GPS");
+        labelJudul.setFont(new java.awt.Font("Tahoma", 1, 24));
+        labelJudul.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelJudul.setText("GPS");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Login"));
 
@@ -123,7 +127,7 @@ public class LoginDialog extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
+                    .addComponent(labelJudul, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -131,7 +135,7 @@ public class LoginDialog extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addComponent(labelJudul)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -168,43 +172,38 @@ public class LoginDialog extends javax.swing.JDialog {
 
             @Override
             public void run() {
-                new LoginDialog().setVisible(true);
+                try {
+                    UIManager.setLookAndFeel(new WindowsLookAndFeel());
+                    new LoginDialog().setVisible(true);
+                } catch (UnsupportedLookAndFeelException ex) {
+                    Logger.getLogger(LoginDialog.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonBatal;
     private javax.swing.JButton buttonLogin;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPasswordField jPasswordFieldPassword;
     private javax.swing.JTextField jTextFieldPengguna;
+    private javax.swing.JLabel labelJudul;
     // End of variables declaration//GEN-END:variables
 
-    private void saveData() {
+    private void refresh() {
         try {
-            //save Group
-            GroupsDAO groupsDAO = new GroupsDAOImpl();
-            Groups groups = new Groups();
-            groups.setNama("Admin");
-            groupsDAO.save(groups);
-            //save Akses Matrix
-            AksesMatrixDAO aksesMatrixDAO = new AksesMatrixDAOImpl();
-            for (MenuAksesConstant menuAkses : MenuAksesConstant.values()) {
-                AksesMatrix aksesMatrix = new AksesMatrix();
-                aksesMatrix.setNama(menuAkses.toString());
-                aksesMatrix.setGroups(groups);
-                aksesMatrixDAO.save(aksesMatrix);
+            listPerusahaan = perusahaanDAO.getAll(Perusahaan.class);
+            Perusahaan perusahaan = null;
+            for (int x = 0; x < listPerusahaan.size(); x++) {
+                System.out.println("muasu");
+                perusahaan = listPerusahaan.get(x);
+
             }
-            //save Pengguna
-            pengguna = new Pengguna();
-            pengguna.setUserName("admin");
-            pengguna.setPassword(jPasswordFieldPassword.getText());
-            pengguna.setGroups(groups);
-            penggunaDAO.save(pengguna);
+            new GlobalSession().setPerusahaan(perusahaan);
+            labelJudul.setText(perusahaan.getNama());
         } catch (Exception ex) {
             Logger.getLogger(LoginDialog.class.getName()).log(Level.SEVERE, null, ex);
         }

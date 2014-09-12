@@ -14,6 +14,7 @@ import com.ivanbiz.dao.PenggunaDAO;
 import com.ivanbiz.dao.impl.PenggunaDAOImpl;
 import com.ivanbiz.model.AksesMatrix;
 import com.ivanbiz.model.Pengguna;
+import com.ivanbiz.service.JTextFieldLimit;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -63,6 +64,10 @@ public class PasswordIFrame extends javax.swing.JInternalFrame {
 
         jLabel3.setText("Confirm Password :");
 
+        textPasswordBaru.setDocument(new JTextFieldLimit(30));
+
+        textPasswordConfirm.setDocument(new JTextFieldLimit(30));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -86,7 +91,7 @@ public class PasswordIFrame extends javax.swing.JInternalFrame {
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(textPasswordConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         buttonSimpan.setText("Simpan");
@@ -115,9 +120,9 @@ public class PasswordIFrame extends javax.swing.JInternalFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(buttonSimpan)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
@@ -159,6 +164,7 @@ public class PasswordIFrame extends javax.swing.JInternalFrame {
                 penggunaDAO.update(pengguna);
                 textPasswordBaru.setText("");
                 textPasswordConfirm.setText("");
+                JOptionPane.showMessageDialog(this, "Password sudah diganti. Silahkan login kembali");
             } catch (Exception ex) {
                 Logger.getLogger(PasswordIFrame.class.getName()).log(Level.SEVERE, null, ex);
             }

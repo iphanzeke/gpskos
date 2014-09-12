@@ -14,6 +14,7 @@ import com.ivanbiz.dao.PengajarDAO;
 import com.ivanbiz.dao.impl.PengajarDAOImpl;
 import com.ivanbiz.model.AksesMatrix;
 import com.ivanbiz.model.Pengajar;
+import com.ivanbiz.service.JTextFieldLimit;
 import com.ivanbiz.service.MenuAksesConstant;
 import com.ivanbiz.service.ServiceHelper;
 import java.util.Date;
@@ -101,13 +102,23 @@ public class PengajarIFrame extends javax.swing.JInternalFrame {
 
         jLabel2.setText("NIP :");
 
+        textNIP.setDocument(new JTextFieldLimit(10));
+
         jLabel4.setText("Nama :");
+
+        textNama.setDocument(new JTextFieldLimit(30));
 
         jLabel5.setText("Telp :");
 
+        textTelp.setDocument(new JTextFieldLimit(20));
+
         jLabel6.setText("Handphone :");
 
+        TextHP.setDocument(new JTextFieldLimit(20));
+
         jLabel7.setText("Email :");
+
+        textEmail.setDocument(new JTextFieldLimit(50));
 
         jLabel8.setText("Tanggal Lahir :");
 
@@ -115,7 +126,7 @@ public class PengajarIFrame extends javax.swing.JInternalFrame {
 
         textTanggal.setDateFormatString("dd MMMM yyyy");
 
-        textAlamat.setColumns(20);
+        textAlamat.setDocument(new JTextFieldLimit(100));
         textAlamat.setRows(5);
         jScrollPane2.setViewportView(textAlamat);
 
@@ -395,10 +406,10 @@ public class PengajarIFrame extends javax.swing.JInternalFrame {
     }
 
     private void renderPengajarUpdateDialog() {
-        PengajarUpdateDialog.setSize(400, 570);
-        PengajarUpdateDialog.setVisible(true);
+        PengajarUpdateDialog.setSize(400, 560);
         PengajarUpdateDialog.setLocationRelativeTo(this);
         PengajarUpdateDialog.setModal(true);
+        PengajarUpdateDialog.setVisible(true);
     }
 
     private void renderHakAkses(List<AksesMatrix> listAksesMatrix) {

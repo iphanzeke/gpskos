@@ -64,6 +64,7 @@ public class AppFrame extends javax.swing.JFrame {
         menuItemKelas = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JSeparator();
         menuItemBank = new javax.swing.JMenuItem();
+        menuItemPerusahaan = new javax.swing.JMenuItem();
         menuAkses = new javax.swing.JMenu();
         menuItemGroup = new javax.swing.JMenuItem();
         menuItemPengguna = new javax.swing.JMenuItem();
@@ -139,6 +140,14 @@ public class AppFrame extends javax.swing.JFrame {
             }
         });
         menuMaster.add(menuItemBank);
+
+        menuItemPerusahaan.setText("Perusahaan");
+        menuItemPerusahaan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemPerusahaanActionPerformed(evt);
+            }
+        });
+        menuMaster.add(menuItemPerusahaan);
 
         jMenuBar1.add(menuMaster);
 
@@ -241,6 +250,10 @@ public class AppFrame extends javax.swing.JFrame {
         panelLayout.add(new PasswordIFrame(listAksesMatrix, pengguna)).setVisible(true);
     }//GEN-LAST:event_menuItemPasswordActionPerformed
 
+    private void menuItemPerusahaanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemPerusahaanActionPerformed
+        panelLayout.add(new PerusahaanIFrame(listAksesMatrix)).setVisible(true);
+    }//GEN-LAST:event_menuItemPerusahaanActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JSeparator jSeparator1;
@@ -255,6 +268,7 @@ public class AppFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuItemPassword;
     private javax.swing.JMenuItem menuItemPengajar;
     private javax.swing.JMenuItem menuItemPengguna;
+    private javax.swing.JMenuItem menuItemPerusahaan;
     private javax.swing.JMenuItem menuKeluar;
     private javax.swing.JMenu menuLaporan;
     private javax.swing.JMenu menuMaster;
@@ -271,5 +285,6 @@ public class AppFrame extends javax.swing.JFrame {
         menuItemJurnal.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.LIHAT_JURNAL, listAksesMatrix));
         menuItemPengguna.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.LIHAT_PENGGUNA, listAksesMatrix));
         menuItemPassword.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.UBAH_PASSWORD, listAksesMatrix));
+//      menuItemPerusahaan.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.LIHAT_PERUSAHAAN, listAksesMatrix));
     }
 }

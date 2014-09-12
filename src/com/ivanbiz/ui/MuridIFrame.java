@@ -17,6 +17,7 @@ import com.ivanbiz.dao.impl.MuridDAOImpl;
 import com.ivanbiz.model.AksesMatrix;
 import com.ivanbiz.model.Bank;
 import com.ivanbiz.model.Murid;
+import com.ivanbiz.service.JTextFieldLimit;
 import com.ivanbiz.service.MenuAksesConstant;
 import com.ivanbiz.service.ServiceHelper;
 import java.util.Date;
@@ -97,19 +98,29 @@ public class MuridIFrame extends javax.swing.JInternalFrame {
 
         jLabel2.setText("NIM :");
 
+        jTextFieldNIM.setDocument(new JTextFieldLimit(10));
+
         jLabel3.setText("Nama :");
+
+        jTextFieldNama.setDocument(new JTextFieldLimit(30));
 
         jLabel4.setText("Telp :");
 
+        jTextFieldTelp.setDocument(new JTextFieldLimit(20));
+
         jLabel5.setText("Handphone :");
 
+        jTextFieldHP.setDocument(new JTextFieldLimit(20));
+
         jLabel6.setText("Email :");
+
+        jTextFieldEmail.setDocument(new JTextFieldLimit(50));
 
         jLabel7.setText("Tanggal Lahir :");
 
         jLabel8.setText("Alamat :");
 
-        jTextAreaAlamat.setColumns(20);
+        jTextAreaAlamat.setDocument(new JTextFieldLimit(100));
         jTextAreaAlamat.setRows(5);
         jScrollPane2.setViewportView(jTextAreaAlamat);
 
@@ -311,14 +322,14 @@ public class MuridIFrame extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 443, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 411, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-800)/2, (screenSize.height-632)/2, 800, 632);
+        setBounds((screenSize.width-800)/2, (screenSize.height-600)/2, 800, 600);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTextFieldCariKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldCariKeyReleased
@@ -464,10 +475,10 @@ public class MuridIFrame extends javax.swing.JInternalFrame {
     }
 
     private void renderMuridUpdateDialog() {
-        MuridUpdateDialog.setSize(400, 625);
-        MuridUpdateDialog.setVisible(true);
+        MuridUpdateDialog.setSize(400, 610);
         MuridUpdateDialog.setLocationRelativeTo(this);
         MuridUpdateDialog.setModal(true);
+        MuridUpdateDialog.setVisible(true);
     }
 
     private void updateComboBank() {

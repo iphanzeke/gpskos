@@ -15,6 +15,8 @@ import com.ivanbiz.dao.impl.JurnalDAOImpl;
 import com.ivanbiz.model.AksesMatrix;
 import com.ivanbiz.model.Jurnal;
 import com.ivanbiz.service.ServiceHelper;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.logging.Level;
@@ -230,11 +232,12 @@ public class JurnalIFrame extends javax.swing.JInternalFrame {
     // End of variables declaration//GEN-END:variables
 
     private void renderJurnalViewDialog() {
-        JurnalViewDialog.setVisible(true);
-        JurnalViewDialog.setLocationRelativeTo(this);
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        JurnalViewDialog.setBounds((screenSize.width - 800) / 2, (screenSize.height - 600) / 2, 800, 600);
         JurnalViewDialog.setResizable(true);
         JurnalViewDialog.setModal(true);
-        JurnalViewDialog.setSize(800, 600);
+        JurnalViewDialog.setVisible(true);
+
     }
     // End of variables declaration
 
