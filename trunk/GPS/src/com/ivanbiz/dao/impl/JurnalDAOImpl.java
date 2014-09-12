@@ -61,7 +61,7 @@ public class JurnalDAOImpl extends GenericDAOImpl implements JurnalDAO {
     }
 
     @Override
-    public String saveJurnalMore(List listItem, Session session) throws Exception {
+    public String saveJurnalMore(List listItem,String glDebit, Session session) throws Exception {
         //HibernateUtil.beginTransaction();
         String status = "";
         try {
@@ -87,6 +87,9 @@ public class JurnalDAOImpl extends GenericDAOImpl implements JurnalDAO {
                     if (settingGl.getDebetOrCredit().equals("C")) {
                         jurnal.setCredit(amount);
                     } else {
+                        if(settingGl.getGlAccount().equals("XXX")){
+                            jurnal.setGLAccount(glDebit);
+                        }
                         jurnal.setDebit(amount);
                     }
                     session.save(jurnal);
@@ -106,7 +109,7 @@ public class JurnalDAOImpl extends GenericDAOImpl implements JurnalDAO {
     }
 
     @Override
-    public String saveJurnalWithVA(String proCode, double amount, String transRef, String virtualAccount, Session session) throws Exception {
+    public String saveJurnalWithVA(String proCode, double amount, String transRef, String virtualAccount,String glDebit, Session session) throws Exception {
         String status = "";
         try {
             //   Session session = HibernateUtil.getSession();
@@ -125,6 +128,9 @@ public class JurnalDAOImpl extends GenericDAOImpl implements JurnalDAO {
                 if (settingGl.getDebetOrCredit().equals("C")) {
                     jurnal.setCredit(amount);
                 } else {
+                     if(settingGl.getGlAccount().equals("XXX")){
+                            jurnal.setGLAccount(glDebit);
+                        }
                     jurnal.setDebit(amount);
                 }
                 session.save(jurnal);
@@ -143,7 +149,7 @@ public class JurnalDAOImpl extends GenericDAOImpl implements JurnalDAO {
     }
 
     @Override
-    public String saveJurnalMoreWithVA(List listItem, Session session) throws Exception {
+    public String saveJurnalMoreWithVA(List listItem,String glDebit, Session session) throws Exception {
         String status = "";
         try {
             // Session session = HibernateUtil.getSession();
@@ -169,6 +175,9 @@ public class JurnalDAOImpl extends GenericDAOImpl implements JurnalDAO {
                     if (settingGl.getDebetOrCredit().equals("C")) {
                         jurnal.setCredit(amount);
                     } else {
+                        if(settingGl.getGlAccount().equals("XXX")){
+                            jurnal.setGLAccount(glDebit);
+                        }
                         jurnal.setDebit(amount);
                     }
                     session.save(jurnal);
