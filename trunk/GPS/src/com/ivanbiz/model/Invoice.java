@@ -4,6 +4,7 @@
  */
 package com.ivanbiz.model;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -18,7 +19,7 @@ public class Invoice {
     private String deskripsiKepada;
     private String deskripsiUntukPembayaran;
     private String deskripsiJumlahPeserta;
-    private double jumlahTagihan;
+    private BigDecimal jumlahTagihan;
     private Date date;
 
     /**
@@ -119,19 +120,7 @@ public class Invoice {
         this.deskripsiJumlahPeserta = deskripsiJumlahPeserta;
     }
 
-    /**
-     * @return the jumlahTagihan
-     */
-    public double getJumlahTagihan() {
-        return jumlahTagihan;
-    }
-
-    /**
-     * @param jumlahTagihan the jumlahTagihan to set
-     */
-    public void setJumlahTagihan(double jumlahTagihan) {
-        this.jumlahTagihan = jumlahTagihan;
-    }
+    
 
     /**
      * @return the date
@@ -145,6 +134,20 @@ public class Invoice {
      */
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    /**
+     * @return the jumlahTagihan
+     */
+    public BigDecimal getJumlahTagihan() {
+        return jumlahTagihan;
+    }
+
+    /**
+     * @param jumlahTagihan the jumlahTagihan to set
+     */
+    public void setJumlahTagihan(BigDecimal jumlahTagihan) {
+        this.jumlahTagihan = jumlahTagihan;
     }
 
    
