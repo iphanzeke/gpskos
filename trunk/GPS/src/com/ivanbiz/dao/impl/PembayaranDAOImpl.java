@@ -27,7 +27,7 @@ public class PembayaranDAOImpl extends GenericDAOImpl implements PembayaranDAO{
             session.save(pembayaran);
             String proCode = pembayaran.getDebitBankAccount().getKode()+pembayaran.getKreditBankAccount().getKode();
             JurnalDAO jurnalDAO = new JurnalDAOImpl();
-            jurnalDAO.saveJurnal(proCode, pembayaran.getJumlah(), pembayaran.getTransactionReference(), pembayaran.getDebitBankAccount().getNoGL(),session);
+            jurnalDAO.saveJurnal(proCode, pembayaran.getJumlah(), pembayaran.getTransactionReference(), pembayaran.getDebitBankAccount().getNoGL(),pembayaran.getKreditBankAccount().getNoGL(),session);
             HibernateUtil.commitTransaction();
             status = "sukses";
         }catch(Exception ex){
@@ -49,7 +49,7 @@ public class PembayaranDAOImpl extends GenericDAOImpl implements PembayaranDAO{
             session.save(pembayaran);
             String proCode = pembayaran.getDebitBankAccount().getKode()+pembayaran.getKreditBankAccount().getKode();
             JurnalDAO jurnalDAO = new JurnalDAOImpl();
-            jurnalDAO.saveJurnalWithVA(proCode, pembayaran.getJumlah(), pembayaran.getTransactionReference(), virtualAccount,pembayaran.getDebitBankAccount().getNoGL(),session);
+            jurnalDAO.saveJurnalWithVA(proCode, pembayaran.getJumlah(), pembayaran.getTransactionReference(), virtualAccount,pembayaran.getDebitBankAccount().getNoGL(),pembayaran.getKreditBankAccount().getNoGL(),session);
             HibernateUtil.commitTransaction();
             status = "sukses";
         }catch(Exception ex){
