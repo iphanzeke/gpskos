@@ -11,7 +11,7 @@
         <property column="DESKRIPSI_KEPADA" length="250" name="deskripsiKepada" type="string"/>
         <property column="DESKRIPSI_UNTUK_PEMBAYARAN" length="250" name="deskripsiUntukPembayaran" type="string"/>
         <property column="DESKRIPSI_JUMLAH_PESERTA" length="250" name="deskripsiJumlahPeserta" type="string"/>
-        <property column="JUMLAH_TAGIHAN" length="12" name="jumlahTagihan" type="big_decimal"/>
+        <property column="JUMLAH_TAGIHAN" name="jumlahTagihan" type="big_decimal"/>
         <property column="DATE"  name="date" type="date"/>
     </class>
 </hibernate-mapping>
