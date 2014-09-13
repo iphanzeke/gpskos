@@ -54,6 +54,7 @@ public class TagihanUpdateDialog extends javax.swing.JDialog {
         initComponents();
         dateChooserDate.setDate(new Date());
         refresh();
+        comboBank.actionPerformed(null);
     }
 
     public TagihanUpdateDialog(MainFrame mainFrame, boolean modal, Invoice invoice) {
@@ -71,7 +72,6 @@ public class TagihanUpdateDialog extends javax.swing.JDialog {
         textPeserta.setText(invoice.getDeskripsiJumlahPeserta());
         textJumlah.setText(invoice.getJumlahTagihan().toBigInteger().toString());
         textTerbilang.setText(ServiceHelper.bilang(Long.parseLong(invoice.getJumlahTagihan().toBigInteger().toString())));
-
     }
 
     /**
@@ -292,7 +292,7 @@ public class TagihanUpdateDialog extends javax.swing.JDialog {
         invoice.setNII(textNII.getText());
         invoice.setKelas(listKelas.get(comboKelas.getSelectedIndex()));
         invoice.setBank(listBank.get(comboBank.getSelectedIndex()));
-        invoice.setDeskripsiKepada(comboBoxKepada.getSelectedItem().toString());
+        invoice.setDeskripsiKepada(listGLAccounts.get(comboBoxKepada.getSelectedIndex()).getDeskripsi());
         invoice.setDeskripsiUntukPembayaran(textPembayaran.getText());
         invoice.setDeskripsiJumlahPeserta(textPeserta.getText());
         invoice.setJumlahTagihan(new BigDecimal(textJumlah.getText().replaceAll(",", "")));
@@ -314,7 +314,6 @@ public class TagihanUpdateDialog extends javax.swing.JDialog {
 
     private void comboBankItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboBankItemStateChanged
         refreshKepada(comboBank.getSelectedItem().toString());
-        comboBoxKepada.setSelectedItem(listGLAccounts);
         comboBoxKepada.setEnabled(true);
     }//GEN-LAST:event_comboBankItemStateChanged
 
@@ -418,8 +417,19 @@ public class TagihanUpdateDialog extends javax.swing.JDialog {
             map.put("nama", nama);
             map.put("groupACC", "2");
             listGLAccounts = gLAccountDAO.getDataByEqualsMore(GLAccount.class, map);
+            updateComboKepada();
         } catch (Exception ex) {
             Logger.getLogger(TagihanUpdateDialog.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    private void updateComboKepada() {
+        Object data[] = new Object[listGLAccounts.size()];
+        int x = 0;
+        for (GLAccount gLAccount : listGLAccounts) {
+            data[x] = gLAccount.getDeskripsi();
+            x++;
+        }
+        comboBoxKepada.setModel(new DefaultComboBoxModel(data));
     }
 }

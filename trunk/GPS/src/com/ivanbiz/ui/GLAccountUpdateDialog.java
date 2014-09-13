@@ -224,7 +224,7 @@ public class GLAccountUpdateDialog extends JDialog {
         if (gLAccount == null) {
             gLAccount = new GLAccount();
         }
-        gLAccount.setGroupACC(comboBoxGroupAccount.getSelectedItem().toString());
+        gLAccount.setGroupACC(String.valueOf(listGroupAccs.get(comboBoxGroupAccount.getSelectedIndex()).getId()));
         gLAccount.setKode(textFieldKode.getText());
         gLAccount.setNama(comboBoxBank.getSelectedItem().toString());
         gLAccount.setNoGL("IDR" + textFieldNoGL.getText());
@@ -295,7 +295,6 @@ public class GLAccountUpdateDialog extends JDialog {
     }
 
     private void validate(GLAccount gLAccount) {
-        System.out.println("!" + gLAccount.getGroupACC()+ "!");
         if (gLAccount == null) {
             JOptionPane.showMessageDialog(this, "GL Account tidak boleh null");
         } else if (gLAccount.getGroupACC().trim().isEmpty()) {
