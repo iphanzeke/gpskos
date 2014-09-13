@@ -6,6 +6,7 @@
 
 package com.ivanbiz.model;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -16,7 +17,7 @@ public class Pembayaran {
     private long id;
     private GLAccount debitBankAccount;
     private GLAccount kreditBankAccount;
-    private double jumlah;
+    private BigDecimal jumlah;
     private String deskripsi;
     private String status;
     private Date dateCreated;
@@ -39,19 +40,7 @@ public class Pembayaran {
     }
 
     
-    /**
-     * @return the jumlah
-     */
-    public double getJumlah() {
-        return jumlah;
-    }
-
-    /**
-     * @param jumlah the jumlah to set
-     */
-    public void setJumlah(double jumlah) {
-        this.jumlah = jumlah;
-    }
+  
 
     /**
      * @return the deskripsi
@@ -177,5 +166,19 @@ public class Pembayaran {
      */
     public void setKreditBankAccount(GLAccount kreditBankAccount) {
         this.kreditBankAccount = kreditBankAccount;
+    }
+
+    /**
+     * @return the jumlah
+     */
+    public BigDecimal getJumlah() {
+        return jumlah;
+    }
+
+    /**
+     * @param jumlah the jumlah to set
+     */
+    public void setJumlah(BigDecimal jumlah) {
+        this.jumlah = jumlah;
     }
 }
