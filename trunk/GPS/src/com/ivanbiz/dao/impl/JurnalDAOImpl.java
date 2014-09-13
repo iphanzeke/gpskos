@@ -8,11 +8,12 @@ import com.ivanbiz.dao.SettingGLDAO;
 import com.ivanbiz.model.Jurnal;
 import com.ivanbiz.model.SettingGL;
 import com.ivanbiz.service.HibernateUtil;
+import java.math.BigDecimal;
 
 public class JurnalDAOImpl extends GenericDAOImpl implements JurnalDAO {
 
     @Override
-    public String saveJurnal(String proCode, double amount, String transRef, String glDebit,String glKredit,Session session) throws Exception {
+    public String saveJurnal(String proCode, BigDecimal amount, String transRef, String glDebit,String glKredit,Session session) throws Exception {
          HibernateUtil.beginTransaction();
         String status = "";
         try {
@@ -61,7 +62,7 @@ public class JurnalDAOImpl extends GenericDAOImpl implements JurnalDAO {
         }
         return status;
     }
-
+/*
     @Override
     public String reversalJurnal(String accRef) throws Exception {
         throw new UnsupportedOperationException("Not supported yet.");
@@ -117,9 +118,9 @@ public class JurnalDAOImpl extends GenericDAOImpl implements JurnalDAO {
         return status;
 
     }
-
+*/
     @Override
-    public String saveJurnalWithVA(String proCode, double amount, String transRef, String virtualAccount,String glDebit,String glKredit, Session session) throws Exception {
+    public String saveJurnalWithVA(String proCode, BigDecimal amount, String transRef, String virtualAccount,String glDebit,String glKredit, Session session) throws Exception {
         String status = "";
         try {
             //   Session session = HibernateUtil.getSession();
@@ -160,7 +161,7 @@ public class JurnalDAOImpl extends GenericDAOImpl implements JurnalDAO {
         }
         return status;
     }
-
+/*
     @Override
     public String saveJurnalMoreWithVA(List listItem,String glDebit,String glKredit, Session session) throws Exception {
         String status = "";
@@ -210,4 +211,5 @@ public class JurnalDAOImpl extends GenericDAOImpl implements JurnalDAO {
         }
         return status;
     }
+     */ 
 }

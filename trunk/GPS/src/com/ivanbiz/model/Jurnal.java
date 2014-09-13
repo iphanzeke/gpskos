@@ -4,6 +4,7 @@
  */
 package com.ivanbiz.model;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -15,8 +16,8 @@ public class Jurnal {
     private String accountingReference;
     private Date dateReference;
     private String transactionReference;
-    private double debit;
-    private double credit;
+    private BigDecimal debit;
+    private BigDecimal credit;
     private String currency;
     public String getCurrency() {
 		return currency;
@@ -107,34 +108,34 @@ public class Jurnal {
         this.GLAccount = GLAccount;
     }
 
-    
-
-    /**
-     * @return the credit
-     */
-    public double getCredit() {
-        return credit;
-    }
-
-    /**
-     * @param credit the credit to set
-     */
-    public void setCredit(double credit) {
-        this.credit = credit;
-    }
-
     /**
      * @return the debit
      */
-    public double getDebit() {
+    public BigDecimal getDebit() {
         return debit;
     }
 
     /**
      * @param debit the debit to set
      */
-    public void setDebit(double debit) {
+    public void setDebit(BigDecimal debit) {
         this.debit = debit;
     }
+
+    /**
+     * @return the credit
+     */
+    public BigDecimal getCredit() {
+        return credit;
+    }
+
+    /**
+     * @param credit the credit to set
+     */
+    public void setCredit(BigDecimal credit) {
+        this.credit = credit;
+    }
+
     
+
 }
