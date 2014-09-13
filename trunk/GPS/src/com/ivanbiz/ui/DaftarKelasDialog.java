@@ -15,6 +15,7 @@ import com.ivanbiz.dao.impl.DaftarKelasDAOImpl;
 import com.ivanbiz.model.AksesMatrix;
 import com.ivanbiz.model.DaftarKelas;
 import com.ivanbiz.model.Kelas;
+import com.ivanbiz.service.GlobalSession;
 import com.ivanbiz.service.MenuAksesConstant;
 import com.ivanbiz.service.ServiceHelper;
 import java.util.List;
@@ -31,21 +32,13 @@ public class DaftarKelasDialog extends javax.swing.JDialog {
     DaftarKelas daftarKelas;
     DaftarKelasDAO daftarKelasDAO;
     List<DaftarKelas> listDaftarKelas;
-    List<AksesMatrix> listAksesMatrix;
     Kelas kelas;
 
-    /**
-     * Creates new form DaftarKelasDialog
-     *
-     * @param listAksesMatrix
-     * @param kelas
-     */
-    public DaftarKelasDialog(List<AksesMatrix> listAksesMatrix, Kelas kelas) {
+    public DaftarKelasDialog(Kelas kelas) {
         initComponents();
         daftarKelasDAO = new DaftarKelasDAOImpl();
-        this.listAksesMatrix = listAksesMatrix;
         this.kelas = kelas;
-        renderButtonAkses(listAksesMatrix);
+        renderButtonAkses(GlobalSession.getListAksesMatrix());
         textKelas.setText(kelas.getTransactionReference());
         refresh(kelas);
     }
@@ -173,7 +166,7 @@ public class DaftarKelasDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTambahActionPerformed
-        new MuridDialog(null, rootPaneCheckingEnabled, listAksesMatrix, listDaftarKelas, kelas).setVisible(true);
+        new MuridDialog(null, true, listDaftarKelas, kelas).setVisible(true);
         refresh(kelas);
 }//GEN-LAST:event_buttonTambahActionPerformed
 

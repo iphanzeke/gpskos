@@ -14,6 +14,7 @@ import com.ivanbiz.dao.BankDAO;
 import com.ivanbiz.dao.impl.BankDAOImpl;
 import com.ivanbiz.model.AksesMatrix;
 import com.ivanbiz.model.Bank;
+import com.ivanbiz.service.GlobalSession;
 import com.ivanbiz.service.MenuAksesConstant;
 import com.ivanbiz.service.ServiceHelper;
 import java.util.List;
@@ -32,14 +33,9 @@ public class BankDialog extends JDialog {
     BankDAO bankDAO;
     List<Bank> listBank;
 
-    /**
-     * Creates new form BankDialog
-     *
-     * @param listAksesMatrix
-     */
-    public BankDialog(List<AksesMatrix> listAksesMatrix) {
+    public BankDialog() {
         initComponents();
-        renderButtonAkses(listAksesMatrix);
+        renderButtonAkses(GlobalSession.getListAksesMatrix());
         bankDAO = new BankDAOImpl();
         refresh();
     }

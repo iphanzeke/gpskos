@@ -14,6 +14,7 @@ import com.ivanbiz.dao.KelasDAO;
 import com.ivanbiz.dao.impl.KelasDAOImpl;
 import com.ivanbiz.model.AksesMatrix;
 import com.ivanbiz.model.Kelas;
+import com.ivanbiz.service.GlobalSession;
 import com.ivanbiz.service.MenuAksesConstant;
 import com.ivanbiz.service.ServiceHelper;
 import java.text.SimpleDateFormat;
@@ -33,17 +34,10 @@ public class KelasDialog extends JDialog {
     List<Kelas> listKelas;
     KelasDAO kelasDAO = new KelasDAOImpl();
     SimpleDateFormat sdf = new SimpleDateFormat("dd-MMMM-yyyy");
-    List<AksesMatrix> listAksesMatrix;
 
-    /**
-     * Creates new form PengajarDialog
-     *
-     * @param listAksesMatrix
-     */
-    public KelasDialog(List<AksesMatrix> listAksesMatrix) {
+    public KelasDialog() {
         initComponents();
-        this.listAksesMatrix = listAksesMatrix;
-        renderButtonAkses(listAksesMatrix);
+        renderButtonAkses(GlobalSession.getListAksesMatrix());
         refresh();
     }
 
@@ -168,7 +162,7 @@ public class KelasDialog extends JDialog {
             JOptionPane.showMessageDialog(this, "Pilih daftar Kelas", "warning", JOptionPane.WARNING_MESSAGE);
         } else {
             kelas = listKelas.get(tableKelas.getSelectedRow());
-            new DaftarKelasDialog(listAksesMatrix, kelas).setVisible(true);
+            new DaftarKelasDialog(kelas).setVisible(true);
         }
     }//GEN-LAST:event_buttonDetailActionPerformed
 
@@ -214,8 +208,8 @@ public class KelasDialog extends JDialog {
     }
 
     private void updateTableKelas() {
-        String[] judul = {"No", "Transaksi Reference", "NIK", "Deskripsi", "Pengajar", "Tanggal", "Status Kelas", "Tempat", "Alamat"};
-        Object[][] isi = new Object[listKelas.size()][9];
+        String[] judul = {"No", "Transaksi Reference", "NIK", "Deskripsi", "Pengajar", "Tanggal", "Tempat", "Alamat"};
+        Object[][] isi = new Object[listKelas.size()][8];
         int x = 0;
         int no = 0;
         for (Kelas kelass : listKelas) {
@@ -226,9 +220,8 @@ public class KelasDialog extends JDialog {
             isi[x][3] = kelass.getDeskripsi();
             isi[x][4] = "(" + kelass.getPengajar().getNIP() + ") - " + kelass.getPengajar().getNama();
             isi[x][5] = sdf.format(kelass.getTanggalKelas());
-            isi[x][6] = kelass.getStatusKelas();
-            isi[x][7] = kelass.getTempatKelas();
-            isi[x][8] = kelass.getAlamatKelas();
+            isi[x][6] = kelass.getTempatKelas();
+            isi[x][7] = kelass.getAlamatKelas();
             x++;
         }
         new ServiceHelper().setAutoRize(isi, judul, tableKelas);

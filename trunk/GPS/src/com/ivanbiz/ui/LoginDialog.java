@@ -12,8 +12,13 @@ package com.ivanbiz.ui;
 
 import com.birosoft.liquid.LiquidLookAndFeel;
 import com.ivanbiz.dao.PenggunaDAO;
+import com.ivanbiz.dao.PerusahaanDAO;
 import com.ivanbiz.dao.impl.PenggunaDAOImpl;
+import com.ivanbiz.dao.impl.PerusahaanDAOImpl;
 import com.ivanbiz.model.Pengguna;
+import com.ivanbiz.model.Perusahaan;
+import com.ivanbiz.service.GlobalSession;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -26,8 +31,11 @@ import javax.swing.UnsupportedLookAndFeelException;
  */
 public class LoginDialog extends javax.swing.JDialog {
 
+    Perusahaan perusahaan;
+    PerusahaanDAO perusahaanDAO;
     Pengguna pengguna;
     PenggunaDAO penggunaDAO;
+    List<Perusahaan> listPerusahaan;
 
     /**
      * Creates new form LoginDialog
@@ -35,6 +43,8 @@ public class LoginDialog extends javax.swing.JDialog {
     public LoginDialog() {
         initComponents();
         penggunaDAO = new PenggunaDAOImpl();
+        perusahaanDAO = new PerusahaanDAOImpl();
+        refresh();
     }
 
     /**
@@ -46,7 +56,7 @@ public class LoginDialog extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        labelPerusahaan = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         textUser = new javax.swing.JTextField();
@@ -60,9 +70,9 @@ public class LoginDialog extends javax.swing.JDialog {
         setAlwaysOnTop(true);
         setModal(true);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("GPS");
+        labelPerusahaan.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        labelPerusahaan.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelPerusahaan.setText("GPS");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Login"));
 
@@ -120,7 +130,7 @@ public class LoginDialog extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
+                    .addComponent(labelPerusahaan, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -128,7 +138,7 @@ public class LoginDialog extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addComponent(labelPerusahaan)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -177,12 +187,24 @@ public class LoginDialog extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonBatal;
     private javax.swing.JButton buttonLogin;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel labelPerusahaan;
     private javax.swing.JPasswordField textPassword;
     private javax.swing.JTextField textUser;
     // End of variables declaration//GEN-END:variables
+
+    private void refresh() {
+        try {
+            listPerusahaan = perusahaanDAO.getAll(Perusahaan.class);
+            for (Perusahaan perusahaans : listPerusahaan) {
+                GlobalSession.setPerusahaan(perusahaans);               
+            }
+            labelPerusahaan.setText(GlobalSession.getPerusahaan() == null ? " " : GlobalSession.getPerusahaan().getNama());
+        } catch (Exception ex) {
+            Logger.getLogger(LoginDialog.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

@@ -14,6 +14,7 @@ import com.ivanbiz.dao.AksesMatrixDAO;
 import com.ivanbiz.dao.impl.AksesMatrixDAOImpl;
 import com.ivanbiz.model.AksesMatrix;
 import com.ivanbiz.model.Pengguna;
+import com.ivanbiz.service.GlobalSession;
 import com.ivanbiz.service.MenuAksesConstant;
 import java.util.List;
 import java.util.logging.Level;
@@ -48,6 +49,8 @@ public class MainFrame extends JFrame {
     private void renderMenuAkses(Pengguna pengguna) {
         try {
             listAksesMatrix = aksesMatrixDAO.getDataByEquals(AksesMatrix.class, "groups.id", pengguna.getGroups().getId());
+            GlobalSession.setListAksesMatrix(listAksesMatrix);
+            GlobalSession.setPengguna(pengguna);
             menuItemPengajar.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.LIHAT_PENGAJAR, listAksesMatrix));
             menuItemMurid.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.LIHAT_MURID, listAksesMatrix));
             menuItemKelas.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.LIHAT_KELAS, listAksesMatrix));
@@ -56,6 +59,7 @@ public class MainFrame extends JFrame {
             menuItemGroup.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.LIHAT_GROUP, listAksesMatrix));
             menuItemPengguna.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.LIHAT_PENGGUNA, listAksesMatrix));
             menuItemPassword.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.UBAH_PASSWORD, listAksesMatrix));
+            menuItemTagihan.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.LIHAT_TAGIHAN, listAksesMatrix));
         } catch (Exception ex) {
             Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -76,6 +80,8 @@ public class MainFrame extends JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         menuItemBank = new javax.swing.JMenuItem();
         menuItemPerusahaan = new javax.swing.JMenuItem();
+        menuItemTagihan = new javax.swing.JMenuItem();
+        menuItemGLAccounts = new javax.swing.JMenuItem();
         menuHakAkses = new javax.swing.JMenu();
         menuItemGroup = new javax.swing.JMenuItem();
         menuItemPengguna = new javax.swing.JMenuItem();
@@ -150,6 +156,22 @@ public class MainFrame extends JFrame {
         });
         menuMaster.add(menuItemPerusahaan);
 
+        menuItemTagihan.setText("Tagihan");
+        menuItemTagihan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemTagihanActionPerformed(evt);
+            }
+        });
+        menuMaster.add(menuItemTagihan);
+
+        menuItemGLAccounts.setText("GL Account");
+        menuItemGLAccounts.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemGLAccountsActionPerformed(evt);
+            }
+        });
+        menuMaster.add(menuItemGLAccounts);
+
         menuBarApp.add(menuMaster);
 
         menuHakAkses.setText("Hak Akses");
@@ -211,35 +233,35 @@ public class MainFrame extends JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void menuItemPengajarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemPengajarActionPerformed
-        new PengajarDialog(listAksesMatrix).setVisible(true);
+        new PengajarDialog().setVisible(true);
     }//GEN-LAST:event_menuItemPengajarActionPerformed
 
     private void menuItemKelasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemKelasActionPerformed
-        new KelasDialog(listAksesMatrix).setVisible(true);
+        new KelasDialog().setVisible(true);
     }//GEN-LAST:event_menuItemKelasActionPerformed
 
     private void menuItemMuridActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemMuridActionPerformed
-        new MuridDialog(listAksesMatrix).setVisible(true);
+        new MuridDialog().setVisible(true);
     }//GEN-LAST:event_menuItemMuridActionPerformed
 
     private void menuItemBankActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemBankActionPerformed
-        new BankDialog(listAksesMatrix).setVisible(true);
+        new BankDialog().setVisible(true);
     }//GEN-LAST:event_menuItemBankActionPerformed
 
     private void menuItemGroupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemGroupActionPerformed
-        new GroupDialog(listAksesMatrix).setVisible(true);
+        new GroupDialog().setVisible(true);
     }//GEN-LAST:event_menuItemGroupActionPerformed
 
     private void menuItemJurnalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemJurnalActionPerformed
-        new JurnalDialog(listAksesMatrix).setVisible(true);
+        new JurnalDialog().setVisible(true);
     }//GEN-LAST:event_menuItemJurnalActionPerformed
 
     private void menuItemPenggunaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemPenggunaActionPerformed
-        new PenggunaDialog(listAksesMatrix).setVisible(true);
+        new PenggunaDialog().setVisible(true);
     }//GEN-LAST:event_menuItemPenggunaActionPerformed
 
     private void menuItemPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemPasswordActionPerformed
-        new PasswordDialog(listAksesMatrix, pengguna).setVisible(true);
+        new PasswordDialog().setVisible(true);
     }//GEN-LAST:event_menuItemPasswordActionPerformed
 
     private void menuItemKeluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemKeluarActionPerformed
@@ -252,8 +274,16 @@ public class MainFrame extends JFrame {
     }//GEN-LAST:event_menuItemTutupActionPerformed
 
     private void menuItemPerusahaanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemPerusahaanActionPerformed
-        new PerusahaanDialog(listAksesMatrix).setVisible(true);
+        new PerusahaanDialog().setVisible(true);
     }//GEN-LAST:event_menuItemPerusahaanActionPerformed
+
+    private void menuItemTagihanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemTagihanActionPerformed
+        new TagihanDialog().setVisible(true);
+    }//GEN-LAST:event_menuItemTagihanActionPerformed
+
+    private void menuItemGLAccountsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemGLAccountsActionPerformed
+        new GLAccountDialog().setVisible(true);
+    }//GEN-LAST:event_menuItemGLAccountsActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JSeparator jSeparator1;
@@ -262,6 +292,7 @@ public class MainFrame extends JFrame {
     private javax.swing.JMenuBar menuBarApp;
     private javax.swing.JMenu menuHakAkses;
     private javax.swing.JMenuItem menuItemBank;
+    private javax.swing.JMenuItem menuItemGLAccounts;
     private javax.swing.JMenuItem menuItemGroup;
     private javax.swing.JMenuItem menuItemJurnal;
     private javax.swing.JMenuItem menuItemKelas;
@@ -271,6 +302,7 @@ public class MainFrame extends JFrame {
     private javax.swing.JMenuItem menuItemPengajar;
     private javax.swing.JMenuItem menuItemPengguna;
     private javax.swing.JMenuItem menuItemPerusahaan;
+    private javax.swing.JMenuItem menuItemTagihan;
     private javax.swing.JMenuItem menuItemTutup;
     private javax.swing.JMenu menuLaporan;
     private javax.swing.JMenu menuMaster;

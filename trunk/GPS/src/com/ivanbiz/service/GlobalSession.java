@@ -4,7 +4,10 @@
  */
 package com.ivanbiz.service;
 
+import com.ivanbiz.model.AksesMatrix;
+import com.ivanbiz.model.Pengguna;
 import com.ivanbiz.model.Perusahaan;
+import java.util.List;
 
 /**
  *
@@ -12,13 +15,32 @@ import com.ivanbiz.model.Perusahaan;
  */
 public class GlobalSession {
 
-    private Perusahaan perusahaan;
+    private static Perusahaan perusahaan;
+    private static List<AksesMatrix> listAksesMatrix;
+    private static Pengguna pengguna;
 
-    public Perusahaan getPerusahaan() {
+    public static Pengguna getPengguna() {
+        return pengguna;
+    }
+
+    public static void setPengguna(Pengguna pengguna) {
+        GlobalSession.pengguna = pengguna;
+    }
+
+    public static List<AksesMatrix> getListAksesMatrix() {
+        return listAksesMatrix;
+    }
+
+    public static void setListAksesMatrix(List<AksesMatrix> listAksesMatrix) {
+        GlobalSession.listAksesMatrix = listAksesMatrix;
+    }
+
+    public static Perusahaan getPerusahaan() {
         return perusahaan;
     }
 
-    public void setPerusahaan(Perusahaan perusahaan) {
-        this.perusahaan = perusahaan;
+    public static void setPerusahaan(Perusahaan perusahaan) {
+        GlobalSession.perusahaan = perusahaan;
     }
+
 }

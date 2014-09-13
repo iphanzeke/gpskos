@@ -16,6 +16,7 @@ import com.ivanbiz.dao.impl.AksesMatrixDAOImpl;
 import com.ivanbiz.dao.impl.GroupsDAOImpl;
 import com.ivanbiz.model.AksesMatrix;
 import com.ivanbiz.model.Groups;
+import com.ivanbiz.service.GlobalSession;
 import com.ivanbiz.service.MenuAksesConstant;
 import com.ivanbiz.service.ServiceHelper;
 import java.util.List;
@@ -35,14 +36,9 @@ public class GroupDialog extends JDialog {
     GroupsDAO groupsDAO;
     AksesMatrixDAO aksesMatrixDAO;
 
-    /**
-     * Creates new form PengajarDialog
-     *
-     * @param listAksesMatrix
-     */
-    public GroupDialog(List<AksesMatrix> listAksesMatrix) {
+    public GroupDialog() {
         initComponents();
-        renderButtonAkses(listAksesMatrix);
+        renderButtonAkses(GlobalSession.getListAksesMatrix());
         aksesMatrixDAO = new AksesMatrixDAOImpl();
         groupsDAO = new GroupsDAOImpl();
         refresh();

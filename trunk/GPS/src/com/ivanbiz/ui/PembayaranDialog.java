@@ -18,7 +18,6 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JDialog;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -48,20 +47,20 @@ public class PembayaranDialog extends JDialog {
 
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTableGLAccount = new javax.swing.JTable();
+        tablePembayaran = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
-        jButtonTambah = new javax.swing.JButton();
-        jButtonUbah = new javax.swing.JButton();
-        jButtonHapus = new javax.swing.JButton();
+        buttonTambah = new javax.swing.JButton();
+        buttonUbah = new javax.swing.JButton();
+        buttonHapus = new javax.swing.JButton();
 
         setAlwaysOnTop(true);
         setModal(true);
         setResizable(false);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel1.setText("Daftar GL Account");
+        jLabel1.setText("Daftar Pembayaran");
 
-        jTableGLAccount.setModel(new javax.swing.table.DefaultTableModel(
+        tablePembayaran.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -72,31 +71,26 @@ public class PembayaranDialog extends JDialog {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTableGLAccount);
+        jScrollPane1.setViewportView(tablePembayaran);
 
-        jButtonTambah.setText("Tambah Murid Baru");
-        jButtonTambah.addActionListener(new java.awt.event.ActionListener() {
+        buttonTambah.setText("Tambah Murid Baru");
+        jPanel2.add(buttonTambah);
+
+        buttonUbah.setText("Ubah Murid Terseleksi");
+        buttonUbah.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                actionButton(evt);
+                buttonUbahActionPerformed(evt);
             }
         });
-        jPanel2.add(jButtonTambah);
+        jPanel2.add(buttonUbah);
 
-        jButtonUbah.setText("Ubah Murid Terseleksi");
-        jButtonUbah.addActionListener(new java.awt.event.ActionListener() {
+        buttonHapus.setText("Hapus Murid Terseleksi");
+        buttonHapus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                actionButton(evt);
+                buttonHapusActionPerformed(evt);
             }
         });
-        jPanel2.add(jButtonUbah);
-
-        jButtonHapus.setText("Hapus Murid Terseleksi");
-        jButtonHapus.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                actionButton(evt);
-            }
-        });
-        jPanel2.add(jButtonHapus);
+        jPanel2.add(buttonHapus);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -126,41 +120,33 @@ public class PembayaranDialog extends JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void actionButton(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actionButton
-        if (evt.getSource() == jButtonTambah) {
-            dispose();
-            new GLAccountUpdateDialog().setVisible(true);
-        } else if (evt.getSource() == jButtonUbah) {
-            if (jTableGLAccount.getSelectedRow() == -1) {
-                JOptionPane.showMessageDialog(this, "Pilih data yang akan diubah", "warning", JOptionPane.WARNING_MESSAGE);
-            } else {
-                dispose();
-                gLAccount = listGlAccount.get(jTableGLAccount.getSelectedRow());
-                new GLAccountUpdateDialog(gLAccount).setVisible(true);
-            }
-        } else if (evt.getSource() == jButtonHapus) {
-            if (jTableGLAccount.getSelectedRow() == -1) {
-                JOptionPane.showMessageDialog(this, "Pilih data yang akan dihapus", "warning", JOptionPane.WARNING_MESSAGE);
-            } else {
-                gLAccount = listGlAccount.get(jTableGLAccount.getSelectedRow());
-                try {
-                    gLAccountDAO.delete(gLAccount);
-                } catch (Exception ex) {
-                    Logger.getLogger(GLAccountDialog.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                refresh();
-            }
-        }
-    }//GEN-LAST:event_actionButton
+    private void buttonUbahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonUbahActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buttonUbahActionPerformed
+
+    private void buttonHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonHapusActionPerformed
+        // TODO add your handling code here:if (tablePembayaran.getSelectedRow() == -1) {
+//       if(tablePembayaran.)
+//                JOptionPane.showMessageDialog(this, "Pilih data yang akan dihapus", "warning", JOptionPane.WARNING_MESSAGE);
+//            } else {
+//                gLAccount = listGlAccount.get(tablePembayaran.getSelectedRow());
+//                try {
+//                    gLAccountDAO.delete(gLAccount);
+//                } catch (Exception ex) {
+//                    Logger.getLogger(GLAccountDialog.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+//                refresh();
+//            }
+    }//GEN-LAST:event_buttonHapusActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButtonHapus;
-    private javax.swing.JButton jButtonTambah;
-    private javax.swing.JButton jButtonUbah;
+    private javax.swing.JButton buttonHapus;
+    private javax.swing.JButton buttonTambah;
+    private javax.swing.JButton buttonUbah;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTableGLAccount;
+    private javax.swing.JTable tablePembayaran;
     // End of variables declaration//GEN-END:variables
 
     private void refresh() {
@@ -182,6 +168,6 @@ public class PembayaranDialog extends JDialog {
             isi[x][2] = gLAccounts.getGroupACC();
             x++;
         }
-        new ServiceHelper().setAutoRize(isi, judul, jTableGLAccount);
+        new ServiceHelper().setAutoRize(isi, judul, tablePembayaran);
     }
 }
