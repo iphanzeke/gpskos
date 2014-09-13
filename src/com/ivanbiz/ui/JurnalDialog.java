@@ -10,9 +10,7 @@
  */
 package com.ivanbiz.ui;
 
-import com.ivanbiz.model.AksesMatrix;
 import java.util.Date;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -22,12 +20,7 @@ import java.util.logging.Logger;
  */
 public class JurnalDialog extends javax.swing.JDialog {
 
-    /**
-     * Creates new form JurnalDialog
-     *
-     * @param listAksesMatrix
-     */
-    public JurnalDialog(List<AksesMatrix> listAksesMatrix) {
+    public JurnalDialog() {
         initComponents();
         refresh();
     }

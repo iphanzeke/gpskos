@@ -14,6 +14,7 @@ import com.ivanbiz.dao.PengajarDAO;
 import com.ivanbiz.dao.impl.PengajarDAOImpl;
 import com.ivanbiz.model.AksesMatrix;
 import com.ivanbiz.model.Pengajar;
+import com.ivanbiz.service.GlobalSession;
 import com.ivanbiz.service.MenuAksesConstant;
 import com.ivanbiz.service.ServiceHelper;
 import java.text.SimpleDateFormat;
@@ -34,14 +35,9 @@ public class PengajarDialog extends JDialog {
     PengajarDAO pengajarDAO = new PengajarDAOImpl();
     SimpleDateFormat sdf = new SimpleDateFormat("dd-MMMM-yyyy");
 
-    /**
-     * Creates new form PengajarDialog
-     *
-     * @param listAksesMatrix
-     */
-    public PengajarDialog(List<AksesMatrix> listAksesMatrix) {
+    public PengajarDialog() {
         initComponents();
-        renderButtonAkses(listAksesMatrix);
+        renderButtonAkses(GlobalSession.getListAksesMatrix());
         refresh();
     }
 

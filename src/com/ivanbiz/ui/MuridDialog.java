@@ -18,6 +18,7 @@ import com.ivanbiz.model.AksesMatrix;
 import com.ivanbiz.model.DaftarKelas;
 import com.ivanbiz.model.Kelas;
 import com.ivanbiz.model.Murid;
+import com.ivanbiz.service.GlobalSession;
 import com.ivanbiz.service.MenuAksesConstant;
 import com.ivanbiz.service.ServiceHelper;
 import java.text.SimpleDateFormat;
@@ -43,23 +44,18 @@ public class MuridDialog extends JDialog {
     DaftarKelas daftarKelas;
     DaftarKelasDAO daftarKelasDAO;
 
-    /**
-     * Creates new form PengajarDialog
-     *
-     * @param listAksesMatrix
-     */
-    public MuridDialog(List<AksesMatrix> listAksesMatrix) {
+    public MuridDialog() {
         initComponents();
-        renderButtonAkses(listAksesMatrix);
+        renderButtonAkses(GlobalSession.getListAksesMatrix());
         refresh();
     }
 
-    public MuridDialog(MainFrame mainFrame, boolean modal, List<AksesMatrix> listAksesMatrix, List<DaftarKelas> listDaftarKelas, Kelas kelas) {
+    public MuridDialog(MainFrame mainFrame, boolean modal, List<DaftarKelas> listDaftarKelas, Kelas kelas) {
         initComponents();
         daftarKelasDAO = new DaftarKelasDAOImpl();
         this.kelas = kelas;
         this.listDaftarKelas = listDaftarKelas;
-        renderButtonAkses(listAksesMatrix);
+        renderButtonAkses(GlobalSession.getListAksesMatrix());
         refresh();
     }
 

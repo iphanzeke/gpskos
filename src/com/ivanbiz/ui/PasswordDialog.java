@@ -12,10 +12,9 @@ package com.ivanbiz.ui;
 
 import com.ivanbiz.dao.PenggunaDAO;
 import com.ivanbiz.dao.impl.PenggunaDAOImpl;
-import com.ivanbiz.model.AksesMatrix;
 import com.ivanbiz.model.Pengguna;
+import com.ivanbiz.service.GlobalSession;
 import com.ivanbiz.service.JTextFieldLimit;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -29,16 +28,10 @@ public class PasswordDialog extends javax.swing.JDialog {
     Pengguna pengguna;
     PenggunaDAO penggunaDAO;
 
-    /**
-     * Creates new form PasswordDialog
-     *
-     * @param listAksesMatrix
-     * @param pengguna
-     */
-    public PasswordDialog(List<AksesMatrix> listAksesMatrix, Pengguna pengguna) {
+    public PasswordDialog() {
         initComponents();
         penggunaDAO = new PenggunaDAOImpl();
-        this.pengguna = pengguna;
+        this.pengguna = GlobalSession.getPengguna();
     }
 
     /**

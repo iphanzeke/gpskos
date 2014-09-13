@@ -12,7 +12,6 @@ package com.ivanbiz.ui;
 
 import com.ivanbiz.dao.PerusahaanDAO;
 import com.ivanbiz.dao.impl.PerusahaanDAOImpl;
-import com.ivanbiz.model.AksesMatrix;
 import com.ivanbiz.model.Perusahaan;
 import com.ivanbiz.service.JTextFieldLimit;
 import java.util.List;
@@ -27,17 +26,11 @@ import javax.swing.JOptionPane;
 public class PerusahaanDialog extends javax.swing.JDialog {
 
     Perusahaan perusahaan;
-    PerusahaanDAO perusahaanDAO;
+    PerusahaanDAO perusahaanDAO = new PerusahaanDAOImpl();
     List<Perusahaan> listPerusahaan;
 
-    /**
-     * Creates new form PerusahaanDialog
-     *
-     * @param listAksesMatrix
-     */
-    public PerusahaanDialog(List<AksesMatrix> listAksesMatrix) {
+    public PerusahaanDialog() {
         initComponents();
-        perusahaanDAO = new PerusahaanDAOImpl();
         refresh();
     }
 
@@ -64,7 +57,7 @@ public class PerusahaanDialog extends javax.swing.JDialog {
         buttonRegistrasi = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setModal(true);
+        setAlwaysOnTop(true);
         setResizable(false);
 
         jPanel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -160,7 +153,8 @@ public class PerusahaanDialog extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        pack();
+        setSize(new java.awt.Dimension(375, 416));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonRegistrasiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRegistrasiActionPerformed

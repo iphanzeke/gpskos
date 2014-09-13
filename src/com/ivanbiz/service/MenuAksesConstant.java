@@ -20,8 +20,9 @@ public enum MenuAksesConstant {
     LIHAT_BANK("Lihat Bank"),
     LIHAT_GROUP("Lihat Group"),
     LIHAT_JURNAL("Lihat Jurnal"),
-    LIHAT_PENGGUNA("Lihat Pengguna"),   
+    LIHAT_PENGGUNA("Lihat Pengguna"),
     LIHAT_PERUSAHAAN("Lihat Perusahaan"),
+    LIHAT_TAGIHAN("Lihat Tagihan"),
     //tambah
     TAMBAH_PENGAJAR("Tambah Pengajar"),
     TAMBAH_MURID("Tambah Murid"),
@@ -30,6 +31,8 @@ public enum MenuAksesConstant {
     TAMBAH_GROUP("Tambah Group"),
     TAMBAH_PENGGUNA("Tambah Pengguna"),
     TAMBAH_DAFTAR_KELAS("Tambah Daftar Kelas"),
+    TAMBAH_TAGIHAN("Tambah Tagihan"),
+    TAMBAH_GLACCOUNT("Tambah GL Account"),
     //ubah
     UBAH_PENGAJAR("Ubah Pengajar"),
     UBAH_MURID("Ubah Murid"),
@@ -38,6 +41,7 @@ public enum MenuAksesConstant {
     UBAH_GROUP("Ubah Group"),
     UBAH_PENGGUNA("Ubah Pengguna"),
     UBAH_PASSWORD("Ubah Password"),
+    UBAH_TAGIHAN("Ubah Tagihan"),
     //hapus
     HAPUS_PENGAJAR("Hapus Pengajar"),
     HAPUS_KELAS("Hapus Kelas"),
@@ -46,6 +50,8 @@ public enum MenuAksesConstant {
     HAPUS_GROUP("Hapus Group"),
     HAPUS_PENGGUNA("Ubah Pengguna"),
     HAPUS_DAFTAR_KELAS("Hapus Daftar Kelas"),
+    HAPUS_TAGIHAN("Hapus Tagihan"),
+    HAPUS_GLACCOUNT("Hapus GL Account"),
     TUTUP_KELAS("Tutup Kelas");
 
     public static boolean validate(MenuAksesConstant menuAksesConstant, List<AksesMatrix> listAksesMatrix) {
@@ -56,7 +62,7 @@ public enum MenuAksesConstant {
         }
         return false;
     }
-    private String nama;
+    private final String nama;
 
     private MenuAksesConstant(String nama) {
         this.nama = nama;

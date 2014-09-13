@@ -1,22 +1,19 @@
 /*
- * To change this template, choose Tools | Templates
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
  * and open the template in the editor.
- */
-
-/*
- * PenggunaDialog.java
- *
- * Created on 10 Sep 14, 22:55:31
  */
 package com.ivanbiz.ui;
 
-import com.ivanbiz.dao.PenggunaDAO;
-import com.ivanbiz.dao.impl.PenggunaDAOImpl;
+import com.ivanbiz.dao.InvoiceDAO;
+import com.ivanbiz.dao.impl.InvoiceDAOImpl;
 import com.ivanbiz.model.AksesMatrix;
-import com.ivanbiz.model.Pengguna;
+import com.ivanbiz.model.Invoice;
 import com.ivanbiz.service.GlobalSession;
 import com.ivanbiz.service.MenuAksesConstant;
 import com.ivanbiz.service.ServiceHelper;
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,16 +23,20 @@ import javax.swing.JOptionPane;
  *
  * @author Shbt Peterpan
  */
-public class PenggunaDialog extends javax.swing.JDialog {
+public class TagihanDialog extends javax.swing.JDialog {
 
-    Pengguna pengguna;
-    PenggunaDAO penggunaDAO;
-    List<Pengguna> listPengguna;
+    Invoice invoice;
+    InvoiceDAO invoiceDAO;
+    List<Invoice> listInvoice;
+    SimpleDateFormat sdf;
+    NumberFormat numberFormat;
 
-    public PenggunaDialog() {
+    public TagihanDialog() {
         initComponents();
-        penggunaDAO = new PenggunaDAOImpl();
         renderButtonAkses(GlobalSession.getListAksesMatrix());
+        invoiceDAO = new InvoiceDAOImpl();
+        sdf = new SimpleDateFormat("dd-MMMM-yyyy");
+        numberFormat = NumberFormat.getCurrencyInstance();
         refresh();
     }
 
@@ -50,7 +51,7 @@ public class PenggunaDialog extends javax.swing.JDialog {
 
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tablePengguna = new javax.swing.JTable();
+        tableTagihan = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         buttonTambah = new javax.swing.JButton();
         buttonUbah = new javax.swing.JButton();
@@ -62,9 +63,9 @@ public class PenggunaDialog extends javax.swing.JDialog {
         setResizable(false);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel1.setText("Daftar Pengguna");
+        jLabel1.setText("Daftar Tagihan");
 
-        tablePengguna.setModel(new javax.swing.table.DefaultTableModel(
+        tableTagihan.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -75,9 +76,9 @@ public class PenggunaDialog extends javax.swing.JDialog {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(tablePengguna);
+        jScrollPane1.setViewportView(tableTagihan);
 
-        buttonTambah.setText("Tambah Pengguna Baru");
+        buttonTambah.setText("Tambah TagihanTerseleksi");
         buttonTambah.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonTambahActionPerformed(evt);
@@ -85,7 +86,7 @@ public class PenggunaDialog extends javax.swing.JDialog {
         });
         jPanel1.add(buttonTambah);
 
-        buttonUbah.setText("Ubah Pengguna Terseleksi");
+        buttonUbah.setText("Ubah Tagihan Terseleksi");
         buttonUbah.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonUbahActionPerformed(evt);
@@ -93,7 +94,7 @@ public class PenggunaDialog extends javax.swing.JDialog {
         });
         jPanel1.add(buttonUbah);
 
-        buttonHapus.setText("Hapus Pengguna Terseleksi");
+        buttonHapus.setText("Hapus Tagihan Terseleksi");
         buttonHapus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonHapusActionPerformed(evt);
@@ -105,12 +106,12 @@ public class PenggunaDialog extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 580, Short.MAX_VALUE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 580, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 780, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -119,44 +120,46 @@ public class PenggunaDialog extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 304, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 504, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
-        setSize(new java.awt.Dimension(616, 438));
+        setSize(new java.awt.Dimension(816, 638));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTambahActionPerformed
-        new PenggunaUpdateDialog(null, true).setVisible(true);
+        new TagihanUpdateDialog(null, true).setVisible(true);
         refresh();
-}//GEN-LAST:event_buttonTambahActionPerformed
+    }//GEN-LAST:event_buttonTambahActionPerformed
 
     private void buttonUbahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonUbahActionPerformed
-        if (tablePengguna.getSelectedRow() == -1) {
+        if (tableTagihan.getSelectedRow() == -1) {
             JOptionPane.showMessageDialog(this, "Pilih data yang akan diubah", "warning", JOptionPane.WARNING_MESSAGE);
         } else {
-            pengguna = listPengguna.get(tablePengguna.getSelectedRow());
-            new PenggunaUpdateDialog(null, true, pengguna).setVisible(true);
+            invoice = listInvoice.get(tableTagihan.getSelectedRow());
+            new TagihanUpdateDialog(null, true, invoice).setVisible(true);
             refresh();
         }
-}//GEN-LAST:event_buttonUbahActionPerformed
+    }//GEN-LAST:event_buttonUbahActionPerformed
 
     private void buttonHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonHapusActionPerformed
-        if (tablePengguna.getSelectedRow() == -1) {
+        if (tableTagihan.getSelectedRow() == -1) {
             JOptionPane.showMessageDialog(this, "Pilih data yang akan dihapus", "warning", JOptionPane.WARNING_MESSAGE);
         } else {
             try {
-                pengguna = listPengguna.get(tablePengguna.getSelectedRow());
-                penggunaDAO.delete(pengguna);
+                invoice = listInvoice.get(tableTagihan.getSelectedRow());
+                invoiceDAO.delete(invoice);
                 refresh();
             } catch (Exception ex) {
-                Logger.getLogger(PenggunaDialog.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(TagihanDialog.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-}//GEN-LAST:event_buttonHapusActionPerformed
+    }//GEN-LAST:event_buttonHapusActionPerformed
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonHapus;
     private javax.swing.JButton buttonTambah;
@@ -164,36 +167,42 @@ public class PenggunaDialog extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tablePengguna;
+    private javax.swing.JTable tableTagihan;
     // End of variables declaration//GEN-END:variables
 
     private void refresh() {
         try {
-            listPengguna = penggunaDAO.getAll(Pengguna.class);
-            updateTablePengguna();
+            listInvoice = invoiceDAO.getAll(Invoice.class);
+            updateTableTagihan();
         } catch (Exception ex) {
-            Logger.getLogger(PenggunaDialog.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TagihanDialog.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    private void updateTableTagihan() {
+        String[] judul = {"No", "Date", "NII", "Kelas", "Bank", "Kepada", "Untuk Pembayaran", "Jumlah Peserta", "Jumlah Tagihan"};
+        Object[][] isi = new Object[listInvoice.size()][9];
+        int x = 0;
+        int no = 0;
+        for (Invoice invoices : listInvoice) {
+            no += 1;
+            isi[x][0] = no;
+            isi[x][1] = sdf.format(invoices.getDate());
+            isi[x][2] = invoices.getNII();
+            isi[x][3] = invoices.getKelas().getTransactionReference();
+            isi[x][4] = invoices.getBank().getNama();
+            isi[x][5] = invoices.getDeskripsiKepada();
+            isi[x][6] = invoices.getDeskripsiUntukPembayaran();
+            isi[x][7] = invoices.getDeskripsiJumlahPeserta();
+            isi[x][8] = numberFormat.format(invoices.getJumlahTagihan());
+            x++;
+        }
+        new ServiceHelper().setAutoRize(isi, judul, tableTagihan);
     }
 
     private void renderButtonAkses(List<AksesMatrix> listAksesMatrix) {
-        buttonTambah.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.TAMBAH_PENGGUNA, listAksesMatrix));
-        buttonUbah.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.UBAH_PENGGUNA, listAksesMatrix));
-        buttonHapus.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.HAPUS_PENGGUNA, listAksesMatrix));
-    }
-
-    private void updateTablePengguna() {
-        String[] judul = {"No", "User Name", "Group"};
-        Object[][] isi = new Object[listPengguna.size()][3];
-        int x = 0;
-        int no = 0;
-        for (Pengguna penggunas : listPengguna) {
-            no += 1;
-            isi[x][0] = no;
-            isi[x][1] = penggunas.getUserName();
-            isi[x][2] = penggunas.getGroups().getNama();
-            x++;
-        }
-        new ServiceHelper().setAutoRize(isi, judul, tablePengguna);
+        buttonTambah.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.TAMBAH_TAGIHAN, listAksesMatrix));
+        buttonUbah.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.UBAH_TAGIHAN, listAksesMatrix));
+        buttonHapus.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.HAPUS_TAGIHAN, listAksesMatrix));
     }
 }
