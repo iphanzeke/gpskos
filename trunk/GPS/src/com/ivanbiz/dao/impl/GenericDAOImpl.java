@@ -188,12 +188,36 @@ public class GenericDAOImpl implements GenericDAO {
                 Map.Entry mapEntry = (Map.Entry) iterator.next();
                 System.out.println("The key is: " + mapEntry.getKey()
                         + ",value is :" + mapEntry.getValue());
-                crit.add(Restrictions.eq(mapEntry.getKey().toString(),  mapEntry.getValue().toString()));
+                crit.add(Restrictions.eq(mapEntry.getKey().toString(), mapEntry.getValue().toString()));
             }
             // crit.add(Restrictions.eq(variable, input));
             List list = crit.list();
             HibernateUtil.commitTransaction();
             return list;
+        } catch (Exception e) {
+            HibernateUtil.rollbackTransaction();
+            throw e;
+        } finally {
+            HibernateUtil.closeSession();
+        }
+    }
+
+    @Override
+    public Object getDataByEqualMore(Class clazImpl, Map map) throws Exception {
+        try {
+            Session session = HibernateUtil.getSession();
+            HibernateUtil.beginTransaction();
+            Criteria crit = session.createCriteria(clazImpl);
+            Iterator iterator = map.entrySet().iterator();
+            while (iterator.hasNext()) {
+                Map.Entry mapEntry = (Map.Entry) iterator.next();
+                System.out.println("The key is: " + mapEntry.getKey()
+                        + ",value is :" + mapEntry.getValue());
+                crit.add(Restrictions.eq(mapEntry.getKey().toString(), mapEntry.getValue().toString()));
+            }
+            Object obj = crit.uniqueResult();
+            HibernateUtil.commitTransaction();
+            return obj;
         } catch (Exception e) {
             HibernateUtil.rollbackTransaction();
             throw e;
