@@ -7,7 +7,9 @@ package com.ivanbiz.dao.impl;
 import com.ivanbiz.dao.GenericDAO;
 import com.ivanbiz.service.HibernateUtil;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
@@ -172,5 +174,31 @@ public class GenericDAOImpl implements GenericDAO {
         } finally {
             HibernateUtil.closeSession();
         }
+    }
+
+    @Override
+    public List getDataByEqualsMore(Class clazImpl, Map map) throws Exception {
+
+        try {
+            Session session = HibernateUtil.getSession();
+            HibernateUtil.beginTransaction();
+            Criteria crit = session.createCriteria(clazImpl);
+            Iterator iterator = map.entrySet().iterator();
+            while (iterator.hasNext()) {
+                Map.Entry mapEntry = (Map.Entry) iterator.next();
+                System.out.println("The key is: " + mapEntry.getKey()
+                        + ",value is :" + mapEntry.getValue());
+                crit.add(Restrictions.eq(mapEntry.getKey().toString(),  mapEntry.getValue().toString()));
+            }
+            // crit.add(Restrictions.eq(variable, input));
+            List list = crit.list();
+            HibernateUtil.commitTransaction();
+            return list;
+        } catch (Exception e) {
+            HibernateUtil.rollbackTransaction();
+            throw e;
+        } finally {
+            HibernateUtil.closeSession();
+        }        
     }
 }

@@ -6,6 +6,7 @@ package com.ivanbiz.dao;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -31,4 +32,6 @@ public interface GenericDAO {
     public Object getDataByEqual(Class clazImpl, String variable, Object input) throws Exception;
 
     public List getData(Class claz,Date start,Date end) throws Exception;
+    
+    public List getDataByEqualsMore(Class clazImpl,Map map)throws Exception;
 }
