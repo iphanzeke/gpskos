@@ -34,4 +34,6 @@ public interface GenericDAO {
     public List getData(Class claz,Date start,Date end) throws Exception;
     
     public List getDataByEqualsMore(Class clazImpl,Map map)throws Exception;
+    
+    public Object getDataByEqualMore(Class clazImpl,Map map)throws Exception;
 }
