@@ -158,22 +158,26 @@ public class GLAccountDialog extends JDialog {
     }
 
     private void updateTableGLAccounts() {
-        String[] judul = {"No", "Jenis Account", "Kode", "Bank", "No GL", "Nama GL", "Keterangan"};
-        Object[][] isi = new Object[listGlAccount.size()][7];
-        int x = 0;
-        int no = 0;
-        for (GLAccount gLAccounts : listGlAccount) {
-            no += 1;
-            isi[x][0] = no;
-            isi[x][1] = gLAccounts.getGroupACC();
-            isi[x][2] = gLAccounts.getKode();
-            isi[x][3] = gLAccounts.getNama();
-            isi[x][4] = gLAccounts.getNoGL();
-            isi[x][5] = gLAccounts.getNameGL();
-            isi[x][6] = gLAccounts.getDeskripsi();
-            x++;
+        try {
+            String[] judul = {"No", "Jenis Account", "Kode", "Bank", "No GL", "Nama GL", "Keterangan"};
+            Object[][] isi = new Object[listGlAccount.size()][7];
+            int x = 0;
+            int no = 0;
+            for (GLAccount gLAccounts : listGlAccount) {
+                no += 1;
+                isi[x][0] = no;
+                isi[x][1] = gLAccounts.getGroupACC();
+                isi[x][2] = gLAccounts.getKode();
+                isi[x][3] = gLAccounts.getNama();
+                isi[x][4] = gLAccounts.getNoGL();
+                isi[x][5] = gLAccounts.getNameGL();
+                isi[x][6] = gLAccounts.getDeskripsi();
+                x++;
+            }
+            new ServiceHelper().setAutoRize(isi, judul, tableGLAccount);
+        } catch (Exception ex) {
+            Logger.getLogger(GLAccountDialog.class.getName()).log(Level.SEVERE, null, ex);
         }
-        new ServiceHelper().setAutoRize(isi, judul, tableGLAccount);
     }
 
     private void renderButtonAkses(List<AksesMatrix> listAksesMatrix) {
