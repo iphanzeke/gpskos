@@ -21,7 +21,7 @@ public class Invoice {
     private String deskripsiJumlahPeserta;
     private BigDecimal jumlahTagihan;
     private Date date;
-
+    private String status;/* 0=simpan 1=sudah kejurnal 2=sudah terbayar*/
     /**
      * @return the id
      */
@@ -148,6 +148,20 @@ public class Invoice {
      */
     public void setJumlahTagihan(BigDecimal jumlahTagihan) {
         this.jumlahTagihan = jumlahTagihan;
+    }
+
+    /**
+     * @return the status
+     */
+    public String getStatus() {
+        return status;
+    }
+
+    /**
+     * @param status the status to set
+     */
+    public void setStatus(String status) {
+        this.status = status;
     }
 
    
