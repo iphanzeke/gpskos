@@ -52,7 +52,8 @@ public class GLAccountUpdateDialog extends JDialog {
         groupAccDAO = new GroupAccDAOImpl();
         bankDAO = new BankDAOImpl();
         refresh();
-        comboBoxGroupAccount.actionPerformed(null);
+        jLabel2.setVisible(false);
+        textFieldKode.setVisible(false);
     }
 
     /**
@@ -87,7 +88,7 @@ public class GLAccountUpdateDialog extends JDialog {
         setModal(true);
         setResizable(false);
 
-        jLabelGLAccount.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabelGLAccount.setFont(new java.awt.Font("Tahoma", 1, 24));
         jLabelGLAccount.setText("Tambah GL Account Baru");
 
         jPanel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -125,21 +126,26 @@ public class GLAccountUpdateDialog extends JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(textFieldKode, javax.swing.GroupLayout.DEFAULT_SIZE, 335, Short.MAX_VALUE)
-                    .addComponent(textFieldNoGL, javax.swing.GroupLayout.DEFAULT_SIZE, 335, Short.MAX_VALUE)
-                    .addComponent(comboBoxBank, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(textFieldNamaGL, javax.swing.GroupLayout.DEFAULT_SIZE, 335, Short.MAX_VALUE)
-                    .addComponent(textFieldKeterangan, javax.swing.GroupLayout.DEFAULT_SIZE, 335, Short.MAX_VALUE)
-                    .addComponent(comboBoxGroupAccount, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addGap(0, 243, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(comboBoxGroupAccount, 0, 197, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(textFieldKode, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(textFieldNoGL, javax.swing.GroupLayout.DEFAULT_SIZE, 316, Short.MAX_VALUE)
+                    .addComponent(comboBoxBank, 0, 316, Short.MAX_VALUE)
+                    .addComponent(textFieldNamaGL, javax.swing.GroupLayout.DEFAULT_SIZE, 316, Short.MAX_VALUE)
+                    .addComponent(textFieldKeterangan, javax.swing.GroupLayout.DEFAULT_SIZE, 316, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
                             .addComponent(jLabel3)
                             .addComponent(jLabel4)
                             .addComponent(jLabel5)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel7))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                            .addComponent(jLabel6))
+                        .addGap(0, 253, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -148,11 +154,10 @@ public class GLAccountUpdateDialog extends JDialog {
                 .addContainerGap()
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(comboBoxGroupAccount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textFieldKode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(comboBoxGroupAccount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(textFieldKode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -196,8 +201,8 @@ public class GLAccountUpdateDialog extends JDialog {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 361, Short.MAX_VALUE)
-                    .addComponent(jLabelGLAccount, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabelGLAccount, javax.swing.GroupLayout.DEFAULT_SIZE, 342, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 342, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -212,8 +217,8 @@ public class GLAccountUpdateDialog extends JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        setSize(new java.awt.Dimension(397, 441));
-        setLocationRelativeTo(null);
+        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+        setBounds((screenSize.width-378)/2, (screenSize.height-399)/2, 378, 399);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonBatalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBatalActionPerformed
@@ -235,14 +240,15 @@ public class GLAccountUpdateDialog extends JDialog {
 
     private void comboBoxGroupAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxGroupAccountActionPerformed
         if (comboBoxGroupAccount.getSelectedItem().equals("Kreditur")) {
-            textFieldKode.setEditable(true);
+            jLabel2.setVisible(true);
+            textFieldKode.setVisible(true);
             textFieldKode.setText("");
         } else {
-            textFieldKode.setEditable(false);
+            jLabel2.setVisible(false);
+            textFieldKode.setVisible(false);
             textFieldKode.setText("XXX");
         }
     }//GEN-LAST:event_comboBoxGroupAccountActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox comboBoxBank;
     private javax.swing.JComboBox comboBoxGroupAccount;
@@ -275,6 +281,9 @@ public class GLAccountUpdateDialog extends JDialog {
     }
 
     private void updateComboGroupAccount() {
+        GroupAcc ga = new GroupAcc();
+        ga.setNamaGroup("");
+        listGroupAccs.add(0, ga);
         Object data[] = new Object[listGroupAccs.size()];
         int x = 0;
         for (GroupAcc groupAcc : listGroupAccs) {
@@ -297,6 +306,8 @@ public class GLAccountUpdateDialog extends JDialog {
     private void validate(GLAccount gLAccount) {
         if (gLAccount == null) {
             JOptionPane.showMessageDialog(this, "GL Account tidak boleh null");
+        } else if (gLAccount.getGroupACC().equals("0")) {
+            JOptionPane.showMessageDialog(this, "Jenis Account tidak boleh null");
         } else if (gLAccount.getGroupACC().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Jenis Account tidak boleh Kosong");
         } else if (gLAccount.getKode() == null) {

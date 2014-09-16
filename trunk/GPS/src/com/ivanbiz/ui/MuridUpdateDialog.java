@@ -10,17 +10,15 @@
  */
 package com.ivanbiz.ui;
 
-import com.ivanbiz.dao.BankDAO;
 import com.ivanbiz.dao.MuridDAO;
-import com.ivanbiz.dao.impl.BankDAOImpl;
 import com.ivanbiz.dao.impl.MuridDAOImpl;
 import com.ivanbiz.model.Bank;
 import com.ivanbiz.model.Murid;
 import com.ivanbiz.service.JTextFieldLimit;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.DefaultComboBoxModel;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
@@ -32,8 +30,9 @@ public class MuridUpdateDialog extends JDialog {
 
     Murid murid;
     MuridDAO muridDAO = new MuridDAOImpl();
-    BankDAO bankDAO = new BankDAOImpl();
-    List<Bank> listBank;
+    Bank bank;
+    Pattern regexp;
+    Matcher matcher;
 
     /**
      * Creates new form PengajarUpdateDialog
@@ -43,12 +42,10 @@ public class MuridUpdateDialog extends JDialog {
      */
     public MuridUpdateDialog(MainFrame mainFrame, boolean modal) {
         initComponents();
-        refresh();
     }
 
     public MuridUpdateDialog(MainFrame mainFrame, boolean modal, Murid murid) {
         initComponents();
-        refresh();
         this.murid = murid;
         labelMurid.setText("Ubah Murid");
         jTextFieldNIM.setText(murid.getNIM());
@@ -58,7 +55,7 @@ public class MuridUpdateDialog extends JDialog {
         jTextFieldEmail.setText(murid.getEmail());
         jTextAreaAlamat.setText(murid.getAlamat());
         jDateChooserTanggal.setDate(murid.getDate());
-        comboBoxBank.setSelectedItem(murid.getBank().getNama());
+        textBank.setText(murid.getBank().getNama());
     }
 
     /**
@@ -88,7 +85,8 @@ public class MuridUpdateDialog extends JDialog {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextAreaAlamat = new javax.swing.JTextArea();
         jLabel9 = new javax.swing.JLabel();
-        comboBoxBank = new javax.swing.JComboBox();
+        textBank = new javax.swing.JTextField();
+        buttonDaftariBank = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         buttonSimpan = new javax.swing.JButton();
         buttonBatal = new javax.swing.JButton();
@@ -98,7 +96,7 @@ public class MuridUpdateDialog extends JDialog {
         setModal(true);
         setResizable(false);
 
-        labelMurid.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        labelMurid.setFont(new java.awt.Font("Tahoma", 1, 24));
         labelMurid.setText("Tambah Murid Baru");
 
         jPanel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -133,6 +131,16 @@ public class MuridUpdateDialog extends JDialog {
 
         jLabel9.setText("Bank :");
 
+        textBank.setEditable(false);
+
+        buttonDaftariBank.setText("[..]");
+        buttonDaftariBank.setToolTipText("Cari Daftar Bank");
+        buttonDaftariBank.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonDaftariBankActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -145,7 +153,6 @@ public class MuridUpdateDialog extends JDialog {
                     .addComponent(jTextFieldNama, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE)
                     .addComponent(jLabel3)
                     .addComponent(jLabel9)
-                    .addComponent(comboBoxBank, 0, 354, Short.MAX_VALUE)
                     .addComponent(jTextFieldTelp, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE)
                     .addComponent(jLabel4)
                     .addComponent(jTextFieldHP, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE)
@@ -155,7 +162,11 @@ public class MuridUpdateDialog extends JDialog {
                     .addComponent(jLabel7)
                     .addComponent(jLabel8)
                     .addComponent(jDateChooserTanggal, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(textBank, javax.swing.GroupLayout.DEFAULT_SIZE, 299, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonDaftariBank)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -172,7 +183,9 @@ public class MuridUpdateDialog extends JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(comboBoxBank, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(textBank, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buttonDaftariBank))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -236,8 +249,8 @@ public class MuridUpdateDialog extends JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        setSize(new java.awt.Dimension(416, 613));
-        setLocationRelativeTo(null);
+        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+        setBounds((screenSize.width-416)/2, (screenSize.height-613)/2, 416, 613);
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonBatalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBatalActionPerformed
@@ -255,14 +268,20 @@ public class MuridUpdateDialog extends JDialog {
         murid.setEmail(jTextFieldEmail.getText());
         murid.setAlamat(jTextAreaAlamat.getText());
         murid.setDate(jDateChooserTanggal.getDate());
-        murid.setBank(listBank.get(comboBoxBank.getSelectedIndex()));
+        murid.setBank(bank);
         validate(murid);
 }//GEN-LAST:event_buttonSimpanActionPerformed
 
+    private void buttonDaftariBankActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDaftariBankActionPerformed
+        String callBank = "callBank";
+        BankDialog bankDialog = new BankDialog(callBank);
+        bank = bankDialog.getBank();
+        textBank.setText(bank == null ? "" : bank.getNama());
+    }//GEN-LAST:event_buttonDaftariBankActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonBatal;
+    private javax.swing.JButton buttonDaftariBank;
     private javax.swing.JButton buttonSimpan;
-    private javax.swing.JComboBox comboBoxBank;
     private com.toedter.calendar.JDateChooser jDateChooserTanggal;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -282,27 +301,8 @@ public class MuridUpdateDialog extends JDialog {
     private javax.swing.JTextField jTextFieldNama;
     private javax.swing.JTextField jTextFieldTelp;
     private javax.swing.JLabel labelMurid;
+    private javax.swing.JTextField textBank;
     // End of variables declaration//GEN-END:variables
-
-    private void refresh() {
-        try {
-            listBank = bankDAO.getAll(Bank.class);
-            updateComboBank();
-        } catch (Exception ex) {
-            Logger.getLogger(MuridUpdateDialog.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-    }
-
-    private void updateComboBank() {
-        Object data[] = new Object[listBank.size()];
-        int x = 0;
-        for (Bank bank : listBank) {
-            data[x] = bank.getNama();
-            x++;
-        }
-        comboBoxBank.setModel(new DefaultComboBoxModel(data));
-    }
 
     private void validate(Murid murid) {
         if (murid == null) {
@@ -336,11 +336,17 @@ public class MuridUpdateDialog extends JDialog {
         } else if (murid.getAlamat().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Alamat tidak boleh kosong");
         } else {
-            try {
-                muridDAO.saveOrUpdate(murid);
-                dispose();
-            } catch (Exception ex) {
-                Logger.getLogger(MuridUpdateDialog.class.getName()).log(Level.SEVERE, null, ex);
+            regexp = Pattern.compile("^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$");
+            matcher = regexp.matcher(murid.getEmail());
+            if (matcher.matches()) {
+                try {
+                    muridDAO.saveOrUpdate(murid);
+                    dispose();
+                } catch (Exception ex) {
+                    Logger.getLogger(MuridUpdateDialog.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Format Email salah");
             }
         }
     }

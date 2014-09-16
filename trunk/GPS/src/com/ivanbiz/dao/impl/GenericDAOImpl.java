@@ -20,6 +20,7 @@ import org.hibernate.criterion.Restrictions;
  */
 public class GenericDAOImpl implements GenericDAO {
 
+    @Override
     public void delete(Object obj) throws Exception {
         try {
             HibernateUtil.beginTransaction();
@@ -34,6 +35,7 @@ public class GenericDAOImpl implements GenericDAO {
         }
     }
 
+    @Override
     public Object load(Class clasz, long id) throws Exception {
         try {
             Session session = HibernateUtil.getSession();
@@ -46,6 +48,7 @@ public class GenericDAOImpl implements GenericDAO {
         }
     }
 
+    @Override
     public void save(Object obj) throws Exception {
         try {
             HibernateUtil.beginTransaction();
@@ -60,6 +63,7 @@ public class GenericDAOImpl implements GenericDAO {
         }
     }
 
+    @Override
     public void saveOrUpdate(Object obj) throws Exception {
         try {
             HibernateUtil.beginTransaction();
@@ -74,6 +78,7 @@ public class GenericDAOImpl implements GenericDAO {
         }
     }
 
+    @Override
     public List getAll(Class claz) throws Exception {
         try {
             Session session = HibernateUtil.getSession();
@@ -89,6 +94,7 @@ public class GenericDAOImpl implements GenericDAO {
         }
     }
 
+    @Override
     public void update(Object obj) throws Exception {
         try {
             HibernateUtil.beginTransaction();
@@ -103,6 +109,7 @@ public class GenericDAOImpl implements GenericDAO {
         }
     }
 
+    @Override
     public List getDataByLike(Class clasImpl, String variable, Object input) throws Exception {
         try {
             Session session = HibernateUtil.getSession();
@@ -120,6 +127,7 @@ public class GenericDAOImpl implements GenericDAO {
         }
     }
 
+    @Override
     public List getDataByEquals(Class clazImpl, String variable, Object input) throws Exception {
         try {
             Session session = HibernateUtil.getSession();
@@ -137,6 +145,7 @@ public class GenericDAOImpl implements GenericDAO {
         }
     }
 
+    @Override
     public Object getDataByEqual(Class clazImpl, String variable, Object input) throws Exception {
         try {
             Session session = HibernateUtil.getSession();
@@ -154,6 +163,7 @@ public class GenericDAOImpl implements GenericDAO {
         }
     }
 
+    @Override
     public List getData(Class claz, Date start, Date end) throws Exception {
         try {
             Session session = HibernateUtil.getSession();
@@ -223,6 +233,6 @@ public class GenericDAOImpl implements GenericDAO {
             throw e;
         } finally {
             HibernateUtil.closeSession();
-        }        
+        }
     }
 }

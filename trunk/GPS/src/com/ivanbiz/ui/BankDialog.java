@@ -32,12 +32,26 @@ public class BankDialog extends JDialog {
     Bank bank;
     BankDAO bankDAO;
     List<Bank> listBank;
+    String callBank;
+
+    public Bank getBank() {
+        return bank;
+    }
 
     public BankDialog() {
         initComponents();
         renderButtonAkses(GlobalSession.getListAksesMatrix());
         bankDAO = new BankDAOImpl();
         refresh();
+    }
+
+    public BankDialog(String callBank) {
+        initComponents();
+        renderButtonAkses(GlobalSession.getListAksesMatrix());
+        bankDAO = new BankDAOImpl();
+        refresh();
+        this.callBank = callBank;
+        setVisible(true);
     }
 
     /**
@@ -86,7 +100,7 @@ public class BankDialog extends JDialog {
         });
         jPanel9.add(buttonHapus);
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 24));
         jLabel4.setText("Daftar Bank");
 
         tableBank.setModel(new javax.swing.table.DefaultTableModel(
@@ -100,6 +114,11 @@ public class BankDialog extends JDialog {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tableBank.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableBankMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tableBank);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -126,8 +145,8 @@ public class BankDialog extends JDialog {
                 .addContainerGap())
         );
 
-        setSize(new java.awt.Dimension(516, 338));
-        setLocationRelativeTo(null);
+        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+        setBounds((screenSize.width-516)/2, (screenSize.height-338)/2, 516, 338);
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTambahActionPerformed
@@ -158,6 +177,15 @@ public class BankDialog extends JDialog {
             }
         }
 }//GEN-LAST:event_buttonHapusActionPerformed
+
+    private void tableBankMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableBankMouseClicked
+        if (callBank != null) {
+            if (evt.getClickCount() == 2) {
+                bank = listBank.get(tableBank.getSelectedRow());
+                dispose();
+            }
+        }
+    }//GEN-LAST:event_tableBankMouseClicked
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonHapus;
     private javax.swing.JButton buttonTambah;

@@ -11,9 +11,12 @@
 package com.ivanbiz.ui;
 
 import com.ivanbiz.dao.GLAccountDAO;
+import com.ivanbiz.dao.GroupAccDAO;
 import com.ivanbiz.dao.impl.GLAccountDAOImpl;
+import com.ivanbiz.dao.impl.GroupAccDAOImpl;
 import com.ivanbiz.model.AksesMatrix;
 import com.ivanbiz.model.GLAccount;
+import com.ivanbiz.model.GroupAcc;
 import com.ivanbiz.service.GlobalSession;
 import com.ivanbiz.service.MenuAksesConstant;
 import com.ivanbiz.service.ServiceHelper;
@@ -138,7 +141,6 @@ public class GLAccountDialog extends JDialog {
             }
         }
     }//GEN-LAST:event_buttonHapusActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonHapus;
     private javax.swing.JButton buttonTambah;
@@ -166,8 +168,8 @@ public class GLAccountDialog extends JDialog {
             for (GLAccount gLAccounts : listGlAccount) {
                 no += 1;
                 isi[x][0] = no;
-                isi[x][1] = gLAccounts.getGroupACC();
-                isi[x][2] = gLAccounts.getKode();
+                isi[x][1] = groupAcc(gLAccounts.getGroupACC());
+                isi[x][2] = "XXX".equals(gLAccounts.getKode()) ? "N/A" : gLAccounts.getKode();
                 isi[x][3] = gLAccounts.getNama();
                 isi[x][4] = gLAccounts.getNoGL();
                 isi[x][5] = gLAccounts.getNameGL();
@@ -183,5 +185,22 @@ public class GLAccountDialog extends JDialog {
     private void renderButtonAkses(List<AksesMatrix> listAksesMatrix) {
         buttonTambah.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.TAMBAH_GLACCOUNT, listAksesMatrix));
         buttonHapus.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.HAPUS_GLACCOUNT, listAksesMatrix));
+    }
+
+    private Object groupAcc(String groupACC) {
+        String groupACCReturn = null;
+        try {
+            GroupAccDAO groupAccDAO = new GroupAccDAOImpl();
+            List<GroupAcc> list = groupAccDAO.getAll(GroupAcc.class);
+            for (GroupAcc groupAcc : list) {
+                if (Long.parseLong(groupACC) == groupAcc.getId()) {
+                    groupACCReturn = groupAcc.getNamaGroup();
+                    break;
+                }
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(GLAccountDialog.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return groupACCReturn;
     }
 }

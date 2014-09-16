@@ -34,11 +34,24 @@ public class PengajarDialog extends JDialog {
     List<Pengajar> listPengajar;
     PengajarDAO pengajarDAO = new PengajarDAOImpl();
     SimpleDateFormat sdf = new SimpleDateFormat("dd-MMMM-yyyy");
+    String callPengajar;
 
     public PengajarDialog() {
         initComponents();
         renderButtonAkses(GlobalSession.getListAksesMatrix());
         refresh();
+    }
+
+    public PengajarDialog(String callPengajar) {
+        initComponents();
+        renderButtonAkses(GlobalSession.getListAksesMatrix());
+        refresh();
+        this.callPengajar = callPengajar;
+        setVisible(true);
+    }
+
+    public Pengajar getPengajar() {
+        return pengajar;
     }
 
     /**
@@ -63,7 +76,7 @@ public class PengajarDialog extends JDialog {
         setModal(true);
         setResizable(false);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24));
         jLabel1.setText("Daftar Pengajar");
 
         tablePengajar.setModel(new javax.swing.table.DefaultTableModel(
@@ -77,6 +90,11 @@ public class PengajarDialog extends JDialog {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tablePengajar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablePengajarMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tablePengajar);
 
         buttonTambah.setText("Tambah Pengajar Baru");
@@ -127,8 +145,8 @@ public class PengajarDialog extends JDialog {
                 .addContainerGap())
         );
 
-        setSize(new java.awt.Dimension(816, 638));
-        setLocationRelativeTo(null);
+        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+        setBounds((screenSize.width-816)/2, (screenSize.height-638)/2, 816, 638);
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTambahActionPerformed
@@ -160,6 +178,14 @@ public class PengajarDialog extends JDialog {
         }
     }//GEN-LAST:event_buttonUbahActionPerformed
 
+    private void tablePengajarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablePengajarMouseClicked
+        if (callPengajar != null) {
+            if (evt.getClickCount() == 2) {
+                pengajar = listPengajar.get(tablePengajar.getSelectedRow());
+                dispose();
+            }
+        }
+    }//GEN-LAST:event_tablePengajarMouseClicked
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonHapus;
     private javax.swing.JButton buttonTambah;

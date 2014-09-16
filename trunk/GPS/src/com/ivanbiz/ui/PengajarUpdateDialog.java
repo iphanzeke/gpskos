@@ -17,6 +17,8 @@ import com.ivanbiz.service.JTextFieldLimit;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
@@ -29,8 +31,8 @@ public class PengajarUpdateDialog extends JDialog {
     Pengajar pengajar;
     List<Pengajar> listPengajar;
     PengajarDAO pengajarDAO = new PengajarDAOImpl();
-
-    ;
+    Pattern regexp;
+    Matcher matcher;
 
     /** Creates new form PengajarUpdateDialog
      * @param mainFrame
@@ -242,7 +244,6 @@ public class PengajarUpdateDialog extends JDialog {
     private void buttonBatalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBatalActionPerformed
         dispose();
 }//GEN-LAST:event_buttonBatalActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonBatal;
     private javax.swing.JButton buttonSimpan;
@@ -296,11 +297,17 @@ public class PengajarUpdateDialog extends JDialog {
         } else if (pengajar.getAlamat().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Alamat tidak boleh kosong");
         } else {
-            try {
-                pengajarDAO.saveOrUpdate(pengajar);
-                dispose();
-            } catch (Exception ex) {
-                Logger.getLogger(PengajarUpdateDialog.class.getName()).log(Level.SEVERE, null, ex);
+            regexp = Pattern.compile("^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$");
+            matcher = regexp.matcher(pengajar.getEmail());
+            if (matcher.matches()) {
+                try {
+                    pengajarDAO.saveOrUpdate(pengajar);
+                    dispose();
+                } catch (Exception ex) {
+                    Logger.getLogger(PengajarUpdateDialog.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Format Email salah");
             }
         }
     }
