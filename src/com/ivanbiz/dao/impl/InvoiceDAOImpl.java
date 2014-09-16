@@ -19,6 +19,10 @@ public class InvoiceDAOImpl extends GenericDAOImpl implements InvoiceDAO{
     @Override
     public String sendInvoiceWithJurnal(Invoice invoice,String proCode,String glCredit) throws Exception {
         String sukses = "";
+        if(invoice.getStatus().equals("1")){
+            sukses="Sudah Dalam Proses";
+            return sukses;
+        }
         try{
             HibernateUtil.beginTransaction();
             Session session  = HibernateUtil.getSession();
@@ -41,6 +45,10 @@ public class InvoiceDAOImpl extends GenericDAOImpl implements InvoiceDAO{
     @Override
     public String sendInvoice(Invoice invoice, String proCode, String glCredit) throws Exception {
         String sukses = "";
+         if(invoice.getStatus().equals("1")){
+            sukses="Sudah Dalam Proses";
+            return sukses;
+        }
         try{
             HibernateUtil.beginTransaction();
             Session session  = HibernateUtil.getSession();   
