@@ -11,5 +11,6 @@ import com.ivanbiz.model.Invoice;
  * @author City_Z
  */
 public interface InvoiceDAO extends GenericDAO{
+    public String sendInvoiceWithJurnal(Invoice invoice,String proCode,String glCredit)throws Exception;
     public String sendInvoice(Invoice invoice,String proCode,String glCredit)throws Exception;
 }
