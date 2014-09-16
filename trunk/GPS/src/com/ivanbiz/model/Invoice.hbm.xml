@@ -13,5 +13,6 @@
         <property column="DESKRIPSI_JUMLAH_PESERTA" length="250" name="deskripsiJumlahPeserta" type="string"/>
         <property column="JUMLAH_TAGIHAN" name="jumlahTagihan" type="big_decimal"/>
         <property column="DATE"  name="date" type="date"/>
+        <property column="STATUS"  name="status" type="string" length="2"/>
     </class>
 </hibernate-mapping>

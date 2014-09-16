@@ -17,12 +17,35 @@ import org.hibernate.Session;
 public class InvoiceDAOImpl extends GenericDAOImpl implements InvoiceDAO{
 
     @Override
-    public String sendInvoice(Invoice invoice,String proCode,String glCredit) throws Exception {
+    public String sendInvoiceWithJurnal(Invoice invoice,String proCode,String glCredit) throws Exception {
         String sukses = "";
         try{
             HibernateUtil.beginTransaction();
             Session session  = HibernateUtil.getSession();
+            invoice.setStatus("1");
             session.save(invoice);
+            JurnalDAO jurnalDAO = new JurnalDAOImpl();
+            jurnalDAO.saveJurnal("005"+proCode, invoice.getJumlahTagihan(), invoice.getNII(), "", glCredit, session);
+            HibernateUtil.commitTransaction();
+            sukses = "sukses";
+        }catch(Exception e){
+                sukses = "error";
+            HibernateUtil.rollbackTransaction();
+            throw e;
+        }finally{
+            HibernateUtil.closeSession();
+        }
+        return sukses;
+    }
+
+    @Override
+    public String sendInvoice(Invoice invoice, String proCode, String glCredit) throws Exception {
+        String sukses = "";
+        try{
+            HibernateUtil.beginTransaction();
+            Session session  = HibernateUtil.getSession();   
+            invoice.setStatus("1");
+            session.update(invoice);
             JurnalDAO jurnalDAO = new JurnalDAOImpl();
             jurnalDAO.saveJurnal("005"+proCode, invoice.getJumlahTagihan(), invoice.getNII(), "", glCredit, session);
             HibernateUtil.commitTransaction();
