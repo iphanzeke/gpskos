@@ -8,7 +8,6 @@ import com.ivanbiz.dao.InvoiceDAO;
 import com.ivanbiz.dao.JurnalDAO;
 import com.ivanbiz.model.Invoice;
 import com.ivanbiz.service.HibernateUtil;
-import java.math.BigDecimal;
 import org.hibernate.Session;
 
 /**
