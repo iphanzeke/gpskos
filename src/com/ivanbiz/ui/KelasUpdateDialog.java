@@ -11,18 +11,14 @@
 package com.ivanbiz.ui;
 
 import com.ivanbiz.dao.KelasDAO;
-import com.ivanbiz.dao.PengajarDAO;
 import com.ivanbiz.dao.impl.KelasDAOImpl;
-import com.ivanbiz.dao.impl.PengajarDAOImpl;
 import com.ivanbiz.model.Kelas;
 import com.ivanbiz.model.Pengajar;
 import com.ivanbiz.service.JTextFieldLimit;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
@@ -34,9 +30,8 @@ public class KelasUpdateDialog extends JDialog {
 
     Kelas kelas;
     KelasDAO kelasDAO = new KelasDAOImpl();
-    PengajarDAO pengajarDAO;
-    List<Pengajar> listPengajar;
     SimpleDateFormat sdf;
+    Pengajar pengajar;
 
     /**
      * Creates new form PengajarUpdateDialog
@@ -47,8 +42,6 @@ public class KelasUpdateDialog extends JDialog {
     public KelasUpdateDialog(MainFrame mainFrame, boolean modal) {
         super(mainFrame, modal);
         initComponents();
-        pengajarDAO = new PengajarDAOImpl();
-        refresh();
         labelKelas.setText("Tambah Kelas Baru");
         sdf = new SimpleDateFormat("yyMMdd");
         textFieldTransaksi.setText(getNoTransaksi());
@@ -57,13 +50,12 @@ public class KelasUpdateDialog extends JDialog {
     public KelasUpdateDialog(MainFrame mainFrame, boolean modal, Kelas kelas) {
         super(mainFrame, modal);
         initComponents();
-        refresh();
         this.kelas = kelas;
         labelKelas.setText("Ubah Kelas");
         textFieldTransaksi.setText(kelas.getTransactionReference());
         jTextFieldNIK.setText(kelas.getNIK());
         jTextFieldDeskripsi.setText(kelas.getDeskripsi());
-        jComboBoxPengajar.setSelectedItem("(" + kelas.getPengajar().getNIP() + ") - " + kelas.getPengajar().getNama());
+        textPengajar.setText(kelas.getPengajar().getNama());
         jDateChooserTanggal.setDate(kelas.getTanggalKelas());
         jTextFieldTempat.setText(kelas.getTempatKelas());
         jTextAreaAlamat.setText(kelas.getAlamatKelas());
@@ -114,9 +106,10 @@ public class KelasUpdateDialog extends JDialog {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextAreaAlamat = new javax.swing.JTextArea();
         jLabel9 = new javax.swing.JLabel();
-        jComboBoxPengajar = new javax.swing.JComboBox();
         textFieldTransaksi = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
+        textPengajar = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         buttonSimpan = new javax.swing.JButton();
         buttonBatal = new javax.swing.JButton();
@@ -126,7 +119,7 @@ public class KelasUpdateDialog extends JDialog {
         setModal(true);
         setResizable(false);
 
-        labelKelas.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        labelKelas.setFont(new java.awt.Font("Tahoma", 1, 24));
         labelKelas.setText("Tambah Kelas Baru");
 
         jPanel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -158,6 +151,15 @@ public class KelasUpdateDialog extends JDialog {
 
         jLabel6.setText("NIK :");
 
+        textPengajar.setEditable(false);
+
+        jButton1.setText("[..]");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -172,13 +174,16 @@ public class KelasUpdateDialog extends JDialog {
                     .addComponent(jTextFieldDeskripsi, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE)
                     .addComponent(jLabel3)
                     .addComponent(jLabel9)
-                    .addComponent(jComboBoxPengajar, 0, 354, Short.MAX_VALUE)
                     .addComponent(jLabel7)
                     .addComponent(jDateChooserTanggal, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE)
                     .addComponent(jLabel4)
                     .addComponent(jTextFieldTempat, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE)
                     .addComponent(jLabel8)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(textPengajar, javax.swing.GroupLayout.DEFAULT_SIZE, 299, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton1)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -199,7 +204,9 @@ public class KelasUpdateDialog extends JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBoxPengajar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(textPengajar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -255,8 +262,8 @@ public class KelasUpdateDialog extends JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        setSize(new java.awt.Dimension(416, 567));
-        setLocationRelativeTo(null);
+        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+        setBounds((screenSize.width-416)/2, (screenSize.height-567)/2, 416, 567);
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSimpanActionPerformed
@@ -266,7 +273,7 @@ public class KelasUpdateDialog extends JDialog {
         kelas.setTransactionReference(textFieldTransaksi.getText());
         kelas.setNIK(jTextFieldNIK.getText());
         kelas.setDeskripsi(jTextFieldDeskripsi.getText());
-        kelas.setPengajar(listPengajar.get(jComboBoxPengajar.getSelectedIndex()));
+        kelas.setPengajar(pengajar);
         kelas.setTanggalKelas(jDateChooserTanggal.getDate());
         kelas.setStatusKelas("N");
         kelas.setTempatKelas(jTextFieldTempat.getText());
@@ -278,10 +285,16 @@ public class KelasUpdateDialog extends JDialog {
         dispose();
     }//GEN-LAST:event_buttonBatalActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        String callPengajar = "callPengajar";
+        PengajarDialog pengajarDialog = new PengajarDialog(callPengajar);
+        pengajar = pengajarDialog.getPengajar();
+        textPengajar.setText(pengajar == null ? "" : pengajar.getNama());
+    }//GEN-LAST:event_jButton1ActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonBatal;
     private javax.swing.JButton buttonSimpan;
-    private javax.swing.JComboBox jComboBoxPengajar;
+    private javax.swing.JButton jButton1;
     private com.toedter.calendar.JDateChooser jDateChooserTanggal;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -299,26 +312,8 @@ public class KelasUpdateDialog extends JDialog {
     private javax.swing.JTextField jTextFieldTempat;
     private javax.swing.JLabel labelKelas;
     private javax.swing.JTextField textFieldTransaksi;
+    private javax.swing.JTextField textPengajar;
     // End of variables declaration//GEN-END:variables
-
-    private void refresh() {
-        try {
-            listPengajar = pengajarDAO.getAll(Pengajar.class);
-            updateComboPengajar();
-        } catch (Exception ex) {
-            Logger.getLogger(KelasUpdateDialog.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    private void updateComboPengajar() {
-        Object data[] = new Object[listPengajar.size()];
-        int x = 0;
-        for (Pengajar pengajar : listPengajar) {
-            data[x] = "(" + pengajar.getNIP() + ") - " + pengajar.getNama();
-            x++;
-        }
-        jComboBoxPengajar.setModel(new DefaultComboBoxModel(data));
-    }
 
     private void validate(Kelas kelas) {
         if (kelas == null) {
