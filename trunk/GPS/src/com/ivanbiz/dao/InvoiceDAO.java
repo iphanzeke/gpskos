@@ -4,10 +4,12 @@
  */
 package com.ivanbiz.dao;
 
+import com.ivanbiz.model.Invoice;
+
 /**
  *
  * @author City_Z
  */
 public interface InvoiceDAO extends GenericDAO{
-    
+    public String sendInvoice(Invoice invoice,String proCode,String glCredit)throws Exception;
 }
