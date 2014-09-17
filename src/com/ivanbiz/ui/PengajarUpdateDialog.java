@@ -14,11 +14,10 @@ import com.ivanbiz.dao.PengajarDAO;
 import com.ivanbiz.dao.impl.PengajarDAOImpl;
 import com.ivanbiz.model.Pengajar;
 import com.ivanbiz.service.JTextFieldLimit;
+import com.ivanbiz.service.ServiceHelper;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
@@ -31,8 +30,6 @@ public class PengajarUpdateDialog extends JDialog {
     Pengajar pengajar;
     List<Pengajar> listPengajar;
     PengajarDAO pengajarDAO = new PengajarDAOImpl();
-    Pattern regexp;
-    Matcher matcher;
 
     /** Creates new form PengajarUpdateDialog
      * @param mainFrame
@@ -290,6 +287,8 @@ public class PengajarUpdateDialog extends JDialog {
             JOptionPane.showMessageDialog(this, "Email tidak boleh null");
         } else if (pengajar.getEmail().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Email tidak boleh kosong");
+        } else if (new ServiceHelper().validateEmail(pengajar.getEmail())) {
+            JOptionPane.showMessageDialog(this, "Format Email salah");
         } else if (pengajar.getDate() == null) {
             JOptionPane.showMessageDialog(this, "Date tidak boleh null");
         } else if (pengajar.getAlamat() == null) {
@@ -297,17 +296,11 @@ public class PengajarUpdateDialog extends JDialog {
         } else if (pengajar.getAlamat().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Alamat tidak boleh kosong");
         } else {
-            regexp = Pattern.compile("^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$");
-            matcher = regexp.matcher(pengajar.getEmail());
-            if (matcher.matches()) {
-                try {
-                    pengajarDAO.saveOrUpdate(pengajar);
-                    dispose();
-                } catch (Exception ex) {
-                    Logger.getLogger(PengajarUpdateDialog.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            } else {
-                JOptionPane.showMessageDialog(this, "Format Email salah");
+            try {
+                pengajarDAO.saveOrUpdate(pengajar);
+                dispose();
+            } catch (Exception ex) {
+                Logger.getLogger(PengajarUpdateDialog.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }

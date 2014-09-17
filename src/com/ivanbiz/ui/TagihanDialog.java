@@ -56,13 +56,14 @@ public class TagihanDialog extends javax.swing.JDialog {
         buttonTambah = new javax.swing.JButton();
         buttonUbah = new javax.swing.JButton();
         buttonHapus = new javax.swing.JButton();
+        buttonKirim = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setAlwaysOnTop(true);
         setModal(true);
         setResizable(false);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24));
         jLabel1.setText("Daftar Tagihan");
 
         tableTagihan.setModel(new javax.swing.table.DefaultTableModel(
@@ -102,6 +103,14 @@ public class TagihanDialog extends javax.swing.JDialog {
         });
         jPanel1.add(buttonHapus);
 
+        buttonKirim.setText("Kirim Tagihan Terseleksi");
+        buttonKirim.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonKirimActionPerformed(evt);
+            }
+        });
+        jPanel1.add(buttonKirim);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -109,8 +118,8 @@ public class TagihanDialog extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 780, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 780, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 780, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -126,8 +135,8 @@ public class TagihanDialog extends javax.swing.JDialog {
                 .addContainerGap())
         );
 
-        setSize(new java.awt.Dimension(816, 638));
-        setLocationRelativeTo(null);
+        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+        setBounds((screenSize.width-816)/2, (screenSize.height-638)/2, 816, 638);
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTambahActionPerformed
@@ -159,9 +168,22 @@ public class TagihanDialog extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_buttonHapusActionPerformed
 
-
+    private void buttonKirimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonKirimActionPerformed
+        if (tableTagihan.getSelectedRow() == -1) {
+            JOptionPane.showMessageDialog(this, "Pilih data yang akan dikirim", "warning", JOptionPane.WARNING_MESSAGE);
+        } else {
+            try {
+                invoice = listInvoice.get(tableTagihan.getSelectedRow());
+                invoiceDAO.sendInvoice(invoice, null, null);
+                refresh();
+            } catch (Exception ex) {
+                Logger.getLogger(TagihanDialog.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_buttonKirimActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonHapus;
+    private javax.swing.JButton buttonKirim;
     private javax.swing.JButton buttonTambah;
     private javax.swing.JButton buttonUbah;
     private javax.swing.JLabel jLabel1;

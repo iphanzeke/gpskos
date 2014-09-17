@@ -8,6 +8,8 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
@@ -69,45 +71,57 @@ public class ServiceHelper {
             column.setWidth(width + jTable.getIntercellSpacing().width);
         }
     }
-    
-    
-     public static String bilang(long uang) {
-        String nama[]={"nol","satu","dua","tiga","empat","lima","enam","tujuh","delapan","sembilan"};
-        String besar[]={"triliun","milyar","juta","ribu",""};                
-        if(uang==0) return nama[0];
+
+    public static String bilang(long uang) {
+        String nama[] = {"nol", "satu", "dua", "tiga", "empat", "lima", "enam", "tujuh", "delapan", "sembilan"};
+        String besar[] = {"triliun", "milyar", "juta", "ribu", ""};
+        if (uang == 0) {
+            return nama[0];
+        }
         long p = 1000000000000l;
         String hasil = "";
-        for(int i=0;i < besar.length;i++,p /= 1000)
-        {
-            if(uang < p) continue;
-            long temp = uang / p;                
-            boolean seribu = p==1000;
-            if(temp>=100) {
-                hasil += nama[(int)temp/100] + " ratus ";
+        for (int i = 0; i < besar.length; i++, p /= 1000) {
+            if (uang < p) {
+                continue;
+            }
+            long temp = uang / p;
+            boolean seribu = p == 1000;
+            if (temp >= 100) {
+                hasil += nama[(int) temp / 100] + " ratus ";
                 temp %= 100;
                 seribu = false;
             }
-            if(temp>=11 && temp<=19) {
-                hasil += nama[(int)temp-10] + " belas ";
+            if (temp >= 11 && temp <= 19) {
+                hasil += nama[(int) temp - 10] + " belas ";
                 temp = 0;
                 seribu = false;
             }
-            if(temp>=10) {
-                hasil += nama[(int)temp/10] + " puluh ";
+            if (temp >= 10) {
+                hasil += nama[(int) temp / 10] + " puluh ";
                 temp %= 10;
             }
-            if(temp > 0) {
-             if(seribu && temp==1)
-              hasil += "se";
-             else
-              hasil += nama[(int)temp] + " ";  
+            if (temp > 0) {
+                if (seribu && temp == 1) {
+                    hasil += "se";
+                } else {
+                    hasil += nama[(int) temp] + " ";
+                }
             }
             uang %= p;
             hasil += besar[i] + " ";
         }
-        hasil=hasil.replaceAll("satu ratus", "seratus");
-        hasil=hasil.replaceAll("satu belas", "sebelas");
-        hasil=hasil.replaceAll("satu puluh", "sepuluh");
+        hasil = hasil.replaceAll("satu ratus", "seratus");
+        hasil = hasil.replaceAll("satu belas", "sebelas");
+        hasil = hasil.replaceAll("satu puluh", "sepuluh");
         return hasil.trim();
+    }
+
+    public boolean validateEmail(String email) {
+        Pattern regexp = Pattern.compile("^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$");
+        Matcher matcher = regexp.matcher(email);
+        if (matcher.matches()) {
+            return false;
+        }
+        return true;
     }
 }
