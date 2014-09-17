@@ -15,10 +15,9 @@ import com.ivanbiz.dao.impl.MuridDAOImpl;
 import com.ivanbiz.model.Bank;
 import com.ivanbiz.model.Murid;
 import com.ivanbiz.service.JTextFieldLimit;
+import com.ivanbiz.service.ServiceHelper;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
@@ -31,8 +30,6 @@ public class MuridUpdateDialog extends JDialog {
     Murid murid;
     MuridDAO muridDAO = new MuridDAOImpl();
     Bank bank;
-    Pattern regexp;
-    Matcher matcher;
 
     /**
      * Creates new form PengajarUpdateDialog
@@ -55,7 +52,8 @@ public class MuridUpdateDialog extends JDialog {
         jTextFieldEmail.setText(murid.getEmail());
         jTextAreaAlamat.setText(murid.getAlamat());
         jDateChooserTanggal.setDate(murid.getDate());
-        textBank.setText(murid.getBank().getNama());
+        bank = murid.getBank();
+        textBank.setText(bank.getNama());
     }
 
     /**
@@ -329,6 +327,8 @@ public class MuridUpdateDialog extends JDialog {
             JOptionPane.showMessageDialog(this, "Email tidak boleh null");
         } else if (murid.getEmail().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Email tidak boleh kosong");
+        } else if (new ServiceHelper().validateEmail(murid.getEmail())) {
+            JOptionPane.showMessageDialog(this, "Format Email salah");
         } else if (murid.getDate() == null) {
             JOptionPane.showMessageDialog(this, "Tanggal Lahir tidak boleh null");
         } else if (murid.getAlamat() == null) {
@@ -336,17 +336,11 @@ public class MuridUpdateDialog extends JDialog {
         } else if (murid.getAlamat().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Alamat tidak boleh kosong");
         } else {
-            regexp = Pattern.compile("^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$");
-            matcher = regexp.matcher(murid.getEmail());
-            if (matcher.matches()) {
-                try {
-                    muridDAO.saveOrUpdate(murid);
-                    dispose();
-                } catch (Exception ex) {
-                    Logger.getLogger(MuridUpdateDialog.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            } else {
-                JOptionPane.showMessageDialog(this, "Format Email salah");
+            try {
+                muridDAO.saveOrUpdate(murid);
+                dispose();
+            } catch (Exception ex) {
+                Logger.getLogger(MuridUpdateDialog.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }

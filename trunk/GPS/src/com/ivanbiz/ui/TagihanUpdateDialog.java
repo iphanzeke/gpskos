@@ -59,14 +59,14 @@ public class TagihanUpdateDialog extends javax.swing.JDialog {
     public TagihanUpdateDialog(MainFrame mainFrame, boolean modal, Invoice invoice) {
         initComponents();
         this.invoice = invoice;
-        renderKelas();
-        renderBank(invoice.getKelas().getTransactionReference());
-        renderKepada(invoice.getBank());
         labelTagihan.setText("Ubah Tagihan");
         dateChooserDate.setDate(invoice.getDate());
         textNII.setText(invoice.getNII());
-        comboBank.setSelectedItem(invoice.getBank().getNama());
+        renderKelas();
         comboKelas.setSelectedItem(invoice.getKelas().getTransactionReference());
+        renderBank(invoice.getKelas().getTransactionReference());
+        comboBank.setSelectedItem(invoice.getBank().getNama());
+        renderKepada(invoice.getBank());
         comboBoxKepada.setSelectedItem(listGLAccounts);
         textPembayaran.setText(invoice.getDeskripsiUntukPembayaran());
         textPeserta.setText(invoice.getDeskripsiJumlahPeserta());
@@ -295,11 +295,11 @@ public class TagihanUpdateDialog extends javax.swing.JDialog {
         invoice.setDate(dateChooserDate.getDate());
         invoice.setNII(textNII.getText());
         invoice.setKelas(listKelas.get(comboKelas.getSelectedIndex()));
-        invoice.setBank(listBank.get(comboBank.getSelectedIndex()));
-        invoice.setDeskripsiKepada(listGLAccounts.get(comboBoxKepada.getSelectedIndex()).getDeskripsi());
+        invoice.setBank(null == listBank ? null : listBank.get(comboBank.getSelectedIndex()));
+        invoice.setDeskripsiKepada(comboBoxKepada.getSelectedIndex() == -1 ? null : listGLAccounts.get(comboBoxKepada.getSelectedIndex()).getDeskripsi());
         invoice.setDeskripsiUntukPembayaran(textPembayaran.getText());
         invoice.setDeskripsiJumlahPeserta(textPeserta.getText());
-        invoice.setJumlahTagihan(new BigDecimal(textJumlah.getText().replaceAll(",", "")));
+        invoice.setJumlahTagihan(textJumlah.getText().isEmpty() ? new BigDecimal(0) : new BigDecimal(textJumlah.getText().replaceAll(",", "")));
         validate(invoice);
     }//GEN-LAST:event_buttonSimpanActionPerformed
 
@@ -333,10 +333,10 @@ public class TagihanUpdateDialog extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "NII tidak boleh null");
         } else if (invoice.getNII().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "NII tidak boleh kosong");
-        } else if (invoice.getKelas() == null) {
-            JOptionPane.showMessageDialog(this, "Kelas tidak boleh null");
-        } else if (invoice.getBank() == null) {
-            JOptionPane.showMessageDialog(this, "Bank tidak boleh null");
+        } else if (invoice.getKelas().getTransactionReference().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Kelas tidak boleh kosong");
+        } else if (invoice.getBank().getNama().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Bank tidak boleh kosong");
         } else if (invoice.getDeskripsiKepada() == null) {
             JOptionPane.showMessageDialog(this, "Kepada tidak boleh null");
         } else if (invoice.getDeskripsiKepada().trim().isEmpty()) {
@@ -349,8 +349,8 @@ public class TagihanUpdateDialog extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Jumlah Peserta tidak boleh null");
         } else if (invoice.getDeskripsiJumlahPeserta().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Jumlah Peserta tidak boleh kosong");
-        } else if (invoice.getJumlahTagihan() == null) {
-            JOptionPane.showMessageDialog(this, "Jumlah Tagihan tidak boleh null");
+        } else if (invoice.getJumlahTagihan().equals(new BigDecimal(0))) {
+            JOptionPane.showMessageDialog(this, "Jumlah Tagihan tidak boleh kosong");
         } else {
             try {
                 invoiceDAO.saveOrUpdate(invoice);
