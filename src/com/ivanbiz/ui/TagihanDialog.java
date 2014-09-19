@@ -37,7 +37,7 @@ public class TagihanDialog extends javax.swing.JDialog {
         invoiceDAO = new InvoiceDAOImpl();
         sdf = new SimpleDateFormat("dd-MMMM-yyyy");
         numberFormat = NumberFormat.getCurrencyInstance();
-        refresh();
+        refresh("0");
     }
 
     /**
@@ -57,15 +57,17 @@ public class TagihanDialog extends javax.swing.JDialog {
         buttonUbah = new javax.swing.JButton();
         buttonHapus = new javax.swing.JButton();
         buttonKirim = new javax.swing.JButton();
+        comboBoxStatus = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setAlwaysOnTop(true);
         setModal(true);
         setResizable(false);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24));
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setText("Daftar Tagihan");
 
+        tableTagihan.setAutoCreateRowSorter(true);
         tableTagihan.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -111,6 +113,13 @@ public class TagihanDialog extends javax.swing.JDialog {
         });
         jPanel1.add(buttonKirim);
 
+        comboBoxStatus.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Belum Kirim Tagihan", "Sudah Kirim Tagihan" }));
+        comboBoxStatus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboBoxStatusActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -120,7 +129,10 @@ public class TagihanDialog extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 780, Short.MAX_VALUE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 780, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 780, Short.MAX_VALUE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 780, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(comboBoxStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -129,19 +141,21 @@ public class TagihanDialog extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 504, Short.MAX_VALUE)
+                .addComponent(comboBoxStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 478, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
-        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-816)/2, (screenSize.height-638)/2, 816, 638);
+        setSize(new java.awt.Dimension(816, 638));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTambahActionPerformed
         new TagihanUpdateDialog(null, true).setVisible(true);
-        refresh();
+        refresh("0");
     }//GEN-LAST:event_buttonTambahActionPerformed
 
     private void buttonUbahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonUbahActionPerformed
@@ -150,7 +164,7 @@ public class TagihanDialog extends javax.swing.JDialog {
         } else {
             invoice = listInvoice.get(tableTagihan.getSelectedRow());
             new TagihanUpdateDialog(null, true, invoice).setVisible(true);
-            refresh();
+            refresh("0");
         }
     }//GEN-LAST:event_buttonUbahActionPerformed
 
@@ -161,7 +175,7 @@ public class TagihanDialog extends javax.swing.JDialog {
             try {
                 invoice = listInvoice.get(tableTagihan.getSelectedRow());
                 invoiceDAO.delete(invoice);
-                refresh();
+                refresh("0");
             } catch (Exception ex) {
                 Logger.getLogger(TagihanDialog.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -174,27 +188,40 @@ public class TagihanDialog extends javax.swing.JDialog {
         } else {
             try {
                 invoice = listInvoice.get(tableTagihan.getSelectedRow());
-                invoiceDAO.sendInvoice(invoice, null, null);
-                refresh();
+                String[] kode_noGL = invoice.getDeskripsiKepada().split(";");
+                invoiceDAO.sendInvoice(invoice, kode_noGL[1], kode_noGL[2]);
+                refresh("0");
             } catch (Exception ex) {
                 Logger.getLogger(TagihanDialog.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }//GEN-LAST:event_buttonKirimActionPerformed
+
+    private void comboBoxStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxStatusActionPerformed
+        if (comboBoxStatus.getSelectedIndex() == 0) {
+            jPanel1.setVisible(true);
+            refresh("0");
+        } else {
+            jPanel1.setVisible(false);
+            refresh("1");
+        }
+    }//GEN-LAST:event_comboBoxStatusActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonHapus;
     private javax.swing.JButton buttonKirim;
     private javax.swing.JButton buttonTambah;
     private javax.swing.JButton buttonUbah;
+    private javax.swing.JComboBox comboBoxStatus;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tableTagihan;
     // End of variables declaration//GEN-END:variables
 
-    private void refresh() {
+    private void refresh(String status) {
         try {
-            listInvoice = invoiceDAO.getAll(Invoice.class);
+            listInvoice = invoiceDAO.getDataByEquals(Invoice.class, "status", status);
             updateTableTagihan();
         } catch (Exception ex) {
             Logger.getLogger(TagihanDialog.class.getName()).log(Level.SEVERE, null, ex);
@@ -202,21 +229,27 @@ public class TagihanDialog extends javax.swing.JDialog {
     }
 
     private void updateTableTagihan() {
-        String[] judul = {"No", "Date", "NII", "Kelas", "Bank", "Kepada", "Untuk Pembayaran", "Jumlah Peserta", "Jumlah Tagihan"};
-        Object[][] isi = new Object[listInvoice.size()][9];
+        String[] judul = {"No", "Date", "NII", "Kelas", "Bank", "Kepada", "Untuk Pembayaran", "Jumlah Peserta", "Jumlah Tagihan", "Jatuh Tempo", "Mohon Ditransfer Ke"};
+        Object[][] isi = new Object[listInvoice.size()][11];
         int x = 0;
         int no = 0;
         for (Invoice invoices : listInvoice) {
             no += 1;
+            String[] kepada;
+            kepada = invoices.getDeskripsiKepada().split(";");
+            String[] deskripsi;
+            deskripsi = invoices.getDeskripsiUntuk().split(";");
             isi[x][0] = no;
             isi[x][1] = sdf.format(invoices.getDate());
             isi[x][2] = invoices.getNII();
             isi[x][3] = invoices.getKelas().getTransactionReference();
             isi[x][4] = invoices.getBank().getNama();
-            isi[x][5] = invoices.getDeskripsiKepada();
+            isi[x][5] = kepada[2];
             isi[x][6] = invoices.getDeskripsiUntukPembayaran();
             isi[x][7] = invoices.getDeskripsiJumlahPeserta();
             isi[x][8] = numberFormat.format(invoices.getJumlahTagihan());
+            isi[x][9] = invoices.getJatuhTempo();
+            isi[x][10] = deskripsi[0] + " A/C No. " + deskripsi[1];
             x++;
         }
         new ServiceHelper().setAutoRize(isi, judul, tableTagihan);

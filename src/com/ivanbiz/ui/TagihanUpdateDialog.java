@@ -43,6 +43,7 @@ public class TagihanUpdateDialog extends javax.swing.JDialog {
     List<Kelas> listKelas;
     List<Bank> listBank;
     List<GLAccount> listGLAccounts;
+    List<GLAccount> listGLAccountsKreditur;
 
     /**
      * Creates new form TagihanDialog
@@ -54,6 +55,7 @@ public class TagihanUpdateDialog extends javax.swing.JDialog {
         initComponents();
         dateChooserDate.setDate(new Date());
         renderKelas();
+        renderDitranfer();
     }
 
     public TagihanUpdateDialog(MainFrame mainFrame, boolean modal, Invoice invoice) {
@@ -104,6 +106,10 @@ public class TagihanUpdateDialog extends javax.swing.JDialog {
         jScrollPane1 = new javax.swing.JScrollPane();
         textTerbilang = new javax.swing.JEditorPane();
         comboBoxKepada = new javax.swing.JComboBox();
+        textJatuhTempo = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        comboDitransfer = new javax.swing.JComboBox();
         jPanel2 = new javax.swing.JPanel();
         buttonSimpan = new javax.swing.JButton();
         buttonBatal = new javax.swing.JButton();
@@ -113,12 +119,12 @@ public class TagihanUpdateDialog extends javax.swing.JDialog {
         setModal(true);
         setResizable(false);
 
-        labelTagihan.setFont(new java.awt.Font("Tahoma", 1, 24));
+        labelTagihan.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         labelTagihan.setText("Tambah Tagihan Baru");
 
         jPanel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jLabel2.setText("NII :");
+        jLabel2.setText("No Invoice :");
 
         textNII.setDocument(new JTextFieldLimit(50));
 
@@ -168,6 +174,18 @@ public class TagihanUpdateDialog extends javax.swing.JDialog {
         textTerbilang.setEnabled(false);
         jScrollPane1.setViewportView(textTerbilang);
 
+        textJatuhTempo.setDocument(new JTextFieldLimit(3)
+        );
+        textJatuhTempo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                textJatuhTempoKeyReleased(evt);
+            }
+        });
+
+        jLabel11.setText("Jatuh Tempo :");
+
+        jLabel12.setText("Mohon Di Transfer ke : ");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -183,6 +201,8 @@ public class TagihanUpdateDialog extends javax.swing.JDialog {
                     .addComponent(textJumlah, javax.swing.GroupLayout.DEFAULT_SIZE, 446, Short.MAX_VALUE)
                     .addComponent(dateChooserDate, javax.swing.GroupLayout.DEFAULT_SIZE, 446, Short.MAX_VALUE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 446, Short.MAX_VALUE)
+                    .addComponent(comboBoxKepada, 0, 446, Short.MAX_VALUE)
+                    .addComponent(textJatuhTempo, javax.swing.GroupLayout.DEFAULT_SIZE, 446, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
@@ -192,10 +212,12 @@ public class TagihanUpdateDialog extends javax.swing.JDialog {
                             .addComponent(jLabel6)
                             .addComponent(jLabel7)
                             .addComponent(jLabel8)
-                            .addComponent(jLabel9)
-                            .addComponent(jLabel10))
-                        .addGap(0, 348, Short.MAX_VALUE))
-                    .addComponent(comboBoxKepada, 0, 446, Short.MAX_VALUE))
+                            .addComponent(jLabel10)
+                            .addComponent(jLabel11)
+                            .addComponent(jLabel12)
+                            .addComponent(jLabel9))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(comboDitransfer, 0, 446, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -237,7 +259,15 @@ public class TagihanUpdateDialog extends javax.swing.JDialog {
                 .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel11)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(textJatuhTempo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel12)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(comboDitransfer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         buttonSimpan.setText("Simpan");
@@ -280,8 +310,8 @@ public class TagihanUpdateDialog extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-508)/2, (screenSize.height-626)/2, 508, 626);
+        setSize(new java.awt.Dimension(508, 727));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonBatalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBatalActionPerformed
@@ -296,10 +326,13 @@ public class TagihanUpdateDialog extends javax.swing.JDialog {
         invoice.setNII(textNII.getText());
         invoice.setKelas(listKelas.get(comboKelas.getSelectedIndex()));
         invoice.setBank(null == listBank ? null : listBank.get(comboBank.getSelectedIndex()));
-        invoice.setDeskripsiKepada(comboBoxKepada.getSelectedIndex() == -1 ? null : listGLAccounts.get(comboBoxKepada.getSelectedIndex()).getDeskripsi());
+        invoice.setDeskripsiKepada(comboBoxKepada.getSelectedIndex() == -1 ? null : listGLAccounts.get(comboBoxKepada.getSelectedIndex()).getNoGL() + ";" + listGLAccounts.get(comboBoxKepada.getSelectedIndex()).getKode() + ";" + listGLAccounts.get(comboBoxKepada.getSelectedIndex()).getDeskripsi());
         invoice.setDeskripsiUntukPembayaran(textPembayaran.getText());
         invoice.setDeskripsiJumlahPeserta(textPeserta.getText());
         invoice.setJumlahTagihan(textJumlah.getText().isEmpty() ? new BigDecimal(0) : new BigDecimal(textJumlah.getText().replaceAll(",", "")));
+        invoice.setStatus("0");
+        invoice.setJatuhTempo(textJatuhTempo.getText());
+        invoice.setDeskripsiUntuk(comboDitransfer.getSelectedIndex() == -1 ? null : listGLAccountsKreditur.get(comboDitransfer.getSelectedIndex()).getNameGL() + ";" + listGLAccountsKreditur.get(comboDitransfer.getSelectedIndex()).getNoGL());
         validate(invoice);
     }//GEN-LAST:event_buttonSimpanActionPerformed
 
@@ -311,7 +344,7 @@ public class TagihanUpdateDialog extends javax.swing.JDialog {
                 Long.parseLong(textJumlah.getText());
                 textTerbilang.setText(ServiceHelper.bilang(Long.parseLong(textJumlah.getText())));
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(this, "Format uang salah, harus angka", "warning", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Format salah, harus angka", "warning", JOptionPane.WARNING_MESSAGE);
             }
         }
     }//GEN-LAST:event_textJumlahKeyReleased
@@ -323,6 +356,14 @@ public class TagihanUpdateDialog extends javax.swing.JDialog {
     private void comboKelasItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboKelasItemStateChanged
         renderBank(comboKelas.getSelectedItem().toString());
     }//GEN-LAST:event_comboKelasItemStateChanged
+
+    private void textJatuhTempoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textJatuhTempoKeyReleased
+        try {
+            Long.parseLong(textJatuhTempo.getText());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Format salah, harus angka", "warning", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_textJatuhTempoKeyReleased
 
     private void validate(Invoice invoice) {
         if (invoice == null) {
@@ -351,6 +392,10 @@ public class TagihanUpdateDialog extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Jumlah Peserta tidak boleh kosong");
         } else if (invoice.getJumlahTagihan().equals(new BigDecimal(0))) {
             JOptionPane.showMessageDialog(this, "Jumlah Tagihan tidak boleh kosong");
+        } else if (invoice.getJatuhTempo().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Jumlah Tagihan tidak boleh kosong");
+        } else if (invoice.getDeskripsiUntuk() == null) {
+            JOptionPane.showMessageDialog(this, "Mohon Ditranfer ke tidak boleh null");
         } else {
             try {
                 invoiceDAO.saveOrUpdate(invoice);
@@ -365,9 +410,12 @@ public class TagihanUpdateDialog extends javax.swing.JDialog {
     private javax.swing.JButton buttonSimpan;
     private javax.swing.JComboBox comboBank;
     private javax.swing.JComboBox comboBoxKepada;
+    private javax.swing.JComboBox comboDitransfer;
     private javax.swing.JComboBox comboKelas;
     private com.toedter.calendar.JDateChooser dateChooserDate;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -380,6 +428,7 @@ public class TagihanUpdateDialog extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel labelTagihan;
+    private javax.swing.JTextField textJatuhTempo;
     private javax.swing.JTextField textJumlah;
     private javax.swing.JTextField textNII;
     private javax.swing.JTextField textPembayaran;
@@ -423,7 +472,7 @@ public class TagihanUpdateDialog extends javax.swing.JDialog {
         try {
             Map map = new HashMap();
             map.put("nama", bank.getNama());
-            map.put("groupACC", "2");
+            map.put("groupACC", "Debitur");
             listGLAccounts = gLAccountDAO.getDataByEqualsMore(GLAccount.class, map);
             updateComboKepada();
         } catch (Exception ex) {
@@ -435,7 +484,7 @@ public class TagihanUpdateDialog extends javax.swing.JDialog {
         Object data[] = new Object[listGLAccounts.size()];
         int x = 0;
         for (GLAccount gLAccount : listGLAccounts) {
-            data[x] = gLAccount.getDeskripsi();
+            data[x] = "(" + gLAccount.getNoGL() + ")" + gLAccount.getDeskripsi();
             x++;
         }
         comboBoxKepada.setModel(new DefaultComboBoxModel(data));
@@ -451,5 +500,24 @@ public class TagihanUpdateDialog extends javax.swing.JDialog {
         } catch (Exception ex) {
             Logger.getLogger(TagihanUpdateDialog.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    private void renderDitranfer() {
+        try {
+            listGLAccountsKreditur = gLAccountDAO.getDataByEquals(GLAccount.class, "groupACC", "Kreditur");
+            updateComboDitransfer();
+        } catch (Exception ex) {
+            Logger.getLogger(TagihanUpdateDialog.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void updateComboDitransfer() {
+        Object data[] = new Object[listGLAccountsKreditur.size()];
+        int x = 0;
+        for (GLAccount gLAccounts : listGLAccountsKreditur) {
+            data[x] = "(" + gLAccounts.getNoGL() + ")" + gLAccounts.getNameGL();
+            x++;
+        }
+        comboDitransfer.setModel(new DefaultComboBoxModel(data));
     }
 }

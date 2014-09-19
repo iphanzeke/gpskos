@@ -229,7 +229,7 @@ public class GLAccountUpdateDialog extends JDialog {
         if (gLAccount == null) {
             gLAccount = new GLAccount();
         }
-        gLAccount.setGroupACC(String.valueOf(listGroupAccs.get(comboBoxGroupAccount.getSelectedIndex()).getId()));
+        gLAccount.setGroupACC(listGroupAccs.get(comboBoxGroupAccount.getSelectedIndex()).getNamaGroup());
         gLAccount.setKode(textFieldKode.getText());
         gLAccount.setNama(comboBoxBank.getSelectedItem().toString());
         gLAccount.setNoGL("IDR" + textFieldNoGL.getText());
@@ -314,10 +314,14 @@ public class GLAccountUpdateDialog extends JDialog {
             JOptionPane.showMessageDialog(this, "Kode tidak boleh null");
         } else if (gLAccount.getKode().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Kode tidak boleh kosong");
+        } else if (gLAccount.getKode().contains(";")) {
+            JOptionPane.showMessageDialog(this, "Kode tidak boleh ada ;");
         } else if (gLAccount.getNama() == null) {
             JOptionPane.showMessageDialog(this, "Bank tidak boleh null");
         } else if (gLAccount.getNoGL().equals("IDR")) {
             JOptionPane.showMessageDialog(this, "No GL tidak boleh kosong");
+        } else if (gLAccount.getNoGL().contains(";")) {
+            JOptionPane.showMessageDialog(this, "No GL tidak boleh ada ;");
         } else if (gLAccount.getNameGL() == null) {
             JOptionPane.showMessageDialog(this, "Nama GL tidak boleh null");
         } else if (gLAccount.getNameGL().trim().isEmpty()) {
@@ -326,6 +330,8 @@ public class GLAccountUpdateDialog extends JDialog {
             JOptionPane.showMessageDialog(this, "Keterangan tidak boleh null");
         } else if (gLAccount.getDeskripsi().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Keterangan tidak boleh kosong");
+        } else if (gLAccount.getDeskripsi().contains(";")) {
+            JOptionPane.showMessageDialog(this, "Keterangan tidak boleh ada ;");
         } else {
             try {
                 gLAccountDAO.saveOrUpdate(gLAccount);
