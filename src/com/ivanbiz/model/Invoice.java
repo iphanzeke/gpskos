@@ -22,6 +22,8 @@ public class Invoice {
     private BigDecimal jumlahTagihan;
     private Date date;
     private String status;/* 0=simpan 1=sudah kejurnal 2=sudah terbayar*/
+    private String jatuhTempo;
+    private String deskripsiUntuk;
     /**
      * @return the id
      */

@@ -14,5 +14,7 @@
         <property column="JUMLAH_TAGIHAN" name="jumlahTagihan" type="big_decimal"/>
         <property column="DATE"  name="date" type="date"/>
         <property column="STATUS"  name="status" type="string" length="2"/>
+        <property column="JATUH_TEMPO"  name="jatuhTempo" type="string" length="3"/>
+        <property column="DESKRIPSI_UNTUK"  name="deskripsiUntuk" type="string" length="250"/>
     </class>
 </hibernate-mapping>
