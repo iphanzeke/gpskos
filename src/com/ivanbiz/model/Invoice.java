@@ -166,5 +166,33 @@ public class Invoice {
         this.status = status;
     }
 
+    /**
+     * @return the jatuhTempo
+     */
+    public String getJatuhTempo() {
+        return jatuhTempo;
+    }
+
+    /**
+     * @param jatuhTempo the jatuhTempo to set
+     */
+    public void setJatuhTempo(String jatuhTempo) {
+        this.jatuhTempo = jatuhTempo;
+    }
+
+    /**
+     * @return the deskripsiUntuk
+     */
+    public String getDeskripsiUntuk() {
+        return deskripsiUntuk;
+    }
+
+    /**
+     * @param deskripsiUntuk the deskripsiUntuk to set
+     */
+    public void setDeskripsiUntuk(String deskripsiUntuk) {
+        this.deskripsiUntuk = deskripsiUntuk;
+    }
+
    
 }
