@@ -36,4 +36,6 @@ public interface GenericDAO {
     public List getDataByEqualsMore(Class clazImpl,Map map)throws Exception;
     
     public Object getDataByEqualMore(Class clazImpl,Map map)throws Exception;
+    
+    public boolean validateField(Class clazImpl,String variable,Object input)throws Exception;
 }
