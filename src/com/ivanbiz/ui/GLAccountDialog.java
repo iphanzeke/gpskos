@@ -28,11 +28,11 @@ import javax.swing.JOptionPane;
  * @author Shbt Peterpan
  */
 public class GLAccountDialog extends JDialog {
-
+    
     GLAccount gLAccount;
     List<GLAccount> listGlAccount;
     GLAccountDAO gLAccountDAO;
-
+    
     public GLAccountDialog() {
         initComponents();
         gLAccountDAO = new GLAccountDAOImpl();
@@ -155,7 +155,7 @@ public class GLAccountDialog extends JDialog {
             Logger.getLogger(GLAccountDialog.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
     private void updateTableGLAccounts() {
         try {
             String[] judul = {"No", "Jenis Account", "Kode", "Bank", "No GL", "Nama GL", "Keterangan"};
@@ -168,7 +168,7 @@ public class GLAccountDialog extends JDialog {
                 isi[x][1] = gLAccounts.getGroupACC();
                 isi[x][2] = "XXX".equals(gLAccounts.getKode()) ? "N/A" : gLAccounts.getKode();
                 isi[x][3] = gLAccounts.getNama();
-                isi[x][4] = gLAccounts.getNoGL();
+                isi[x][4] = gLAccounts.getNoGL().replaceAll(";", " ");
                 isi[x][5] = gLAccounts.getNameGL();
                 isi[x][6] = gLAccounts.getDeskripsi();
                 x++;
@@ -178,7 +178,7 @@ public class GLAccountDialog extends JDialog {
             Logger.getLogger(GLAccountDialog.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
     private void renderButtonAkses(List<AksesMatrix> listAksesMatrix) {
         buttonTambah.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.TAMBAH_GLACCOUNT, listAksesMatrix));
         buttonHapus.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.HAPUS_GLACCOUNT, listAksesMatrix));
