@@ -235,4 +235,26 @@ public class GenericDAOImpl implements GenericDAO {
             HibernateUtil.closeSession();
         }
     }
+
+    @Override
+    public boolean validateField(Class clazImpl, String variable, Object input) throws Exception {
+        boolean status = false;
+        try {
+            Session session = HibernateUtil.getSession();
+            HibernateUtil.beginTransaction();
+            Criteria crit = session.createCriteria(clazImpl);
+            crit.add(Restrictions.eq(variable, input));
+            Object obj = crit.uniqueResult();
+            if(obj == null){
+                status = true;
+            }
+            HibernateUtil.commitTransaction();
+            return status;
+        } catch (Exception e) {
+            HibernateUtil.rollbackTransaction();
+            throw e;
+        } finally {
+            HibernateUtil.closeSession();
+        }
+    }
 }
