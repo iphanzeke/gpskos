@@ -74,6 +74,9 @@ public class TagihanUpdateDialog extends javax.swing.JDialog {
         textPeserta.setText(invoice.getDeskripsiJumlahPeserta());
         textJumlah.setText(invoice.getJumlahTagihan().toBigInteger().toString());
         textTerbilang.setText(ServiceHelper.bilang(Long.parseLong(invoice.getJumlahTagihan().toBigInteger().toString())));
+        textJatuhTempo.setText(invoice.getJatuhTempo());
+        renderDitranfer();
+        comboDitransfer.setSelectedItem(listGLAccountsKreditur);
     }
 
     /**
@@ -484,7 +487,7 @@ public class TagihanUpdateDialog extends javax.swing.JDialog {
         Object data[] = new Object[listGLAccounts.size()];
         int x = 0;
         for (GLAccount gLAccount : listGLAccounts) {
-            data[x] = "(" + gLAccount.getNoGL() + ")" + gLAccount.getDeskripsi();
+            data[x] = "(" + gLAccount.getNoGL().replaceAll(";", " ") + ") " + gLAccount.getDeskripsi();
             x++;
         }
         comboBoxKepada.setModel(new DefaultComboBoxModel(data));
@@ -515,7 +518,7 @@ public class TagihanUpdateDialog extends javax.swing.JDialog {
         Object data[] = new Object[listGLAccountsKreditur.size()];
         int x = 0;
         for (GLAccount gLAccounts : listGLAccountsKreditur) {
-            data[x] = "(" + gLAccounts.getNoGL() + ")" + gLAccounts.getNameGL();
+            data[x] = "(" + gLAccounts.getNoGL().replaceAll(";", " ") + ") " + gLAccounts.getNameGL();
             x++;
         }
         comboDitransfer.setModel(new DefaultComboBoxModel(data));

@@ -189,7 +189,7 @@ public class TagihanDialog extends javax.swing.JDialog {
             try {
                 invoice = listInvoice.get(tableTagihan.getSelectedRow());
                 String[] kode_noGL = invoice.getDeskripsiKepada().split(";");
-                invoiceDAO.sendInvoice(invoice, kode_noGL[1], kode_noGL[2]);
+                invoiceDAO.sendInvoice(invoice, kode_noGL[1] + kode_noGL[2], kode_noGL[3]);
                 refresh("0");
             } catch (Exception ex) {
                 Logger.getLogger(TagihanDialog.class.getName()).log(Level.SEVERE, null, ex);
@@ -249,7 +249,7 @@ public class TagihanDialog extends javax.swing.JDialog {
             isi[x][7] = invoices.getDeskripsiJumlahPeserta();
             isi[x][8] = numberFormat.format(invoices.getJumlahTagihan());
             isi[x][9] = invoices.getJatuhTempo();
-            isi[x][10] = deskripsi[0] + " A/C No. " + deskripsi[1];
+            isi[x][10] = deskripsi[0] + " A/C No. " + deskripsi[1] + " " + deskripsi[2];
             x++;
         }
         new ServiceHelper().setAutoRize(isi, judul, tableTagihan);
