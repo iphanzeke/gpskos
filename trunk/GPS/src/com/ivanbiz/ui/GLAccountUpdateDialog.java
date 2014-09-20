@@ -88,7 +88,7 @@ public class GLAccountUpdateDialog extends JDialog {
         setModal(true);
         setResizable(false);
 
-        jLabelGLAccount.setFont(new java.awt.Font("Tahoma", 1, 24));
+        jLabelGLAccount.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabelGLAccount.setText("Tambah GL Account Baru");
 
         jPanel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -126,9 +126,6 @@ public class GLAccountUpdateDialog extends JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addGap(0, 243, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(comboBoxGroupAccount, 0, 197, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -141,11 +138,12 @@ public class GLAccountUpdateDialog extends JDialog {
                     .addComponent(textFieldKeterangan, javax.swing.GroupLayout.DEFAULT_SIZE, 316, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7)
                             .addComponent(jLabel3)
                             .addComponent(jLabel4)
                             .addComponent(jLabel5)
                             .addComponent(jLabel6))
-                        .addGap(0, 253, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -217,8 +215,8 @@ public class GLAccountUpdateDialog extends JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-378)/2, (screenSize.height-399)/2, 378, 399);
+        setSize(new java.awt.Dimension(378, 399));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonBatalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBatalActionPerformed
@@ -232,7 +230,7 @@ public class GLAccountUpdateDialog extends JDialog {
         gLAccount.setGroupACC(listGroupAccs.get(comboBoxGroupAccount.getSelectedIndex()).getNamaGroup());
         gLAccount.setKode(textFieldKode.getText());
         gLAccount.setNama(comboBoxBank.getSelectedItem().toString());
-        gLAccount.setNoGL("IDR" + textFieldNoGL.getText());
+        gLAccount.setNoGL("IDR;" + textFieldNoGL.getText());
         gLAccount.setNameGL(textFieldNamaGL.getText());
         gLAccount.setDeskripsi(textFieldKeterangan.getText());
         validate(gLAccount);
@@ -249,6 +247,7 @@ public class GLAccountUpdateDialog extends JDialog {
             textFieldKode.setText("XXX");
         }
     }//GEN-LAST:event_comboBoxGroupAccountActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox comboBoxBank;
     private javax.swing.JComboBox comboBoxGroupAccount;
@@ -318,10 +317,8 @@ public class GLAccountUpdateDialog extends JDialog {
             JOptionPane.showMessageDialog(this, "Kode tidak boleh ada ;");
         } else if (gLAccount.getNama() == null) {
             JOptionPane.showMessageDialog(this, "Bank tidak boleh null");
-        } else if (gLAccount.getNoGL().equals("IDR")) {
+        } else if (gLAccount.getNoGL().equals("IDR;")) {
             JOptionPane.showMessageDialog(this, "No GL tidak boleh kosong");
-        } else if (gLAccount.getNoGL().contains(";")) {
-            JOptionPane.showMessageDialog(this, "No GL tidak boleh ada ;");
         } else if (gLAccount.getNameGL() == null) {
             JOptionPane.showMessageDialog(this, "Nama GL tidak boleh null");
         } else if (gLAccount.getNameGL().trim().isEmpty()) {
