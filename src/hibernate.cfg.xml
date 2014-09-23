@@ -41,6 +41,7 @@
         <mapping resource="com/ivanbiz/model/Bank.hbm.xml"/>
         <mapping resource="com/ivanbiz/model/Invoice.hbm.xml"/>
         <mapping resource="com/ivanbiz/model/Perusahaan.hbm.xml"/>
+        <mapping resource="com/ivanbiz/model/CashBalance.hbm.xml"/>
     </session-factory>
 </hibernate-configuration>
 
