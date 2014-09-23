@@ -7,6 +7,7 @@ package com.ivanbiz.dao;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import org.hibernate.Session;
 
 /**
  *
@@ -37,5 +38,7 @@ public interface GenericDAO {
     
     public Object getDataByEqualMore(Class clazImpl,Map map)throws Exception;
     
-    public boolean validateField(Class clazImpl,String variable,Object input)throws Exception;
+    public String validateField(Class clazImpl,String variable,Object input)throws Exception;
+    
+    public String validateFieldSession(Class clazImpl,String variable,Object input,Session session)throws Exception;
 }

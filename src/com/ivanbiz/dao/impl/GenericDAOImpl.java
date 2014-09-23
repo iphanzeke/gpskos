@@ -111,38 +111,41 @@ public class GenericDAOImpl implements GenericDAO {
 
     @Override
     public List getDataByLike(Class clasImpl, String variable, Object input) throws Exception {
+        List list = null;
         try {
             Session session = HibernateUtil.getSession();
             HibernateUtil.beginTransaction();
             Criteria crit = session.createCriteria(clasImpl);
             crit.add(Restrictions.like(variable, "%" + input + "%"));
-            List list = crit.list();
-            HibernateUtil.commitTransaction();
-            return list;
+            list = crit.list();
+            HibernateUtil.commitTransaction();            
         } catch (Exception e) {
             HibernateUtil.rollbackTransaction();
             throw e;
         } finally {
             HibernateUtil.closeSession();
         }
+        return list;
     }
 
     @Override
     public List getDataByEquals(Class clazImpl, String variable, Object input) throws Exception {
+        List list = null;
         try {
             Session session = HibernateUtil.getSession();
             HibernateUtil.beginTransaction();
             Criteria crit = session.createCriteria(clazImpl);
             crit.add(Restrictions.eq(variable, input));
-            List list = crit.list();
+            list = crit.list();
             HibernateUtil.commitTransaction();
-            return list;
+            
         } catch (Exception e) {
             HibernateUtil.rollbackTransaction();
             throw e;
         } finally {
             HibernateUtil.closeSession();
         }
+        return list;
     }
 
     @Override
@@ -165,6 +168,7 @@ public class GenericDAOImpl implements GenericDAO {
 
     @Override
     public List getData(Class claz, Date start, Date end) throws Exception {
+        List list = null;
         try {
             Session session = HibernateUtil.getSession();
             HibernateUtil.beginTransaction();
@@ -175,20 +179,21 @@ public class GenericDAOImpl implements GenericDAO {
             end.setMinutes(0);
             end.setSeconds(0);
             Criteria crit = session.createCriteria(claz).add(Restrictions.ge("dateReference", start)).add(Restrictions.le("dateReference", end));
-            List list = crit.list();
+             list = crit.list();
             HibernateUtil.commitTransaction();
-            return list;
+            
         } catch (Exception e) {
             HibernateUtil.rollbackTransaction();
             throw e;
         } finally {
             HibernateUtil.closeSession();
         }
+        return list;
     }
 
     @Override
     public List getDataByEqualsMore(Class clazImpl, Map map) throws Exception {
-
+        List list = null;
         try {
             Session session = HibernateUtil.getSession();
             HibernateUtil.beginTransaction();
@@ -201,19 +206,20 @@ public class GenericDAOImpl implements GenericDAO {
                 crit.add(Restrictions.eq(mapEntry.getKey().toString(), mapEntry.getValue().toString()));
             }
             // crit.add(Restrictions.eq(variable, input));
-            List list = crit.list();
-            HibernateUtil.commitTransaction();
-            return list;
+            list = crit.list();
+            HibernateUtil.commitTransaction();            
         } catch (Exception e) {
             HibernateUtil.rollbackTransaction();
             throw e;
         } finally {
             HibernateUtil.closeSession();
         }
+        return list;
     }
 
     @Override
     public Object getDataByEqualMore(Class clazImpl, Map map) throws Exception {
+        Object obj = null;
         try {
             Session session = HibernateUtil.getSession();
             HibernateUtil.beginTransaction();
@@ -225,20 +231,21 @@ public class GenericDAOImpl implements GenericDAO {
                         + ",value is :" + mapEntry.getValue());
                 crit.add(Restrictions.eq(mapEntry.getKey().toString(), mapEntry.getValue().toString()));
             }
-            Object obj = crit.uniqueResult();
+             obj = crit.uniqueResult();
             HibernateUtil.commitTransaction();
-            return obj;
+            
         } catch (Exception e) {
             HibernateUtil.rollbackTransaction();
             throw e;
         } finally {
             HibernateUtil.closeSession();
         }
+        return obj;
     }
 
     @Override
-    public boolean validateField(Class clazImpl, String variable, Object input) throws Exception {
-        boolean status = false;
+    public String validateField(Class clazImpl, String variable, Object input) throws Exception {
+        String status = "Data sudah ada";
         try {
             Session session = HibernateUtil.getSession();
             HibernateUtil.beginTransaction();
@@ -246,15 +253,35 @@ public class GenericDAOImpl implements GenericDAO {
             crit.add(Restrictions.eq(variable, input));
             Object obj = crit.uniqueResult();
             if(obj == null){
-                status = true;
+                status = "";
             }
             HibernateUtil.commitTransaction();
-            return status;
+            
         } catch (Exception e) {
             HibernateUtil.rollbackTransaction();
             throw e;
         } finally {
             HibernateUtil.closeSession();
         }
+        return status;
+    }
+
+    @Override
+    public String validateFieldSession(Class clazImpl, String variable, Object input, Session session)throws Exception {
+        String status = "Data sudah ada";
+        try {
+            
+            HibernateUtil.beginTransaction();
+            Criteria crit = session.createCriteria(clazImpl);
+            crit.add(Restrictions.eq(variable, input));
+            Object obj = crit.uniqueResult();
+            if(obj == null){
+                status = "";
+            }          
+            
+        } catch (Exception e) {            
+            throw e;
+        } 
+        return status;
     }
 }
