@@ -88,36 +88,12 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JButton" name="buttonTambah">
+        <Component class="javax.swing.JButton" name="buttonCetak">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Tambah TagihanTerseleksi"/>
+            <Property name="text" type="java.lang.String" value="Cetak Tagihan Terseleksi"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonTambahActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JButton" name="buttonUbah">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Ubah Tagihan Terseleksi"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonUbahActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JButton" name="buttonHapus">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Hapus Tagihan Terseleksi"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonHapusActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JButton" name="buttonKirim">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Kirim Tagihan Terseleksi"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonKirimActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonCetakActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

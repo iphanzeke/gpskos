@@ -331,7 +331,13 @@ public class GLAccountUpdateDialog extends JDialog {
             JOptionPane.showMessageDialog(this, "Keterangan tidak boleh ada ;");
         } else {
             try {
-                gLAccountDAO.saveOrUpdate(gLAccount);
+                if (gLAccount.getGroupACC().equals("Kreditur")) {
+                    gLAccountDAO.saveGLKrediturWithSetting(gLAccount);
+                } else if (gLAccount.getGroupACC().equals("Biaya Lain - Lain")) {
+                    gLAccountDAO.saveGLBiayaLainWithSetting(gLAccount);
+                } else {
+                    gLAccountDAO.saveOrUpdate(gLAccount);
+                }
                 dispose();
             } catch (Exception ex) {
                 Logger.getLogger(GLAccountUpdateDialog.class.getName()).log(Level.SEVERE, null, ex);

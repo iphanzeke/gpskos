@@ -7,13 +7,12 @@ package com.ivanbiz.ui;
 
 import com.ivanbiz.dao.InvoiceDAO;
 import com.ivanbiz.dao.impl.InvoiceDAOImpl;
-import com.ivanbiz.model.AksesMatrix;
 import com.ivanbiz.model.Invoice;
-import com.ivanbiz.service.GlobalSession;
-import com.ivanbiz.service.MenuAksesConstant;
+import com.ivanbiz.report.TagihanReport;
 import com.ivanbiz.service.ServiceHelper;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,17 +22,17 @@ import javax.swing.JOptionPane;
  *
  * @author Shbt Peterpan
  */
-public class TagihanDialog extends javax.swing.JDialog {
+public class TagihanReportDialog extends javax.swing.JDialog {
 
     Invoice invoice;
     InvoiceDAO invoiceDAO;
     List<Invoice> listInvoice;
     SimpleDateFormat sdf;
     NumberFormat numberFormat;
+    List<Invoice> listCetak;
 
-    public TagihanDialog() {
+    public TagihanReportDialog() {
         initComponents();
-        renderButtonAkses(GlobalSession.getListAksesMatrix());
         invoiceDAO = new InvoiceDAOImpl();
         sdf = new SimpleDateFormat("dd-MMMM-yyyy");
         numberFormat = NumberFormat.getCurrencyInstance();
@@ -53,10 +52,7 @@ public class TagihanDialog extends javax.swing.JDialog {
         jScrollPane1 = new javax.swing.JScrollPane();
         tableTagihan = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
-        buttonTambah = new javax.swing.JButton();
-        buttonUbah = new javax.swing.JButton();
-        buttonHapus = new javax.swing.JButton();
-        buttonKirim = new javax.swing.JButton();
+        buttonCetak = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setAlwaysOnTop(true);
@@ -80,37 +76,13 @@ public class TagihanDialog extends javax.swing.JDialog {
         ));
         jScrollPane1.setViewportView(tableTagihan);
 
-        buttonTambah.setText("Tambah TagihanTerseleksi");
-        buttonTambah.addActionListener(new java.awt.event.ActionListener() {
+        buttonCetak.setText("Cetak Tagihan Terseleksi");
+        buttonCetak.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonTambahActionPerformed(evt);
+                buttonCetakActionPerformed(evt);
             }
         });
-        jPanel1.add(buttonTambah);
-
-        buttonUbah.setText("Ubah Tagihan Terseleksi");
-        buttonUbah.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonUbahActionPerformed(evt);
-            }
-        });
-        jPanel1.add(buttonUbah);
-
-        buttonHapus.setText("Hapus Tagihan Terseleksi");
-        buttonHapus.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonHapusActionPerformed(evt);
-            }
-        });
-        jPanel1.add(buttonHapus);
-
-        buttonKirim.setText("Kirim Tagihan Terseleksi");
-        buttonKirim.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonKirimActionPerformed(evt);
-            }
-        });
-        jPanel1.add(buttonKirim);
+        jPanel1.add(buttonCetak);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -140,55 +112,28 @@ public class TagihanDialog extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void buttonTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTambahActionPerformed
-        new TagihanUpdateDialog(null, true).setVisible(true);
-        refresh();
-    }//GEN-LAST:event_buttonTambahActionPerformed
-
-    private void buttonUbahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonUbahActionPerformed
+    private void buttonCetakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCetakActionPerformed
         if (tableTagihan.getSelectedRow() == -1) {
-            JOptionPane.showMessageDialog(this, "Pilih data yang akan diubah", "warning", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Pilih data yang akan dicetak", "warning", JOptionPane.WARNING_MESSAGE);
         } else {
-            invoice = listInvoice.get(tableTagihan.getSelectedRow());
-            new TagihanUpdateDialog(null, true, invoice).setVisible(true);
-            refresh();
-        }
-    }//GEN-LAST:event_buttonUbahActionPerformed
-
-    private void buttonHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonHapusActionPerformed
-        if (tableTagihan.getSelectedRow() == -1) {
-            JOptionPane.showMessageDialog(this, "Pilih data yang akan dihapus", "warning", JOptionPane.WARNING_MESSAGE);
-        } else {
-            try {
-                invoice = listInvoice.get(tableTagihan.getSelectedRow());
-                invoiceDAO.delete(invoice);
-                refresh();
-            } catch (Exception ex) {
-                Logger.getLogger(TagihanDialog.class.getName()).log(Level.SEVERE, null, ex);
+            listCetak = new ArrayList<Invoice>();
+            for (Invoice invoices : listInvoice) {
+                String[] kepada;
+                kepada = invoices.getDeskripsiKepada().split(";");
+                invoices.setDeskripsiKepada(kepada[3]);
+                String[] deskripsi;
+                deskripsi = invoices.getDeskripsiUntuk().split(";");
+                invoices.setDeskripsiUntuk(deskripsi[0] + " \n A/C No. " + deskripsi[1] + " " + deskripsi[2]);
+                invoices.setTerbilang(ServiceHelper.bilang(Long.parseLong(invoices.getJumlahTagihan().toBigInteger().toString())));
+                listCetak.add(invoices);
             }
+            //listCetak.add(GlobalSession.getPerusahaan());
+            new TagihanReport().cetakTagihan(listCetak);
         }
-    }//GEN-LAST:event_buttonHapusActionPerformed
-
-    private void buttonKirimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonKirimActionPerformed
-        if (tableTagihan.getSelectedRow() == -1) {
-            JOptionPane.showMessageDialog(this, "Pilih data yang akan dikirim", "warning", JOptionPane.WARNING_MESSAGE);
-        } else {
-            try {
-                invoice = listInvoice.get(tableTagihan.getSelectedRow());
-                String[] kode_noGL = invoice.getDeskripsiKepada().split(";");
-                invoiceDAO.sendInvoice(invoice, kode_noGL[1] + kode_noGL[2], kode_noGL[3]);
-                refresh();
-            } catch (Exception ex) {
-                Logger.getLogger(TagihanDialog.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-    }//GEN-LAST:event_buttonKirimActionPerformed
+    }//GEN-LAST:event_buttonCetakActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton buttonHapus;
-    private javax.swing.JButton buttonKirim;
-    private javax.swing.JButton buttonTambah;
-    private javax.swing.JButton buttonUbah;
+    private javax.swing.JButton buttonCetak;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
@@ -197,10 +142,10 @@ public class TagihanDialog extends javax.swing.JDialog {
 
     private void refresh() {
         try {
-            listInvoice = invoiceDAO.getDataByEquals(Invoice.class, "status", "0");
+            listInvoice = invoiceDAO.getDataByEquals(Invoice.class, "status", "1");
             updateTableTagihan();
         } catch (Exception ex) {
-            Logger.getLogger(TagihanDialog.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TagihanReportDialog.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -220,7 +165,7 @@ public class TagihanDialog extends javax.swing.JDialog {
             isi[x][2] = invoices.getNII();
             isi[x][3] = invoices.getKelas().getTransactionReference();
             isi[x][4] = invoices.getBank().getNama();
-            isi[x][5] = kepada[2];
+            isi[x][5] = kepada[3];
             isi[x][6] = invoices.getDeskripsiUntukPembayaran();
             isi[x][7] = invoices.getDeskripsiJumlahPeserta();
             isi[x][8] = numberFormat.format(invoices.getJumlahTagihan());
@@ -231,10 +176,4 @@ public class TagihanDialog extends javax.swing.JDialog {
         new ServiceHelper().setAutoRize(isi, judul, tableTagihan);
     }
 
-    private void renderButtonAkses(List<AksesMatrix> listAksesMatrix) {
-        buttonTambah.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.TAMBAH_TAGIHAN, listAksesMatrix));
-        buttonUbah.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.UBAH_TAGIHAN, listAksesMatrix));
-        buttonHapus.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.HAPUS_TAGIHAN, listAksesMatrix));
-        buttonKirim.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.KIRIM_TAGIHAN, listAksesMatrix));
-    }
 }

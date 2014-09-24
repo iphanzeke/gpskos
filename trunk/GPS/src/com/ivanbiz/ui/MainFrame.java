@@ -60,6 +60,8 @@ public class MainFrame extends JFrame {
             menuItemPengguna.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.LIHAT_PENGGUNA, listAksesMatrix));
             menuItemPassword.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.UBAH_PASSWORD, listAksesMatrix));
             menuItemTagihan.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.LIHAT_TAGIHAN, listAksesMatrix));
+            menuItemJurnal.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.REPORT_JURNAL, listAksesMatrix));
+            menuItemTagihanReport.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.REPORT_TAGIHAN, listAksesMatrix));
         } catch (Exception ex) {
             Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -89,6 +91,7 @@ public class MainFrame extends JFrame {
         menuItemPassword = new javax.swing.JMenuItem();
         menuLaporan = new javax.swing.JMenu();
         menuItemJurnal = new javax.swing.JMenuItem();
+        menuItemTagihanReport = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setAlwaysOnTop(true);
@@ -213,6 +216,14 @@ public class MainFrame extends JFrame {
         });
         menuLaporan.add(menuItemJurnal);
 
+        menuItemTagihanReport.setText("Tagihan");
+        menuItemTagihanReport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemTagihanReportActionPerformed(evt);
+            }
+        });
+        menuLaporan.add(menuItemTagihanReport);
+
         menuBarApp.add(menuLaporan);
 
         setJMenuBar(menuBarApp);
@@ -285,6 +296,10 @@ public class MainFrame extends JFrame {
         new GLAccountDialog().setVisible(true);
     }//GEN-LAST:event_menuItemGLAccountsActionPerformed
 
+    private void menuItemTagihanReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemTagihanReportActionPerformed
+        new TagihanReportDialog().setVisible(true);
+    }//GEN-LAST:event_menuItemTagihanReportActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
@@ -303,6 +318,7 @@ public class MainFrame extends JFrame {
     private javax.swing.JMenuItem menuItemPengguna;
     private javax.swing.JMenuItem menuItemPerusahaan;
     private javax.swing.JMenuItem menuItemTagihan;
+    private javax.swing.JMenuItem menuItemTagihanReport;
     private javax.swing.JMenuItem menuItemTutup;
     private javax.swing.JMenu menuLaporan;
     private javax.swing.JMenu menuMaster;

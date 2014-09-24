@@ -19,7 +19,6 @@ public enum MenuAksesConstant {
     LIHAT_KELAS("Lihat Kelas"),
     LIHAT_BANK("Lihat Bank"),
     LIHAT_GROUP("Lihat Group"),
-    LIHAT_JURNAL("Lihat Jurnal"),
     LIHAT_PENGGUNA("Lihat Pengguna"),
     LIHAT_PERUSAHAAN("Lihat Perusahaan"),
     LIHAT_TAGIHAN("Lihat Tagihan"),
@@ -52,7 +51,11 @@ public enum MenuAksesConstant {
     HAPUS_DAFTAR_KELAS("Hapus Daftar Kelas"),
     HAPUS_TAGIHAN("Hapus Tagihan"),
     HAPUS_GLACCOUNT("Hapus GL Account"),
-    TUTUP_KELAS("Tutup Kelas");
+    TUTUP_KELAS("Tutup Kelas"),
+    KIRIM_TAGIHAN("Kirim Tagihan"),
+    //Report
+    REPORT_JURNAL("Report Jurnal"),
+    REPORT_TAGIHAN("Report Tagihan");
 
     public static boolean validate(MenuAksesConstant menuAksesConstant, List<AksesMatrix> listAksesMatrix) {
         for (AksesMatrix aksesMatrix : listAksesMatrix) {
