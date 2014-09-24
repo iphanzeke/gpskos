@@ -12,6 +12,7 @@ import java.util.Date;
  * @author City_Z
  */
 public class Invoice {
+
     private long id;
     private String NII;
     private Kelas kelas;
@@ -22,8 +23,19 @@ public class Invoice {
     private BigDecimal jumlahTagihan;
     private Date date;
     private String status;/* 0=simpan 1=sudah kejurnal 2=sudah terbayar*/
+
     private String jatuhTempo;
     private String deskripsiUntuk;
+    private String terbilang;
+
+    public String getTerbilang() {
+        return terbilang;
+    }
+
+    public void setTerbilang(String terbilang) {
+        this.terbilang = terbilang;
+    }
+
     /**
      * @return the id
      */
@@ -122,8 +134,6 @@ public class Invoice {
         this.deskripsiJumlahPeserta = deskripsiJumlahPeserta;
     }
 
-    
-
     /**
      * @return the date
      */
@@ -194,5 +204,4 @@ public class Invoice {
         this.deskripsiUntuk = deskripsiUntuk;
     }
 
-   
 }
