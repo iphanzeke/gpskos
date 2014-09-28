@@ -66,4 +66,26 @@ public class PembayaranDAOImpl extends GenericDAOImpl implements PembayaranDAO{
        
     }
     
+    @Override
+    public String postingJurnalPembayaranLain(Pembayaran pembayaran) throws Exception {
+        String status = "";
+        HibernateUtil.beginTransaction();
+        try{
+            Session session = HibernateUtil.getSession();          
+            session.save(pembayaran);
+            String proCode = pembayaran.getDebitBankAccount().getKode()+pembayaran.getKreditBankAccount().getKode();
+            JurnalDAO jurnalDAO = new JurnalDAOImpl();
+            jurnalDAO.saveJurnal(proCode, pembayaran.getJumlah(), pembayaran.getTransactionReference(), pembayaran.getDebitBankAccount().getNoGL(),pembayaran.getKreditBankAccount().getNoGL(),session);           
+            HibernateUtil.commitTransaction();
+            status = "sukses";
+        }catch(Exception ex){
+            status = "error";
+            HibernateUtil.rollbackTransaction();
+            throw ex;
+        }finally{
+            HibernateUtil.closeSession();
+        }
+       return status;
+    }
+    
 }
