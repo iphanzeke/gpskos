@@ -19,7 +19,6 @@ import com.ivanbiz.model.Invoice;
 import com.ivanbiz.model.Kelas;
 import com.ivanbiz.service.JTextFieldLimit;
 import com.ivanbiz.service.ServiceHelper;
-import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -74,8 +73,8 @@ public class TagihanUpdateDialog extends javax.swing.JDialog {
         textAreaKepada.setText(listGLAccounts.get(comboKepada.getSelectedIndex()).getDeskripsi());
         textPembayaran.setText(invoice.getDeskripsiUntukPembayaran());
         textPeserta.setText(invoice.getDeskripsiJumlahPeserta());
-        textJumlah.setText(invoice.getJumlahTagihan().toBigInteger().toString());
-        textTerbilang.setText(ServiceHelper.bilang(Long.parseLong(invoice.getJumlahTagihan().toBigInteger().toString())));
+        textJumlah.setText(String.valueOf(new Double(invoice.getJumlahTagihan()).intValue()));
+        textTerbilang.setText(ServiceHelper.bilang(Integer.parseInt(String.valueOf(new Double(invoice.getJumlahTagihan()).intValue()))) + " rupiah");
         textJatuhTempo.setText(invoice.getJatuhTempo());
         renderDitranfer();
         String[] ditransferKe = invoice.getDeskripsiUntuk().split("#");
@@ -135,7 +134,7 @@ public class TagihanUpdateDialog extends javax.swing.JDialog {
 
         jPanel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jLabel2.setText("No Invoice :");
+        jLabel2.setText("No Tagihan / Invoice :");
 
         textNII.setDocument(new JTextFieldLimit(50));
 
@@ -162,6 +161,11 @@ public class TagihanUpdateDialog extends javax.swing.JDialog {
         jLabel6.setText("Untuk Pembayaran :");
 
         textPeserta.setDocument(new JTextFieldLimit(250));
+        textPeserta.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                textPesertaKeyReleased(evt);
+            }
+        });
 
         jLabel7.setText("Jumlah Peserta :");
 
@@ -388,7 +392,7 @@ public class TagihanUpdateDialog extends javax.swing.JDialog {
         invoice.setDeskripsiKepada(comboKepada.getSelectedIndex() == -1 ? null : listGLAccounts.get(comboKepada.getSelectedIndex()).getNoGL() + "#" + listGLAccounts.get(comboKepada.getSelectedIndex()).getNameGL() + "#" + listGLAccounts.get(comboKepada.getSelectedIndex()).getKode());
         invoice.setDeskripsiUntukPembayaran(textPembayaran.getText());
         invoice.setDeskripsiJumlahPeserta(textPeserta.getText());
-        invoice.setJumlahTagihan(textJumlah.getText().isEmpty() ? new BigDecimal(0) : new BigDecimal(textJumlah.getText().replaceAll(",", "")));
+        invoice.setJumlahTagihan(textJumlah.getText().isEmpty() ? (double) 0 : new Double(textJumlah.getText()));
         invoice.setStatus("0");
         invoice.setJatuhTempo(textJatuhTempo.getText());
         invoice.setDeskripsiUntuk(comboDitransfer.getSelectedIndex() == -1 ? null : listGLAccountsKreditur.get(comboDitransfer.getSelectedIndex()).getNoGL() + "#" + listGLAccountsKreditur.get(comboDitransfer.getSelectedIndex()).getNameGL());
@@ -401,7 +405,7 @@ public class TagihanUpdateDialog extends javax.swing.JDialog {
         } else {
             try {
                 Long.parseLong(textJumlah.getText());
-                textTerbilang.setText(ServiceHelper.bilang(Long.parseLong(textJumlah.getText())));
+                textTerbilang.setText(ServiceHelper.bilang(Long.parseLong(textJumlah.getText())) + " rupiah");
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(this, "Format salah, harus angka", "warning", JOptionPane.WARNING_MESSAGE);
             }
@@ -432,6 +436,14 @@ public class TagihanUpdateDialog extends javax.swing.JDialog {
         textAreaDitransferKe.setText(listGLAccountsKreditur.get(comboDitransfer.getSelectedIndex()).getDeskripsi());
     }//GEN-LAST:event_comboDitransferActionPerformed
 
+    private void textPesertaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textPesertaKeyReleased
+        try {
+            Long.parseLong(textPeserta.getText());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Format salah, harus angka", "warning", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_textPesertaKeyReleased
+
     private void validate(Invoice invoice) {
         if (invoice == null) {
             JOptionPane.showMessageDialog(this, "Murid tidak boleh null");
@@ -457,7 +469,7 @@ public class TagihanUpdateDialog extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Jumlah Peserta tidak boleh null");
         } else if (invoice.getDeskripsiJumlahPeserta().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Jumlah Peserta tidak boleh kosong");
-        } else if (invoice.getJumlahTagihan().equals(new BigDecimal(0))) {
+        } else if (invoice.getJumlahTagihan() == ((double) 0)) {
             JOptionPane.showMessageDialog(this, "Jumlah Tagihan tidak boleh kosong");
         } else if (invoice.getJatuhTempo().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Jumlah Tagihan tidak boleh kosong");

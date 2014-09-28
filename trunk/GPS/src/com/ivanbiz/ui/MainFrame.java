@@ -62,6 +62,7 @@ public class MainFrame extends JFrame {
             menuItemTagihan.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.LIHAT_TAGIHAN, listAksesMatrix));
             menuItemJurnal.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.REPORT_JURNAL, listAksesMatrix));
             menuItemTagihanReport.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.REPORT_TAGIHAN, listAksesMatrix));
+            menuItemPembayaran.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.LIHAT_PEMBAYARAN_TAGIHAN, listAksesMatrix));
         } catch (Exception ex) {
             Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -84,6 +85,7 @@ public class MainFrame extends JFrame {
         menuItemPerusahaan = new javax.swing.JMenuItem();
         menuItemTagihan = new javax.swing.JMenuItem();
         menuItemGLAccounts = new javax.swing.JMenuItem();
+        menuItemPembayaran = new javax.swing.JMenuItem();
         menuHakAkses = new javax.swing.JMenu();
         menuItemGroup = new javax.swing.JMenuItem();
         menuItemPengguna = new javax.swing.JMenuItem();
@@ -174,6 +176,14 @@ public class MainFrame extends JFrame {
             }
         });
         menuMaster.add(menuItemGLAccounts);
+
+        menuItemPembayaran.setText("Pembayaran");
+        menuItemPembayaran.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemPembayaranActionPerformed(evt);
+            }
+        });
+        menuMaster.add(menuItemPembayaran);
 
         menuBarApp.add(menuMaster);
 
@@ -300,6 +310,10 @@ public class MainFrame extends JFrame {
         new TagihanReportDialog().setVisible(true);
     }//GEN-LAST:event_menuItemTagihanReportActionPerformed
 
+    private void menuItemPembayaranActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemPembayaranActionPerformed
+        new PembayaranDialog().setVisible(true);
+    }//GEN-LAST:event_menuItemPembayaranActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
@@ -314,6 +328,7 @@ public class MainFrame extends JFrame {
     private javax.swing.JMenuItem menuItemKeluar;
     private javax.swing.JMenuItem menuItemMurid;
     private javax.swing.JMenuItem menuItemPassword;
+    private javax.swing.JMenuItem menuItemPembayaran;
     private javax.swing.JMenuItem menuItemPengajar;
     private javax.swing.JMenuItem menuItemPengguna;
     private javax.swing.JMenuItem menuItemPerusahaan;

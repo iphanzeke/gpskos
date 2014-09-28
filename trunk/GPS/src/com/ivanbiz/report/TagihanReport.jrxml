@@ -23,23 +23,19 @@
 	<import value="net.sf.jasperreports.engine.*" />
 	<import value="net.sf.jasperreports.engine.data.*" />
 
-	<parameter name="kepada" isForPrompting="false" class="java.lang.String">
-		<defaultValueExpression ><![CDATA[$P{kepada}]]></defaultValueExpression>
-	</parameter>
-	<parameter name="logo" isForPrompting="false" class="java.lang.String"/>
-	<parameter name="alamat" isForPrompting="false" class="java.lang.String"/>
-	<parameter name="telp" isForPrompting="false" class="java.lang.String"/>
-	<parameter name="fax" isForPrompting="false" class="java.lang.String"/>
-	<parameter name="untuk" isForPrompting="false" class="java.lang.String"/>
 
-	<field name="deskripsiKepada" class="java.lang.String"/>
-	<field name="deskripsiUntukPembayaran" class="java.lang.String"/>
-	<field name="deskripsiJumlahPeserta" class="java.lang.String"/>
-	<field name="jumlahTagihan" class="java.math.BigDecimal"/>
-	<field name="terbilang" class="java.lang.String"/>
-	<field name="jatuhTempo" class="java.lang.String"/>
-	<field name="deskripsiUntuk" class="java.lang.String"/>
-	<field name="NII" class="java.lang.String"/>
+	<field name="invoice.deskripsiKepada" class="java.lang.String"/>
+	<field name="invoice.deskripsiUntukPembayaran" class="java.lang.String"/>
+	<field name="invoice.deskripsiJumlahPeserta" class="java.lang.String"/>
+	<field name="jumlah" class="java.lang.String"/>
+	<field name="invoice.terbilang" class="java.lang.String"/>
+	<field name="invoice.jatuhTempo" class="java.lang.String"/>
+	<field name="invoice.deskripsiUntuk" class="java.lang.String"/>
+	<field name="invoice.NII" class="java.lang.String"/>
+	<field name="perusahaan.alamat" class="java.lang.String"/>
+	<field name="logo" class="java.lang.String"/>
+	<field name="namaGLDebitur" class="java.lang.String"/>
+	<field name="namaGLKreditur" class="java.lang.String"/>
 
 	<variable name="date" class="java.util.Date" resetType="None" calculation="Nothing">
 		<variableExpression><![CDATA[new Date()]]></variableExpression>
@@ -61,7 +57,7 @@
 					<textElement verticalAlignment="Top">
 						<font fontName="Verdana" size="8"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$P{alamat}]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{perusahaan.alamat}]]></textFieldExpression>
 				</textField>
 				<image  isUsingCache="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
@@ -72,7 +68,7 @@
 						key="image-1"/>
 					<box></box>
 					<graphicElement stretchType="NoStretch"/>
-					<imageExpression class="java.lang.String"><![CDATA[$P{logo}]]></imageExpression>
+					<imageExpression class="java.lang.String"><![CDATA[$F{logo}]]></imageExpression>
 				</image>
 			</band>
 		</title>
@@ -97,7 +93,7 @@
 					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font size="12"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NII}]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{invoice.NII}]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement
@@ -163,7 +159,7 @@
 					<textElement>
 						<font fontName="Verdana"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{deskripsiKepada}]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{invoice.deskripsiKepada}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
@@ -176,7 +172,7 @@
 					<textElement verticalAlignment="Middle">
 						<font pdfFontName="Helvetica-Bold" isBold="true"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$P{kepada}]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{namaGLDebitur}]]></textFieldExpression>
 				</textField>
 			</band>
 		</pageHeader>
@@ -248,7 +244,7 @@
 				</staticText>
 				<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="184"
+						x="169"
 						y="18"
 						width="311"
 						height="35"
@@ -264,7 +260,7 @@
 					<textElement verticalAlignment="Middle" lineSpacing="Single">
 						<font size="12"/>
 					</textElement>
-				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{jumlahTagihan}]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{jumlah}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
@@ -285,7 +281,7 @@
 					<textElement verticalAlignment="Middle">
 						<font fontName="Verdana" size="10"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{deskripsiUntukPembayaran}]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{invoice.deskripsiUntukPembayaran}]]></textFieldExpression>
 				</textField>
 				<rectangle radius="2" >
 					<reportElement
@@ -326,7 +322,7 @@
 					<textElement verticalAlignment="Middle">
 						<font fontName="Verdana" size="10"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{deskripsiJumlahPeserta}]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{invoice.deskripsiJumlahPeserta}]]></textFieldExpression>
 				</textField>
 				<rectangle radius="2" >
 					<reportElement
@@ -377,7 +373,7 @@
 					<textElement verticalAlignment="Middle">
 						<font fontName="Verdana" size="10"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{terbilang}]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{invoice.terbilang}]]></textFieldExpression>
 				</textField>
 				<rectangle>
 					<reportElement
@@ -438,7 +434,7 @@
 					<textElement verticalAlignment="Middle">
 						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{jatuhTempo}]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{invoice.jatuhTempo}]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement
@@ -479,7 +475,7 @@
 					<textElement verticalAlignment="Bottom">
 						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$P{untuk}]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{namaGLKreditur}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
@@ -500,7 +496,7 @@
 					<textElement>
 						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{deskripsiUntuk}]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{invoice.deskripsiUntuk}]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement
@@ -541,26 +537,6 @@
 						<font fontName="Verdana" size="10" isUnderline="false"/>
 					</textElement>
 				<text><![CDATA[Direktur]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="157"
-						y="18"
-						width="27"
-						height="35"
-						forecolor="#000000"
-						backcolor="#FFFFFF"
-						key="staticText-9"
-						positionType="Float"/>
-					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="0.0" lineColor="#000000"/>
-					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font size="12"/>
-					</textElement>
-				<text><![CDATA[Rp]]></text>
 				</staticText>
 			</band>
 		</detail>
