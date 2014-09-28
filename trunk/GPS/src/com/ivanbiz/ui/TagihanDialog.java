@@ -176,7 +176,7 @@ public class TagihanDialog extends javax.swing.JDialog {
             try {
                 invoice = listInvoice.get(tableTagihan.getSelectedRow());
                 String[] kode_noGL = invoice.getDeskripsiKepada().split("#");
-                invoiceDAO.sendInvoice(invoice, kode_noGL[1], kode_noGL[0]);
+                invoiceDAO.sendInvoice(invoice, kode_noGL[2], kode_noGL[0]);
                 refresh();
             } catch (Exception ex) {
                 Logger.getLogger(TagihanDialog.class.getName()).log(Level.SEVERE, null, ex);
