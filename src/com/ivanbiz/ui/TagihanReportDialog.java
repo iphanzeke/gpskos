@@ -12,7 +12,6 @@ import com.ivanbiz.report.TagihanReport;
 import com.ivanbiz.service.ServiceHelper;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -29,7 +28,6 @@ public class TagihanReportDialog extends javax.swing.JDialog {
     List<Invoice> listInvoice;
     SimpleDateFormat sdf;
     NumberFormat numberFormat;
-    List<Invoice> listCetak;
 
     public TagihanReportDialog() {
         initComponents();
@@ -52,11 +50,11 @@ public class TagihanReportDialog extends javax.swing.JDialog {
         jScrollPane1 = new javax.swing.JScrollPane();
         tableTagihan = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
         buttonCetak = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setAlwaysOnTop(true);
-        setModal(true);
         setResizable(false);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
@@ -75,6 +73,14 @@ public class TagihanReportDialog extends javax.swing.JDialog {
             }
         ));
         jScrollPane1.setViewportView(tableTagihan);
+
+        jButton1.setText("Preview Tagihan Terseleksi");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton1);
 
         buttonCetak.setText("Cetak Tagihan Terseleksi");
         buttonCetak.addActionListener(new java.awt.event.ActionListener() {
@@ -116,24 +122,21 @@ public class TagihanReportDialog extends javax.swing.JDialog {
         if (tableTagihan.getSelectedRow() == -1) {
             JOptionPane.showMessageDialog(this, "Pilih data yang akan dicetak", "warning", JOptionPane.WARNING_MESSAGE);
         } else {
-            listCetak = new ArrayList<Invoice>();
-            for (Invoice invoices : listInvoice) {
-                String[] kepada;
-                kepada = invoices.getDeskripsiKepada().split(";");
-                invoices.setDeskripsiKepada(kepada[3]);
-                String[] deskripsi;
-                deskripsi = invoices.getDeskripsiUntuk().split(";");
-                invoices.setDeskripsiUntuk(deskripsi[0] + " \n A/C No. " + deskripsi[1] + " " + deskripsi[2]);
-                invoices.setTerbilang(ServiceHelper.bilang(Long.parseLong(invoices.getJumlahTagihan().toBigInteger().toString())));
-                listCetak.add(invoices);
-            }
-            //listCetak.add(GlobalSession.getPerusahaan());
-            new TagihanReport().cetakTagihan(listCetak);
+            new TagihanReport().previewAndCetakTagihan(listInvoice, "cetak");
         }
     }//GEN-LAST:event_buttonCetakActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        if (tableTagihan.getSelectedRow() == -1) {
+            JOptionPane.showMessageDialog(this, "Pilih data yang akan dicetak", "warning", JOptionPane.WARNING_MESSAGE);
+        } else {
+            new TagihanReport().previewAndCetakTagihan(listInvoice, "preview");
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonCetak;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
@@ -157,20 +160,18 @@ public class TagihanReportDialog extends javax.swing.JDialog {
         for (Invoice invoices : listInvoice) {
             no += 1;
             String[] kepada;
-            kepada = invoices.getDeskripsiKepada().split(";");
-            String[] deskripsi;
-            deskripsi = invoices.getDeskripsiUntuk().split(";");
+            kepada = invoices.getDeskripsiKepada().split("#");
             isi[x][0] = no;
             isi[x][1] = sdf.format(invoices.getDate());
             isi[x][2] = invoices.getNII();
             isi[x][3] = invoices.getKelas().getTransactionReference();
             isi[x][4] = invoices.getBank().getNama();
-            isi[x][5] = kepada[3];
+            isi[x][5] = kepada[0];
             isi[x][6] = invoices.getDeskripsiUntukPembayaran();
             isi[x][7] = invoices.getDeskripsiJumlahPeserta();
             isi[x][8] = numberFormat.format(invoices.getJumlahTagihan());
             isi[x][9] = invoices.getJatuhTempo();
-            isi[x][10] = deskripsi[0] + " A/C No. " + deskripsi[1] + " " + deskripsi[2];
+            isi[x][10] = invoices.getDeskripsiUntuk();
             x++;
         }
         new ServiceHelper().setAutoRize(isi, judul, tableTagihan);

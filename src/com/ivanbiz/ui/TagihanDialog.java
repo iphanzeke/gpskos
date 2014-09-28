@@ -175,8 +175,8 @@ public class TagihanDialog extends javax.swing.JDialog {
         } else {
             try {
                 invoice = listInvoice.get(tableTagihan.getSelectedRow());
-                String[] kode_noGL = invoice.getDeskripsiKepada().split(";");
-                invoiceDAO.sendInvoice(invoice, kode_noGL[1] + kode_noGL[2], kode_noGL[3]);
+                String[] kode_noGL = invoice.getDeskripsiKepada().split("#");
+                invoiceDAO.sendInvoice(invoice, kode_noGL[1], kode_noGL[0]);
                 refresh();
             } catch (Exception ex) {
                 Logger.getLogger(TagihanDialog.class.getName()).log(Level.SEVERE, null, ex);
@@ -212,20 +212,18 @@ public class TagihanDialog extends javax.swing.JDialog {
         for (Invoice invoices : listInvoice) {
             no += 1;
             String[] kepada;
-            kepada = invoices.getDeskripsiKepada().split(";");
-            String[] deskripsi;
-            deskripsi = invoices.getDeskripsiUntuk().split(";");
+            kepada = invoices.getDeskripsiKepada().split("#");
             isi[x][0] = no;
             isi[x][1] = sdf.format(invoices.getDate());
             isi[x][2] = invoices.getNII();
             isi[x][3] = invoices.getKelas().getTransactionReference();
             isi[x][4] = invoices.getBank().getNama();
-            isi[x][5] = kepada[2];
+            isi[x][5] = kepada[0];
             isi[x][6] = invoices.getDeskripsiUntukPembayaran();
             isi[x][7] = invoices.getDeskripsiJumlahPeserta();
             isi[x][8] = numberFormat.format(invoices.getJumlahTagihan());
             isi[x][9] = invoices.getJatuhTempo();
-            isi[x][10] = deskripsi[0] + " A/C No. " + deskripsi[1] + " " + deskripsi[2];
+            isi[x][10] = invoices.getDeskripsiUntuk();
             x++;
         }
         new ServiceHelper().setAutoRize(isi, judul, tableTagihan);
