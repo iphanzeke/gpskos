@@ -15,4 +15,5 @@ import com.ivanbiz.model.Pembayaran;
 public interface PembayaranDAO extends GenericDAO{
     public String postingJurnalPembayaran(Pembayaran pembayaran)throws Exception;
     public String postingJurnalPembayaranVA(Pembayaran pembayaran,String virtualAccount)throws Exception;
+    public String postingJurnalPembayaranLain(Pembayaran pembayaran)throws Exception;
 }
