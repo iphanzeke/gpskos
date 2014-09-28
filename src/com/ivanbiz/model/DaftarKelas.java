@@ -15,7 +15,7 @@ public class DaftarKelas {
     private Kelas kelas;
     private Murid murid;
     private String transactionReference;
-    private String status;
+    private String status;/*0=belum ada hasil 1=lulus   2=tidak lulus*/
 
     /**
      * @return the id
