@@ -340,6 +340,8 @@ public class TagihanUpdateDialog extends javax.swing.JDialog {
             String nii = invoiceDAO.validateField(Invoice.class, "nii",textNII.getText());
             if(nii.isEmpty()){
                 validate(invoice);
+            }else{
+                JOptionPane.showMessageDialog(this, "Nomor Induk Invoice Sudah Ada");
             }
             
         } catch (Exception ex) {
