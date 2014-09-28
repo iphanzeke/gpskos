@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.ivanbiz.model;
 
 /**
@@ -11,10 +10,12 @@ package com.ivanbiz.model;
  * @author ivan
  */
 public class DaftarKelas {
+
     private long id;
     private Kelas kelas;
     private Murid murid;
     private String transactionReference;
+    private String status;
 
     /**
      * @return the id
@@ -71,7 +72,18 @@ public class DaftarKelas {
     public void setTransactionReference(String transactionReference) {
         this.transactionReference = transactionReference;
     }
-    
-    
-    
+
+    /**
+     * @return the status
+     */
+    public String getStatus() {
+        return status;
+    }
+
+    /**
+     * @param status the status to set
+     */
+    public void setStatus(String status) {
+        this.status = status;
+    }
 }
