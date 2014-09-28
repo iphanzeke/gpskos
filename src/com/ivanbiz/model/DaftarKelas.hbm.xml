@@ -6,7 +6,8 @@
       <generator class="native"/>
     </id>
     <many-to-one class="com.ivanbiz.model.Kelas" column="KELAS_ID" lazy="false" name="kelas"/>
-    <many-to-one class="com.ivanbiz.model.Murid" column="MURID_ID" lazy="false" name="murid"/>
+    <many-to-one class="com.ivanbiz.model.Murid" column="MURID_ID" lazy="false" name="murid"/>    
     <property column="TRANSACTION_REFERENCE" length="50" name="transactionReference" type="string"/>
+    <property column="STATUS" length="1" name="status" type="string"/>
   </class>
 </hibernate-mapping>
