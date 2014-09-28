@@ -336,7 +336,16 @@ public class TagihanUpdateDialog extends javax.swing.JDialog {
         invoice.setStatus("0");
         invoice.setJatuhTempo(textJatuhTempo.getText());
         invoice.setDeskripsiUntuk(comboDitransfer.getSelectedIndex() == -1 ? null : listGLAccountsKreditur.get(comboDitransfer.getSelectedIndex()).getNameGL() + ";" + listGLAccountsKreditur.get(comboDitransfer.getSelectedIndex()).getNoGL());
-        validate(invoice);
+        try {
+            String nii = invoiceDAO.validateField(Invoice.class, "nii",textNII.getText());
+            if(nii.isEmpty()){
+                validate(invoice);
+            }
+            
+        } catch (Exception ex) {
+            Logger.getLogger(TagihanUpdateDialog.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
     }//GEN-LAST:event_buttonSimpanActionPerformed
 
     private void textJumlahKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textJumlahKeyReleased
