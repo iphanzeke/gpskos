@@ -17,7 +17,7 @@ public class Pembayaran {
     private long id;
     private GLAccount debitBankAccount;
     private GLAccount kreditBankAccount;
-    private BigDecimal jumlah;
+    private double jumlah;
     private String deskripsi;
     private String status;
     private Date dateCreated;
@@ -171,14 +171,16 @@ public class Pembayaran {
     /**
      * @return the jumlah
      */
-    public BigDecimal getJumlah() {
+    public double getJumlah() {
         return jumlah;
     }
 
     /**
      * @param jumlah the jumlah to set
      */
-    public void setJumlah(BigDecimal jumlah) {
+    public void setJumlah(double jumlah) {
         this.jumlah = jumlah;
     }
+
+    
 }
