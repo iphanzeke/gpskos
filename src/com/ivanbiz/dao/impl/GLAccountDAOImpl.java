@@ -11,26 +11,32 @@ public class GLAccountDAOImpl extends GenericDAOImpl implements GLAccountDAO {
     @Override
     public String saveGLKrediturWithSetting(GLAccount glAccount) throws Exception {
         String status = "";
-        try{
+        try {
             HibernateUtil.beginTransaction();
             Session session = HibernateUtil.getSession();
-            session.save(glAccount);
-            SettingGL settingGL = new SettingGL();
-            settingGL.setGlAccount(glAccount.getNoGL());
-            settingGL.setProCode("XXX"+glAccount.getKode());
-            settingGL.setDebetOrCredit("C");
-            session.save(settingGL);
-            SettingGL settingGL1 = new SettingGL();
-            settingGL1.setProCode(settingGL.getProCode());
-            settingGL1.setGlAccount("XXX");
-            settingGL1.setDebetOrCredit("D");
-            session.save(settingGL1);
+            String noGL = validateFieldSession(GLAccount.class, "noGL", glAccount.getNoGL(), session);
+            String kode = validateFieldSession(GLAccount.class, "kode", glAccount.getKode(), session);
+            if (!noGL.isEmpty() || !kode.isEmpty()) {
+                status = "Data Already";
+            } else {
+                session.save(glAccount);
+                SettingGL settingGL = new SettingGL();
+                settingGL.setGlAccount(glAccount.getNoGL());
+                settingGL.setProCode("XXX" + glAccount.getKode());
+                settingGL.setDebetOrCredit("C");
+                session.save(settingGL);
+                SettingGL settingGL1 = new SettingGL();
+                settingGL1.setProCode(settingGL.getProCode());
+                settingGL1.setGlAccount("XXX");
+                settingGL1.setDebetOrCredit("D");
+                session.save(settingGL1);
+                status = "sukses";
+            }
             HibernateUtil.commitTransaction();
-            status = "sukses";
-        }catch(Exception e){
+        } catch (Exception e) {
             HibernateUtil.rollbackTransaction();
             throw e;
-        }finally{
+        } finally {
             HibernateUtil.closeSession();
         }
         return status;
@@ -39,29 +45,34 @@ public class GLAccountDAOImpl extends GenericDAOImpl implements GLAccountDAO {
     @Override
     public String saveGLBiayaLainWithSetting(GLAccount glAccount) throws Exception {
         String status = "";
-        try{
+        try {
             HibernateUtil.beginTransaction();
             Session session = HibernateUtil.getSession();
-            session.save(glAccount);
-            SettingGL settingGL = new SettingGL();
-            settingGL.setGlAccount("XXX");
-            settingGL.setProCode(glAccount.getKode()+"XXX");
-            settingGL.setDebetOrCredit("C");
-            session.save(settingGL);
-            SettingGL settingGL1 = new SettingGL();
-            settingGL1.setProCode(settingGL.getProCode());
-            settingGL1.setGlAccount(glAccount.getNoGL());
-            settingGL1.setDebetOrCredit("D");
-            session.save(settingGL1);
+            String noGL = validateFieldSession(GLAccount.class, "noGL", glAccount.getNoGL(), session);
+            String kode = validateFieldSession(GLAccount.class, "kode", glAccount.getKode(), session);
+            if (!noGL.isEmpty() && !kode.isEmpty()) {
+                status = "Data Already";
+            } else {
+                session.save(glAccount);
+                SettingGL settingGL = new SettingGL();
+                settingGL.setGlAccount("XXX");
+                settingGL.setProCode(glAccount.getKode() + "XXX");
+                settingGL.setDebetOrCredit("C");
+                session.save(settingGL);
+                SettingGL settingGL1 = new SettingGL();
+                settingGL1.setProCode(settingGL.getProCode());
+                settingGL1.setGlAccount(glAccount.getNoGL());
+                settingGL1.setDebetOrCredit("D");
+                session.save(settingGL1);
+                status = "sukses";
+            }
             HibernateUtil.commitTransaction();
-            status = "sukses";
-        }catch(Exception e){
+        } catch (Exception e) {
             HibernateUtil.rollbackTransaction();
             throw e;
-        }finally{
+        } finally {
             HibernateUtil.closeSession();
         }
         return status;
     }
-
 }
