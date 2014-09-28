@@ -29,10 +29,7 @@ public class PembayaranDAOImpl extends GenericDAOImpl implements PembayaranDAO{
             String proCode = pembayaran.getDebitBankAccount().getKode()+pembayaran.getKreditBankAccount().getKode();
             JurnalDAO jurnalDAO = new JurnalDAOImpl();
             jurnalDAO.saveJurnal(proCode, pembayaran.getJumlah(), pembayaran.getTransactionReference(), pembayaran.getDebitBankAccount().getNoGL(),pembayaran.getKreditBankAccount().getNoGL(),session);
-            if(pembayaran.getJumlah().compareTo(pembayaran.getInvoice().getJumlahTagihan())==0){
-                
-            }
-            
+           
             HibernateUtil.commitTransaction();
             status = "sukses";
         }catch(Exception ex){

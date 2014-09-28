@@ -13,7 +13,7 @@ import java.math.BigDecimal;
 public class JurnalDAOImpl extends GenericDAOImpl implements JurnalDAO {
 
     @Override
-    public String saveJurnal(String proCode, BigDecimal amount, String transRef, String glDebit, String glKredit, Session session) throws Exception {
+    public String saveJurnal(String proCode, double amount, String transRef, String glDebit, String glKredit, Session session) throws Exception {
         HibernateUtil.beginTransaction();
         String status = "";
         try {
@@ -121,7 +121,7 @@ public class JurnalDAOImpl extends GenericDAOImpl implements JurnalDAO {
      */
 
     @Override
-    public String saveJurnalWithVA(String proCode, BigDecimal amount, String transRef, String virtualAccount, String glDebit, String glKredit, Session session) throws Exception {
+    public String saveJurnalWithVA(String proCode, double amount, String transRef, String virtualAccount, String glDebit, String glKredit, Session session) throws Exception {
         String status = "";
         try {
             //   Session session = HibernateUtil.getSession();
