@@ -5,7 +5,7 @@
     <id column="ID" name="id">
       <generator class="native"/>
     </id>
-    <property column="GL_ACCOUNT" length="10" name="glAccount" type="string"/>    
+    <property column="GL_ACCOUNT" length="30" name="glAccount" type="string"/>    
     <property column="DEBET_OR_CREDIT" length="1" name="debetOrCredit" type="string"/>
     <property column="PRO_CODE_ID" length="6" name="proCode" type="string"/>    
   </class>

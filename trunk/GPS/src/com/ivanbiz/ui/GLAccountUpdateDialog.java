@@ -76,9 +76,10 @@ public class GLAccountUpdateDialog extends JDialog {
         textFieldNamaGL = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        textFieldKeterangan = new javax.swing.JTextField();
         comboBoxGroupAccount = new javax.swing.JComboBox();
         jLabel7 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        textFieldKeterangan = new javax.swing.JTextArea();
         jPanel2 = new javax.swing.JPanel();
         jButtonSimpan = new javax.swing.JButton();
         jButtonBatal = new javax.swing.JButton();
@@ -109,8 +110,6 @@ public class GLAccountUpdateDialog extends JDialog {
 
         jLabel6.setText("Keterangan :");
 
-        textFieldKeterangan.setDocument(new JTextFieldLimit(30));
-
         comboBoxGroupAccount.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxGroupAccountActionPerformed(evt);
@@ -118,6 +117,11 @@ public class GLAccountUpdateDialog extends JDialog {
         });
 
         jLabel7.setText("Jenis Account :");
+
+        textFieldKeterangan.setColumns(20);
+        textFieldKeterangan.setDocument(new JTextFieldLimit(250));
+        textFieldKeterangan.setRows(5);
+        jScrollPane1.setViewportView(textFieldKeterangan);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -135,7 +139,6 @@ public class GLAccountUpdateDialog extends JDialog {
                     .addComponent(textFieldNoGL, javax.swing.GroupLayout.DEFAULT_SIZE, 316, Short.MAX_VALUE)
                     .addComponent(comboBoxBank, 0, 316, Short.MAX_VALUE)
                     .addComponent(textFieldNamaGL, javax.swing.GroupLayout.DEFAULT_SIZE, 316, Short.MAX_VALUE)
-                    .addComponent(textFieldKeterangan, javax.swing.GroupLayout.DEFAULT_SIZE, 316, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel7)
@@ -143,7 +146,8 @@ public class GLAccountUpdateDialog extends JDialog {
                             .addComponent(jLabel4)
                             .addComponent(jLabel5)
                             .addComponent(jLabel6))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -171,8 +175,8 @@ public class GLAccountUpdateDialog extends JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textFieldKeterangan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         jButtonSimpan.setText("Simpan");
@@ -215,7 +219,7 @@ public class GLAccountUpdateDialog extends JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        setSize(new java.awt.Dimension(378, 399));
+        setSize(new java.awt.Dimension(378, 460));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -230,7 +234,7 @@ public class GLAccountUpdateDialog extends JDialog {
         gLAccount.setGroupACC(listGroupAccs.get(comboBoxGroupAccount.getSelectedIndex()).getNamaGroup());
         gLAccount.setKode(textFieldKode.getText());
         gLAccount.setNama(comboBoxBank.getSelectedItem().toString());
-        gLAccount.setNoGL("IDR;" + textFieldNoGL.getText());
+        gLAccount.setNoGL(textFieldNoGL.getText());
         gLAccount.setNameGL(textFieldNamaGL.getText());
         gLAccount.setDeskripsi(textFieldKeterangan.getText());
         validate(gLAccount);
@@ -262,7 +266,8 @@ public class GLAccountUpdateDialog extends JDialog {
     private javax.swing.JLabel jLabelGLAccount;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField textFieldKeterangan;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea textFieldKeterangan;
     private javax.swing.JTextField textFieldKode;
     private javax.swing.JTextField textFieldNamaGL;
     private javax.swing.JTextField textFieldNoGL;
@@ -313,11 +318,9 @@ public class GLAccountUpdateDialog extends JDialog {
             JOptionPane.showMessageDialog(this, "Kode tidak boleh null");
         } else if (gLAccount.getKode().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Kode tidak boleh kosong");
-        } else if (gLAccount.getKode().contains(";")) {
-            JOptionPane.showMessageDialog(this, "Kode tidak boleh ada ;");
         } else if (gLAccount.getNama() == null) {
             JOptionPane.showMessageDialog(this, "Bank tidak boleh null");
-        } else if (gLAccount.getNoGL().equals("IDR;")) {
+        } else if (gLAccount.getNoGL().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "No GL tidak boleh kosong");
         } else if (gLAccount.getNameGL() == null) {
             JOptionPane.showMessageDialog(this, "Nama GL tidak boleh null");
@@ -327,13 +330,11 @@ public class GLAccountUpdateDialog extends JDialog {
             JOptionPane.showMessageDialog(this, "Keterangan tidak boleh null");
         } else if (gLAccount.getDeskripsi().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Keterangan tidak boleh kosong");
-        } else if (gLAccount.getDeskripsi().contains(";")) {
-            JOptionPane.showMessageDialog(this, "Keterangan tidak boleh ada ;");
         } else {
             try {
                 if (gLAccount.getGroupACC().equals("Kreditur")) {
                     gLAccountDAO.saveGLKrediturWithSetting(gLAccount);
-                } else if (gLAccount.getGroupACC().equals("Biaya Lain - Lain")) {
+                } else if (gLAccount.getGroupACC().equals("BiayaLain")) {
                     gLAccountDAO.saveGLBiayaLainWithSetting(gLAccount);
                 } else {
                     gLAccountDAO.saveOrUpdate(gLAccount);

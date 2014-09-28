@@ -69,14 +69,18 @@ public class TagihanUpdateDialog extends javax.swing.JDialog {
         renderBank(invoice.getKelas().getTransactionReference());
         comboBank.setSelectedItem(invoice.getBank().getNama());
         renderKepada(invoice.getBank());
-        comboBoxKepada.setSelectedItem(listGLAccounts);
+        String[] kepada = invoice.getDeskripsiKepada().split("#");
+        comboKepada.setSelectedItem(kepada[1] + " A/C No. " + kepada[0]);
+        textAreaKepada.setText(listGLAccounts.get(comboKepada.getSelectedIndex()).getDeskripsi());
         textPembayaran.setText(invoice.getDeskripsiUntukPembayaran());
         textPeserta.setText(invoice.getDeskripsiJumlahPeserta());
         textJumlah.setText(invoice.getJumlahTagihan().toBigInteger().toString());
         textTerbilang.setText(ServiceHelper.bilang(Long.parseLong(invoice.getJumlahTagihan().toBigInteger().toString())));
         textJatuhTempo.setText(invoice.getJatuhTempo());
         renderDitranfer();
-        comboDitransfer.setSelectedItem(listGLAccountsKreditur);
+        String[] ditransferKe = invoice.getDeskripsiUntuk().split("#");
+        comboDitransfer.setSelectedItem(ditransferKe[1] + " A/C No. " + ditransferKe[0]);
+        textAreaDitransferKe.setText(listGLAccountsKreditur.get(comboDitransfer.getSelectedIndex()).getDeskripsi());
     }
 
     /**
@@ -108,11 +112,15 @@ public class TagihanUpdateDialog extends javax.swing.JDialog {
         dateChooserDate = new com.toedter.calendar.JDateChooser();
         jScrollPane1 = new javax.swing.JScrollPane();
         textTerbilang = new javax.swing.JEditorPane();
-        comboBoxKepada = new javax.swing.JComboBox();
+        comboKepada = new javax.swing.JComboBox();
         textJatuhTempo = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         comboDitransfer = new javax.swing.JComboBox();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        textAreaDitransferKe = new javax.swing.JTextArea();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        textAreaKepada = new javax.swing.JTextArea();
         jPanel2 = new javax.swing.JPanel();
         buttonSimpan = new javax.swing.JButton();
         buttonBatal = new javax.swing.JButton();
@@ -177,6 +185,12 @@ public class TagihanUpdateDialog extends javax.swing.JDialog {
         textTerbilang.setEnabled(false);
         jScrollPane1.setViewportView(textTerbilang);
 
+        comboKepada.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboKepadaActionPerformed(evt);
+            }
+        });
+
         textJatuhTempo.setDocument(new JTextFieldLimit(3)
         );
         textJatuhTempo.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -185,9 +199,27 @@ public class TagihanUpdateDialog extends javax.swing.JDialog {
             }
         });
 
-        jLabel11.setText("Jatuh Tempo :");
+        jLabel11.setText("Jatuh Tempo ( Hari ) :");
 
         jLabel12.setText("Mohon Di Transfer ke : ");
+
+        comboDitransfer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboDitransferActionPerformed(evt);
+            }
+        });
+
+        textAreaDitransferKe.setEditable(false);
+        textAreaDitransferKe.setColumns(20);
+        textAreaDitransferKe.setRows(5);
+        textAreaDitransferKe.setEnabled(false);
+        jScrollPane2.setViewportView(textAreaDitransferKe);
+
+        textAreaKepada.setEditable(false);
+        textAreaKepada.setColumns(20);
+        textAreaKepada.setRows(5);
+        textAreaKepada.setEnabled(false);
+        jScrollPane3.setViewportView(textAreaKepada);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -196,32 +228,54 @@ public class TagihanUpdateDialog extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(comboBank, 0, 446, Short.MAX_VALUE)
-                    .addComponent(textNII, javax.swing.GroupLayout.DEFAULT_SIZE, 446, Short.MAX_VALUE)
-                    .addComponent(comboKelas, 0, 446, Short.MAX_VALUE)
-                    .addComponent(textPembayaran, javax.swing.GroupLayout.DEFAULT_SIZE, 446, Short.MAX_VALUE)
-                    .addComponent(textPeserta, javax.swing.GroupLayout.DEFAULT_SIZE, 446, Short.MAX_VALUE)
-                    .addComponent(textJumlah, javax.swing.GroupLayout.DEFAULT_SIZE, 446, Short.MAX_VALUE)
-                    .addComponent(dateChooserDate, javax.swing.GroupLayout.DEFAULT_SIZE, 446, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 446, Short.MAX_VALUE)
-                    .addComponent(comboBoxKepada, 0, 446, Short.MAX_VALUE)
-                    .addComponent(textJatuhTempo, javax.swing.GroupLayout.DEFAULT_SIZE, 446, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4)
+                            .addComponent(textNII)
+                            .addComponent(dateChooserDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jScrollPane2)
+                            .addComponent(textPembayaran)
+                            .addComponent(comboDitransfer, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(comboKelas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(comboBank, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel10)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel12))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel7)
+                                    .addComponent(textPeserta, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel8)
+                                        .addGap(0, 49, Short.MAX_VALUE))
+                                    .addComponent(textJumlah))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel11)
+                                    .addComponent(textJatuhTempo, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addContainerGap())
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel4)
+                        .addGap(166, 166, 166))
+                    .addComponent(comboKepada, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel10)
-                            .addComponent(jLabel11)
-                            .addComponent(jLabel12)
                             .addComponent(jLabel9))
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(comboDitransfer, 0, 446, Short.MAX_VALUE))
-                .addContainerGap())
+                    .addComponent(jScrollPane3)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -235,42 +289,44 @@ public class TagihanUpdateDialog extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(textNII, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(comboKelas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(comboBank, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(comboKelas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(comboBank, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(comboBoxKepada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(comboKepada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(textPembayaran, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel7)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel11))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textPeserta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textJumlah, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(textPeserta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(textJumlah, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(textJatuhTempo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel11)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textJatuhTempo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel12)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(comboDitransfer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         buttonSimpan.setText("Simpan");
@@ -297,8 +353,8 @@ public class TagihanUpdateDialog extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(labelTagihan, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 472, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 472, Short.MAX_VALUE))
+                    .addComponent(labelTagihan, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -313,7 +369,7 @@ public class TagihanUpdateDialog extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        setSize(new java.awt.Dimension(508, 727));
+        setSize(new java.awt.Dimension(466, 722));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -329,25 +385,14 @@ public class TagihanUpdateDialog extends javax.swing.JDialog {
         invoice.setNII(textNII.getText());
         invoice.setKelas(listKelas.get(comboKelas.getSelectedIndex()));
         invoice.setBank(null == listBank ? null : listBank.get(comboBank.getSelectedIndex()));
-        invoice.setDeskripsiKepada(comboBoxKepada.getSelectedIndex() == -1 ? null : listGLAccounts.get(comboBoxKepada.getSelectedIndex()).getNoGL() + ";" + listGLAccounts.get(comboBoxKepada.getSelectedIndex()).getKode() + ";" + listGLAccounts.get(comboBoxKepada.getSelectedIndex()).getDeskripsi());
+        invoice.setDeskripsiKepada(comboKepada.getSelectedIndex() == -1 ? null : listGLAccounts.get(comboKepada.getSelectedIndex()).getNoGL() + "#" + listGLAccounts.get(comboKepada.getSelectedIndex()).getNameGL() + "#" + listGLAccounts.get(comboKepada.getSelectedIndex()).getKode());
         invoice.setDeskripsiUntukPembayaran(textPembayaran.getText());
         invoice.setDeskripsiJumlahPeserta(textPeserta.getText());
         invoice.setJumlahTagihan(textJumlah.getText().isEmpty() ? new BigDecimal(0) : new BigDecimal(textJumlah.getText().replaceAll(",", "")));
         invoice.setStatus("0");
         invoice.setJatuhTempo(textJatuhTempo.getText());
-        invoice.setDeskripsiUntuk(comboDitransfer.getSelectedIndex() == -1 ? null : listGLAccountsKreditur.get(comboDitransfer.getSelectedIndex()).getNameGL() + ";" + listGLAccountsKreditur.get(comboDitransfer.getSelectedIndex()).getNoGL());
-        try {
-            String nii = invoiceDAO.validateField(Invoice.class, "nii",textNII.getText());
-            if(nii.isEmpty()){
-                validate(invoice);
-            }else{
-                JOptionPane.showMessageDialog(this, "Nomor Induk Invoice Sudah Ada");
-            }
-            
-        } catch (Exception ex) {
-            Logger.getLogger(TagihanUpdateDialog.class.getName()).log(Level.SEVERE, null, ex);
-        }
-       
+        invoice.setDeskripsiUntuk(comboDitransfer.getSelectedIndex() == -1 ? null : listGLAccountsKreditur.get(comboDitransfer.getSelectedIndex()).getNoGL() + "#" + listGLAccountsKreditur.get(comboDitransfer.getSelectedIndex()).getNameGL());
+        validate(invoice);
     }//GEN-LAST:event_buttonSimpanActionPerformed
 
     private void textJumlahKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textJumlahKeyReleased
@@ -379,6 +424,14 @@ public class TagihanUpdateDialog extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_textJatuhTempoKeyReleased
 
+    private void comboKepadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboKepadaActionPerformed
+        textAreaKepada.setText(listGLAccounts.get(comboKepada.getSelectedIndex()).getDeskripsi());
+    }//GEN-LAST:event_comboKepadaActionPerformed
+
+    private void comboDitransferActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboDitransferActionPerformed
+        textAreaDitransferKe.setText(listGLAccountsKreditur.get(comboDitransfer.getSelectedIndex()).getDeskripsi());
+    }//GEN-LAST:event_comboDitransferActionPerformed
+
     private void validate(Invoice invoice) {
         if (invoice == null) {
             JOptionPane.showMessageDialog(this, "Murid tidak boleh null");
@@ -392,8 +445,8 @@ public class TagihanUpdateDialog extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Kelas tidak boleh kosong");
         } else if (invoice.getBank().getNama().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Bank tidak boleh kosong");
-        } else if (invoice.getDeskripsiKepada() == null) {
-            JOptionPane.showMessageDialog(this, "Kepada tidak boleh null");
+        } else if (invoice.getDeskripsiKepada().equals("##null")) {
+            JOptionPane.showMessageDialog(this, "Kepada tidak boleh kosong");
         } else if (invoice.getDeskripsiKepada().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Kepada tidak boleh kosong");
         } else if (invoice.getDeskripsiUntukPembayaran() == null) {
@@ -408,8 +461,8 @@ public class TagihanUpdateDialog extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Jumlah Tagihan tidak boleh kosong");
         } else if (invoice.getJatuhTempo().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Jumlah Tagihan tidak boleh kosong");
-        } else if (invoice.getDeskripsiUntuk() == null) {
-            JOptionPane.showMessageDialog(this, "Mohon Ditranfer ke tidak boleh null");
+        } else if (invoice.getDeskripsiUntuk().equals("#null")) {
+            JOptionPane.showMessageDialog(this, "Mohon Ditranfer ke tidak boleh kosong");
         } else {
             try {
                 invoiceDAO.saveOrUpdate(invoice);
@@ -423,9 +476,9 @@ public class TagihanUpdateDialog extends javax.swing.JDialog {
     private javax.swing.JButton buttonBatal;
     private javax.swing.JButton buttonSimpan;
     private javax.swing.JComboBox comboBank;
-    private javax.swing.JComboBox comboBoxKepada;
     private javax.swing.JComboBox comboDitransfer;
     private javax.swing.JComboBox comboKelas;
+    private javax.swing.JComboBox comboKepada;
     private com.toedter.calendar.JDateChooser dateChooserDate;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -441,7 +494,11 @@ public class TagihanUpdateDialog extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel labelTagihan;
+    private javax.swing.JTextArea textAreaDitransferKe;
+    private javax.swing.JTextArea textAreaKepada;
     private javax.swing.JTextField textJatuhTempo;
     private javax.swing.JTextField textJumlah;
     private javax.swing.JTextField textNII;
@@ -488,6 +545,10 @@ public class TagihanUpdateDialog extends javax.swing.JDialog {
             map.put("nama", bank.getNama());
             map.put("groupACC", "Debitur");
             listGLAccounts = gLAccountDAO.getDataByEqualsMore(GLAccount.class, map);
+            GLAccount gLAccount = new GLAccount();
+            gLAccount.setNameGL("");
+            gLAccount.setNoGL("");
+            listGLAccounts.add(0, gLAccount);
             updateComboKepada();
         } catch (Exception ex) {
             Logger.getLogger(TagihanUpdateDialog.class.getName()).log(Level.SEVERE, null, ex);
@@ -498,10 +559,11 @@ public class TagihanUpdateDialog extends javax.swing.JDialog {
         Object data[] = new Object[listGLAccounts.size()];
         int x = 0;
         for (GLAccount gLAccount : listGLAccounts) {
-            data[x] = "(" + gLAccount.getNoGL().replaceAll(";", " ") + ") " + gLAccount.getDeskripsi();
+            data[0] = "";
+            data[x] = gLAccount.getNameGL() + " A/C No. " + gLAccount.getNoGL();
             x++;
         }
-        comboBoxKepada.setModel(new DefaultComboBoxModel(data));
+        comboKepada.setModel(new DefaultComboBoxModel(data));
     }
 
     private void renderBank(String kelas) {
@@ -519,6 +581,9 @@ public class TagihanUpdateDialog extends javax.swing.JDialog {
     private void renderDitranfer() {
         try {
             listGLAccountsKreditur = gLAccountDAO.getDataByEquals(GLAccount.class, "groupACC", "Kreditur");
+            GLAccount gLAccount = new GLAccount();
+            gLAccount.setNoGL("");
+            listGLAccountsKreditur.add(0, gLAccount);
             updateComboDitransfer();
         } catch (Exception ex) {
             Logger.getLogger(TagihanUpdateDialog.class.getName()).log(Level.SEVERE, null, ex);
@@ -529,7 +594,8 @@ public class TagihanUpdateDialog extends javax.swing.JDialog {
         Object data[] = new Object[listGLAccountsKreditur.size()];
         int x = 0;
         for (GLAccount gLAccounts : listGLAccountsKreditur) {
-            data[x] = "(" + gLAccounts.getNoGL().replaceAll(";", " ") + ") " + gLAccounts.getNameGL();
+            data[0] = "";
+            data[x] = gLAccounts.getNameGL() + " A/C No. " + gLAccounts.getNoGL();
             x++;
         }
         comboDitransfer.setModel(new DefaultComboBoxModel(data));
