@@ -11,11 +11,21 @@
 package com.ivanbiz.ui;
 
 import com.ivanbiz.dao.GLAccountDAO;
+import com.ivanbiz.dao.InvoiceDAO;
+import com.ivanbiz.dao.PembayaranDAO;
 import com.ivanbiz.dao.impl.GLAccountDAOImpl;
+import com.ivanbiz.dao.impl.InvoiceDAOImpl;
+import com.ivanbiz.dao.impl.PembayaranDAOImpl;
 import com.ivanbiz.model.GLAccount;
+import com.ivanbiz.model.Invoice;
+import com.ivanbiz.model.Pembayaran;
+import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -23,24 +33,40 @@ import javax.swing.JDialog;
  */
 public class PembayaranUpdateDialog extends JDialog {
 
-    GLAccount gLAccount;
+    Pembayaran pembayaran;
     GLAccountDAO gLAccountDAO = new GLAccountDAOImpl();
+    PembayaranDAO pembayaranDAO = new PembayaranDAOImpl();
+    InvoiceDAO invoiceDAO = new InvoiceDAOImpl();
+    List<Invoice> listInvoice;
+    List<GLAccount> listDebitur;
+    List<GLAccount> listKreditur;
 
     /**
      * Creates new form PengajarUpdateDialog
+     *
+     * @param mainFrame
+     * @param modal
      */
-    public PembayaranUpdateDialog() {
+    public PembayaranUpdateDialog(MainFrame mainFrame, boolean modal) {
         initComponents();
-        jLabelGLAccount.setText("Tambah GL Account Baru");
+        renderNoInvoice();
+        renderDebitur();
+        renderKreditur();
     }
 
-    public PembayaranUpdateDialog(GLAccount gLAccounts) {
+    public PembayaranUpdateDialog(Object object, boolean b, Pembayaran pembayaran) {
         initComponents();
-        gLAccount = gLAccounts;
-        jLabelGLAccount.setText("Ubah GL Account");
-        jTextFieldNoGL.setText(gLAccount.getNoGL());
-        jTextFieldNamaGL.setText(gLAccount.getNameGL());
-        jTextFieldKeterangan.setText(gLAccount.getGroupACC());
+        this.pembayaran = pembayaran;
+        labelPembayaran.setText("Ubah Pembayaran Tagihan");
+        dateChooserPosting.setDate(pembayaran.getDatePosting());
+        renderNoInvoice();
+        comboInvoice.setSelectedItem(pembayaran.getInvoice().getNII());
+        renderDebitur();
+        comboDebitur.setSelectedItem(pembayaran.getDebitBankAccount().getNameGL() + " A/C No. " + pembayaran.getDebitBankAccount().getNoGL());
+        renderKreditur();
+        comboKreditur.setSelectedItem(pembayaran.getKreditBankAccount().getNameGL() + " A/C No. " + pembayaran.getKreditBankAccount().getNoGL());
+        textJumlah.setText(String.valueOf(pembayaran.getJumlah()));
+        textDeskripsi.setText(pembayaran.getDeskripsi());
     }
 
     /**
@@ -52,33 +78,55 @@ public class PembayaranUpdateDialog extends JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabelGLAccount = new javax.swing.JLabel();
+        labelPembayaran = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
+        dateChooserPosting = new com.toedter.calendar.JDateChooser();
+        jLabel6 = new javax.swing.JLabel();
+        comboInvoice = new javax.swing.JComboBox();
         jLabel2 = new javax.swing.JLabel();
-        jTextFieldNoGL = new javax.swing.JTextField();
+        comboDebitur = new javax.swing.JComboBox();
         jLabel3 = new javax.swing.JLabel();
-        jTextFieldNamaGL = new javax.swing.JTextField();
+        comboKreditur = new javax.swing.JComboBox();
         jLabel4 = new javax.swing.JLabel();
-        jTextFieldKeterangan = new javax.swing.JTextField();
+        textJumlah = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        textDeskripsi = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
-        jButtonSimpan = new javax.swing.JButton();
-        jButtonBatal = new javax.swing.JButton();
+        buttonSimpan = new javax.swing.JButton();
+        buttonBatal = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setAlwaysOnTop(true);
         setModal(true);
         setResizable(false);
 
-        jLabelGLAccount.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabelGLAccount.setText("{} GL Account");
+        labelPembayaran.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        labelPembayaran.setText("Tambah Pembayaran Tagihan");
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Data Pengajar"));
+        jPanel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jLabel2.setText("No GL :");
+        jLabel8.setText("Date Posting :");
 
-        jLabel3.setText("Nama GL :");
+        dateChooserPosting.setDate(new Date());
+        dateChooserPosting.setDateFormatString("dd MMM yyyy");
+        dateChooserPosting.setEnabled(false);
 
-        jLabel4.setText("Keterangan :");
+        jLabel6.setText("No Tagihan / Invoice :");
+
+        jLabel2.setText("Debitur :");
+
+        jLabel3.setText("Kreditur :");
+
+        jLabel4.setText("Jumlah :");
+
+        textJumlah.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                textJumlahKeyReleased(evt);
+            }
+        });
+
+        jLabel5.setText("Deskripsi :");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -87,46 +135,68 @@ public class PembayaranUpdateDialog extends JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextFieldNoGL, javax.swing.GroupLayout.DEFAULT_SIZE, 348, Short.MAX_VALUE)
-                    .addComponent(jLabel2)
-                    .addComponent(jTextFieldNamaGL, javax.swing.GroupLayout.DEFAULT_SIZE, 348, Short.MAX_VALUE)
-                    .addComponent(jLabel3)
-                    .addComponent(jTextFieldKeterangan, javax.swing.GroupLayout.DEFAULT_SIZE, 348, Short.MAX_VALUE)
-                    .addComponent(jLabel4))
+                    .addComponent(dateChooserPosting, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(comboInvoice, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(textJumlah)
+                    .addComponent(comboDebitur, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(comboKreditur, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(textDeskripsi)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(dateChooserPosting, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel6)
+                .addGap(5, 5, 5)
+                .addComponent(comboInvoice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextFieldNoGL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(comboDebitur, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextFieldNamaGL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(comboKreditur, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextFieldKeterangan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(textJumlah, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(textDeskripsi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
-        jButtonSimpan.setText("Simpan");
-        jButtonSimpan.addActionListener(new java.awt.event.ActionListener() {
+        buttonSimpan.setText("Simpan");
+        buttonSimpan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                actionButton(evt);
+                buttonSimpanActionPerformed(evt);
             }
         });
-        jPanel2.add(jButtonSimpan);
+        jPanel2.add(buttonSimpan);
 
-        jButtonBatal.setText("Batal");
-        jButtonBatal.addActionListener(new java.awt.event.ActionListener() {
+        buttonBatal.setText("Batal");
+        buttonBatal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 actionButton(evt);
             }
         });
-        jPanel2.add(jButtonBatal);
+        jPanel2.add(buttonBatal);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -136,54 +206,154 @@ public class PembayaranUpdateDialog extends JDialog {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabelGLAccount)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE))
+                    .addComponent(labelPembayaran)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabelGLAccount)
+                .addComponent(labelPembayaran)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        setSize(new java.awt.Dimension(416, 304));
+        setSize(new java.awt.Dimension(390, 444));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void actionButton(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actionButton
-        if (evt.getSource() == jButtonSimpan) {
-            if (gLAccount == null) {
-                gLAccount = new GLAccount();
-            }
-            gLAccount.setNoGL(jTextFieldNoGL.getText());
-            gLAccount.setNameGL(jTextFieldNamaGL.getText());
-            gLAccount.setGroupACC(jTextFieldKeterangan.getText());
-            try {
-                gLAccountDAO.saveOrUpdate(gLAccount);
-            } catch (Exception ex) {
-                Logger.getLogger(GLAccountUpdateDialog.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
         dispose();
-        new GLAccountDialog().setVisible(true);
     }//GEN-LAST:event_actionButton
+
+    private void textJumlahKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textJumlahKeyReleased
+        try {
+            Long.parseLong(textJumlah.getText());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Format salah, harus angka", "warning", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_textJumlahKeyReleased
+
+    private void buttonSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSimpanActionPerformed
+        if (pembayaran == null) {
+            pembayaran = new Pembayaran();
+        }
+        pembayaran.setDateCreated(new Date());
+        pembayaran.setTransactionReference("");
+        pembayaran.setStatus("0");
+        pembayaran.setPathImage("");
+        pembayaran.setDatePosting(new Date());
+        pembayaran.setInvoice(listInvoice.get(comboInvoice.getSelectedIndex()));
+        pembayaran.setDebitBankAccount(listDebitur.get(comboDebitur.getSelectedIndex()));
+        pembayaran.setKreditBankAccount(listKreditur.get(comboKreditur.getSelectedIndex()));
+        pembayaran.setJumlah(textJumlah.getText().isEmpty() ? (double) 0 : new Double(textJumlah.getText()));
+        pembayaran.setDeskripsi(textDeskripsi.getText());
+        validate(pembayaran);
+    }//GEN-LAST:event_buttonSimpanActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButtonBatal;
-    private javax.swing.JButton jButtonSimpan;
+    private javax.swing.JButton buttonBatal;
+    private javax.swing.JButton buttonSimpan;
+    private javax.swing.JComboBox comboDebitur;
+    private javax.swing.JComboBox comboInvoice;
+    private javax.swing.JComboBox comboKreditur;
+    private com.toedter.calendar.JDateChooser dateChooserPosting;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabelGLAccount;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField jTextFieldKeterangan;
-    private javax.swing.JTextField jTextFieldNamaGL;
-    private javax.swing.JTextField jTextFieldNoGL;
+    private javax.swing.JLabel labelPembayaran;
+    private javax.swing.JTextField textDeskripsi;
+    private javax.swing.JTextField textJumlah;
     // End of variables declaration//GEN-END:variables
+
+    private void renderNoInvoice() {
+        try {
+            listInvoice = invoiceDAO.getAll(Invoice.class);
+            updateComboInvoice();
+        } catch (Exception ex) {
+            Logger.getLogger(PembayaranUpdateDialog.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void updateComboInvoice() {
+        Object data[] = new Object[listInvoice.size()];
+        int x = 0;
+        for (Invoice invoice : listInvoice) {
+            data[x] = invoice.getNII();
+            x++;
+        }
+        comboInvoice.setModel(new DefaultComboBoxModel(data));
+    }
+
+    private void renderDebitur() {
+        try {
+            listDebitur = gLAccountDAO.getDataByEquals(GLAccount.class, "groupACC", "Debitur");
+            updateComboDebitur();
+        } catch (Exception ex) {
+            Logger.getLogger(PembayaranUpdateDialog.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void updateComboDebitur() {
+        Object data[] = new Object[listDebitur.size()];
+        int x = 0;
+        for (GLAccount gLAccount : listDebitur) {
+            data[x] = gLAccount.getNameGL() + " A/C No. " + gLAccount.getNoGL();
+            x++;
+        }
+        comboDebitur.setModel(new DefaultComboBoxModel(data));
+    }
+
+    private void updateComboKreditur() {
+        Object data[] = new Object[listKreditur.size()];
+        int x = 0;
+        for (GLAccount gLAccount : listKreditur) {
+            data[x] = gLAccount.getNameGL() + " A/C No. " + gLAccount.getNoGL();
+            x++;
+        }
+        comboKreditur.setModel(new DefaultComboBoxModel(data));
+    }
+
+    private void renderKreditur() {
+        try {
+            listKreditur = gLAccountDAO.getDataByEquals(GLAccount.class, "groupACC", "Kreditur");
+            updateComboKreditur();
+        } catch (Exception ex) {
+            Logger.getLogger(PembayaranUpdateDialog.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void validate(Pembayaran pembayaran) {
+        if (pembayaran == null) {
+            JOptionPane.showMessageDialog(this, "Pembayaran tidak boleh null");
+        } else if (pembayaran.getInvoice() == null) {
+            JOptionPane.showMessageDialog(this, "Invoice tidak boleh null");
+        } else if (pembayaran.getDebitBankAccount() == null) {
+            JOptionPane.showMessageDialog(this, "Debitur tidak boleh kosong");
+        } else if (pembayaran.getKreditBankAccount() == null) {
+            JOptionPane.showMessageDialog(this, "Kreditur tidak boleh null");
+        } else if (pembayaran.getJumlah() == (double) 0) {
+            JOptionPane.showMessageDialog(this, "Jumlah tidak boleh kosong");
+        } else if (pembayaran.getDeskripsi().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Deskripsi tidak boleh kosong");
+        } else if (pembayaran.getPathImage() == null) {
+            JOptionPane.showMessageDialog(this, "Upload Bukti Pembayaran tidak boleh kosong");
+        } else {
+            try {
+                pembayaranDAO.postingJurnalPembayaran(pembayaran);
+                dispose();
+            } catch (Exception ex) {
+                Logger.getLogger(PembayaranUpdateDialog.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
 }

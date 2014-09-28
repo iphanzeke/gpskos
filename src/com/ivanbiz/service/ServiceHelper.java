@@ -4,6 +4,13 @@
  */
 package com.ivanbiz.service;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -123,5 +130,26 @@ public class ServiceHelper {
             return false;
         }
         return true;
+    }
+
+    public void copyFile(String source, String destination) {
+        File fileSource = new File(source);
+        File fileDestination = new File(destination);
+        try {
+            InputStream inputStream = new FileInputStream(fileSource);
+            OutputStream outputStream = new FileOutputStream(fileDestination);
+            byte[] buffer = new byte[1024];
+            int legth;
+            // copy file content in byte
+            while ((legth = inputStream.read(buffer)) > 0) {
+                outputStream.write(buffer, 0, legth);
+            }
+            inputStream.close();
+            outputStream.close();
+            // delete the original file
+            // cfile.delete();
+        } catch (FileNotFoundException e) {
+        } catch (IOException e) {
+        }
     }
 }

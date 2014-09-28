@@ -122,7 +122,7 @@ public class TagihanReportDialog extends javax.swing.JDialog {
         if (tableTagihan.getSelectedRow() == -1) {
             JOptionPane.showMessageDialog(this, "Pilih data yang akan dicetak", "warning", JOptionPane.WARNING_MESSAGE);
         } else {
-            new TagihanReport().previewAndCetakTagihan(listInvoice, "cetak");
+            new TagihanReport().previewAndCetakTagihan(listInvoice.get(tableTagihan.getSelectedRow()), "cetak");
         }
     }//GEN-LAST:event_buttonCetakActionPerformed
 
@@ -130,7 +130,7 @@ public class TagihanReportDialog extends javax.swing.JDialog {
         if (tableTagihan.getSelectedRow() == -1) {
             JOptionPane.showMessageDialog(this, "Pilih data yang akan dicetak", "warning", JOptionPane.WARNING_MESSAGE);
         } else {
-            new TagihanReport().previewAndCetakTagihan(listInvoice, "preview");
+            new TagihanReport().previewAndCetakTagihan(listInvoice.get(tableTagihan.getSelectedRow()), "preview");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 

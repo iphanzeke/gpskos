@@ -4,7 +4,6 @@
  */
 package com.ivanbiz.model;
 
-import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -148,7 +147,6 @@ public class Invoice {
         this.date = date;
     }
 
-   
     /**
      * @return the status
      */

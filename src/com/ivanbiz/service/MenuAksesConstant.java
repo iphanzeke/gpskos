@@ -22,6 +22,7 @@ public enum MenuAksesConstant {
     LIHAT_PENGGUNA("Lihat Pengguna"),
     LIHAT_PERUSAHAAN("Lihat Perusahaan"),
     LIHAT_TAGIHAN("Lihat Tagihan"),
+    LIHAT_PEMBAYARAN_TAGIHAN("Lihat Pembayaran Tagihan"),
     //tambah
     TAMBAH_PENGAJAR("Tambah Pengajar"),
     TAMBAH_MURID("Tambah Murid"),
@@ -30,8 +31,9 @@ public enum MenuAksesConstant {
     TAMBAH_GROUP("Tambah Group"),
     TAMBAH_PENGGUNA("Tambah Pengguna"),
     TAMBAH_DAFTAR_KELAS("Tambah Daftar Kelas"),
-    TAMBAH_TAGIHAN("Tambah Tagihan"),
     TAMBAH_GLACCOUNT("Tambah GL Account"),
+    TAMBAH_TAGIHAN("Tambah Tagihan"),
+    TAMBAH_PEMBAYARAN_TAGIHAN("Tambah Pembayaran Tagihan"),
     //ubah
     UBAH_PENGAJAR("Ubah Pengajar"),
     UBAH_MURID("Ubah Murid"),
@@ -41,6 +43,7 @@ public enum MenuAksesConstant {
     UBAH_PENGGUNA("Ubah Pengguna"),
     UBAH_PASSWORD("Ubah Password"),
     UBAH_TAGIHAN("Ubah Tagihan"),
+    UBAH_PEMBAYARAN_TAGIHAN("Ubah Pembayaran Tagihan"),
     //hapus
     HAPUS_PENGAJAR("Hapus Pengajar"),
     HAPUS_KELAS("Hapus Kelas"),
@@ -51,6 +54,8 @@ public enum MenuAksesConstant {
     HAPUS_DAFTAR_KELAS("Hapus Daftar Kelas"),
     HAPUS_TAGIHAN("Hapus Tagihan"),
     HAPUS_GLACCOUNT("Hapus GL Account"),
+    HAPUS_PEMBAYARAN_TAGIHAN("Hapus Pembayaran Tagihan"),
+    //
     TUTUP_KELAS("Tutup Kelas"),
     KIRIM_TAGIHAN("Kirim Tagihan"),
     //Report

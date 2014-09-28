@@ -13,6 +13,7 @@ package com.ivanbiz.ui;
 import com.ivanbiz.dao.PerusahaanDAO;
 import com.ivanbiz.dao.impl.PerusahaanDAOImpl;
 import com.ivanbiz.model.Perusahaan;
+import com.ivanbiz.service.GlobalSession;
 import com.ivanbiz.service.JTextFieldLimit;
 import java.util.List;
 import java.util.logging.Level;
@@ -31,6 +32,7 @@ public class PerusahaanDialog extends javax.swing.JDialog {
 
     public PerusahaanDialog() {
         initComponents();
+        perusahaan = GlobalSession.getPerusahaan();
         refresh();
     }
 
@@ -58,6 +60,7 @@ public class PerusahaanDialog extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setAlwaysOnTop(true);
+        setModal(true);
         setResizable(false);
 
         jPanel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -183,16 +186,16 @@ public class PerusahaanDialog extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
 
     private void refresh() {
-        try {
-            listPerusahaan = perusahaanDAO.getAll(Perusahaan.class);
-            for (Perusahaan perusahaans : listPerusahaan) {
-                textNama.setText(perusahaans.getNama());
-                textAlamat.setText(perusahaans.getAlamat());
-                textTelephone.setText(perusahaans.getTelephone());
-                textFax.setText(perusahaans.getFax());
-            }
-        } catch (Exception ex) {
-            Logger.getLogger(PerusahaanDialog.class.getName()).log(Level.SEVERE, null, ex);
+        if (perusahaan == null) {
+            textNama.setText("");
+            textAlamat.setText("");
+            textTelephone.setText("");
+            textFax.setText("");
+        } else {
+            textNama.setText(perusahaan.getNama());
+            textAlamat.setText(perusahaan.getAlamat());
+            textTelephone.setText(perusahaan.getTelephone());
+            textFax.setText(perusahaan.getFax());
         }
     }
 
@@ -218,6 +221,8 @@ public class PerusahaanDialog extends javax.swing.JDialog {
         } else {
             try {
                 perusahaanDAO.saveOrUpdate(perusahaan);
+                GlobalSession.setPerusahaan(perusahaan);
+                perusahaan = GlobalSession.getPerusahaan();
                 refresh();
                 JOptionPane.showMessageDialog(this, "Data sudah disimpan");
             } catch (Exception ex) {
