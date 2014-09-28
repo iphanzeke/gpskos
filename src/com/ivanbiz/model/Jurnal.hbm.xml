@@ -8,8 +8,8 @@
     <property column="ACCOUNTING_REFERENCE" name="accountingReference" type="string"/>
     <property column="DATE_REFERENCE" name="dateReference" type="date"/>
     <property column="TRANSACTION_REFERENCE" length="50" name="transactionReference" type="string"/>
-    <property column="DEBIT"  name="debit" type="big_decimal"/>
-    <property column="CREDIT" name="credit" type="big_decimal"/>
+    <property column="DEBIT"  name="debit" type="double" length="12"/>
+    <property column="CREDIT" name="credit" type="double" length="12"/>
     <property column="CURRENCY" length="4" name="currency" type="string"/>
     <property column="GL_ACCOUNT" length="20" name="GLAccount" type="string"/>
     <property column="STATUS" length="8" name="status" type="string"/>

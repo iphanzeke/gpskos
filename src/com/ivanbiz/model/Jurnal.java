@@ -16,8 +16,8 @@ public class Jurnal {
     private String accountingReference;
     private Date dateReference;
     private String transactionReference;
-    private BigDecimal debit;
-    private BigDecimal credit;
+    private double debit;
+    private double credit;
     private String currency;
     public String getCurrency() {
 		return currency;
@@ -111,31 +111,30 @@ public class Jurnal {
     /**
      * @return the debit
      */
-    public BigDecimal getDebit() {
+    public double getDebit() {
         return debit;
     }
 
     /**
      * @param debit the debit to set
      */
-    public void setDebit(BigDecimal debit) {
+    public void setDebit(double debit) {
         this.debit = debit;
     }
 
     /**
      * @return the credit
      */
-    public BigDecimal getCredit() {
+    public double getCredit() {
         return credit;
     }
 
     /**
      * @param credit the credit to set
      */
-    public void setCredit(BigDecimal credit) {
+    public void setCredit(double credit) {
         this.credit = credit;
     }
 
-    
 
 }

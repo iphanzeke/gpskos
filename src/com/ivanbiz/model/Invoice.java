@@ -20,7 +20,7 @@ public class Invoice {
     private String deskripsiKepada;
     private String deskripsiUntukPembayaran;
     private String deskripsiJumlahPeserta;
-    private BigDecimal jumlahTagihan;
+    private double jumlahTagihan;
     private Date date;
     private String status;/* 0=simpan 1=sudah kejurnal 2=sudah terbayar*/
 
@@ -148,20 +148,7 @@ public class Invoice {
         this.date = date;
     }
 
-    /**
-     * @return the jumlahTagihan
-     */
-    public BigDecimal getJumlahTagihan() {
-        return jumlahTagihan;
-    }
-
-    /**
-     * @param jumlahTagihan the jumlahTagihan to set
-     */
-    public void setJumlahTagihan(BigDecimal jumlahTagihan) {
-        this.jumlahTagihan = jumlahTagihan;
-    }
-
+   
     /**
      * @return the status
      */
@@ -202,6 +189,20 @@ public class Invoice {
      */
     public void setDeskripsiUntuk(String deskripsiUntuk) {
         this.deskripsiUntuk = deskripsiUntuk;
+    }
+
+    /**
+     * @return the jumlahTagihan
+     */
+    public double getJumlahTagihan() {
+        return jumlahTagihan;
+    }
+
+    /**
+     * @param jumlahTagihan the jumlahTagihan to set
+     */
+    public void setJumlahTagihan(double jumlahTagihan) {
+        this.jumlahTagihan = jumlahTagihan;
     }
 
 }
