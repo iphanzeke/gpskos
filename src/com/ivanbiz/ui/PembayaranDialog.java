@@ -17,6 +17,7 @@ import com.ivanbiz.model.Pembayaran;
 import com.ivanbiz.service.GlobalSession;
 import com.ivanbiz.service.MenuAksesConstant;
 import com.ivanbiz.service.ServiceHelper;
+import java.text.NumberFormat;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -32,6 +33,7 @@ public class PembayaranDialog extends JDialog {
     PembayaranDAO pembayaranDAO;
     List<Pembayaran> listPembayaran;
     Pembayaran pembayaran;
+    NumberFormat numberFormat;
 
     /**
      * Creates new form PengajarDialog
@@ -40,6 +42,7 @@ public class PembayaranDialog extends JDialog {
         initComponents();
         pembayaranDAO = new PembayaranDAOImpl();
         renderButtonAkses(GlobalSession.getListAksesMatrix());
+        numberFormat = NumberFormat.getCurrencyInstance();
         refresh();
     }
 
@@ -190,16 +193,16 @@ public class PembayaranDialog extends JDialog {
         int x = 0;
         int no = 0;
         for (Pembayaran pembayaran : listPembayaran) {
-            if (pembayaran.getTransactionReference().trim().isEmpty()) {
-                no += 1;
-                isi[x][0] = no;
-                isi[x][1] = pembayaran.getDatePosting();
-                isi[x][2] = pembayaran.getInvoice().getNII();
-                isi[x][3] = pembayaran.getDebitBankAccount().getNameGL() + " A/C NO. " + pembayaran.getDebitBankAccount().getNoGL();
-                isi[x][4] = pembayaran.getDebitBankAccount().getNameGL() + " A/C NO. " + pembayaran.getDebitBankAccount().getNoGL();
-                isi[x][5] = pembayaran.getJumlah();
-                isi[x][6] = pembayaran.getDeskripsi();
-            }
+//            if (pembayaran.getTransactionReference().trim().isEmpty()) {
+            no += 1;
+            isi[x][0] = no;
+            isi[x][1] = pembayaran.getDatePosting();
+            isi[x][2] = pembayaran.getInvoice().getNII();
+            isi[x][3] = pembayaran.getDebitBankAccount().getNameGL() + " A/C NO. " + pembayaran.getDebitBankAccount().getNoGL();
+            isi[x][4] = pembayaran.getDebitBankAccount().getNameGL() + " A/C NO. " + pembayaran.getDebitBankAccount().getNoGL();
+            isi[x][5] = numberFormat.format(pembayaran.getJumlah());
+            isi[x][6] = pembayaran.getDeskripsi();
+//            }
             x++;
         }
         new ServiceHelper().setAutoRize(isi, judul, tablePembayaran);
