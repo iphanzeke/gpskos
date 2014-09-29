@@ -183,7 +183,6 @@ public class DaftarKelasDialog extends javax.swing.JDialog {
             }
         }
 }//GEN-LAST:event_buttonHapusActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonHapus;
     private javax.swing.JButton buttonTambah;
@@ -211,8 +210,8 @@ public class DaftarKelasDialog extends javax.swing.JDialog {
     }
 
     private void updateTableDaftarKelas() {
-        String[] judul = {"No", "NIM", "Nama"};
-        Object[][] isi = new Object[listDaftarKelas.size()][3];
+        String[] judul = {"No", "NIM", "Nama", "Bank"};
+        Object[][] isi = new Object[listDaftarKelas.size()][4];
         int x = 0;
         int no = 0;
         for (DaftarKelas daftarKelass : listDaftarKelas) {
@@ -220,6 +219,7 @@ public class DaftarKelasDialog extends javax.swing.JDialog {
             isi[x][0] = no;
             isi[x][1] = daftarKelass.getMurid().getNIM();
             isi[x][2] = daftarKelass.getMurid().getNama();
+            isi[x][3] = daftarKelass.getMurid().getBank().getNama();
             x++;
         }
         new ServiceHelper().setAutoRize(isi, judul, tableDaftarKelas);

@@ -63,6 +63,7 @@ public class MainFrame extends JFrame {
             menuItemJurnal.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.REPORT_JURNAL, listAksesMatrix));
             menuItemTagihanReport.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.REPORT_TAGIHAN, listAksesMatrix));
             menuItemPembayaran.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.LIHAT_PEMBAYARAN_TAGIHAN, listAksesMatrix));
+            menuItemPembayaranReport.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.REPORT_PEMBAYARAN, listAksesMatrix));
         } catch (Exception ex) {
             Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -94,6 +95,7 @@ public class MainFrame extends JFrame {
         menuLaporan = new javax.swing.JMenu();
         menuItemJurnal = new javax.swing.JMenuItem();
         menuItemTagihanReport = new javax.swing.JMenuItem();
+        menuItemPembayaranReport = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setAlwaysOnTop(true);
@@ -234,6 +236,14 @@ public class MainFrame extends JFrame {
         });
         menuLaporan.add(menuItemTagihanReport);
 
+        menuItemPembayaranReport.setText("Pembayaran");
+        menuItemPembayaranReport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemPembayaranReportActionPerformed(evt);
+            }
+        });
+        menuLaporan.add(menuItemPembayaranReport);
+
         menuBarApp.add(menuLaporan);
 
         setJMenuBar(menuBarApp);
@@ -246,11 +256,11 @@ public class MainFrame extends JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 577, Short.MAX_VALUE)
+            .addGap(0, 579, Short.MAX_VALUE)
         );
 
-        setSize(new java.awt.Dimension(816, 638));
-        setLocationRelativeTo(null);
+        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+        setBounds((screenSize.width-816)/2, (screenSize.height-638)/2, 816, 638);
     }// </editor-fold>//GEN-END:initComponents
 
     private void menuItemPengajarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemPengajarActionPerformed
@@ -314,6 +324,9 @@ public class MainFrame extends JFrame {
         new PembayaranDialog().setVisible(true);
     }//GEN-LAST:event_menuItemPembayaranActionPerformed
 
+    private void menuItemPembayaranReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemPembayaranReportActionPerformed
+        new PembayaranReportDialog().setVisible(true);
+    }//GEN-LAST:event_menuItemPembayaranReportActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
@@ -329,6 +342,7 @@ public class MainFrame extends JFrame {
     private javax.swing.JMenuItem menuItemMurid;
     private javax.swing.JMenuItem menuItemPassword;
     private javax.swing.JMenuItem menuItemPembayaran;
+    private javax.swing.JMenuItem menuItemPembayaranReport;
     private javax.swing.JMenuItem menuItemPengajar;
     private javax.swing.JMenuItem menuItemPengguna;
     private javax.swing.JMenuItem menuItemPerusahaan;

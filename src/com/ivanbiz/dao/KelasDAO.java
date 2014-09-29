@@ -5,6 +5,9 @@
  */
 package com.ivanbiz.dao;
 
+import com.ivanbiz.model.Bank;
+import com.ivanbiz.model.Kelas;
+
 /**
  *
  * @author ivan
@@ -12,4 +15,6 @@ package com.ivanbiz.dao;
 public interface KelasDAO extends GenericDAO {
 
     public String getLastNoTransaksi() throws Exception;
+
+    public String getDataPeserta(Kelas kelas, Bank bank) throws Exception;
 }

@@ -62,12 +62,13 @@ public class PembayaranDialog extends JDialog {
         buttonTambah = new javax.swing.JButton();
         buttonUbah = new javax.swing.JButton();
         buttonHapus = new javax.swing.JButton();
+        buttonProcess = new javax.swing.JButton();
 
         setAlwaysOnTop(true);
         setModal(true);
         setResizable(false);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24));
         jLabel1.setText("Daftar Pembayaran");
 
         tablePembayaran.setModel(new javax.swing.table.DefaultTableModel(
@@ -107,6 +108,14 @@ public class PembayaranDialog extends JDialog {
         });
         jPanel2.add(buttonHapus);
 
+        buttonProcess.setText("Proses Pembayaran Terseleksi");
+        buttonProcess.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonProcessActionPerformed(evt);
+            }
+        });
+        jPanel2.add(buttonProcess);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -131,8 +140,8 @@ public class PembayaranDialog extends JDialog {
                 .addContainerGap())
         );
 
-        setSize(new java.awt.Dimension(816, 638));
-        setLocationRelativeTo(null);
+        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+        setBounds((screenSize.width-816)/2, (screenSize.height-638)/2, 816, 638);
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonUbahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonUbahActionPerformed
@@ -168,8 +177,22 @@ public class PembayaranDialog extends JDialog {
         refresh();
     }//GEN-LAST:event_buttonTambahActionPerformed
 
+    private void buttonProcessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonProcessActionPerformed
+        if (tablePembayaran.getSelectedRow() == -1) {
+            JOptionPane.showMessageDialog(this, "Pilih data yang akan diproses", "warning", JOptionPane.WARNING_MESSAGE);
+        } else {
+            try {
+                pembayaran = listPembayaran.get(tablePembayaran.getSelectedRow());
+                pembayaranDAO.postingJurnalPembayaran(pembayaran);
+                refresh();
+            } catch (Exception ex) {
+                Logger.getLogger(PembayaranDialog.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_buttonProcessActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonHapus;
+    private javax.swing.JButton buttonProcess;
     private javax.swing.JButton buttonTambah;
     private javax.swing.JButton buttonUbah;
     private javax.swing.JLabel jLabel1;
@@ -192,16 +215,16 @@ public class PembayaranDialog extends JDialog {
         Object[][] isi = new Object[listPembayaran.size()][7];
         int x = 0;
         int no = 0;
-        for (Pembayaran pembayaran : listPembayaran) {
+        for (Pembayaran pembayarans : listPembayaran) {
 //            if (pembayaran.getTransactionReference().trim().isEmpty()) {
             no += 1;
             isi[x][0] = no;
-            isi[x][1] = pembayaran.getDatePosting();
-            isi[x][2] = pembayaran.getInvoice().getNII();
-            isi[x][3] = pembayaran.getDebitBankAccount().getNameGL() + " A/C NO. " + pembayaran.getDebitBankAccount().getNoGL();
-            isi[x][4] = pembayaran.getDebitBankAccount().getNameGL() + " A/C NO. " + pembayaran.getDebitBankAccount().getNoGL();
-            isi[x][5] = numberFormat.format(pembayaran.getJumlah());
-            isi[x][6] = pembayaran.getDeskripsi();
+            isi[x][1] = pembayarans.getDatePosting();
+            isi[x][2] = pembayarans.getInvoice().getNII();
+            isi[x][3] = pembayarans.getDebitBankAccount().getNameGL() + " A/C NO. " + pembayarans.getDebitBankAccount().getNoGL();
+            isi[x][4] = pembayarans.getDebitBankAccount().getNameGL() + " A/C NO. " + pembayarans.getDebitBankAccount().getNoGL();
+            isi[x][5] = numberFormat.format(pembayarans.getJumlah());
+            isi[x][6] = pembayarans.getDeskripsi();
 //            }
             x++;
         }

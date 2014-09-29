@@ -6,6 +6,7 @@
 package com.ivanbiz.report;
 
 import com.ivanbiz.model.Invoice;
+import com.ivanbiz.model.Pembayaran;
 import com.ivanbiz.model.Perusahaan;
 
 /**
@@ -20,6 +21,15 @@ public class GlobalReport {
     private String namaGLKreditur;
     private String logo;
     private String jumlah;
+    private Pembayaran pembayaran;
+
+    public Pembayaran getPembayaran() {
+        return pembayaran;
+    }
+
+    public void setPembayaran(Pembayaran pembayaran) {
+        this.pembayaran = pembayaran;
+    }
 
     public String getNamaGLKreditur() {
         return namaGLKreditur;
@@ -68,5 +78,4 @@ public class GlobalReport {
     public void setInvoice(Invoice invoice) {
         this.invoice = invoice;
     }
-
 }

@@ -4,6 +4,7 @@ import com.ivanbiz.dao.GLAccountDAO;
 import com.ivanbiz.model.GLAccount;
 import com.ivanbiz.model.SettingGL;
 import com.ivanbiz.service.HibernateUtil;
+import org.hibernate.Query;
 import org.hibernate.Session;
 
 public class GLAccountDAOImpl extends GenericDAOImpl implements GLAccountDAO {
@@ -74,5 +75,30 @@ public class GLAccountDAOImpl extends GenericDAOImpl implements GLAccountDAO {
             HibernateUtil.closeSession();
         }
         return status;
+    }
+
+    @Override
+    public String getLastNoTransaksi() throws Exception {
+        GLAccount gLAccount = null;
+        String noTransaksi = "";
+        try {
+            HibernateUtil.beginTransaction();
+            Session session = HibernateUtil.getSession();
+            Query query = (Query) session.createQuery("from com.ivanbiz.model.GLAccount gl where gl.kode !='XXX' order by gl.id desc");
+            query.setFirstResult(0);
+            query.setMaxResults(1);
+            gLAccount = (GLAccount) query.uniqueResult();
+            if (gLAccount != null) {
+                noTransaksi = gLAccount.getKode();
+            }
+            HibernateUtil.commitTransaction();
+        } catch (Exception e) {
+            HibernateUtil.rollbackTransaction();
+            throw e;
+        } finally {
+            HibernateUtil.closeSession();
+        }
+
+        return noTransaksi;
     }
 }

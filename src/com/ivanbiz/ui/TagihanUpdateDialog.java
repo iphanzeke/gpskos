@@ -129,7 +129,7 @@ public class TagihanUpdateDialog extends javax.swing.JDialog {
         setModal(true);
         setResizable(false);
 
-        labelTagihan.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        labelTagihan.setFont(new java.awt.Font("Tahoma", 1, 24));
         labelTagihan.setText("Tambah Tagihan Baru");
 
         jPanel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -161,6 +161,7 @@ public class TagihanUpdateDialog extends javax.swing.JDialog {
         jLabel6.setText("Untuk Pembayaran :");
 
         textPeserta.setDocument(new JTextFieldLimit(250));
+        textPeserta.setEnabled(false);
         textPeserta.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 textPesertaKeyReleased(evt);
@@ -185,7 +186,7 @@ public class TagihanUpdateDialog extends javax.swing.JDialog {
 
         dateChooserDate.setEnabled(false);
 
-        textTerbilang.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        textTerbilang.setFont(new java.awt.Font("Tahoma", 1, 14));
         textTerbilang.setEnabled(false);
         jScrollPane1.setViewportView(textTerbilang);
 
@@ -234,13 +235,13 @@ public class TagihanUpdateDialog extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(textNII)
-                            .addComponent(dateChooserDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jScrollPane2)
-                            .addComponent(textPembayaran)
-                            .addComponent(comboDitransfer, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(textNII, javax.swing.GroupLayout.DEFAULT_SIZE, 404, Short.MAX_VALUE)
+                            .addComponent(dateChooserDate, javax.swing.GroupLayout.DEFAULT_SIZE, 404, Short.MAX_VALUE)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 404, Short.MAX_VALUE)
+                            .addComponent(textPembayaran, javax.swing.GroupLayout.DEFAULT_SIZE, 404, Short.MAX_VALUE)
+                            .addComponent(comboDitransfer, 0, 404, Short.MAX_VALUE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(comboKelas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(comboKelas, 0, 212, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(comboBank, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -249,7 +250,7 @@ public class TagihanUpdateDialog extends javax.swing.JDialog {
                                     .addComponent(jLabel10)
                                     .addComponent(jLabel6)
                                     .addComponent(jLabel12))
-                                .addGap(0, 0, Short.MAX_VALUE))
+                                .addGap(0, 292, Short.MAX_VALUE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel7)
@@ -259,7 +260,7 @@ public class TagihanUpdateDialog extends javax.swing.JDialog {
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(jLabel8)
                                         .addGap(0, 49, Short.MAX_VALUE))
-                                    .addComponent(textJumlah))
+                                    .addComponent(textJumlah, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel11)
@@ -267,10 +268,10 @@ public class TagihanUpdateDialog extends javax.swing.JDialog {
                         .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 186, Short.MAX_VALUE)
                         .addComponent(jLabel4)
                         .addGap(166, 166, 166))
-                    .addComponent(comboKepada, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(comboKepada, 0, 414, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                         .addContainerGap())
@@ -278,8 +279,8 @@ public class TagihanUpdateDialog extends javax.swing.JDialog {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5)
                             .addComponent(jLabel9))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane3)))
+                        .addGap(0, 363, Short.MAX_VALUE))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 414, Short.MAX_VALUE)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -357,8 +358,8 @@ public class TagihanUpdateDialog extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(labelTagihan, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(labelTagihan, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -373,8 +374,8 @@ public class TagihanUpdateDialog extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        setSize(new java.awt.Dimension(466, 722));
-        setLocationRelativeTo(null);
+        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+        setBounds((screenSize.width-466)/2, (screenSize.height-722)/2, 466, 722);
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonBatalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBatalActionPerformed
@@ -414,6 +415,7 @@ public class TagihanUpdateDialog extends javax.swing.JDialog {
 
     private void comboBankItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboBankItemStateChanged
         renderKepada(listBank.get(comboBank.getSelectedIndex()));
+        renderJumlahPeserta(listKelas.get(comboKelas.getSelectedIndex()), listBank.get(comboBank.getSelectedIndex()));
     }//GEN-LAST:event_comboBankItemStateChanged
 
     private void comboKelasItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboKelasItemStateChanged
@@ -611,5 +613,14 @@ public class TagihanUpdateDialog extends javax.swing.JDialog {
             x++;
         }
         comboDitransfer.setModel(new DefaultComboBoxModel(data));
+    }
+
+    private void renderJumlahPeserta(Kelas kelas, Bank bank) {
+        try {
+            String peserta = kelasDAO.getDataPeserta(kelas, bank);
+            textPeserta.setText(peserta);
+        } catch (Exception ex) {
+            Logger.getLogger(TagihanUpdateDialog.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

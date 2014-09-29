@@ -6,6 +6,7 @@
 package com.ivanbiz.dao.impl;
 
 import com.ivanbiz.dao.KelasDAO;
+import com.ivanbiz.model.Bank;
 import com.ivanbiz.model.Kelas;
 import com.ivanbiz.service.HibernateUtil;
 import org.hibernate.Query;
@@ -40,5 +41,25 @@ public class KelasDAOImpl extends GenericDAOImpl implements KelasDAO {
         }
 
         return noTransaksi;
+    }
+
+    @Override
+    public String getDataPeserta(Kelas kelas, Bank bank) throws Exception {
+        try {
+            String peserta = "";
+            Session session = HibernateUtil.getSession();
+            HibernateUtil.beginTransaction();
+            Query query = session.createQuery("select count (*) from DaftarKelas dk, Murid m where dk.murid.id = m.id and dk.kelas.transactionReference =:kelas and m.bank.nama = :bank ");
+            query.setParameter("kelas", kelas.getTransactionReference());
+            query.setParameter("bank", bank.getNama());
+            peserta = query.uniqueResult().toString();
+            HibernateUtil.commitTransaction();
+            return peserta;
+        } catch (Exception e) {
+            HibernateUtil.rollbackTransaction();
+            throw e;
+        } finally {
+            HibernateUtil.closeSession();
+        }
     }
 }

@@ -89,7 +89,7 @@ public class GLAccountUpdateDialog extends JDialog {
         setModal(true);
         setResizable(false);
 
-        jLabelGLAccount.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabelGLAccount.setFont(new java.awt.Font("Tahoma", 1, 24));
         jLabelGLAccount.setText("Tambah GL Account Baru");
 
         jPanel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -97,6 +97,7 @@ public class GLAccountUpdateDialog extends JDialog {
         jLabel2.setText("Kode :");
 
         textFieldKode.setDocument(new JTextFieldLimit(3));
+        textFieldKode.setEnabled(false);
 
         jLabel3.setText("Bank :");
 
@@ -146,8 +147,8 @@ public class GLAccountUpdateDialog extends JDialog {
                             .addComponent(jLabel4)
                             .addComponent(jLabel5)
                             .addComponent(jLabel6))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1))
+                        .addGap(0, 243, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 316, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -219,8 +220,8 @@ public class GLAccountUpdateDialog extends JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        setSize(new java.awt.Dimension(378, 460));
-        setLocationRelativeTo(null);
+        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+        setBounds((screenSize.width-378)/2, (screenSize.height-460)/2, 378, 460);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonBatalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBatalActionPerformed
@@ -244,14 +245,13 @@ public class GLAccountUpdateDialog extends JDialog {
         if (comboBoxGroupAccount.getSelectedItem().equals("Kreditur")) {
             jLabel2.setVisible(true);
             textFieldKode.setVisible(true);
-            textFieldKode.setText("");
+            textFieldKode.setText(getGenereateKode());
         } else {
             jLabel2.setVisible(false);
             textFieldKode.setVisible(false);
             textFieldKode.setText("XXX");
         }
     }//GEN-LAST:event_comboBoxGroupAccountActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox comboBoxBank;
     private javax.swing.JComboBox comboBoxGroupAccount;
@@ -344,5 +344,26 @@ public class GLAccountUpdateDialog extends JDialog {
                 Logger.getLogger(GLAccountUpdateDialog.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+    }
+
+    private String getGenereateKode() {
+        String kode = null;
+        try {
+            kode = gLAccountDAO.getLastNoTransaksi();
+            if (!"".equals(kode)) {
+                int count = Integer.parseInt(kode);
+                count += 1;
+                if (count > 999) {
+                    kode = String.format("%03d", 1);
+                } else {
+                    kode = String.format("%03d", count);
+                }
+            } else {
+                kode = String.format("%03d", 1);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(GLAccountUpdateDialog.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return kode;
     }
 }
