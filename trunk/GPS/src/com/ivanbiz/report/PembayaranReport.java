@@ -1,0 +1,104 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.ivanbiz.report;
+
+import com.ivanbiz.dao.GLAccountDAO;
+import com.ivanbiz.dao.impl.GLAccountDAOImpl;
+import com.ivanbiz.model.GLAccount;
+import com.ivanbiz.model.Invoice;
+import com.ivanbiz.model.Pembayaran;
+import com.ivanbiz.model.Perusahaan;
+import com.ivanbiz.service.GlobalSession;
+import com.ivanbiz.service.ServiceHelper;
+import java.io.IOException;
+import java.io.InputStream;
+import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFrame;
+import net.sf.jasperreports.engine.JRDataSource;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRParameter;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperPrintManager;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
+
+/**
+ *
+ * @author IW20149X
+ */
+public class PembayaranReport {
+
+    Invoice invoice;
+    NumberFormat numberFormat;
+    Perusahaan perusahaan;
+    GLAccount gLAccountKepada;
+    GLAccount gLAccountDitransferKe;
+    GLAccountDAO gLAccountDAO;
+    GlobalReport globalReport;
+    List<GlobalReport> listReport;
+    JRDataSource dataSource;
+    Map map;
+    JasperPrint report;
+    JasperViewer jasperViewer;
+
+    public void previewAndCetakTagihan(Pembayaran pembayaran, String previewOrCetak) {
+        InputStream inputStream = null;
+        numberFormat = NumberFormat.getCurrencyInstance();
+        gLAccountDAO = new GLAccountDAOImpl();
+        try {
+            perusahaan = new Perusahaan();
+            perusahaan.setAlamat(GlobalSession.getPerusahaan().getAlamat() + "\n" + "Ph  :" + GlobalSession.getPerusahaan().getTelephone() + "\n" + "Fax :" + GlobalSession.getPerusahaan().getFax());
+
+            invoice = new Invoice();
+            invoice.setNII("No. 		: " + invoice.getNII());
+            invoice.setTerbilang("## " + ServiceHelper.bilang(Integer.parseInt(String.valueOf(new Double(invoice.getJumlahTagihan()).intValue()))) + " rupiah ##");
+            pembayaran.setInvoice(invoice);
+
+            globalReport = new GlobalReport();
+            globalReport.setPerusahaan(perusahaan);
+            globalReport.setInvoice(invoice);
+            globalReport.setPembayaran(pembayaran);
+            globalReport.setLogo(System.getProperty("user.dir") + "\\\\image\\\\logo.jpg");
+            globalReport.setJumlah(numberFormat.format(invoice.getJumlahTagihan()));
+
+            listReport = new ArrayList<GlobalReport>();
+            listReport.add(globalReport);
+
+            inputStream = JRLoader.getFileInputStream(System.getProperty("user.dir") + "/report/PembayaranReport.jasper");
+            dataSource = new JRBeanCollectionDataSource(listReport);
+            map = new HashMap();
+            map.put(JRParameter.REPORT_DATA_SOURCE, dataSource);
+
+            report = JasperFillManager.fillReport(inputStream, map);
+            if (previewOrCetak.equals("preview")) {
+                jasperViewer = new JasperViewer(report, false);
+                jasperViewer.setSize(800, 600);
+                jasperViewer.setAlwaysOnTop(true);
+                jasperViewer.setExtendedState(JFrame.MAXIMIZED_BOTH);
+                jasperViewer.setVisible(true);
+            } else {
+                JasperPrintManager.printReport(report, false);
+            }
+        } catch (JRException ex) {
+            Logger.getLogger(TagihanReport.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(TagihanReport.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                inputStream.close();
+            } catch (IOException ex) {
+                Logger.getLogger(TagihanReport.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+}
