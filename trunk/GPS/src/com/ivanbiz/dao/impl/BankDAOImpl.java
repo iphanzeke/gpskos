@@ -22,7 +22,7 @@ public class BankDAOImpl extends GenericDAOImpl implements BankDAO {
         try {
             Session session = HibernateUtil.getSession();
             HibernateUtil.beginTransaction();
-            Query query = session.createQuery("select b.bank from DaftarKelas k , Murid b where k.transactionReference = :kelas group by b.bank");
+            Query query = session.createQuery("select m.bank from DaftarKelas dk , Murid m where dk.murid.id = m.id and dk.transactionReference = :kelas group by m.bank");
             query.setParameter("kelas", kelas);
             List list = query.list();
             HibernateUtil.commitTransaction();

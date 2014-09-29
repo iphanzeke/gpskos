@@ -38,26 +38,39 @@ import net.sf.jasperreports.view.JasperViewer;
  */
 public class TagihanReport {
 
-    GLAccountDAO gLAccountDAO = new GLAccountDAOImpl();
+    GLAccountDAO gLAccountDAO;
+    NumberFormat numberFormat;
+    Perusahaan perusahaan;
+    GLAccount gLAccountKepada;
+    GLAccount gLAccountDitransferKe;
+    String[] kepada;
+    String[] ditransferUntuk;
+    GlobalReport globalReport;
+    List<GlobalReport> listReport;
+    JRDataSource dataSource;
+    JasperPrint report;
+    Map map;
+    JasperViewer jasperViewer;
 
     public void previewAndCetakTagihan(Invoice invoice, String previeworCetak) {
         InputStream inputStream = null;
-        NumberFormat numberFormat = NumberFormat.getCurrencyInstance();;
+        gLAccountDAO = new GLAccountDAOImpl();
+        numberFormat = NumberFormat.getCurrencyInstance();
         try {
-            Perusahaan perusahaan = new Perusahaan();
+            perusahaan = new Perusahaan();
             perusahaan.setAlamat(GlobalSession.getPerusahaan().getAlamat() + "\n" + "Ph  :" + GlobalSession.getPerusahaan().getTelephone() + "\n" + "Fax :" + GlobalSession.getPerusahaan().getFax());
             invoice.setNII("NO. INV : " + invoice.getNII());
-            String[] kepada = invoice.getDeskripsiKepada().split("#");
-            GLAccount gLAccountKepada = (GLAccount) gLAccountDAO.getDataByEqual(GLAccount.class, "noGL", kepada[0]);
+            kepada = invoice.getDeskripsiKepada().split("#");
+            gLAccountKepada = (GLAccount) gLAccountDAO.getDataByEqual(GLAccount.class, "noGL", kepada[0]);
             invoice.setDeskripsiKepada(gLAccountKepada.getDeskripsi());
-            String[] ditransferUntuk = invoice.getDeskripsiUntuk().split("#");
-            GLAccount gLAccountDitransferKe = (GLAccount) gLAccountDAO.getDataByEqual(GLAccount.class, "noGL", ditransferUntuk[0]);
+            ditransferUntuk = invoice.getDeskripsiUntuk().split("#");
+            gLAccountDitransferKe = (GLAccount) gLAccountDAO.getDataByEqual(GLAccount.class, "noGL", ditransferUntuk[0]);
             invoice.setDeskripsiUntuk(gLAccountDitransferKe.getDeskripsi() + "\nA/C No. " + gLAccountDitransferKe.getNoGL());
             invoice.setDeskripsiJumlahPeserta(invoice.getDeskripsiJumlahPeserta() + " Orang Peserta, yaitu :\n \n ( absensi terlampir )");
             invoice.setTerbilang(ServiceHelper.bilang(Integer.parseInt(String.valueOf(new Double(invoice.getJumlahTagihan()).intValue()))) + " rupiah");
             invoice.setJatuhTempo(invoice.getJatuhTempo() + " hari");
 
-            GlobalReport globalReport = new GlobalReport();
+            globalReport = new GlobalReport();
             globalReport.setPerusahaan(perusahaan);
             globalReport.setInvoice(invoice);
             globalReport.setNamaGLDebitur(gLAccountKepada.getNameGL());
@@ -65,17 +78,17 @@ public class TagihanReport {
             globalReport.setLogo(System.getProperty("user.dir") + "\\\\image\\\\logo.jpg");
             globalReport.setJumlah(numberFormat.format(invoice.getJumlahTagihan()));
 
-            List<GlobalReport> listReport = new ArrayList<GlobalReport>();
+            listReport = new ArrayList<GlobalReport>();
             listReport.add(globalReport);
 
             inputStream = JRLoader.getFileInputStream(System.getProperty("user.dir") + "/report/TagihanReport.jasper");
-            JRDataSource dataSource = new JRBeanCollectionDataSource(listReport);
-            Map map = new HashMap();
+            dataSource = new JRBeanCollectionDataSource(listReport);
+            map = new HashMap();
             map.put(JRParameter.REPORT_DATA_SOURCE, dataSource);
 
-            JasperPrint report = JasperFillManager.fillReport(inputStream, map);
+            report = JasperFillManager.fillReport(inputStream, map);
             if (previeworCetak.equals("preview")) {
-                JasperViewer jasperViewer = new JasperViewer(report, false);
+                jasperViewer = new JasperViewer(report, false);
                 jasperViewer.setSize(800, 600);
                 jasperViewer.setAlwaysOnTop(true);
                 jasperViewer.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -94,6 +107,5 @@ public class TagihanReport {
                 Logger.getLogger(TagihanReport.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-
     }
 }
