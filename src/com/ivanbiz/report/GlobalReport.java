@@ -5,9 +5,11 @@
  */
 package com.ivanbiz.report;
 
+import com.ivanbiz.model.DaftarKelas;
 import com.ivanbiz.model.Invoice;
 import com.ivanbiz.model.Pembayaran;
 import com.ivanbiz.model.Perusahaan;
+import java.util.List;
 
 /**
  *
@@ -22,6 +24,24 @@ public class GlobalReport {
     private String logo;
     private String jumlah;
     private Pembayaran pembayaran;
+    private List<DaftarKelas> listDaftarKelas;
+    private DaftarKelas daftarKelas;
+
+    public DaftarKelas getDaftarKelas() {
+        return daftarKelas;
+    }
+
+    public void setDaftarKelas(DaftarKelas daftarKelas) {
+        this.daftarKelas = daftarKelas;
+    }
+
+    public List<DaftarKelas> getListDaftarKelas() {
+        return listDaftarKelas;
+    }
+
+    public void setListDaftarKelas(List<DaftarKelas> listDaftarKelas) {
+        this.listDaftarKelas = listDaftarKelas;
+    }
 
     public Pembayaran getPembayaran() {
         return pembayaran;
