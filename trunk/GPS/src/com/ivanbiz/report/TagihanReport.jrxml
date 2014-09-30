@@ -45,7 +45,7 @@
 			</band>
 		</background>
 		<title>
-			<band height="47"  isSplitAllowed="true" >
+			<band height="41"  isSplitAllowed="true" >
 				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="87"
@@ -545,7 +545,7 @@
 			</band>
 		</columnFooter>
 		<pageFooter>
-			<band height="0"  isSplitAllowed="true" >
+			<band height="40"  isSplitAllowed="true" >
 			</band>
 		</pageFooter>
 		<summary>

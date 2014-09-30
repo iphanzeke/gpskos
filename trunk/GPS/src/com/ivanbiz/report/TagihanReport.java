@@ -57,7 +57,7 @@ public class TagihanReport {
         gLAccountDAO = new GLAccountDAOImpl();
         numberFormat = NumberFormat.getCurrencyInstance();
         try {
-            perusahaan = new Perusahaan();
+            perusahaan = GlobalSession.getPerusahaan();
             perusahaan.setAlamat(GlobalSession.getPerusahaan().getAlamat() + "\n" + "Ph  :" + GlobalSession.getPerusahaan().getTelephone() + "\n" + "Fax :" + GlobalSession.getPerusahaan().getFax());
             invoice.setNII("NO. INV : " + invoice.getNII());
             kepada = invoice.getDeskripsiKepada().split("#");

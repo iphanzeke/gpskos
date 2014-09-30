@@ -63,7 +63,8 @@ public enum MenuAksesConstant {
     //Report
     REPORT_JURNAL("Report Jurnal"),
     REPORT_TAGIHAN("Report Tagihan"),
-    REPORT_PEMBAYARAN("Report Pembayaran");
+    REPORT_PEMBAYARAN("Report Pembayaran"),
+    REPORT_DAFTAR_KELAS("Report Daftar Kelas");
 
     public static boolean validate(MenuAksesConstant menuAksesConstant, List<AksesMatrix> listAksesMatrix) {
         for (AksesMatrix aksesMatrix : listAksesMatrix) {

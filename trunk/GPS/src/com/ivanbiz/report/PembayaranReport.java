@@ -56,20 +56,19 @@ public class PembayaranReport {
         numberFormat = NumberFormat.getCurrencyInstance();
         gLAccountDAO = new GLAccountDAOImpl();
         try {
-            perusahaan = new Perusahaan();
+            perusahaan = GlobalSession.getPerusahaan();
             perusahaan.setAlamat(GlobalSession.getPerusahaan().getAlamat() + "\n" + "Ph  :" + GlobalSession.getPerusahaan().getTelephone() + "\n" + "Fax :" + GlobalSession.getPerusahaan().getFax());
 
-            invoice = new Invoice();
-            invoice.setNII("No. 		: " + invoice.getNII());
-            invoice.setTerbilang("## " + ServiceHelper.bilang(Integer.parseInt(String.valueOf(new Double(invoice.getJumlahTagihan()).intValue()))) + " rupiah ##");
+            invoice = pembayaran.getInvoice();
+            invoice.setNII("NO. INV : " + pembayaran.getInvoice().getNII());
+            invoice.setTerbilang("## " + ServiceHelper.bilang(Integer.parseInt(String.valueOf(new Double(pembayaran.getJumlah()).intValue()))) + " rupiah ##");
             pembayaran.setInvoice(invoice);
 
             globalReport = new GlobalReport();
             globalReport.setPerusahaan(perusahaan);
-            globalReport.setInvoice(invoice);
             globalReport.setPembayaran(pembayaran);
             globalReport.setLogo(System.getProperty("user.dir") + "\\\\image\\\\logo.jpg");
-            globalReport.setJumlah(numberFormat.format(invoice.getJumlahTagihan()));
+            globalReport.setJumlah(numberFormat.format(pembayaran.getJumlah()));
 
             listReport = new ArrayList<GlobalReport>();
             listReport.add(globalReport);
