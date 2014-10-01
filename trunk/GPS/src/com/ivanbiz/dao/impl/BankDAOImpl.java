@@ -7,6 +7,7 @@ package com.ivanbiz.dao.impl;
 import com.ivanbiz.dao.BankDAO;
 import com.ivanbiz.model.Bank;
 import com.ivanbiz.service.HibernateUtil;
+import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -22,9 +23,18 @@ public class BankDAOImpl extends GenericDAOImpl implements BankDAO {
         try {
             Session session = HibernateUtil.getSession();
             HibernateUtil.beginTransaction();
-            Query query = session.createQuery("select m.bank from DaftarKelas dk , Murid m where dk.murid.id = m.id and dk.transactionReference = :kelas group by m.bank");
-            query.setParameter("kelas", kelas);
-            List list = query.list();
+            Query qInvoiceBank = session.createQuery("select i.bank from Invoice i where i.kelas.transactionReference = :kelas group by i.bank");
+            qInvoiceBank.setParameter("kelas", kelas);
+            List<Bank> listBank = qInvoiceBank.list();
+            Query queryDaftarKelasBank = session.createQuery("select dk.murid.bank from DaftarKelas dk where dk.kelas.transactionReference = :kelas group by dk.murid.bank");
+            queryDaftarKelasBank.setParameter("kelas", kelas);
+            List<Bank> listBankDaftarKelas = queryDaftarKelasBank.list();
+            List<Bank> list = new ArrayList<Bank>();
+            for (Bank bank : listBankDaftarKelas) {
+                if (!listBank.contains(bank)) {
+                    list.add(bank);
+                }
+            }
             HibernateUtil.commitTransaction();
             return list;
         } catch (Exception e) {
