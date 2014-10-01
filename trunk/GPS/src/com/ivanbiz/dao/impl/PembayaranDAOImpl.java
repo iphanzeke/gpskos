@@ -26,7 +26,8 @@ public class PembayaranDAOImpl extends GenericDAOImpl implements PembayaranDAO{
         try{
             Session session = HibernateUtil.getSession();
             pembayaran.setTransactionReference(pembayaran.getInvoice().getNII());
-            session.save(pembayaran);
+            pembayaran.setStatus("1");
+            session.update(pembayaran);
             String proCode = pembayaran.getDebitBankAccount().getKode()+pembayaran.getKreditBankAccount().getKode();
             JurnalDAO jurnalDAO = new JurnalDAOImpl();
             jurnalDAO.saveJurnal(proCode, pembayaran.getJumlah(), pembayaran.getInvoice().getNII(), pembayaran.getDebitBankAccount().getNoGL(),pembayaran.getKreditBankAccount().getNoGL(),session);
@@ -49,7 +50,9 @@ public class PembayaranDAOImpl extends GenericDAOImpl implements PembayaranDAO{
         HibernateUtil.beginTransaction();
         try{
             Session session = HibernateUtil.getSession();
-            session.save(pembayaran);
+            pembayaran.setStatus("1");
+            pembayaran.setTransactionReference(pembayaran.getInvoice().getNII());
+            session.update(pembayaran);
             String proCode = pembayaran.getDebitBankAccount().getKode()+pembayaran.getKreditBankAccount().getKode();
             JurnalDAO jurnalDAO = new JurnalDAOImpl();
             jurnalDAO.saveJurnalWithVA(proCode, pembayaran.getJumlah(), pembayaran.getTransactionReference(), virtualAccount,pembayaran.getDebitBankAccount().getNoGL(),pembayaran.getKreditBankAccount().getNoGL(),session);
@@ -71,8 +74,9 @@ public class PembayaranDAOImpl extends GenericDAOImpl implements PembayaranDAO{
         String status = "";
         HibernateUtil.beginTransaction();
         try{
-            Session session = HibernateUtil.getSession();          
-            session.save(pembayaran);
+            Session session = HibernateUtil.getSession();
+            pembayaran.setStatus("1");
+            session.update(pembayaran);
             String proCode = pembayaran.getDebitBankAccount().getKode()+pembayaran.getKreditBankAccount().getKode();
             JurnalDAO jurnalDAO = new JurnalDAOImpl();
             jurnalDAO.saveJurnal(proCode, pembayaran.getJumlah(), pembayaran.getTransactionReference(), pembayaran.getDebitBankAccount().getNoGL(),pembayaran.getKreditBankAccount().getNoGL(),session);           
