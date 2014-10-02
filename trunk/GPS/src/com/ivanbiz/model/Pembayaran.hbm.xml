@@ -16,5 +16,6 @@
     <property column="TRANSACTION_REFERENCE" length="50" name="transactionReference" type="string"/>
     <many-to-one class="com.ivanbiz.model.Invoice" column="INVOICE_ID" lazy="false" name="invoice"/>
     <property column="STATUS_PAJAK" length="1" name="statusPajak" type="string"/>
+    <property column="BIAYA_PAJAK" length="12" name="biayaPajak" type="double"/>
   </class>
 </hibernate-mapping>
