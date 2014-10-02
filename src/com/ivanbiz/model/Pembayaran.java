@@ -26,6 +26,7 @@ public class Pembayaran {
     private String transactionReference;
     private Invoice invoice;
     private String statusPajak;/*0=tidak ada pajak    1=ada pajak*/
+    private double biayaPajak;
     /**
      * @return the id
      */
