@@ -16,7 +16,8 @@
 		 bottomMargin="20"
 		 whenNoDataType="NoPages"
 		 isTitleNewPage="false"
-		 isSummaryNewPage="false">
+		 isSummaryNewPage="false"
+		 isIgnorePagination="true">
 	<property name="ireport.scriptlethandling" value="0" />
 	<property name="ireport.encoding" value="UTF-8" />
 	<import value="java.util.*" />
@@ -52,11 +53,15 @@
 			</band>
 		</title>
 		<pageHeader>
-			<band height="81"  isSplitAllowed="true" >
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="237"  isSplitAllowed="true" >
 				<image  isUsingCache="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="0"
-						y="0"
+						y="1"
 						width="80"
 						height="40"
 						key="image-1"/>
@@ -67,7 +72,7 @@
 				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="86"
-						y="0"
+						y="1"
 						width="266"
 						height="40"
 						key="textField-1"/>
@@ -80,7 +85,7 @@
 				<staticText>
 					<reportElement
 						x="0"
-						y="40"
+						y="41"
 						width="535"
 						height="41"
 						key="staticText-1"/>
@@ -90,14 +95,10 @@
 					</textElement>
 				<text><![CDATA[DAFTAR KELAS]]></text>
 				</staticText>
-			</band>
-		</pageHeader>
-		<columnHeader>
-			<band height="155"  isSplitAllowed="true" >
 				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="73"
-						y="25"
+						y="107"
 						width="231"
 						height="26"
 						key="textField"/>
@@ -110,7 +111,7 @@
 				<staticText>
 					<reportElement
 						x="0"
-						y="25"
+						y="107"
 						width="60"
 						height="26"
 						key="staticText-6"/>
@@ -123,7 +124,7 @@
 				<staticText>
 					<reportElement
 						x="0"
-						y="82"
+						y="164"
 						width="60"
 						height="47"
 						key="staticText-7"/>
@@ -136,7 +137,7 @@
 				<staticText>
 					<reportElement
 						x="59"
-						y="25"
+						y="107"
 						width="15"
 						height="26"
 						key="staticText-8"/>
@@ -149,7 +150,7 @@
 				<staticText>
 					<reportElement
 						x="59"
-						y="82"
+						y="164"
 						width="15"
 						height="47"
 						key="staticText-9"/>
@@ -162,7 +163,7 @@
 				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="73"
-						y="82"
+						y="164"
 						width="231"
 						height="47"
 						key="textField-2"/>
@@ -175,7 +176,7 @@
 				<staticText>
 					<reportElement
 						x="0"
-						y="50"
+						y="132"
 						width="60"
 						height="27"
 						key="staticText-10"/>
@@ -188,7 +189,7 @@
 				<staticText>
 					<reportElement
 						x="59"
-						y="50"
+						y="132"
 						width="15"
 						height="27"
 						key="staticText-11"/>
@@ -201,7 +202,7 @@
 				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="73"
-						y="51"
+						y="133"
 						width="231"
 						height="26"
 						key="textField-3"/>
@@ -214,7 +215,7 @@
 				<staticText>
 					<reportElement
 						x="0"
-						y="0"
+						y="82"
 						width="60"
 						height="26"
 						key="staticText-12"/>
@@ -227,7 +228,7 @@
 				<staticText>
 					<reportElement
 						x="59"
-						y="0"
+						y="82"
 						width="15"
 						height="26"
 						key="staticText-13"/>
@@ -240,7 +241,7 @@
 				<textField isStretchWithOverflow="true" pattern="dd MMMMM yyyy" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="73"
-						y="0"
+						y="82"
 						width="231"
 						height="26"
 						key="textField-4"/>
@@ -253,7 +254,7 @@
 				<staticText>
 					<reportElement
 						x="0"
-						y="129"
+						y="211"
 						width="32"
 						height="26"
 						key="staticText-2"/>
@@ -271,7 +272,7 @@
 				<staticText>
 					<reportElement
 						x="32"
-						y="129"
+						y="211"
 						width="68"
 						height="26"
 						key="staticText-3"/>
@@ -289,7 +290,7 @@
 				<staticText>
 					<reportElement
 						x="100"
-						y="129"
+						y="211"
 						width="170"
 						height="26"
 						key="staticText-4"/>
@@ -307,7 +308,7 @@
 				<staticText>
 					<reportElement
 						x="270"
-						y="129"
+						y="211"
 						width="91"
 						height="26"
 						key="staticText-5"/>
@@ -325,7 +326,7 @@
 				<staticText>
 					<reportElement
 						x="429"
-						y="129"
+						y="211"
 						width="106"
 						height="26"
 						key="staticText-14"/>
@@ -343,7 +344,7 @@
 				<staticText>
 					<reportElement
 						x="361"
-						y="129"
+						y="211"
 						width="68"
 						height="26"
 						key="staticText-18"/>
@@ -361,7 +362,7 @@
 				<staticText>
 					<reportElement
 						x="412"
-						y="103"
+						y="185"
 						width="67"
 						height="26"
 						key="staticText-19"/>
@@ -374,7 +375,7 @@
 				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Page" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="491"
-						y="103"
+						y="185"
 						width="44"
 						height="26"
 						key="textField-11"/>
@@ -387,7 +388,7 @@
 				<staticText>
 					<reportElement
 						x="478"
-						y="103"
+						y="185"
 						width="15"
 						height="26"
 						key="staticText-20"/>
@@ -522,45 +523,7 @@
 			</band>
 		</columnFooter>
 		<pageFooter>
-			<band height="20"  isSplitAllowed="true" >
-				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="352"
-						y="1"
-						width="183"
-						height="19"
-						forecolor="#000000"
-						key="textField-12"/>
-					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="0.0" lineColor="#000000"/>
-					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-</box>
-					<textElement textAlignment="Right" verticalAlignment="Bottom">
-						<font fontName="Arial" size="8"/>
-					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA["Halaman " + $V{PAGE_NUMBER} + " dari " + $V{PAGE_NUMBER}]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Report" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						mode="Transparent"
-						x="499"
-						y="1"
-						width="36"
-						height="19"
-						forecolor="#000000"
-						backcolor="#FFFFFF"
-						key="textField-13"/>
-					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="0.0" lineColor="#000000"/>
-					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-</box>
-					<textElement verticalAlignment="Bottom">
-						<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" isStrikeThrough="false" />
-					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[]]></textFieldExpression>
-				</textField>
+			<band height="0"  isSplitAllowed="false" >
 			</band>
 		</pageFooter>
 		<summary>

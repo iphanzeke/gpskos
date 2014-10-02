@@ -7,12 +7,14 @@ package com.ivanbiz.report;
 
 import com.ivanbiz.dao.GLAccountDAO;
 import com.ivanbiz.dao.impl.GLAccountDAOImpl;
+import com.ivanbiz.model.DaftarKelas;
 import com.ivanbiz.model.GLAccount;
 import com.ivanbiz.model.Invoice;
+import com.ivanbiz.model.Kelas;
+import com.ivanbiz.model.Murid;
 import com.ivanbiz.model.Perusahaan;
 import com.ivanbiz.service.GlobalSession;
 import com.ivanbiz.service.ServiceHelper;
-import java.io.IOException;
 import java.io.InputStream;
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -23,7 +25,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import net.sf.jasperreports.engine.JRDataSource;
-import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRParameter;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -51,13 +52,17 @@ public class TagihanReport {
     JasperPrint report;
     Map map;
     JasperViewer jasperViewer;
+    InputStream inputStream;
+    InputStream inputStreamSubReport;
+    Murid murid;
+    Kelas kelas;
+    List<DaftarKelas> listDaftarKelases;
 
-    public void previewAndCetakTagihan(Invoice invoice, String previeworCetak) {
-        InputStream inputStream = null;
+    public void previewAndCetakTagihan(Invoice invoice, List<DaftarKelas> listDaftarKelas, String previeworCetak) {
         gLAccountDAO = new GLAccountDAOImpl();
         numberFormat = NumberFormat.getCurrencyInstance();
         try {
-            perusahaan = GlobalSession.getPerusahaan();
+            perusahaan = new Perusahaan();
             perusahaan.setAlamat(GlobalSession.getPerusahaan().getAlamat() + "\n" + "Ph  :" + GlobalSession.getPerusahaan().getTelephone() + "\n" + "Fax :" + GlobalSession.getPerusahaan().getFax());
             invoice.setNII("NO. INV : " + invoice.getNII());
             kepada = invoice.getDeskripsiKepada().split("#");
@@ -81,10 +86,26 @@ public class TagihanReport {
             listReport = new ArrayList<GlobalReport>();
             listReport.add(globalReport);
 
+            listDaftarKelases = new ArrayList<DaftarKelas>();
+            for (DaftarKelas daftarKelas : listDaftarKelas) {
+                murid = daftarKelas.getMurid();
+                murid.setTelp("Telp : " + murid.getTelp() + "\n" + " HP   : " + murid.getHandphone());
+                daftarKelas.setMurid(murid);
+                kelas = daftarKelas.getKelas();
+                listDaftarKelases.add(daftarKelas);
+            }
+
             inputStream = JRLoader.getFileInputStream(System.getProperty("user.dir") + "/report/TagihanReport.jasper");
+            inputStreamSubReport = JRLoader.getFileInputStream(System.getProperty("user.dir") + "/report/DaftarKelasReport.jasper");
             dataSource = new JRBeanCollectionDataSource(listReport);
             map = new HashMap();
             map.put(JRParameter.REPORT_DATA_SOURCE, dataSource);
+            map.put("SUBREPORT_DIR", inputStreamSubReport);
+            map.put("PRM_DETAIL_VALUE", listDaftarKelases);
+            map.put("logo", globalReport.getLogo());
+            map.put("perusahaan.alamat", globalReport.getPerusahaan().getAlamat());
+            map.put("kelas.alamatKelas", globalReport.getInvoice().getKelas().getAlamatKelas() + "\n" + "bertempat di : " + globalReport.getInvoice().getKelas().getTempatKelas());
+            map.put("peserta", listDaftarKelas.size());
 
             report = JasperFillManager.fillReport(inputStream, map);
             if (previeworCetak.equals("preview")) {
@@ -96,16 +117,8 @@ public class TagihanReport {
             } else {
                 JasperPrintManager.printReport(report, false);
             }
-        } catch (JRException ex) {
-            Logger.getLogger(TagihanReport.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
             Logger.getLogger(TagihanReport.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            try {
-                inputStream.close();
-            } catch (IOException ex) {
-                Logger.getLogger(TagihanReport.class.getName()).log(Level.SEVERE, null, ex);
-            }
         }
     }
 }

@@ -8,6 +8,7 @@ package com.ivanbiz.report;
 import com.ivanbiz.model.DaftarKelas;
 import com.ivanbiz.model.Kelas;
 import com.ivanbiz.model.Murid;
+import com.ivanbiz.model.Perusahaan;
 import com.ivanbiz.service.GlobalSession;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -34,6 +35,7 @@ import net.sf.jasperreports.view.JasperViewer;
 public class DaftarKelasReport {
 
     GlobalReport globalReport;
+    Perusahaan perusahaan;
     Murid murid;
     Kelas kelas;
     InputStream inputStream;
@@ -49,17 +51,20 @@ public class DaftarKelasReport {
             listDaftarKelases = new ArrayList<DaftarKelas>();
             for (DaftarKelas daftarKelas : listDaftarKelas) {
                 murid = daftarKelas.getMurid();
-                murid.setTelp("Telp : " + murid.getTelp() + "\n" + " HP : " + murid.getHandphone());
+                murid.setTelp("Telp : " + murid.getTelp() + "\n" + " HP   : " + murid.getHandphone());
                 daftarKelas.setMurid(murid);
                 kelas = daftarKelas.getKelas();
                 listDaftarKelases.add(daftarKelas);
             }
 
+            perusahaan = new Perusahaan();
+            perusahaan.setAlamat(GlobalSession.getPerusahaan().getAlamat() + "\n" + "Ph  :" + GlobalSession.getPerusahaan().getTelephone() + "\n" + "Fax :" + GlobalSession.getPerusahaan().getFax());
+
             inputStream = JRLoader.getFileInputStream(System.getProperty("user.dir") + "/report/DaftarKelasReport.jasper");
             dataSource = new JRBeanCollectionDataSource(listDaftarKelases);
             map = new HashMap();
             map.put(JRParameter.REPORT_DATA_SOURCE, dataSource);
-            map.put("perusahaan.alamat", GlobalSession.getPerusahaan().getAlamat() + "\n" + "Ph  :" + GlobalSession.getPerusahaan().getTelephone() + "\n" + "Fax :" + GlobalSession.getPerusahaan().getFax());
+            map.put("perusahaan.alamat", perusahaan.getAlamat());
             map.put("logo", System.getProperty("user.dir") + "\\\\image\\\\logo.jpg");
             map.put("kelas.alamatKelas", kelas.getAlamatKelas() + "\n" + "bertempat di : " + kelas.getTempatKelas());
             map.put("peserta", listDaftarKelases.size());

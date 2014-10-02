@@ -12,7 +12,6 @@ import com.ivanbiz.model.Pembayaran;
 import com.ivanbiz.model.Perusahaan;
 import com.ivanbiz.service.GlobalSession;
 import com.ivanbiz.service.ServiceHelper;
-import java.io.IOException;
 import java.io.InputStream;
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -50,17 +49,17 @@ public class PembayaranReport {
     Map map;
     JasperPrint report;
     JasperViewer jasperViewer;
+    InputStream inputStream;
 
     public void previewAndCetakTagihan(Pembayaran pembayaran, String previewOrCetak) {
-        InputStream inputStream = null;
-        numberFormat = NumberFormat.getCurrencyInstance();
-        gLAccountDAO = new GLAccountDAOImpl();
         try {
-            perusahaan = GlobalSession.getPerusahaan();
+            numberFormat = NumberFormat.getCurrencyInstance();
+            gLAccountDAO = new GLAccountDAOImpl();
+
+            perusahaan = new Perusahaan();
             perusahaan.setAlamat(GlobalSession.getPerusahaan().getAlamat() + "\n" + "Ph  :" + GlobalSession.getPerusahaan().getTelephone() + "\n" + "Fax :" + GlobalSession.getPerusahaan().getFax());
 
             invoice = pembayaran.getInvoice();
-            invoice.setNII("NO. INV : " + pembayaran.getInvoice().getNII());
             invoice.setTerbilang("## " + ServiceHelper.bilang(Integer.parseInt(String.valueOf(new Double(pembayaran.getJumlah()).intValue()))) + " rupiah ##");
             pembayaran.setInvoice(invoice);
 
@@ -89,15 +88,7 @@ public class PembayaranReport {
                 JasperPrintManager.printReport(report, false);
             }
         } catch (JRException ex) {
-            Logger.getLogger(TagihanReport.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (Exception ex) {
-            Logger.getLogger(TagihanReport.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            try {
-                inputStream.close();
-            } catch (IOException ex) {
-                Logger.getLogger(TagihanReport.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            Logger.getLogger(PembayaranReport.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }
