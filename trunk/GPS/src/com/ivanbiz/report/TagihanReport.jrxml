@@ -23,6 +23,12 @@
 	<import value="net.sf.jasperreports.engine.*" />
 	<import value="net.sf.jasperreports.engine.data.*" />
 
+	<parameter name="SUBREPORT_DIR" isForPrompting="false" class="java.io.InputStream"/>
+	<parameter name="PRM_DETAIL_VALUE" isForPrompting="false" class="java.util.Collection"/>
+	<parameter name="logo" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="perusahaan.alamat" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="kelas.alamatKelas" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="peserta" isForPrompting="false" class="java.lang.Integer"/>
 
 	<field name="invoice.deskripsiKepada" class="java.lang.String"/>
 	<field name="invoice.deskripsiUntukPembayaran" class="java.lang.String"/>
@@ -45,11 +51,19 @@
 			</band>
 		</background>
 		<title>
-			<band height="41"  isSplitAllowed="true" >
-				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="140"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Page" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="87"
-						y="1"
+						y="0"
 						width="266"
 						height="40"
 						key="textField"/>
@@ -59,10 +73,10 @@
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$F{perusahaan.alamat}]]></textFieldExpression>
 				</textField>
-				<image  isUsingCache="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+				<image  isUsingCache="true" evaluationTime="Page" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="0"
-						y="1"
+						y="0"
 						width="80"
 						height="40"
 						key="image-1"/>
@@ -70,15 +84,11 @@
 					<graphicElement stretchType="NoStretch"/>
 					<imageExpression class="java.lang.String"><![CDATA[$F{logo}]]></imageExpression>
 				</image>
-			</band>
-		</title>
-		<pageHeader>
-			<band height="100"  isSplitAllowed="true" >
 				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						mode="Opaque"
 						x="272"
-						y="38"
+						y="78"
 						width="263"
 						height="17"
 						forecolor="#000000"
@@ -98,7 +108,7 @@
 				<staticText>
 					<reportElement
 						x="374"
-						y="1"
+						y="41"
 						width="161"
 						height="37"
 						key="staticText-1"/>
@@ -111,7 +121,7 @@
 				<staticText>
 					<reportElement
 						x="0"
-						y="18"
+						y="58"
 						width="71"
 						height="21"
 						key="staticText-2"/>
@@ -124,7 +134,7 @@
 				<textField isStretchWithOverflow="false" pattern="dd MMMMM yyyy" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="48"
-						y="1"
+						y="41"
 						width="161"
 						height="18"
 						key="textField"/>
@@ -137,7 +147,7 @@
 				<staticText>
 					<reportElement
 						x="0"
-						y="1"
+						y="41"
 						width="49"
 						height="18"
 						key="staticText-3"/>
@@ -150,7 +160,7 @@
 				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="0"
-						y="56"
+						y="96"
 						width="272"
 						height="44"
 						key="textField"
@@ -164,7 +174,7 @@
 				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="0"
-						y="38"
+						y="78"
 						width="272"
 						height="18"
 						key="textField"/>
@@ -174,10 +184,6 @@
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$F{namaGLDebitur}]]></textFieldExpression>
 				</textField>
-			</band>
-		</pageHeader>
-		<columnHeader>
-			<band height="0"  isSplitAllowed="true" >
 			</band>
 		</columnHeader>
 		<detail>
@@ -545,11 +551,34 @@
 			</band>
 		</columnFooter>
 		<pageFooter>
-			<band height="40"  isSplitAllowed="true" >
+			<band height="0"  isSplitAllowed="true" >
 			</band>
 		</pageFooter>
 		<summary>
-			<band height="0"  isSplitAllowed="true" >
+			<band height="134"  isSplitAllowed="true" >
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="-30"
+						y="94"
+						width="565"
+						height="40"
+						key="subreport-1"
+						stretchType="RelativeToBandHeight"/>
+					<subreportParameter  name="logo">
+						<subreportParameterExpression><![CDATA[$P{logo}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="perusahaan.alamat">
+						<subreportParameterExpression><![CDATA[$P{perusahaan.alamat}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="kelas.alamatKelas">
+						<subreportParameterExpression><![CDATA[$P{kelas.alamatKelas}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="peserta">
+						<subreportParameterExpression><![CDATA[$P{peserta}]]></subreportParameterExpression>
+					</subreportParameter>
+					<dataSourceExpression><![CDATA[new JRBeanCollectionDataSource($P{PRM_DETAIL_VALUE})]]></dataSourceExpression>
+					<subreportExpression  class="java.io.InputStream"><![CDATA[$P{SUBREPORT_DIR}]]></subreportExpression>
+				</subreport>
 			</band>
 		</summary>
 </jasperReport>

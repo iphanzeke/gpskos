@@ -43,7 +43,15 @@
 			</band>
 		</background>
 		<title>
-			<band height="41"  isSplitAllowed="true" >
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="134"  isSplitAllowed="true" >
 				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="87"
@@ -68,17 +76,13 @@
 					<graphicElement stretchType="NoStretch"/>
 					<imageExpression class="java.lang.String"><![CDATA[$F{logo}]]></imageExpression>
 				</image>
-			</band>
-		</title>
-		<pageHeader>
-			<band height="65"  isSplitAllowed="true" >
 				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						mode="Opaque"
 						x="0"
-						y="38"
+						y="89"
 						width="535"
-						height="27"
+						height="45"
 						forecolor="#000000"
 						backcolor="#FFFFFF"
 						key="textField"
@@ -91,17 +95,17 @@
 					<textElement textAlignment="Left" verticalAlignment="Middle">
 						<font size="12"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{pembayaran.invoice.NII}]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA["NO. INV : "+$F{pembayaran.invoice.NII}]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement
 						x="0"
-						y="1"
+						y="41"
 						width="535"
-						height="37"
+						height="48"
 						key="staticText-1"/>
 					<box></box>
-					<textElement textAlignment="Center" verticalAlignment="Top">
+					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Tahoma" pdfFontName="Helvetica-Bold" size="24" isBold="true"/>
 					</textElement>
 				<text><![CDATA[KWITANSI
@@ -109,13 +113,9 @@
                 ]]></text>
 				</staticText>
 			</band>
-		</pageHeader>
-		<columnHeader>
-			<band height="0"  isSplitAllowed="true" >
-			</band>
 		</columnHeader>
 		<detail>
-			<band height="296"  isSplitAllowed="true" >
+			<band height="281"  isSplitAllowed="true" >
 				<textField isStretchWithOverflow="true" pattern="dd MMMMM yyyy" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="347"

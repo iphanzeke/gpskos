@@ -5,9 +5,14 @@
  */
 package com.ivanbiz.ui;
 
+import com.ivanbiz.dao.DaftarKelasDAO;
 import com.ivanbiz.dao.InvoiceDAO;
+import com.ivanbiz.dao.impl.DaftarKelasDAOImpl;
 import com.ivanbiz.dao.impl.InvoiceDAOImpl;
+import com.ivanbiz.model.Bank;
+import com.ivanbiz.model.DaftarKelas;
 import com.ivanbiz.model.Invoice;
+import com.ivanbiz.model.Kelas;
 import com.ivanbiz.report.TagihanReport;
 import com.ivanbiz.service.ServiceHelper;
 import java.text.NumberFormat;
@@ -28,10 +33,13 @@ public class TagihanReportDialog extends javax.swing.JDialog {
     List<Invoice> listInvoice;
     SimpleDateFormat sdf;
     NumberFormat numberFormat;
+    List<DaftarKelas> listDaftarKelas;
+    DaftarKelasDAO daftarKelasDAO;
 
     public TagihanReportDialog() {
         initComponents();
         invoiceDAO = new InvoiceDAOImpl();
+        daftarKelasDAO = new DaftarKelasDAOImpl();
         sdf = new SimpleDateFormat("dd-MMMM-yyyy");
         numberFormat = NumberFormat.getCurrencyInstance();
         refresh();
@@ -122,7 +130,15 @@ public class TagihanReportDialog extends javax.swing.JDialog {
         if (tableTagihan.getSelectedRow() == -1) {
             JOptionPane.showMessageDialog(this, "Pilih data yang akan dicetak", "warning", JOptionPane.WARNING_MESSAGE);
         } else {
-            new TagihanReport().previewAndCetakTagihan(listInvoice.get(tableTagihan.getSelectedRow()), "cetak");
+            try {
+                Kelas kelas = listInvoice.get(tableTagihan.getSelectedRow()).getKelas();
+                Bank bank = listInvoice.get(tableTagihan.getSelectedRow()).getBank();
+                listDaftarKelas = daftarKelasDAO.getDataByEqualsMore(kelas, bank);
+                new TagihanReport().previewAndCetakTagihan(listInvoice.get(tableTagihan.getSelectedRow()), listDaftarKelas, "preview");
+                refresh();
+            } catch (Exception ex) {
+                Logger.getLogger(TagihanReportDialog.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_buttonCetakActionPerformed
 
@@ -130,7 +146,15 @@ public class TagihanReportDialog extends javax.swing.JDialog {
         if (tableTagihan.getSelectedRow() == -1) {
             JOptionPane.showMessageDialog(this, "Pilih data yang akan dicetak", "warning", JOptionPane.WARNING_MESSAGE);
         } else {
-            new TagihanReport().previewAndCetakTagihan(listInvoice.get(tableTagihan.getSelectedRow()), "preview");
+            try {
+                Kelas kelas = listInvoice.get(tableTagihan.getSelectedRow()).getKelas();
+                Bank bank = listInvoice.get(tableTagihan.getSelectedRow()).getBank();
+                listDaftarKelas = daftarKelasDAO.getDataByEqualsMore(kelas, bank);
+                new TagihanReport().previewAndCetakTagihan(listInvoice.get(tableTagihan.getSelectedRow()), listDaftarKelas, "preview");
+                refresh();
+            } catch (Exception ex) {
+                Logger.getLogger(TagihanReportDialog.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
