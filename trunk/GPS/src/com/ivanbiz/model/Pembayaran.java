@@ -184,5 +184,33 @@ public class Pembayaran {
         this.jumlah = jumlah;
     }
 
+    /**
+     * @return the statusPajak
+     */
+    public String getStatusPajak() {
+        return statusPajak;
+    }
+
+    /**
+     * @param statusPajak the statusPajak to set
+     */
+    public void setStatusPajak(String statusPajak) {
+        this.statusPajak = statusPajak;
+    }
+
+    /**
+     * @return the biayaPajak
+     */
+    public double getBiayaPajak() {
+        return biayaPajak;
+    }
+
+    /**
+     * @param biayaPajak the biayaPajak to set
+     */
+    public void setBiayaPajak(double biayaPajak) {
+        this.biayaPajak = biayaPajak;
+    }
+
     
 }
