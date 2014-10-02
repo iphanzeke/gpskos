@@ -332,14 +332,18 @@ public class GLAccountUpdateDialog extends JDialog {
             JOptionPane.showMessageDialog(this, "Keterangan tidak boleh kosong");
         } else {
             try {
-                if (gLAccount.getGroupACC().equals("Kreditur")) {
-                    gLAccountDAO.saveGLKrediturWithSetting(gLAccount);
-                } else if (gLAccount.getGroupACC().equals("BiayaLain")) {
-                    gLAccountDAO.saveGLBiayaLainWithSetting(gLAccount);
+                if (gLAccountDAO.validateField(GLAccount.class, "noGL", gLAccount.getNoGL()).equals("Data sudah ada")) {
+                    JOptionPane.showMessageDialog(this, "No GL sudah ada");
                 } else {
-                    gLAccountDAO.saveOrUpdate(gLAccount);
+                    if (gLAccount.getGroupACC().equals("Kreditur")) {
+                        gLAccountDAO.saveGLKrediturWithSetting(gLAccount);
+                    } else if (gLAccount.getGroupACC().equals("BiayaLain")) {
+                        gLAccountDAO.saveGLBiayaLainWithSetting(gLAccount);
+                    } else {
+                        gLAccountDAO.saveOrUpdate(gLAccount);
+                    }
+                    dispose();
                 }
-                dispose();
             } catch (Exception ex) {
                 Logger.getLogger(GLAccountUpdateDialog.class.getName()).log(Level.SEVERE, null, ex);
             }
