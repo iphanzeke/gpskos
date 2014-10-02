@@ -33,7 +33,9 @@ public class PembayaranDAOImpl extends GenericDAOImpl implements PembayaranDAO {
             String proCode = pembayaran.getDebitBankAccount().getKode() + pembayaran.getKreditBankAccount().getKode();
             JurnalDAO jurnalDAO = new JurnalDAOImpl();
             jurnalDAO.saveJurnal(proCode, pembayaran.getJumlah(), pembayaran.getInvoice().getNII(), pembayaran.getDebitBankAccount().getNoGL(), pembayaran.getKreditBankAccount().getNoGL(), session);
-
+            if("1".equals( pembayaran.getStatusPajak())){
+                jurnalDAO.saveJurnal("999999", pembayaran.getBiayaPajak(), pembayaran.getInvoice().getNII(), pembayaran.getDebitBankAccount().getNoGL(), "GPSPAJAK", session);
+            }
             HibernateUtil.commitTransaction();
             status = "sukses";
         } catch (Exception ex) {
