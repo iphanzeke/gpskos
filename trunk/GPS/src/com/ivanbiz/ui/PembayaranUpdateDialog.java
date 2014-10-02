@@ -52,12 +52,12 @@ public class PembayaranUpdateDialog extends JDialog {
         renderNoInvoice();
     }
 
-    public PembayaranUpdateDialog(Object object, boolean b, Pembayaran pembayaran) {
+    public PembayaranUpdateDialog(MainFrame mainFrame, boolean modal, Pembayaran pembayaran) {
         initComponents();
         this.pembayaran = pembayaran;
         labelPembayaran.setText("Ubah Pembayaran Tagihan");
         dateChooserPosting.setDate(pembayaran.getDatePosting());
-        renderNoInvoice();
+        renderUbahNoInvoice();
         comboInvoice.setSelectedItem(pembayaran.getInvoice().getNII());
         textDebitur.setText(pembayaran.getDebitBankAccount().getNameGL() + " A/C No. " + pembayaran.getDebitBankAccount().getNoGL());
         glDebitur = pembayaran.getDebitBankAccount();
@@ -65,6 +65,14 @@ public class PembayaranUpdateDialog extends JDialog {
         glKreditur = pembayaran.getKreditBankAccount();
         textJumlah.setText(String.valueOf(new Double(pembayaran.getJumlah()).intValue()));
         textDeskripsi.setText(pembayaran.getDeskripsi());
+        if (pembayaran.getStatusPajak().equals("1")) {
+            checkBoxPajak.setSelected(true);
+            textPajak.setEditable(true);
+        } else {
+            checkBoxPajak.setSelected(false);
+            textPajak.setEditable(false);
+        }
+        textPajak.setText(String.valueOf(new Double(pembayaran.getBiayaPajak()).intValue()));
     }
 
     /**
@@ -91,6 +99,8 @@ public class PembayaranUpdateDialog extends JDialog {
         textKreditur = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         textDeskripsi = new javax.swing.JTextArea();
+        textPajak = new javax.swing.JTextField();
+        checkBoxPajak = new javax.swing.JCheckBox();
         jPanel2 = new javax.swing.JPanel();
         buttonSimpan = new javax.swing.JButton();
         buttonBatal = new javax.swing.JButton();
@@ -100,7 +110,7 @@ public class PembayaranUpdateDialog extends JDialog {
         setModal(true);
         setResizable(false);
 
-        labelPembayaran.setFont(new java.awt.Font("Tahoma", 1, 24));
+        labelPembayaran.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         labelPembayaran.setText("Tambah Pembayaran Tagihan");
 
         jPanel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -144,6 +154,20 @@ public class PembayaranUpdateDialog extends JDialog {
         textDeskripsi.setEnabled(false);
         jScrollPane1.setViewportView(textDeskripsi);
 
+        textPajak.setEditable(false);
+        textPajak.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                textPajakKeyReleased(evt);
+            }
+        });
+
+        checkBoxPajak.setText("Pajak :");
+        checkBoxPajak.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkBoxPajakActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -154,6 +178,9 @@ public class PembayaranUpdateDialog extends JDialog {
                     .addComponent(dateChooserPosting, javax.swing.GroupLayout.DEFAULT_SIZE, 328, Short.MAX_VALUE)
                     .addComponent(comboInvoice, 0, 328, Short.MAX_VALUE)
                     .addComponent(textJumlah, javax.swing.GroupLayout.DEFAULT_SIZE, 328, Short.MAX_VALUE)
+                    .addComponent(textDebitur, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 328, Short.MAX_VALUE)
+                    .addComponent(textKreditur, javax.swing.GroupLayout.DEFAULT_SIZE, 328, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel8)
@@ -161,11 +188,10 @@ public class PembayaranUpdateDialog extends JDialog {
                             .addComponent(jLabel2)
                             .addComponent(jLabel3)
                             .addComponent(jLabel4)
-                            .addComponent(jLabel5))
-                        .addGap(0, 222, Short.MAX_VALUE))
-                    .addComponent(textDebitur, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 328, Short.MAX_VALUE)
-                    .addComponent(textKreditur, javax.swing.GroupLayout.DEFAULT_SIZE, 328, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 328, Short.MAX_VALUE))
+                            .addComponent(jLabel5)
+                            .addComponent(checkBoxPajak))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(textPajak))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -195,7 +221,11 @@ public class PembayaranUpdateDialog extends JDialog {
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(checkBoxPajak)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(textPajak, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         buttonSimpan.setText("Simpan");
@@ -223,7 +253,7 @@ public class PembayaranUpdateDialog extends JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(labelPembayaran)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 362, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -235,11 +265,11 @@ public class PembayaranUpdateDialog extends JDialog {
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(9, 9, 9))
+                .addContainerGap())
         );
 
-        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-390)/2, (screenSize.height-499)/2, 390, 499);
+        setSize(new java.awt.Dimension(390, 547));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void actionButton(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actionButton
@@ -268,6 +298,13 @@ public class PembayaranUpdateDialog extends JDialog {
         pembayaran.setKreditBankAccount(glKreditur);
         pembayaran.setJumlah(textJumlah.getText().isEmpty() ? (double) 0 : new Double(textJumlah.getText()));
         pembayaran.setDeskripsi(textDeskripsi.getText());
+        if (checkBoxPajak.isSelected()) {
+            pembayaran.setStatusPajak("1");
+            pembayaran.setBiayaPajak(textPajak.getText().isEmpty() ? (double) 0 : new Double(textPajak.getText()));
+        } else {
+            pembayaran.setStatusPajak("0");
+            pembayaran.setBiayaPajak((double) 0);
+        }
         validate(pembayaran);
     }//GEN-LAST:event_buttonSimpanActionPerformed
 
@@ -286,9 +323,28 @@ public class PembayaranUpdateDialog extends JDialog {
             Logger.getLogger(PembayaranUpdateDialog.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_comboInvoiceActionPerformed
+
+    private void textPajakKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textPajakKeyReleased
+        try {
+            Long.parseLong(textPajak.getText());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Format salah, harus angka", "warning", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_textPajakKeyReleased
+
+    private void checkBoxPajakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxPajakActionPerformed
+        if (checkBoxPajak.isSelected()) {
+            textPajak.setEditable(true);
+        } else {
+            textPajak.setEditable(false);
+            textPajak.setText("");
+        }
+    }//GEN-LAST:event_checkBoxPajakActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonBatal;
     private javax.swing.JButton buttonSimpan;
+    private javax.swing.JCheckBox checkBoxPajak;
     private javax.swing.JComboBox comboInvoice;
     private com.toedter.calendar.JDateChooser dateChooserPosting;
     private javax.swing.JLabel jLabel2;
@@ -305,11 +361,12 @@ public class PembayaranUpdateDialog extends JDialog {
     private javax.swing.JTextArea textDeskripsi;
     private javax.swing.JTextField textJumlah;
     private javax.swing.JTextField textKreditur;
+    private javax.swing.JTextField textPajak;
     // End of variables declaration//GEN-END:variables
 
     private void renderNoInvoice() {
         try {
-            listInvoice = invoiceDAO.getDataByEquals(Invoice.class, "status", "1");
+            listInvoice = invoiceDAO.getDataByEquals("1");
             Invoice invoice = new Invoice();
             invoice.setNII("");
             listInvoice.add(0, invoice);
@@ -351,6 +408,16 @@ public class PembayaranUpdateDialog extends JDialog {
             } catch (Exception ex) {
                 Logger.getLogger(PembayaranUpdateDialog.class.getName()).log(Level.SEVERE, null, ex);
             }
+        }
+    }
+
+    private void renderUbahNoInvoice() {
+        try {
+            listInvoice = invoiceDAO.getDataByEquals("1");
+            listInvoice.add(0, pembayaran.getInvoice());
+            updateComboInvoice();
+        } catch (Exception ex) {
+            Logger.getLogger(PembayaranUpdateDialog.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }
