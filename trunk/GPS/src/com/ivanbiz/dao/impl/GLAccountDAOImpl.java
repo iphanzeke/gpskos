@@ -4,6 +4,7 @@ import com.ivanbiz.dao.GLAccountDAO;
 import com.ivanbiz.model.GLAccount;
 import com.ivanbiz.model.SettingGL;
 import com.ivanbiz.service.HibernateUtil;
+import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -50,7 +51,7 @@ public class GLAccountDAOImpl extends GenericDAOImpl implements GLAccountDAO {
             HibernateUtil.beginTransaction();
             Session session = HibernateUtil.getSession();
             String[] split = glAccount.getNoGL().split("#");
-            
+
             String noGL = validateFieldSession(GLAccount.class, "noGL", split[1].toString(), session);
 //            String kode = validateFieldSession(GLAccount.class, "kode", glAccount.getKode(), session);
             if (!noGL.isEmpty()) {
@@ -58,18 +59,24 @@ public class GLAccountDAOImpl extends GenericDAOImpl implements GLAccountDAO {
             } else {
                 glAccount.setNoGL(split[1]);
                 session.save(glAccount);
-                GLAccount glAcc = (GLAccount) session.createQuery("from com.ivanbiz.model.GLAccount g where g.noGL ='"+split[0].toString()+"'").uniqueResult();
-                SettingGL settingGL = new SettingGL();
-                settingGL.setGlAccount("XXX");
-                settingGL.setProCode(glAcc.getKode() + "XXX");
-                settingGL.setDebetOrCredit("C");
-                session.save(settingGL);
-                SettingGL settingGL1 = new SettingGL();
-                settingGL1.setProCode(settingGL.getProCode());
-                settingGL1.setGlAccount(split[0].toString());
-                settingGL1.setDebetOrCredit("D");
-                session.save(settingGL1);
+                GLAccount glAcc = (GLAccount) session.createQuery("from com.ivanbiz.model.GLAccount g where g.noGL ='" + split[0].toString() + "'").uniqueResult();
+                String proCode = glAcc.getKode() + "XXX";
+                List listCheckGL = session.createQuery("from com.ivanbiz.model.SettingGL s where s.proCode = '" + proCode + "'").list();
+                if (listCheckGL.size() <= 0) {
+                    SettingGL settingGL = new SettingGL();
+                    settingGL.setGlAccount("XXX");
+                    settingGL.setProCode(glAcc.getKode() + "XXX");
+                    settingGL.setDebetOrCredit("C");
+                    session.save(settingGL);
+                    SettingGL settingGL1 = new SettingGL();
+                    settingGL1.setProCode(settingGL.getProCode());
+                    settingGL1.setGlAccount(split[0].toString());
+                    settingGL1.setDebetOrCredit("D");
+                    session.save(settingGL1);
+
+                }
                 status = "sukses";
+
             }
             HibernateUtil.commitTransaction();
         } catch (Exception e) {
