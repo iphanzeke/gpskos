@@ -9,7 +9,6 @@ import com.ivanbiz.dao.JurnalDAO;
 import com.ivanbiz.dao.PembayaranDAO;
 import com.ivanbiz.model.Invoice;
 import com.ivanbiz.model.Pembayaran;
-import com.ivanbiz.model.SettingGL;
 import com.ivanbiz.service.HibernateUtil;
 import org.hibernate.Session;
 
