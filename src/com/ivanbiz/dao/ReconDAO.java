@@ -4,7 +4,6 @@
  */
 package com.ivanbiz.dao;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -12,7 +11,9 @@ import java.util.Map;
  *
  * @author City_Z
  */
-public interface ReconDAO extends GenericDAO{
-    public Map getDataByKelas(long idKelas)throws Exception;
-    public List getDataByDateAndGLAccount(String dateAwal,String dateAkhir,String glAccount)throws Exception;
+public interface ReconDAO extends GenericDAO {
+
+    public Map getDataByKelas(long idKelas) throws Exception;
+
+    public List getDataByDateAndGLAccount(String dateAwal, String dateAkhir, String glAccount) throws Exception;
 }
