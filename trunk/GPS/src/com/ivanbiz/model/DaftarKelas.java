@@ -17,6 +17,16 @@ public class DaftarKelas {
     private String transactionReference;
     private String status;/*0=belum ada hasil 1=lulus   2=tidak lulus*/
 
+    private boolean choose;
+
+    public boolean isChoose() {
+        return choose;
+    }
+
+    public void setChoose(boolean choose) {
+        this.choose = choose;
+    }
+
     /**
      * @return the id
      */
