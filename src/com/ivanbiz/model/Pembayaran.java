@@ -3,10 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.ivanbiz.model;
 
-import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -14,19 +12,22 @@ import java.util.Date;
  * @author ivan
  */
 public class Pembayaran {
+
     private long id;
     private GLAccount debitBankAccount;
     private GLAccount kreditBankAccount;
     private double jumlah;
     private String deskripsi;
-    private String status;
+    private String status/*0=pembayaranTagihan; 1=Pembayaran Tagihan / Lain yang sudah di proses; 2=Pembayaran Lain2*/;
     private Date dateCreated;
     private Date datePosting;
     private String pathImage;
     private String transactionReference;
     private Invoice invoice;
     private String statusPajak;/*0=tidak ada pajak    1=ada pajak*/
+
     private double biayaPajak;
+
     /**
      * @return the id
      */
@@ -40,9 +41,6 @@ public class Pembayaran {
     public void setId(long id) {
         this.id = id;
     }
-
-    
-  
 
     /**
      * @return the deskripsi
@@ -211,6 +209,4 @@ public class Pembayaran {
     public void setBiayaPajak(double biayaPajak) {
         this.biayaPajak = biayaPajak;
     }
-
-    
 }
