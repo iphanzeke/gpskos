@@ -26,7 +26,7 @@ import javax.swing.JOptionPane;
  *
  * @author Shbt Peterpan
  */
-public class PembayaranReportDialog extends JDialog {
+public class PembayaranTagihanReportDialog extends JDialog {
 
     PembayaranDAO pembayaranDAO;
     List<Pembayaran> listPembayaran;
@@ -35,7 +35,7 @@ public class PembayaranReportDialog extends JDialog {
     /**
      * Creates new form PengajarDialog
      */
-    public PembayaranReportDialog() {
+    public PembayaranTagihanReportDialog() {
         initComponents();
         pembayaranDAO = new PembayaranDAOImpl();
         numberFormat = NumberFormat.getCurrencyInstance();
@@ -62,7 +62,7 @@ public class PembayaranReportDialog extends JDialog {
         setResizable(false);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel1.setText("Daftar Pembayaran");
+        jLabel1.setText("Daftar Pembayaran Tagihan");
 
         tablePembayaran.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -100,9 +100,9 @@ public class PembayaranReportDialog extends JDialog {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 780, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 788, Short.MAX_VALUE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 780, Short.MAX_VALUE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 788, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -111,14 +111,14 @@ public class PembayaranReportDialog extends JDialog {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 504, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 515, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
-        setSize(new java.awt.Dimension(816, 638));
-        setLocationRelativeTo(null);
+        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+        setBounds((screenSize.width-816)/2, (screenSize.height-638)/2, 816, 638);
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonPreviewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPreviewActionPerformed
@@ -166,7 +166,7 @@ public class PembayaranReportDialog extends JDialog {
             isi[x][1] = pembayaran.getDatePosting();
             isi[x][2] = pembayaran.getInvoice().getNII();
             isi[x][3] = pembayaran.getDebitBankAccount().getNameGL() + " A/C NO. " + pembayaran.getDebitBankAccount().getNoGL();
-            isi[x][4] = pembayaran.getDebitBankAccount().getNameGL() + " A/C NO. " + pembayaran.getDebitBankAccount().getNoGL();
+            isi[x][4] = pembayaran.getKreditBankAccount().getNameGL() + " A/C NO. " + pembayaran.getKreditBankAccount().getNoGL();
             isi[x][5] = numberFormat.format(pembayaran.getJumlah());
             isi[x][6] = pembayaran.getDeskripsi();
 //            }

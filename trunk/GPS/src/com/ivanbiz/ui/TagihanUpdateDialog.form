@@ -32,8 +32,8 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
-                  <Component id="labelTagihan" alignment="1" pref="483" max="32767" attributes="0"/>
-                  <Component id="jPanel2" alignment="0" pref="483" max="32767" attributes="0"/>
+                  <Component id="labelTagihan" alignment="1" pref="491" max="32767" attributes="0"/>
+                  <Component id="jPanel2" alignment="0" pref="491" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -48,7 +48,7 @@
               <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace pref="16" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -89,13 +89,13 @@
                                   <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="165" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="textNII" pref="271" max="32767" attributes="2"/>
+                              <Component id="textNII" pref="279" max="32767" attributes="2"/>
                           </Group>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                              <Component id="comboKelas" pref="224" max="32767" attributes="1"/>
+                              <Component id="comboKelas" pref="232" max="32767" attributes="1"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -104,24 +104,24 @@
                           </Group>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
-                          <Component id="textPeserta" pref="358" max="32767" attributes="1"/>
+                          <Component id="textPeserta" pref="364" max="32767" attributes="1"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="buttonDaftarMurid" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="comboKepada" alignment="1" pref="457" max="32767" attributes="1"/>
+                      <Component id="comboKepada" alignment="1" pref="465" max="32767" attributes="1"/>
                       <Component id="jLabel6" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="jScrollPane3" alignment="0" pref="457" max="32767" attributes="1"/>
-                      <Component id="textPembayaran" alignment="0" pref="457" max="32767" attributes="1"/>
+                      <Component id="jScrollPane3" alignment="0" pref="465" max="32767" attributes="1"/>
+                      <Component id="textPembayaran" alignment="0" pref="465" max="32767" attributes="1"/>
                       <Component id="jLabel9" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="jScrollPane1" alignment="0" pref="457" max="32767" attributes="1"/>
+                      <Component id="jScrollPane1" alignment="0" max="32767" attributes="1"/>
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="0" pref="232" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="240" max="32767" attributes="0"/>
                               </Group>
-                              <Component id="textJumlah" pref="313" max="32767" attributes="0"/>
+                              <Component id="textJumlah" pref="321" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -130,8 +130,8 @@
                           </Group>
                       </Group>
                       <Component id="jLabel12" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="comboDitransfer" alignment="0" pref="457" max="32767" attributes="1"/>
-                      <Component id="jScrollPane2" alignment="1" pref="457" max="32767" attributes="1"/>
+                      <Component id="comboDitransfer" alignment="0" pref="465" max="32767" attributes="1"/>
+                      <Component id="jScrollPane2" alignment="1" pref="465" max="32767" attributes="1"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>

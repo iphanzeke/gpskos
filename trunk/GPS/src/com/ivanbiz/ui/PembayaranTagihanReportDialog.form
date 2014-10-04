@@ -3,7 +3,6 @@
 <Form version="1.5" maxVersion="1.7" type="org.netbeans.modules.form.forminfo.JDialogFormInfo">
   <Properties>
     <Property name="alwaysOnTop" type="boolean" value="true"/>
-    <Property name="modal" type="boolean" value="true"/>
     <Property name="resizable" type="boolean" value="false"/>
   </Properties>
   <SyntheticProperties>
@@ -30,9 +29,9 @@
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace min="-2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="jScrollPane1" alignment="0" pref="780" max="32767" attributes="2"/>
+                  <Component id="jScrollPane1" alignment="0" pref="788" max="32767" attributes="2"/>
                   <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="jPanel2" alignment="0" pref="780" max="32767" attributes="1"/>
+                  <Component id="jPanel2" alignment="0" pref="788" max="32767" attributes="1"/>
               </Group>
               <EmptySpace min="-2" max="-2" attributes="0"/>
           </Group>
@@ -44,7 +43,7 @@
               <EmptySpace min="-2" max="-2" attributes="0"/>
               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jScrollPane1" pref="504" max="32767" attributes="0"/>
+              <Component id="jScrollPane1" pref="515" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" max="-2" attributes="0"/>
@@ -58,7 +57,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Tahoma" size="24" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Daftar Pembayaran"/>
+        <Property name="text" type="java.lang.String" value="Daftar Pembayaran Tagihan"/>
       </Properties>
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane1">
@@ -113,36 +112,20 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JButton" name="buttonTambah">
+        <Component class="javax.swing.JButton" name="buttonPreview">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Tambah Pembayaran Baru"/>
+            <Property name="text" type="java.lang.String" value="Preview Pembayaran Terseleksi"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonTambahActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonPreviewActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="buttonUbah">
+        <Component class="javax.swing.JButton" name="buttonCetak">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Ubah Pembayaran Terseleksi"/>
+            <Property name="text" type="java.lang.String" value="Cetak Pembayaran Terseleksi"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonUbahActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JButton" name="buttonHapus">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Hapus Pembayaran Terseleksi"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonHapusActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JButton" name="buttonProcess">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Proses Pembayaran Terseleksi"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonProcessActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonCetakActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

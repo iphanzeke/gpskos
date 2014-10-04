@@ -32,7 +32,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
                   <Component id="jPanel5" alignment="0" max="32767" attributes="0"/>
-                  <Component id="jLabel10" alignment="0" pref="780" max="32767" attributes="0"/>
+                  <Component id="jLabel10" alignment="0" pref="788" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -74,8 +74,8 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jScrollPane3" alignment="1" pref="754" max="32767" attributes="0"/>
-                      <Component id="textKelas" alignment="0" pref="754" max="32767" attributes="0"/>
+                      <Component id="jScrollPane3" alignment="1" pref="762" max="32767" attributes="0"/>
+                      <Component id="textKelas" alignment="0" pref="762" max="32767" attributes="0"/>
                       <Component id="jLabel11" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
@@ -83,6 +83,8 @@
                           <Component id="buttonTambah" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="buttonHapus" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="buttonKelulusan" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -101,9 +103,10 @@
                       <Component id="jLabel12" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="buttonTambah" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="buttonHapus" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="buttonKelulusan" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jScrollPane3" pref="435" max="32767" attributes="0"/>
+                  <Component id="jScrollPane3" pref="446" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -160,6 +163,14 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonHapusActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="buttonKelulusan">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Lulus : [x]"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonKelulusanActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

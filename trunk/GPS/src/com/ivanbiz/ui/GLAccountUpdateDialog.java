@@ -357,12 +357,14 @@ public class GLAccountUpdateDialog extends JDialog {
             if (!"".equals(kode)) {
                 int count = Integer.parseInt(kode);
                 count += 1;
-                if (count > 999) {
-                    kode = String.format("%03d", 1);
+                if (count >= 890) {
+                    JOptionPane.showMessageDialog(this, "Kode lebih dari 3 digit");
                 } else {
                     kode = String.format("%03d", count);
                 }
+
             } else {
+                System.out.println("keluar2");
                 kode = String.format("%03d", 1);
             }
         } catch (Exception ex) {

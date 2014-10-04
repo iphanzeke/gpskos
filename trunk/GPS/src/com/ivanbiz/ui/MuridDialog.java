@@ -247,12 +247,12 @@ public class MuridDialog extends JDialog {
                     daftarKelas.setKelas(kelas);
                     daftarKelas.setMurid(murid);
                     daftarKelas.setTransactionReference(kelas.getTransactionReference());
+                    daftarKelas.setStatus("1");
                     validateDaftarKelas(daftarKelas);
                 }
             }
         }
     }//GEN-LAST:event_tableMuridMouseClicked
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonHapus;
     private javax.swing.JButton buttonTambah;

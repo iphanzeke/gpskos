@@ -48,6 +48,7 @@ public class TagihanUpdateDialog extends javax.swing.JDialog {
     List<GLAccount> listGLAccounts;
     List<GLAccount> listGLAccountsKreditur;
     List<DaftarKelas> listDaftarKelas;
+    String NII;
 
     /**
      * Creates new form TagihanDialog
@@ -64,6 +65,7 @@ public class TagihanUpdateDialog extends javax.swing.JDialog {
 
     public TagihanUpdateDialog(MainFrame mainFrame, boolean modal, Invoice invoice) {
         initComponents();
+        NII = invoice.getNII();
         this.invoice = invoice;
         labelTagihan.setText("Ubah Tagihan");
         dateChooserDate.setDate(invoice.getDate());
@@ -504,8 +506,28 @@ public class TagihanUpdateDialog extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Mohon Ditranfer ke tidak boleh kosong");
         } else {
             try {
-                invoiceDAO.saveOrUpdate(invoice);
-                dispose();
+                long a = invoice.getId();
+                if (a == 0) {
+
+                    if (invoiceDAO.validateField(Invoice.class, "NII", textNII.getText()).equals("Data sudah ada")) {
+                        JOptionPane.showMessageDialog(this, "No Tagihan / NII sudah ada");
+                    } else {
+                        invoiceDAO.saveOrUpdate(invoice);
+                        dispose();
+                    }
+                } else {
+                    if (!NII.equals(textNII.getText())) {
+                        if (invoiceDAO.validateField(Invoice.class, "NII", textNII.getText()).equals("Data sudah ada")) {
+                            JOptionPane.showMessageDialog(this, "No Tagihan / NII sudah ada");
+                        } else {
+                            invoiceDAO.saveOrUpdate(invoice);
+                            dispose();
+                        }
+                    } else {
+                        invoiceDAO.saveOrUpdate(invoice);
+                        dispose();
+                    }
+                }
             } catch (Exception ex) {
                 Logger.getLogger(TagihanUpdateDialog.class.getName()).log(Level.SEVERE, null, ex);
             }
