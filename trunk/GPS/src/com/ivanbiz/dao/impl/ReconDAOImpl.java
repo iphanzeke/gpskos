@@ -11,7 +11,6 @@ import com.ivanbiz.model.Jurnal;
 import com.ivanbiz.model.Pembayaran;
 import com.ivanbiz.service.HibernateUtil;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
