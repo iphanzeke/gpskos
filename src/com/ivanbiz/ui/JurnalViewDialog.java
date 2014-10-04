@@ -14,6 +14,7 @@ import com.ivanbiz.dao.JurnalDAO;
 import com.ivanbiz.dao.impl.JurnalDAOImpl;
 import com.ivanbiz.model.Jurnal;
 import com.ivanbiz.service.ServiceHelper;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -29,6 +30,7 @@ public class JurnalViewDialog extends javax.swing.JDialog {
     List<Jurnal> listJurnal;
     JurnalDAO jurnalDAO;
     SimpleDateFormat dateFormat;
+    NumberFormat numberFormat;
 
     /**
      * Creates new form LaporanJurnalFrame
@@ -41,6 +43,7 @@ public class JurnalViewDialog extends javax.swing.JDialog {
             initComponents();
             jurnalDAO = new JurnalDAOImpl();
             dateFormat = new SimpleDateFormat("dd-MMMM-yyyy");
+            numberFormat = NumberFormat.getCurrencyInstance();
             jLabelJudul.setText("Dari tanggal " + dateFormat.format(dariTanggal) + " sampai tanggal " + dateFormat.format(sampaiTanggal));
             listJurnal = jurnalDAO.getData(Jurnal.class, dariTanggal, sampaiTanggal);
             updateTableJurnal();
@@ -62,14 +65,10 @@ public class JurnalViewDialog extends javax.swing.JDialog {
         jLabelJudul = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableJurnal = new javax.swing.JTable();
-        buttonExport = new javax.swing.JButton();
-        buttonCetak = new javax.swing.JButton();
 
         setAlwaysOnTop(true);
-        setModal(true);
-        setResizable(false);
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 24));
         jLabel3.setText("Laporan Jurnal");
 
         jLabelJudul.setText("Dari Tanggal {} Sampai {}");
@@ -88,10 +87,6 @@ public class JurnalViewDialog extends javax.swing.JDialog {
         ));
         jScrollPane1.setViewportView(tableJurnal);
 
-        buttonExport.setText("Export to PDF");
-
-        buttonCetak.setText("Cetak");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -99,13 +94,9 @@ public class JurnalViewDialog extends javax.swing.JDialog {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 780, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(buttonCetak)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonExport))
-                    .addComponent(jLabelJudul, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 780, Short.MAX_VALUE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 780, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 788, Short.MAX_VALUE)
+                    .addComponent(jLabelJudul, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 788, Short.MAX_VALUE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 788, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -114,21 +105,15 @@ public class JurnalViewDialog extends javax.swing.JDialog {
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabelJudul)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buttonCetak)
-                    .addComponent(buttonExport))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 540, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        setSize(new java.awt.Dimension(816, 638));
-        setLocationRelativeTo(null);
+        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+        setBounds((screenSize.width-816)/2, (screenSize.height-638)/2, 816, 638);
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton buttonCetak;
-    private javax.swing.JButton buttonExport;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabelJudul;
     private javax.swing.JScrollPane jScrollPane1;
@@ -136,21 +121,30 @@ public class JurnalViewDialog extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
 
     private void updateTableJurnal() {
-        String[] judul = {"No", "Accounting Reference", "Date Reference", "Transaction Reference", "Debet", "Credit", "Currency", "GL Account", "Status"};
-        Object[][] isi = new Object[listJurnal.size()][9];
+        String[] judul = {"No", "Date Reference", "Transaction Reference", "Accounting Reference", "Currency", "Debet", "Credit", "GL Account"};
+        Object[][] isi = new Object[listJurnal.size()][8];
         int x = 0;
         int no = 0;
+        String kode = "";
         for (Jurnal jurnal : listJurnal) {
-            no += 1;
-            isi[x][0] = no;
-            isi[x][1] = jurnal.getAccountingReference();
-            isi[x][2] = dateFormat.format(jurnal.getDateReference());
-            isi[x][3] = jurnal.getTransactionReference();
-            isi[x][4] = jurnal.getDebit();
-            isi[x][5] = jurnal.getCredit();
-            isi[x][6] = jurnal.getCurrency();
+            if (!kode.equals(jurnal.getTransactionReference())) {
+                no += 1;
+                kode = jurnal.getTransactionReference();
+                isi[x][0] = no;
+                isi[x][1] = dateFormat.format(jurnal.getDateReference());
+                isi[x][2] = kode;
+                isi[x][3] = jurnal.getAccountingReference();
+                isi[x][4] = jurnal.getCurrency();
+            } else {
+                isi[x][0] = "";
+                isi[x][1] = "";
+                isi[x][2] = "";
+                isi[x][3] = "";
+                isi[x][4] = "";
+            }
+            isi[x][5] = numberFormat.format(jurnal.getDebit());
+            isi[x][6] = numberFormat.format(jurnal.getCredit());
             isi[x][7] = jurnal.getGLAccount();
-            isi[x][8] = jurnal.getStatus();
             x++;
         }
         new ServiceHelper().setAutoRize(isi, judul, tableJurnal);
