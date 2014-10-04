@@ -78,4 +78,33 @@ public class DaftarKelasDAOImpl extends GenericDAOImpl implements DaftarKelasDAO
             HibernateUtil.closeSession();
         }
     }
+
+    @Override
+    public String updateByKelulusan(List listDaftarKelas) throws Exception {
+        String status = "";
+        try {
+            HibernateUtil.beginTransaction();
+            Session session = HibernateUtil.getSession();
+            for (int x = 0; x < listDaftarKelas.size(); x++) {
+                DaftarKelas daftarKelas = (DaftarKelas) listDaftarKelas.get(x);
+                System.out.println("===" + daftarKelas.isChoose());
+                if (!daftarKelas.isChoose()) {
+                    daftarKelas.setStatus("0");
+                    session.update(daftarKelas);
+                } else {
+                    daftarKelas.setStatus("1");
+                    session.update(daftarKelas);
+                }
+            }
+            HibernateUtil.commitTransaction();
+            status = "sukses";
+        } catch (Exception e) {
+            HibernateUtil.rollbackTransaction();
+            status = "error";
+            throw e;
+        } finally {
+            HibernateUtil.closeSession();
+        }
+        return status;
+    }
 }

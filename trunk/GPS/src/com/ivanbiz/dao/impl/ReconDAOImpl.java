@@ -34,7 +34,9 @@ public class ReconDAOImpl extends GenericDAOImpl implements ReconDAO{
             List listJurnal = new ArrayList();
             for(int x=0;x<listInvoice.size();x++){
                 Invoice inv = (Invoice)listInvoice.get(x);
-                listPembayaran.add((Pembayaran)getDataByEqual(Pembayaran.class, "transactionReference",inv.getNII() ));
+                if((Pembayaran)getDataByEqual(Pembayaran.class, "transactionReference",inv.getNII() )!=null){
+                    listPembayaran.add((Pembayaran)getDataByEqual(Pembayaran.class, "transactionReference",inv.getNII() ));
+                }                
                 List listDetailJurnal = getDataByEquals(Jurnal.class, "transactionReference", inv.getNII());
                 for(int y=0;y<listDetailJurnal.size();y++){
                     Jurnal jurnal = (Jurnal)listDetailJurnal.get(y);

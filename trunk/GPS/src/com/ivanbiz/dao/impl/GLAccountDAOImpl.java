@@ -84,7 +84,7 @@ public class GLAccountDAOImpl extends GenericDAOImpl implements GLAccountDAO {
         try {
             HibernateUtil.beginTransaction();
             Session session = HibernateUtil.getSession();
-            Query query = (Query) session.createQuery("from com.ivanbiz.model.GLAccount gl where gl.kode !='XXX' order by gl.id desc");
+            Query query = (Query) session.createQuery("from GLAccount gl where gl.kode !='XXX' and kode <'890' order by gl.id desc");
             query.setFirstResult(0);
             query.setMaxResults(1);
             gLAccount = (GLAccount) query.uniqueResult();
