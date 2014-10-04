@@ -7,22 +7,20 @@ import com.ivanbiz.dao.JurnalDAO;
 import com.ivanbiz.dao.SettingGLDAO;
 import com.ivanbiz.model.Jurnal;
 import com.ivanbiz.model.SettingGL;
-import com.ivanbiz.service.HibernateUtil;
-import java.math.BigDecimal;
 
 public class JurnalDAOImpl extends GenericDAOImpl implements JurnalDAO {
 
     @Override
     public String saveJurnal(String proCode, double amount, String transRef, String glDebit, String glKredit, Session session) throws Exception {
-       // HibernateUtil.beginTransaction();
+        // HibernateUtil.beginTransaction();
         String status = "";
         try {
-         //   session = HibernateUtil.getSession();
+            //   session = HibernateUtil.getSession();
 
             SettingGLDAO settingGL = new SettingGLDAOImpl();
             List listGL = settingGL.getListByNoGL(proCode, session);
             if (listGL.size() <= 0) {
-                status = "PRO_Code tidak ditemukan";                
+                status = "PRO_Code tidak ditemukan";
                 return status;
             }
             String ref = proCode + "-" + System.currentTimeMillis();
@@ -51,11 +49,11 @@ public class JurnalDAOImpl extends GenericDAOImpl implements JurnalDAO {
             }
 
 
-         //   HibernateUtil.commitTransaction();
+            //   HibernateUtil.commitTransaction();
             status = "sukses";
         } catch (Exception e) {
             status = "gagal";
-         //   HibernateUtil.rollbackTransaction();
+            //   HibernateUtil.rollbackTransaction();
             throw e;
         } finally {
             // HibernateUtil.closeSession();
