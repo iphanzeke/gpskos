@@ -79,6 +79,7 @@ public class MainFrame extends JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        panelLayout = new javax.swing.JPanel();
         menuBarApp = new javax.swing.JMenuBar();
         menuAplikasi = new javax.swing.JMenu();
         menuItemKeluar = new javax.swing.JMenuItem();
@@ -114,6 +115,8 @@ public class MainFrame extends JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setAlwaysOnTop(true);
+
+        panelLayout.setLayout(new java.awt.CardLayout());
 
         menuAplikasi.setText("Aplikasi");
 
@@ -327,11 +330,11 @@ public class MainFrame extends JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 808, Short.MAX_VALUE)
+            .addComponent(panelLayout, javax.swing.GroupLayout.DEFAULT_SIZE, 808, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 590, Short.MAX_VALUE)
+            .addComponent(panelLayout, javax.swing.GroupLayout.DEFAULT_SIZE, 590, Short.MAX_VALUE)
         );
 
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
@@ -459,5 +462,6 @@ public class MainFrame extends JFrame {
     private javax.swing.JMenu menuMaster;
     private javax.swing.JMenu menuPembayaranReport;
     private javax.swing.JMenu menuTransaksi;
+    private javax.swing.JPanel panelLayout;
     // End of variables declaration//GEN-END:variables
 }
