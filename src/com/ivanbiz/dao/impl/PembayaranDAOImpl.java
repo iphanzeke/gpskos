@@ -9,6 +9,7 @@ import com.ivanbiz.dao.JurnalDAO;
 import com.ivanbiz.dao.PembayaranDAO;
 import com.ivanbiz.model.Invoice;
 import com.ivanbiz.model.Pembayaran;
+import com.ivanbiz.model.SettingGL;
 import com.ivanbiz.service.HibernateUtil;
 import org.hibernate.Session;
 
@@ -84,10 +85,11 @@ public class PembayaranDAOImpl extends GenericDAOImpl implements PembayaranDAO {
 //            Invoice invoice = pembayaran.getInvoice();
 //            invoice.setStatus("2");
             pembayaran.setStatus("3");
-            session.update(pembayaran);
             String proCode = pembayaran.getDebitBankAccount().getKode() + pembayaran.getKreditBankAccount().getKode();
             JurnalDAO jurnalDAO = new JurnalDAOImpl();
-            jurnalDAO.saveJurnal(proCode, pembayaran.getJumlah(), pembayaran.getTransactionReference(), pembayaran.getDebitBankAccount().getNoGL(), pembayaran.getKreditBankAccount().getNoGL(), session);
+            if (!"PRO_Code tidak ditemukan".equals(jurnalDAO.saveJurnal(proCode, pembayaran.getJumlah(), pembayaran.getTransactionReference(), pembayaran.getDebitBankAccount().getNoGL(), pembayaran.getKreditBankAccount().getNoGL(), session))) {
+                session.update(pembayaran);
+            }
             HibernateUtil.commitTransaction();
             status = "sukses";
         } catch (Exception ex) {

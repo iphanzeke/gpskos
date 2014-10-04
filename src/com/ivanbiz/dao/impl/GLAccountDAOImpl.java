@@ -49,20 +49,24 @@ public class GLAccountDAOImpl extends GenericDAOImpl implements GLAccountDAO {
         try {
             HibernateUtil.beginTransaction();
             Session session = HibernateUtil.getSession();
-            String noGL = validateFieldSession(GLAccount.class, "noGL", glAccount.getNoGL(), session);
-            String kode = validateFieldSession(GLAccount.class, "kode", glAccount.getKode(), session);
-            if (!noGL.isEmpty() && !kode.isEmpty()) {
+            String[] split = glAccount.getNoGL().split("#");
+            
+            String noGL = validateFieldSession(GLAccount.class, "noGL", split[1].toString(), session);
+//            String kode = validateFieldSession(GLAccount.class, "kode", glAccount.getKode(), session);
+            if (!noGL.isEmpty()) {
                 status = "Data Already";
             } else {
+                glAccount.setNoGL(split[1]);
                 session.save(glAccount);
+                GLAccount glAcc = (GLAccount) session.createQuery("from com.ivanbiz.model.GLAccount g where g.noGL ='"+split[0].toString()+"'").uniqueResult();
                 SettingGL settingGL = new SettingGL();
                 settingGL.setGlAccount("XXX");
-                settingGL.setProCode(glAccount.getKode() + "XXX");
+                settingGL.setProCode(glAcc.getKode() + "XXX");
                 settingGL.setDebetOrCredit("C");
                 session.save(settingGL);
                 SettingGL settingGL1 = new SettingGL();
                 settingGL1.setProCode(settingGL.getProCode());
-                settingGL1.setGlAccount(glAccount.getNoGL());
+                settingGL1.setGlAccount(split[0].toString());
                 settingGL1.setDebetOrCredit("D");
                 session.save(settingGL1);
                 status = "sukses";
