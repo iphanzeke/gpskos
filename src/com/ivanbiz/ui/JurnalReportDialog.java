@@ -25,7 +25,7 @@ import java.util.logging.Logger;
  *
  * @author Shbt Peterpan
  */
-public class JurnalViewDialog extends javax.swing.JDialog {
+public class JurnalReportDialog extends javax.swing.JDialog {
 
     List<Jurnal> listJurnal;
     JurnalDAO jurnalDAO;
@@ -38,7 +38,7 @@ public class JurnalViewDialog extends javax.swing.JDialog {
      * @param dariTanggal
      * @param sampaiTanggal
      */
-    public JurnalViewDialog(Date dariTanggal, Date sampaiTanggal) {
+    public JurnalReportDialog(Date dariTanggal, Date sampaiTanggal) {
         try {
             initComponents();
             jurnalDAO = new JurnalDAOImpl();
@@ -48,7 +48,7 @@ public class JurnalViewDialog extends javax.swing.JDialog {
             listJurnal = jurnalDAO.getData(Jurnal.class, dariTanggal, sampaiTanggal);
             updateTableJurnal();
         } catch (Exception ex) {
-            Logger.getLogger(JurnalViewDialog.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(JurnalReportDialog.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -67,6 +67,7 @@ public class JurnalViewDialog extends javax.swing.JDialog {
         tableJurnal = new javax.swing.JTable();
 
         setAlwaysOnTop(true);
+        setModal(true);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 24));
         jLabel3.setText("Laporan Jurnal");

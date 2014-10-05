@@ -70,6 +70,7 @@ public class MainFrame extends JFrame {
             menuItemKelulusanReport.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.REPORT_KELULUSAN, listAksesMatrix));
             menuItemPembayaranLain.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.LIHAT_PEMBAYARAN_LAIN, listAksesMatrix));
             menuItemPembayaranLainReport.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.REPORT_PEMBAYARAN_LAIN, listAksesMatrix));
+            menuItemKeuntunganReport.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.REPORT_KEUNTUNGAN, listAksesMatrix));
         } catch (Exception ex) {
             Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -79,7 +80,6 @@ public class MainFrame extends JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panelLayout = new javax.swing.JPanel();
         menuBarApp = new javax.swing.JMenuBar();
         menuAplikasi = new javax.swing.JMenu();
         menuItemKeluar = new javax.swing.JMenuItem();
@@ -111,12 +111,11 @@ public class MainFrame extends JFrame {
         menuItemDaftarKelasReport = new javax.swing.JMenuItem();
         menuItemReconsile = new javax.swing.JMenuItem();
         menuItemJurnal = new javax.swing.JMenuItem();
+        menuItemKeuntunganReport = new javax.swing.JMenuItem();
         menuItemKelulusanReport = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setAlwaysOnTop(true);
-
-        panelLayout.setLayout(new java.awt.CardLayout());
 
         menuAplikasi.setText("Aplikasi");
 
@@ -314,6 +313,14 @@ public class MainFrame extends JFrame {
         });
         menuLaporan.add(menuItemJurnal);
 
+        menuItemKeuntunganReport.setText("Keuntungan");
+        menuItemKeuntunganReport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemKeuntunganReportActionPerformed(evt);
+            }
+        });
+        menuLaporan.add(menuItemKeuntunganReport);
+
         menuItemKelulusanReport.setText("Kelulusan");
         menuItemKelulusanReport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -330,11 +337,11 @@ public class MainFrame extends JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelLayout, javax.swing.GroupLayout.DEFAULT_SIZE, 808, Short.MAX_VALUE)
+            .addGap(0, 808, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelLayout, javax.swing.GroupLayout.DEFAULT_SIZE, 590, Short.MAX_VALUE)
+            .addGap(0, 590, Short.MAX_VALUE)
         );
 
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
@@ -429,6 +436,10 @@ public class MainFrame extends JFrame {
     private void menuItemPembayaranLainReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemPembayaranLainReportActionPerformed
         new PembayaranLainReportDialog().setVisible(true);
     }//GEN-LAST:event_menuItemPembayaranLainReportActionPerformed
+
+    private void menuItemKeuntunganReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemKeuntunganReportActionPerformed
+        new KeuntunganDialog().setVisible(true);
+    }//GEN-LAST:event_menuItemKeuntunganReportActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;
     private javax.swing.JSeparator jSeparator1;
@@ -445,6 +456,7 @@ public class MainFrame extends JFrame {
     private javax.swing.JMenuItem menuItemKeluar;
     private javax.swing.JMenuItem menuItemKelulusan;
     private javax.swing.JMenuItem menuItemKelulusanReport;
+    private javax.swing.JMenuItem menuItemKeuntunganReport;
     private javax.swing.JMenuItem menuItemMurid;
     private javax.swing.JMenuItem menuItemPassword;
     private javax.swing.JMenuItem menuItemPembayaranLain;
@@ -462,6 +474,5 @@ public class MainFrame extends JFrame {
     private javax.swing.JMenu menuMaster;
     private javax.swing.JMenu menuPembayaranReport;
     private javax.swing.JMenu menuTransaksi;
-    private javax.swing.JPanel panelLayout;
     // End of variables declaration//GEN-END:variables
 }

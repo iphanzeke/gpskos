@@ -211,19 +211,18 @@ public class PembayaranLainReportDialog extends JDialog {
     }
 
     private void updateTablePembayaran() {
-        String[] judul = {"No", "Tanggal Pembayaran ", "Transaksi Reference", "Debitur", "Kreditur", "Jumlah", "Deskripsi"};
-        Object[][] isi = new Object[listPembayaran.size()][7];
+        String[] judul = {"No", "Tanggal Pembayaran ", "Debitur", "Kreditur", "Jumlah", "Deskripsi"};
+        Object[][] isi = new Object[listPembayaran.size()][6];
         int x = 0;
         int no = 0;
         for (Pembayaran pembayarans : listPembayaran) {
             no += 1;
             isi[x][0] = no;
             isi[x][1] = pembayarans.getDatePosting();
-            isi[x][2] = pembayarans.getTransactionReference();
-            isi[x][3] = pembayarans.getDebitBankAccount().getNameGL() + " A/C NO. " + pembayarans.getDebitBankAccount().getNoGL();
-            isi[x][4] = pembayarans.getKreditBankAccount().getNameGL() + " A/C NO. " + pembayarans.getKreditBankAccount().getNoGL();
-            isi[x][5] = numberFormat.format(pembayarans.getJumlah());
-            isi[x][6] = pembayarans.getDeskripsi();
+            isi[x][2] = pembayarans.getDebitBankAccount().getNameGL() + " A/C NO. " + pembayarans.getDebitBankAccount().getNoGL();
+            isi[x][3] = pembayarans.getKreditBankAccount().getNameGL() + " A/C NO. " + pembayarans.getKreditBankAccount().getNoGL();
+            isi[x][4] = numberFormat.format(pembayarans.getJumlah());
+            isi[x][5] = pembayarans.getDeskripsi();
             x++;
         }
         new ServiceHelper().setAutoRize(isi, judul, tablePembayaran);
