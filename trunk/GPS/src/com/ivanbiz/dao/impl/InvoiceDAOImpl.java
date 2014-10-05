@@ -10,8 +10,10 @@ import com.ivanbiz.model.Invoice;
 import com.ivanbiz.service.HibernateUtil;
 import java.util.ArrayList;
 import java.util.List;
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 
 /**
  *
@@ -98,4 +100,43 @@ public class InvoiceDAOImpl extends GenericDAOImpl implements InvoiceDAO {
         }
     }
 
+    @Override
+    public List getDataByLike(Class clasImpl, String variable, Object input) throws Exception {
+        List list = null;
+        try {
+            Session session = HibernateUtil.getSession();
+            HibernateUtil.beginTransaction();
+            Criteria crit = session.createCriteria(clasImpl);
+            crit.add(Restrictions.like(variable, "%" + input + "%"));
+            crit.add(Restrictions.ne("status", "0"));
+            list = crit.list();
+            HibernateUtil.commitTransaction();
+        } catch (Exception e) {
+            HibernateUtil.rollbackTransaction();
+            throw e;
+        } finally {
+            HibernateUtil.closeSession();
+        }
+        return list;
+    }
+
+    @Override
+    public List getDataByEquals(Class clazImpl, String variable, Object input) throws Exception {
+        List list = null;
+        try {
+            Session session = HibernateUtil.getSession();
+            HibernateUtil.beginTransaction();
+            Criteria crit = session.createCriteria(clazImpl);
+            crit.add(Restrictions.ne(variable, input));
+            list = crit.list();
+            HibernateUtil.commitTransaction();
+
+        } catch (Exception e) {
+            HibernateUtil.rollbackTransaction();
+            throw e;
+        } finally {
+            HibernateUtil.closeSession();
+        }
+        return list;
+    }
 }

@@ -10,7 +10,10 @@ import com.ivanbiz.dao.PembayaranDAO;
 import com.ivanbiz.model.Invoice;
 import com.ivanbiz.model.Pembayaran;
 import com.ivanbiz.service.HibernateUtil;
+import java.util.List;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 
 /**
  *
@@ -99,5 +102,25 @@ public class PembayaranDAOImpl extends GenericDAOImpl implements PembayaranDAO {
             HibernateUtil.closeSession();
         }
         return status;
+    }
+
+    @Override
+    public List getDataByLike(Class clasImpl, String variable, Object input) throws Exception {
+        List list = null;
+        try {
+            Session session = HibernateUtil.getSession();
+            HibernateUtil.beginTransaction();
+            Criteria crit = session.createCriteria(clasImpl);
+            crit.add(Restrictions.like(variable, "%" + input + "%"));
+            crit.add(Restrictions.eq("status", "1"));
+            list = crit.list();
+            HibernateUtil.commitTransaction();
+        } catch (Exception e) {
+            HibernateUtil.rollbackTransaction();
+            throw e;
+        } finally {
+            HibernateUtil.closeSession();
+        }
+        return list;
     }
 }
