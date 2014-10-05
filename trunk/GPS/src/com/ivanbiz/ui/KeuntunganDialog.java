@@ -10,18 +10,27 @@
  */
 package com.ivanbiz.ui;
 
+import com.ivanbiz.dao.GLAccountDAO;
+import com.ivanbiz.dao.impl.GLAccountDAOImpl;
+import com.ivanbiz.model.GLAccount;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
 
 /**
  *
  * @author Shbt Peterpan
  */
-public class JurnalDialog extends javax.swing.JDialog {
+public class KeuntunganDialog extends javax.swing.JDialog {
 
-    public JurnalDialog() {
+    GLAccountDAO gLAccountDAO;
+    List<GLAccount> listGLAccount;
+
+    public KeuntunganDialog() {
         initComponents();
+        gLAccountDAO = new GLAccountDAOImpl();
         refresh();
     }
 
@@ -40,20 +49,24 @@ public class JurnalDialog extends javax.swing.JDialog {
         jDateChooserDariTanggal = new com.toedter.calendar.JDateChooser();
         jDateChooserSampaiTanggal = new com.toedter.calendar.JDateChooser();
         jLabel2 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        comboBoxKreditur = new javax.swing.JComboBox();
         buttonLihat = new javax.swing.JButton();
 
         setAlwaysOnTop(true);
         setModal(true);
         setResizable(false);
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 24));
-        jLabel3.setText("Laporan Jurnal");
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel3.setText("Laporan Keuntungan");
 
         jPanel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jLabel1.setText("Dari Tanggal :");
+        jLabel1.setText("Account :");
 
         jLabel2.setText("Sampai Tanggal :");
+
+        jLabel4.setText("Dari Tanggal :");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -62,24 +75,40 @@ public class JurnalDialog extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jDateChooserDariTanggal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE)
-                    .addComponent(jLabel2)
-                    .addComponent(jDateChooserSampaiTanggal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE))
-                .addContainerGap())
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(comboBoxKreditur, 0, 327, Short.MAX_VALUE))
+                        .addContainerGap())
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
+                        .addGap(201, 201, 201))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jDateChooserDariTanggal, javax.swing.GroupLayout.DEFAULT_SIZE, 327, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addContainerGap(255, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jDateChooserSampaiTanggal, javax.swing.GroupLayout.DEFAULT_SIZE, 327, Short.MAX_VALUE)
+                        .addContainerGap())))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 20, Short.MAX_VALUE)
-                .addGap(1, 1, 1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(comboBoxKreditur, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 20, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jDateChooserDariTanggal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jDateChooserSampaiTanggal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(19, 19, 19))
+                .addGap(20, 20, 20))
         );
 
         buttonLihat.setText("Lihat Laporan");
@@ -113,28 +142,46 @@ public class JurnalDialog extends javax.swing.JDialog {
         );
 
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-329)/2, (screenSize.height-231)/2, 329, 231);
+        setBounds((screenSize.width-381)/2, (screenSize.height-291)/2, 381, 291);
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonLihatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonLihatActionPerformed
         try {
-            new JurnalReportDialog(jDateChooserDariTanggal.getDate(), jDateChooserSampaiTanggal.getDate()).setVisible(true);
+            new KeuntunganReportDialog(listGLAccount.get(comboBoxKreditur.getSelectedIndex()), jDateChooserDariTanggal.getDate(), jDateChooserSampaiTanggal.getDate()).setVisible(true);
         } catch (Exception ex) {
-            Logger.getLogger(JurnalDialog.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(KeuntunganDialog.class.getName()).log(Level.SEVERE, null, ex);
         }
 }//GEN-LAST:event_buttonLihatActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonLihat;
+    private javax.swing.JComboBox comboBoxKreditur;
     private com.toedter.calendar.JDateChooser jDateChooserDariTanggal;
     private com.toedter.calendar.JDateChooser jDateChooserSampaiTanggal;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 
     private void refresh() {
-        jDateChooserDariTanggal.setDate(new Date());
-        jDateChooserSampaiTanggal.setDate(new Date());
+        try {
+            listGLAccount = gLAccountDAO.getDataByEquals(GLAccount.class, "groupACC", "Kreditur");
+            updateComboKreditur();
+            jDateChooserDariTanggal.setDate(new Date());
+            jDateChooserSampaiTanggal.setDate(new Date());
+        } catch (Exception ex) {
+            Logger.getLogger(KeuntunganDialog.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void updateComboKreditur() {
+        Object data[] = new Object[listGLAccount.size()];
+        int x = 0;
+        for (GLAccount gLAccounts : listGLAccount) {
+            data[x] = gLAccounts.getNameGL() + " A/C No. " + gLAccounts.getNoGL();
+            x++;
+        }
+        comboBoxKreditur.setModel(new DefaultComboBoxModel(data));
     }
 }

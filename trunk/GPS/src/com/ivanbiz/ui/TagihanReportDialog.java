@@ -56,36 +56,21 @@ public class TagihanReportDialog extends javax.swing.JDialog {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tableTagihan = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         buttonCetak = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         comboBoxPencarian = new javax.swing.JComboBox();
         textCari = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tableTagihan = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setAlwaysOnTop(true);
         setModal(true);
-        setResizable(false);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24));
         jLabel1.setText("Daftar Tagihan");
-
-        tableTagihan.setAutoCreateRowSorter(true);
-        tableTagihan.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane1.setViewportView(tableTagihan);
 
         jButton1.setText("Preview Tagihan Terseleksi");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -131,17 +116,31 @@ public class TagihanReportDialog extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        tableTagihan.setAutoCreateRowSorter(true);
+        tableTagihan.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(tableTagihan);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 780, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 780, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 780, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 780, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 780, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 780, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -152,8 +151,8 @@ public class TagihanReportDialog extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 431, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 435, Short.MAX_VALUE)
+                .addGap(2, 2, 2)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -196,7 +195,6 @@ public class TagihanReportDialog extends javax.swing.JDialog {
 
     private void textCariKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textCariKeyReleased
         try {
-            System.out.println(comboBoxPencarian.getSelectedItem().toString());
             listInvoice = invoiceDAO.getDataByLike(Invoice.class, comboBoxPencarian.getSelectedItem().toString(), textCari.getText());
             updateTableTagihan();
         } catch (Exception ex) {
@@ -210,14 +208,14 @@ public class TagihanReportDialog extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tableTagihan;
     private javax.swing.JTextField textCari;
     // End of variables declaration//GEN-END:variables
 
     private void refresh() {
         try {
-            listInvoice = invoiceDAO.getDataByEquals(Invoice.class, "status", "1");
+            listInvoice = invoiceDAO.getDataByEquals(Invoice.class, "status", "0");
             updateTableTagihan();
             updateComboPencarian();
         } catch (Exception ex) {
@@ -226,8 +224,8 @@ public class TagihanReportDialog extends javax.swing.JDialog {
     }
 
     private void updateTableTagihan() {
-        String[] judul = {"No", "Date", "NII", "Kelas", "Bank", "Kepada", "Untuk Pembayaran", "Jumlah Peserta", "Jumlah Tagihan", "Jatuh Tempo", "Mohon Ditransfer Ke"};
-        Object[][] isi = new Object[listInvoice.size()][11];
+        String[] judul = {"No", "Date", "NII", "Kelas", "Bank", "Kepada", "Untuk Pembayaran", "Jumlah Peserta", "Jumlah Tagihan", "Jatuh Tempo", "Mohon Ditransfer Ke", "Proses"};
+        Object[][] isi = new Object[listInvoice.size()][12];
         int x = 0;
         int no = 0;
         for (Invoice invoices : listInvoice) {
@@ -245,6 +243,7 @@ public class TagihanReportDialog extends javax.swing.JDialog {
             isi[x][8] = numberFormat.format(invoices.getJumlahTagihan());
             isi[x][9] = invoices.getJatuhTempo();
             isi[x][10] = invoices.getDeskripsiUntuk();
+            isi[x][11] = invoices.getStatus().equals("1") ? "N" : "Y";
             x++;
         }
         new ServiceHelper().setAutoRize(isi, judul, tableTagihan);
@@ -252,9 +251,8 @@ public class TagihanReportDialog extends javax.swing.JDialog {
 
     private void updateComboPencarian() {
         Object[] dataClass = new ServiceHelper().getPropertyClass(Invoice.class);
-        Object[] dataSearch = new Object[2];
+        Object[] dataSearch = new Object[1];
         dataSearch[0] = dataClass[1];
-        dataSearch[1] = dataClass[2];
         comboBoxPencarian.setModel(new DefaultComboBoxModel(dataSearch));
     }
 }
