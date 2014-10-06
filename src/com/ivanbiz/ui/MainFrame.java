@@ -446,7 +446,7 @@ public class MainFrame extends JFrame {
     }//GEN-LAST:event_menuItemTagihanReportActionPerformed
 
     private void menuItemDaftarKelasReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemDaftarKelasReportActionPerformed
-        new DaftarKelasReportDialog().setVisible(true);
+        new DaftarKelasReportDialog("daftarKelas").setVisible(true);
     }//GEN-LAST:event_menuItemDaftarKelasReportActionPerformed
 
     private void menuItemReconsileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemReconsileActionPerformed
@@ -462,7 +462,7 @@ public class MainFrame extends JFrame {
     }//GEN-LAST:event_menuItemPembayaranLainActionPerformed
 
     private void menuItemKelulusanReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemKelulusanReportActionPerformed
-        new DaftarKelasReportDialog().setVisible(true);
+        new DaftarKelasReportDialog("kelulusan").setVisible(true);
     }//GEN-LAST:event_menuItemKelulusanReportActionPerformed
 
     private void menuItemKelulusanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemKelulusanActionPerformed
