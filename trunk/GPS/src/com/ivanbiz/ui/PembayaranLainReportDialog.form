@@ -113,48 +113,26 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JButton" name="buttonTambah">
+        <Component class="javax.swing.JButton" name="buttonPreview">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/com/ivanbiz/ui/icon/tambah.jpg"/>
+              <Image iconType="3" name="/com/ivanbiz/ui/icon/preview.jpg"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Tambah Pembayaran Baru"/>
+            <Property name="text" type="java.lang.String" value="Lihat Pembayaran Terseleksi"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonTambahActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonPreviewActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="buttonUbah">
+        <Component class="javax.swing.JButton" name="buttonCetak">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/com/ivanbiz/ui/icon/ubah.jpg"/>
+              <Image iconType="3" name="/com/ivanbiz/ui/icon/cetak.jpg"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Ubah Pembayaran Terseleksi"/>
+            <Property name="text" type="java.lang.String" value="Cetak Pembayaran Terseleksi"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonUbahActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JButton" name="buttonHapus">
-          <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/com/ivanbiz/ui/icon/hapus.jpg"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Hapus Pembayaran Terseleksi"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonHapusActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JButton" name="buttonProcess">
-          <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/com/ivanbiz/ui/icon/process.jpg"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Proses Pembayaran Terseleksi"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonProcessActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonCetakActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

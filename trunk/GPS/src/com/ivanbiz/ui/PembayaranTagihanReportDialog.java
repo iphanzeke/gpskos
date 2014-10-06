@@ -81,7 +81,7 @@ public class PembayaranTagihanReportDialog extends JDialog {
         jScrollPane1.setViewportView(tablePembayaran);
 
         buttonPreview.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/preview.jpg"))); // NOI18N
-        buttonPreview.setText("Preview Pembayaran Terseleksi");
+        buttonPreview.setText("Lihat Pembayaran Terseleksi");
         buttonPreview.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonPreviewActionPerformed(evt);
@@ -163,7 +163,7 @@ public class PembayaranTagihanReportDialog extends JDialog {
 
     private void buttonPreviewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPreviewActionPerformed
         if (tablePembayaran.getSelectedRow() == -1) {
-            JOptionPane.showMessageDialog(this, "Pilih data yang akan dicetak", "warning", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Pilih data yang akan dilihat", "warning", JOptionPane.WARNING_MESSAGE);
         } else {
             new PembayaranReport().previewAndCetakTagihan(listPembayaran.get(tablePembayaran.getSelectedRow()), "preview");
         }

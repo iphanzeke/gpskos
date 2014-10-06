@@ -73,7 +73,7 @@ public class TagihanReportDialog extends javax.swing.JDialog {
         jLabel1.setText("Daftar Tagihan");
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/preview.jpg"))); // NOI18N
-        jButton1.setText("Preview Tagihan Terseleksi");
+        jButton1.setText("Lihat Tagihan Terseleksi");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -181,7 +181,7 @@ public class TagihanReportDialog extends javax.swing.JDialog {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if (tableTagihan.getSelectedRow() == -1) {
-            JOptionPane.showMessageDialog(this, "Pilih data yang akan dicetak", "warning", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Pilih data yang akan dilihat", "warning", JOptionPane.WARNING_MESSAGE);
         } else {
             try {
                 Kelas kelas = listInvoice.get(tableTagihan.getSelectedRow()).getKelas();

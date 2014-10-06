@@ -46,7 +46,7 @@ public class DaftarKelasReport {
     JasperViewer jasperViewer;
     List<DaftarKelas> listDaftarKelases;
 
-    public void previewAndCetakTagihan(List<DaftarKelas> listDaftarKelas, String previewOrCetak) {
+    public void previewAndCetakTagihan(List<DaftarKelas> listDaftarKelas, String previewOrCetak, String kelulusan) {
         try {
             listDaftarKelases = new ArrayList<DaftarKelas>();
             for (DaftarKelas daftarKelas : listDaftarKelas) {
@@ -60,7 +60,12 @@ public class DaftarKelasReport {
             perusahaan = new Perusahaan();
             perusahaan.setAlamat(GlobalSession.getPerusahaan().getAlamat() + "\n" + "Ph  :" + GlobalSession.getPerusahaan().getTelephone() + "\n" + "Fax :" + GlobalSession.getPerusahaan().getFax());
 
-            inputStream = JRLoader.getFileInputStream(System.getProperty("user.dir") + "/report/DaftarKelasReport.jasper");
+            if (kelulusan.contentEquals("kelulusan")) {
+                inputStream = JRLoader.getFileInputStream(System.getProperty("user.dir") + "/report/DaftarKelasKelulusanReport.jasper");
+            } else {
+                inputStream = JRLoader.getFileInputStream(System.getProperty("user.dir") + "/report/DaftarKelasReport.jasper");
+            }
+
             dataSource = new JRBeanCollectionDataSource(listDaftarKelases);
             map = new HashMap();
             map.put(JRParameter.REPORT_DATA_SOURCE, dataSource);

@@ -12,10 +12,8 @@ package com.ivanbiz.ui;
 
 import com.ivanbiz.dao.PembayaranDAO;
 import com.ivanbiz.dao.impl.PembayaranDAOImpl;
-import com.ivanbiz.model.AksesMatrix;
 import com.ivanbiz.model.Pembayaran;
-import com.ivanbiz.service.GlobalSession;
-import com.ivanbiz.service.MenuAksesConstant;
+import com.ivanbiz.report.PembayaranReport;
 import com.ivanbiz.service.ServiceHelper;
 import java.text.NumberFormat;
 import java.util.List;
@@ -41,7 +39,6 @@ public class PembayaranLainReportDialog extends JDialog {
     public PembayaranLainReportDialog() {
         initComponents();
         pembayaranDAO = new PembayaranDAOImpl();
-        renderButtonAkses(GlobalSession.getListAksesMatrix());
         numberFormat = NumberFormat.getCurrencyInstance();
         refresh();
     }
@@ -59,10 +56,8 @@ public class PembayaranLainReportDialog extends JDialog {
         jScrollPane1 = new javax.swing.JScrollPane();
         tablePembayaran = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
-        buttonTambah = new javax.swing.JButton();
-        buttonUbah = new javax.swing.JButton();
-        buttonHapus = new javax.swing.JButton();
-        buttonProcess = new javax.swing.JButton();
+        buttonPreview = new javax.swing.JButton();
+        buttonCetak = new javax.swing.JButton();
 
         setAlwaysOnTop(true);
         setModal(true);
@@ -84,41 +79,23 @@ public class PembayaranLainReportDialog extends JDialog {
         ));
         jScrollPane1.setViewportView(tablePembayaran);
 
-        buttonTambah.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/tambah.jpg"))); // NOI18N
-        buttonTambah.setText("Tambah Pembayaran Baru");
-        buttonTambah.addActionListener(new java.awt.event.ActionListener() {
+        buttonPreview.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/preview.jpg"))); // NOI18N
+        buttonPreview.setText("Lihat Pembayaran Terseleksi");
+        buttonPreview.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonTambahActionPerformed(evt);
+                buttonPreviewActionPerformed(evt);
             }
         });
-        jPanel2.add(buttonTambah);
+        jPanel2.add(buttonPreview);
 
-        buttonUbah.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/ubah.jpg"))); // NOI18N
-        buttonUbah.setText("Ubah Pembayaran Terseleksi");
-        buttonUbah.addActionListener(new java.awt.event.ActionListener() {
+        buttonCetak.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/cetak.jpg"))); // NOI18N
+        buttonCetak.setText("Cetak Pembayaran Terseleksi");
+        buttonCetak.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonUbahActionPerformed(evt);
+                buttonCetakActionPerformed(evt);
             }
         });
-        jPanel2.add(buttonUbah);
-
-        buttonHapus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/hapus.jpg"))); // NOI18N
-        buttonHapus.setText("Hapus Pembayaran Terseleksi");
-        buttonHapus.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonHapusActionPerformed(evt);
-            }
-        });
-        jPanel2.add(buttonHapus);
-
-        buttonProcess.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/process.jpg"))); // NOI18N
-        buttonProcess.setText("Proses Pembayaran Terseleksi");
-        buttonProcess.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonProcessActionPerformed(evt);
-            }
-        });
-        jPanel2.add(buttonProcess);
+        jPanel2.add(buttonCetak);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -148,57 +125,25 @@ public class PembayaranLainReportDialog extends JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void buttonUbahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonUbahActionPerformed
+    private void buttonPreviewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPreviewActionPerformed
         if (tablePembayaran.getSelectedRow() == -1) {
-            JOptionPane.showMessageDialog(this, "Pilih data yang akan diubah", "warning", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Pilih data yang akan dilihat", "warning", JOptionPane.WARNING_MESSAGE);
         } else {
-            try {
-                pembayaran = listPembayaran.get(tablePembayaran.getSelectedRow());
-                new PembayaranTagihanUpdateDialog(null, true, pembayaran).setVisible(true);
-                refresh();
-            } catch (Exception ex) {
-                Logger.getLogger(PembayaranLainReportDialog.class.getName()).log(Level.SEVERE, null, ex);
-            }
+//            new PembayaranReport().previewAndCetakTagihan(listPembayaran.get(tablePembayaran.getSelectedRow()), "preview");
         }
-    }//GEN-LAST:event_buttonUbahActionPerformed
+    }//GEN-LAST:event_buttonPreviewActionPerformed
 
-    private void buttonHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonHapusActionPerformed
+    private void buttonCetakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCetakActionPerformed
         if (tablePembayaran.getSelectedRow() == -1) {
-            JOptionPane.showMessageDialog(this, "Pilih data yang akan dihapus", "warning", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Pilih data yang akan dicetak", "warning", JOptionPane.WARNING_MESSAGE);
         } else {
-            try {
-                pembayaran = listPembayaran.get(tablePembayaran.getSelectedRow());
-                pembayaranDAO.delete(pembayaran);
-                refresh();
-            } catch (Exception ex) {
-                Logger.getLogger(PembayaranLainReportDialog.class.getName()).log(Level.SEVERE, null, ex);
-            }
+//            new PembayaranReport().previewAndCetakTagihan(listPembayaran.get(tablePembayaran.getSelectedRow()), "cetak");
         }
-    }//GEN-LAST:event_buttonHapusActionPerformed
+    }//GEN-LAST:event_buttonCetakActionPerformed
 
-    private void buttonTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTambahActionPerformed
-        new PembayaranLainUpdateDialog(null, true).setVisible(true);
-        refresh();
-    }//GEN-LAST:event_buttonTambahActionPerformed
-
-    private void buttonProcessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonProcessActionPerformed
-        if (tablePembayaran.getSelectedRow() == -1) {
-            JOptionPane.showMessageDialog(this, "Pilih data yang akan diproses", "warning", JOptionPane.WARNING_MESSAGE);
-        } else {
-            try {
-                pembayaran = listPembayaran.get(tablePembayaran.getSelectedRow());
-                pembayaranDAO.postingJurnalPembayaranLain(pembayaran);
-                refresh();
-            } catch (Exception ex) {
-                Logger.getLogger(PembayaranLainReportDialog.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-    }//GEN-LAST:event_buttonProcessActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton buttonHapus;
-    private javax.swing.JButton buttonProcess;
-    private javax.swing.JButton buttonTambah;
-    private javax.swing.JButton buttonUbah;
+    private javax.swing.JButton buttonCetak;
+    private javax.swing.JButton buttonPreview;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
@@ -215,26 +160,21 @@ public class PembayaranLainReportDialog extends JDialog {
     }
 
     private void updateTablePembayaran() {
-        String[] judul = {"No", "Tanggal Pembayaran ", "Debitur", "Kreditur", "Jumlah", "Deskripsi"};
-        Object[][] isi = new Object[listPembayaran.size()][6];
+        String[] judul = {"No", "Date Posting", "Debitur", "Kreditur", "Jumlah", "Deskripsi"};
+        Object[][] isi = new Object[listPembayaran.size()][7];
         int x = 0;
         int no = 0;
         for (Pembayaran pembayarans : listPembayaran) {
             no += 1;
             isi[x][0] = no;
             isi[x][1] = pembayarans.getDatePosting();
-            isi[x][2] = pembayarans.getDebitBankAccount().getNameGL() + " A/C NO. " + pembayarans.getDebitBankAccount().getNoGL();
-            isi[x][3] = pembayarans.getKreditBankAccount().getNameGL() + " A/C NO. " + pembayarans.getKreditBankAccount().getNoGL();
-            isi[x][4] = numberFormat.format(pembayarans.getJumlah());
-            isi[x][5] = pembayarans.getDeskripsi();
+            isi[x][2] = pembayarans.getTransactionReference();
+            isi[x][3] = pembayarans.getDebitBankAccount().getNameGL() + " A/C NO. " + pembayarans.getDebitBankAccount().getNoGL();
+            isi[x][4] = pembayarans.getDebitBankAccount().getNameGL() + " A/C NO. " + pembayarans.getDebitBankAccount().getNoGL();
+            isi[x][5] = numberFormat.format(pembayarans.getJumlah());
+            isi[x][6] = pembayarans.getDeskripsi();
             x++;
         }
         new ServiceHelper().setAutoRize(isi, judul, tablePembayaran);
-    }
-
-    private void renderButtonAkses(List<AksesMatrix> listAksesMatrix) {
-        buttonTambah.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.TAMBAH_PEMBAYARAN_LAIN, listAksesMatrix));
-        buttonUbah.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.UBAH_PEMBAYARAN_LAIN, listAksesMatrix));
-        buttonHapus.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.HAPUS_PEMBAYARAN_LAIN, listAksesMatrix));
     }
 }

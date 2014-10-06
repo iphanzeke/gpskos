@@ -30,12 +30,14 @@ public class DaftarKelasReportDialog extends javax.swing.JDialog {
     List<Kelas> listKelas;
     KelasDAO kelasDAO;
     SimpleDateFormat sdf;
+    String lulus;
 
-    public DaftarKelasReportDialog() {
+    public DaftarKelasReportDialog(String kelulusan) {
         initComponents();
         daftarKelasDAO = new DaftarKelasDAOImpl();
         kelasDAO = new KelasDAOImpl();
         sdf = new SimpleDateFormat("dd-MMMM-yyyy");
+        this.lulus = kelulusan;
         refresh();
     }
 
@@ -76,7 +78,7 @@ public class DaftarKelasReportDialog extends javax.swing.JDialog {
         jScrollPane1.setViewportView(tableKelas);
 
         buttonPreview.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/preview.jpg"))); // NOI18N
-        buttonPreview.setText("Preview");
+        buttonPreview.setText("Lihat Daftar Kelas Terseleksi");
         buttonPreview.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonPreviewActionPerformed(evt);
@@ -85,7 +87,7 @@ public class DaftarKelasReportDialog extends javax.swing.JDialog {
         jPanel1.add(buttonPreview);
 
         buttonCetak.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/cetak.jpg"))); // NOI18N
-        buttonCetak.setText("Cetak");
+        buttonCetak.setText("Cetak Daftar Kelas Terseleksi");
         buttonCetak.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonCetakActionPerformed(evt);
@@ -123,11 +125,15 @@ public class DaftarKelasReportDialog extends javax.swing.JDialog {
 
     private void buttonPreviewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPreviewActionPerformed
         if (tableKelas.getSelectedRow() == -1) {
-            JOptionPane.showMessageDialog(this, "Pilih data yang akan dipreview", "warning", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Pilih data yang akan dilihat", "warning", JOptionPane.WARNING_MESSAGE);
         } else {
             try {
                 listDaftarKelas = daftarKelasDAO.getDataByEquals(DaftarKelas.class, "transactionReference", listKelas.get(tableKelas.getSelectedRow()).getTransactionReference());
-                new DaftarKelasReport().previewAndCetakTagihan(listDaftarKelas, "preview");
+                if (lulus.contentEquals("kelulusan")) {
+                    new DaftarKelasReport().previewAndCetakTagihan(listDaftarKelas, "preview", "kelulusan");
+                } else {
+                    new DaftarKelasReport().previewAndCetakTagihan(listDaftarKelas, "preview", "daftarKelas");
+                }
             } catch (Exception ex) {
                 Logger.getLogger(DaftarKelasReportDialog.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -140,7 +146,11 @@ public class DaftarKelasReportDialog extends javax.swing.JDialog {
         } else {
             try {
                 listDaftarKelas = daftarKelasDAO.getDataByEquals(DaftarKelas.class, "transactionReference", listKelas.get(tableKelas.getSelectedRow()).getTransactionReference());
-                new DaftarKelasReport().previewAndCetakTagihan(listDaftarKelas, "cetak");
+                if (lulus.contentEquals("kelulusan")) {
+                    new DaftarKelasReport().previewAndCetakTagihan(listDaftarKelas, "cetak", "kelulusan");
+                } else {
+                    new DaftarKelasReport().previewAndCetakTagihan(listDaftarKelas, "cetak", "daftarKelas");
+                }
             } catch (Exception ex) {
                 Logger.getLogger(DaftarKelasReportDialog.class.getName()).log(Level.SEVERE, null, ex);
             }
