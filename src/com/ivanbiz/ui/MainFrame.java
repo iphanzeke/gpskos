@@ -98,6 +98,7 @@ public class MainFrame extends JFrame {
         menuItemPembayaranTagihan = new javax.swing.JMenuItem();
         menuItemPembayaranLain = new javax.swing.JMenuItem();
         menuItemKelulusan = new javax.swing.JMenuItem();
+        menuItemDaftarKelas = new javax.swing.JMenuItem();
         menuHakAkses = new javax.swing.JMenu();
         menuItemGroup = new javax.swing.JMenuItem();
         menuItemPengguna = new javax.swing.JMenuItem();
@@ -117,8 +118,10 @@ public class MainFrame extends JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setAlwaysOnTop(true);
 
+        menuAplikasi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/home.jpg"))); // NOI18N
         menuAplikasi.setText("Aplikasi");
 
+        menuItemKeluar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/keluar.jpg"))); // NOI18N
         menuItemKeluar.setText("Keluar Pengguna");
         menuItemKeluar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -127,6 +130,7 @@ public class MainFrame extends JFrame {
         });
         menuAplikasi.add(menuItemKeluar);
 
+        menuItemTutup.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/tutup.jpg"))); // NOI18N
         menuItemTutup.setText("Tutup Aplikasi");
         menuItemTutup.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -137,8 +141,10 @@ public class MainFrame extends JFrame {
 
         menuBarApp.add(menuAplikasi);
 
+        menuMaster.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/master.jpg"))); // NOI18N
         menuMaster.setText("Data Master");
 
+        menuItemPengajar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/pengajar.jpg"))); // NOI18N
         menuItemPengajar.setText("Pengajar");
         menuItemPengajar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -147,6 +153,7 @@ public class MainFrame extends JFrame {
         });
         menuMaster.add(menuItemPengajar);
 
+        menuItemMurid.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/murid.jpg"))); // NOI18N
         menuItemMurid.setText("Murid");
         menuItemMurid.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -155,6 +162,7 @@ public class MainFrame extends JFrame {
         });
         menuMaster.add(menuItemMurid);
 
+        menuItemKelas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/kelas.jpg"))); // NOI18N
         menuItemKelas.setText("Kelas");
         menuItemKelas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -164,6 +172,7 @@ public class MainFrame extends JFrame {
         menuMaster.add(menuItemKelas);
         menuMaster.add(jSeparator1);
 
+        menuItemBank.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/bank.jpg"))); // NOI18N
         menuItemBank.setText("Bank");
         menuItemBank.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -172,6 +181,7 @@ public class MainFrame extends JFrame {
         });
         menuMaster.add(menuItemBank);
 
+        menuItemPerusahaan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/perusahaan.jpg"))); // NOI18N
         menuItemPerusahaan.setText("Perusahaan");
         menuItemPerusahaan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -180,6 +190,7 @@ public class MainFrame extends JFrame {
         });
         menuMaster.add(menuItemPerusahaan);
 
+        menuItemGLAccounts.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/account.jpg"))); // NOI18N
         menuItemGLAccounts.setText("GL Account");
         menuItemGLAccounts.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -190,8 +201,10 @@ public class MainFrame extends JFrame {
 
         menuBarApp.add(menuMaster);
 
+        menuTransaksi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/transaksi.jpg"))); // NOI18N
         menuTransaksi.setText("Transaksi");
 
+        menuItemTagihan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/tagihan.jpg"))); // NOI18N
         menuItemTagihan.setText("Tagihan");
         menuItemTagihan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -200,8 +213,10 @@ public class MainFrame extends JFrame {
         });
         menuTransaksi.add(menuItemTagihan);
 
+        jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/pembayaran.jpg"))); // NOI18N
         jMenu1.setText("Pembayaran");
 
+        menuItemPembayaranTagihan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/tagihan.jpg"))); // NOI18N
         menuItemPembayaranTagihan.setText("Tagihan");
         menuItemPembayaranTagihan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -210,6 +225,7 @@ public class MainFrame extends JFrame {
         });
         jMenu1.add(menuItemPembayaranTagihan);
 
+        menuItemPembayaranLain.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/tagihan_lain2.jpg"))); // NOI18N
         menuItemPembayaranLain.setText("Lain - Lain");
         menuItemPembayaranLain.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -220,6 +236,7 @@ public class MainFrame extends JFrame {
 
         menuTransaksi.add(jMenu1);
 
+        menuItemKelulusan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/kelulusan.jpg"))); // NOI18N
         menuItemKelulusan.setText("Kelulusan");
         menuItemKelulusan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -228,10 +245,21 @@ public class MainFrame extends JFrame {
         });
         menuTransaksi.add(menuItemKelulusan);
 
+        menuItemDaftarKelas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/daftar_kelas.jpg"))); // NOI18N
+        menuItemDaftarKelas.setText("Buat Jadwal Kelas");
+        menuItemDaftarKelas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemDaftarKelasActionPerformed(evt);
+            }
+        });
+        menuTransaksi.add(menuItemDaftarKelas);
+
         menuBarApp.add(menuTransaksi);
 
+        menuHakAkses.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/hak_akses.jpg"))); // NOI18N
         menuHakAkses.setText("Hak Akses");
 
+        menuItemGroup.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/group.jpg"))); // NOI18N
         menuItemGroup.setText("Group");
         menuItemGroup.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -240,6 +268,7 @@ public class MainFrame extends JFrame {
         });
         menuHakAkses.add(menuItemGroup);
 
+        menuItemPengguna.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/Pengguna.jpg"))); // NOI18N
         menuItemPengguna.setText("Pengguna");
         menuItemPengguna.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -249,6 +278,7 @@ public class MainFrame extends JFrame {
         menuHakAkses.add(menuItemPengguna);
         menuHakAkses.add(jSeparator2);
 
+        menuItemPassword.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/password.jpg"))); // NOI18N
         menuItemPassword.setText("Password");
         menuItemPassword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -259,8 +289,10 @@ public class MainFrame extends JFrame {
 
         menuBarApp.add(menuHakAkses);
 
+        menuLaporan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/report.jpg"))); // NOI18N
         menuLaporan.setText("Laporan");
 
+        menuItemTagihanReport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/tagihan.jpg"))); // NOI18N
         menuItemTagihanReport.setText("Tagihan");
         menuItemTagihanReport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -269,8 +301,10 @@ public class MainFrame extends JFrame {
         });
         menuLaporan.add(menuItemTagihanReport);
 
+        menuPembayaranReport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/pembayaran.jpg"))); // NOI18N
         menuPembayaranReport.setText("Pembayaran");
 
+        menuItemPembayaranTagihanReport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/tagihan.jpg"))); // NOI18N
         menuItemPembayaranTagihanReport.setText("Tagihan");
         menuItemPembayaranTagihanReport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -279,6 +313,7 @@ public class MainFrame extends JFrame {
         });
         menuPembayaranReport.add(menuItemPembayaranTagihanReport);
 
+        menuItemPembayaranLainReport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/tagihan_lain2.jpg"))); // NOI18N
         menuItemPembayaranLainReport.setText("Lain - Lain");
         menuItemPembayaranLainReport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -289,6 +324,7 @@ public class MainFrame extends JFrame {
 
         menuLaporan.add(menuPembayaranReport);
 
+        menuItemDaftarKelasReport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/daftar_kelas.jpg"))); // NOI18N
         menuItemDaftarKelasReport.setText("Daftar Kelas");
         menuItemDaftarKelasReport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -297,6 +333,7 @@ public class MainFrame extends JFrame {
         });
         menuLaporan.add(menuItemDaftarKelasReport);
 
+        menuItemReconsile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/perusahaan.jpg"))); // NOI18N
         menuItemReconsile.setText("Data Kelas / Reconsile");
         menuItemReconsile.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -305,6 +342,7 @@ public class MainFrame extends JFrame {
         });
         menuLaporan.add(menuItemReconsile);
 
+        menuItemJurnal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/jurnal.jpg"))); // NOI18N
         menuItemJurnal.setText("Jurnal");
         menuItemJurnal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -313,6 +351,7 @@ public class MainFrame extends JFrame {
         });
         menuLaporan.add(menuItemJurnal);
 
+        menuItemKeuntunganReport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/keuntungan.jpg"))); // NOI18N
         menuItemKeuntunganReport.setText("Keuntungan");
         menuItemKeuntunganReport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -321,6 +360,7 @@ public class MainFrame extends JFrame {
         });
         menuLaporan.add(menuItemKeuntunganReport);
 
+        menuItemKelulusanReport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/kelulusan.jpg"))); // NOI18N
         menuItemKelulusanReport.setText("Kelulusan");
         menuItemKelulusanReport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -341,11 +381,11 @@ public class MainFrame extends JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 590, Short.MAX_VALUE)
+            .addGap(0, 582, Short.MAX_VALUE)
         );
 
-        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-816)/2, (screenSize.height-638)/2, 816, 638);
+        setSize(new java.awt.Dimension(816, 638));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void menuItemPengajarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemPengajarActionPerformed
@@ -440,6 +480,11 @@ public class MainFrame extends JFrame {
     private void menuItemKeuntunganReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemKeuntunganReportActionPerformed
         new KeuntunganDialog().setVisible(true);
     }//GEN-LAST:event_menuItemKeuntunganReportActionPerformed
+
+    private void menuItemDaftarKelasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemDaftarKelasActionPerformed
+        new KelasDialog("daftarKelas").setVisible(true);
+    }//GEN-LAST:event_menuItemDaftarKelasActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;
     private javax.swing.JSeparator jSeparator1;
@@ -448,6 +493,7 @@ public class MainFrame extends JFrame {
     private javax.swing.JMenuBar menuBarApp;
     private javax.swing.JMenu menuHakAkses;
     private javax.swing.JMenuItem menuItemBank;
+    private javax.swing.JMenuItem menuItemDaftarKelas;
     private javax.swing.JMenuItem menuItemDaftarKelasReport;
     private javax.swing.JMenuItem menuItemGLAccounts;
     private javax.swing.JMenuItem menuItemGroup;

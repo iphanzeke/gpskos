@@ -14,6 +14,7 @@ import com.ivanbiz.dao.KelasDAO;
 import com.ivanbiz.dao.impl.KelasDAOImpl;
 import com.ivanbiz.model.Kelas;
 import com.ivanbiz.model.Pengajar;
+import com.ivanbiz.service.GlobalSession;
 import com.ivanbiz.service.JTextFieldLimit;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -70,12 +71,12 @@ public class KelasUpdateDialog extends JDialog {
                 int count = Integer.parseInt(splitNoTransaksi[1]);
                 count += 1;
                 if (count > 99999) {
-                    noTransaksi = sdf.format(new Date()) + "-" + String.format("%05d", 1);
+                    noTransaksi = sdf.format(new Date()) + "-" + GlobalSession.getPengguna().getKode() + "-" + String.format("%05d", 1);
                 } else {
-                    noTransaksi = sdf.format(new Date()) + "-" + String.format("%05d", count);
+                    noTransaksi = sdf.format(new Date()) + "-" + GlobalSession.getPengguna().getKode() + "-" + String.format("%05d", count);
                 }
             } else {
-                noTransaksi = sdf.format(new Date()) + "-" + String.format("%05d", 1);
+                noTransaksi = sdf.format(new Date()) + "-" + GlobalSession.getPengguna().getKode() + "-" + String.format("%05d", 1);
             }
         } catch (Exception ex) {
             Logger.getLogger(KelasUpdateDialog.class.getName()).log(Level.SEVERE, null, ex);
@@ -119,7 +120,7 @@ public class KelasUpdateDialog extends JDialog {
         setModal(true);
         setResizable(false);
 
-        labelKelas.setFont(new java.awt.Font("Tahoma", 1, 24));
+        labelKelas.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         labelKelas.setText("Tambah Kelas Baru");
 
         jPanel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -146,14 +147,14 @@ public class KelasUpdateDialog extends JDialog {
 
         jLabel9.setText("Pengajar :");
 
-        textFieldTransaksi.setDocument(new JTextFieldLimit(50));
         textFieldTransaksi.setEditable(false);
+        textFieldTransaksi.setDocument(new JTextFieldLimit(50));
 
         jLabel6.setText("NIK :");
 
         textPengajar.setEditable(false);
 
-        jButton1.setText("[..]");
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/pencarian.jpg"))); // NOI18N
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -167,21 +168,24 @@ public class KelasUpdateDialog extends JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel6)
                     .addComponent(textFieldTransaksi, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE)
                     .addComponent(jTextFieldNIK, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE)
                     .addComponent(jTextFieldDeskripsi, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel9)
-                    .addComponent(jLabel7)
                     .addComponent(jDateChooserTanggal, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE)
-                    .addComponent(jLabel4)
                     .addComponent(jTextFieldTempat, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE)
-                    .addComponent(jLabel8)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(textPengajar, javax.swing.GroupLayout.DEFAULT_SIZE, 299, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel9)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel8))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(textPengajar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1)))
                 .addContainerGap())
@@ -204,9 +208,9 @@ public class KelasUpdateDialog extends JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textPengajar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(textPengajar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -219,9 +223,10 @@ public class KelasUpdateDialog extends JDialog {
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addGap(19, 19, 19))
         );
 
+        buttonSimpan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/simpan.jpg"))); // NOI18N
         buttonSimpan.setText("Simpan");
         buttonSimpan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -230,6 +235,7 @@ public class KelasUpdateDialog extends JDialog {
         });
         jPanel2.add(buttonSimpan);
 
+        buttonBatal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/batal.jpg"))); // NOI18N
         buttonBatal.setText("Batal");
         buttonBatal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -247,7 +253,7 @@ public class KelasUpdateDialog extends JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(labelKelas)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -262,8 +268,8 @@ public class KelasUpdateDialog extends JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-416)/2, (screenSize.height-567)/2, 416, 567);
+        setSize(new java.awt.Dimension(416, 567));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSimpanActionPerformed

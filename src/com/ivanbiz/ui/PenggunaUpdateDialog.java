@@ -42,6 +42,7 @@ public class PenggunaUpdateDialog extends javax.swing.JDialog {
      */
     public PenggunaUpdateDialog(MainFrame mainFrame, boolean modal) {
         initComponents();
+        textKode.setText(getGenereateKode());
         refresh();
     }
 
@@ -50,6 +51,7 @@ public class PenggunaUpdateDialog extends javax.swing.JDialog {
         refresh();
         this.pengguna = pengguna;
         labelPengguna.setText("Ubah Pengguna");
+        textKode.setText(pengguna.getKode());
         textUserName.setText(pengguna.getUserName());
         comboGroup.setSelectedItem(pengguna.getGroups().getNama());
     }
@@ -69,6 +71,8 @@ public class PenggunaUpdateDialog extends javax.swing.JDialog {
         textUserName = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         comboGroup = new javax.swing.JComboBox();
+        jLabel4 = new javax.swing.JLabel();
+        textKode = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         buttonSimpan = new javax.swing.JButton();
         buttonBatal = new javax.swing.JButton();
@@ -89,6 +93,11 @@ public class PenggunaUpdateDialog extends javax.swing.JDialog {
 
         jLabel5.setText("Group :");
 
+        jLabel4.setText("Kode :");
+
+        textKode.setEditable(false);
+        textKode.setDocument(new JTextFieldLimit(10));
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -97,15 +106,21 @@ public class PenggunaUpdateDialog extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
-                    .addComponent(textUserName, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE)
-                    .addComponent(comboGroup, 0, 354, Short.MAX_VALUE)
-                    .addComponent(jLabel5))
+                    .addComponent(textUserName, javax.swing.GroupLayout.DEFAULT_SIZE, 356, Short.MAX_VALUE)
+                    .addComponent(comboGroup, 0, 356, Short.MAX_VALUE)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel4)
+                    .addComponent(textKode, javax.swing.GroupLayout.DEFAULT_SIZE, 356, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(textKode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(textUserName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -113,9 +128,10 @@ public class PenggunaUpdateDialog extends javax.swing.JDialog {
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(comboGroup, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        buttonSimpan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/simpan.jpg"))); // NOI18N
         buttonSimpan.setText("Simpan");
         buttonSimpan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -124,6 +140,7 @@ public class PenggunaUpdateDialog extends javax.swing.JDialog {
         });
         jPanel3.add(buttonSimpan);
 
+        buttonBatal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/batal.jpg"))); // NOI18N
         buttonBatal.setText("Batal");
         buttonBatal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -140,8 +157,8 @@ public class PenggunaUpdateDialog extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(labelPengguna, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE))
+                    .addComponent(labelPengguna, javax.swing.GroupLayout.DEFAULT_SIZE, 382, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 382, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -156,7 +173,7 @@ public class PenggunaUpdateDialog extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        setSize(new java.awt.Dimension(416, 261));
+        setSize(new java.awt.Dimension(410, 290));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -164,6 +181,7 @@ public class PenggunaUpdateDialog extends javax.swing.JDialog {
         if (pengguna == null) {
             pengguna = new Pengguna();
         }
+        pengguna.setKode(textKode.getText());
         pengguna.setUserName(textUserName.getText());
         pengguna.setPassword(textUserName.getText());
         pengguna.setGroups(listGroups.get(comboGroup.getSelectedIndex()));
@@ -178,10 +196,12 @@ public class PenggunaUpdateDialog extends javax.swing.JDialog {
     private javax.swing.JButton buttonSimpan;
     private javax.swing.JComboBox comboGroup;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JLabel labelPengguna;
+    private javax.swing.JTextField textKode;
     private javax.swing.JTextField textUserName;
     // End of variables declaration//GEN-END:variables
 
@@ -221,5 +241,27 @@ public class PenggunaUpdateDialog extends javax.swing.JDialog {
                 Logger.getLogger(PenggunaUpdateDialog.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+    }
+
+    private String getGenereateKode() {
+        String kode = null;
+        try {
+            kode = penggunaDAO.getLastKode();
+            if (!"".equals(kode)) {
+                int count = Integer.parseInt(kode);
+                count += 1;
+                if (count >= 999) {
+                    JOptionPane.showMessageDialog(this, "Kode lebih dari 3 digit");
+                } else {
+                    kode = String.format("%03d", count);
+                }
+
+            } else {
+                kode = String.format("%03d", 1);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(PenggunaUpdateDialog.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return kode;
     }
 }

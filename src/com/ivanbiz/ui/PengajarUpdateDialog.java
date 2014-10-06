@@ -91,6 +91,7 @@ public class PengajarUpdateDialog extends JDialog {
         labelPengajar.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         labelPengajar.setText("Tambah Pengajar Baru");
 
+        buttonSimpan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/simpan.jpg"))); // NOI18N
         buttonSimpan.setText("Simpan");
         buttonSimpan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -99,6 +100,7 @@ public class PengajarUpdateDialog extends JDialog {
         });
         jPanel3.add(buttonSimpan);
 
+        buttonBatal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/batal.jpg"))); // NOI18N
         buttonBatal.setText("Batal");
         buttonBatal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -220,7 +222,7 @@ public class PengajarUpdateDialog extends JDialog {
                 .addContainerGap())
         );
 
-        setSize(new java.awt.Dimension(390, 559));
+        setSize(new java.awt.Dimension(390, 552));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 

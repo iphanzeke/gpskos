@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-  <class name="com.ivanbiz.model.Pengguna" table="Pengguna">
-    <id column="ID" name="id">
-      <generator class="native"/>
-    </id>
-    <property column="USER_NAME" length="10" name="userName" type="string"/>
-    <property column="PASSWORD" length="30" name="password" type="string"/>
-    <many-to-one class="com.ivanbiz.model.Groups" column="GROUPS_ID" lazy="false" name="groups"/>
-  </class>
+    <class name="com.ivanbiz.model.Pengguna" table="Pengguna">
+        <id column="ID" name="id">
+            <generator class="native"/>
+        </id>
+        <property column="USER_NAME" length="10" name="userName" type="string"/>
+        <property column="PASSWORD" length="30" name="password" type="string"/>
+        <property column="KODE" length="3" name="kode" type="string"/>
+        <many-to-one class="com.ivanbiz.model.Groups" column="GROUPS_ID" lazy="false" name="groups"/>
+    </class>
 </hibernate-mapping>

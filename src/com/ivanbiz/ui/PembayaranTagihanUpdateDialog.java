@@ -110,7 +110,7 @@ public class PembayaranTagihanUpdateDialog extends JDialog {
         setModal(true);
         setResizable(false);
 
-        labelPembayaran.setFont(new java.awt.Font("Tahoma", 1, 24));
+        labelPembayaran.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         labelPembayaran.setText("Tambah Pembayaran Tagihan");
 
         jPanel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -225,9 +225,10 @@ public class PembayaranTagihanUpdateDialog extends JDialog {
                 .addComponent(checkBoxPajak)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(textPajak, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
+        buttonSimpan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/simpan.jpg"))); // NOI18N
         buttonSimpan.setText("Simpan");
         buttonSimpan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -236,6 +237,7 @@ public class PembayaranTagihanUpdateDialog extends JDialog {
         });
         jPanel2.add(buttonSimpan);
 
+        buttonBatal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/batal.jpg"))); // NOI18N
         buttonBatal.setText("Batal");
         buttonBatal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -268,8 +270,8 @@ public class PembayaranTagihanUpdateDialog extends JDialog {
                 .addContainerGap())
         );
 
-        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-390)/2, (screenSize.height-547)/2, 390, 547);
+        setSize(new java.awt.Dimension(390, 547));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void actionButton(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actionButton

@@ -125,6 +125,7 @@ public class PerusahaanDialog extends javax.swing.JDialog {
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel2.setText("Perusahaan");
 
+        buttonRegistrasi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/process.jpg"))); // NOI18N
         buttonRegistrasi.setText("Registrasi");
         buttonRegistrasi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -156,7 +157,7 @@ public class PerusahaanDialog extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        setSize(new java.awt.Dimension(375, 416));
+        setSize(new java.awt.Dimension(375, 405));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 

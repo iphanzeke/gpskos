@@ -1,4 +1,4 @@
-<?xml version="1.1" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 
 <Form version="1.5" maxVersion="1.7" type="org.netbeans.modules.form.forminfo.JDialogFormInfo">
   <Properties>
@@ -50,7 +50,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jScrollPane1" pref="442" max="32767" attributes="0"/>
+              <Component id="jScrollPane1" pref="452" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" max="-2" attributes="0"/>
@@ -121,6 +121,9 @@
       <SubComponents>
         <Component class="javax.swing.JButton" name="buttonPreview">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/com/ivanbiz/ui/icon/preview.jpg"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Preview Pembayaran Terseleksi"/>
           </Properties>
           <Events>
@@ -129,6 +132,9 @@
         </Component>
         <Component class="javax.swing.JButton" name="buttonCetak">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/com/ivanbiz/ui/icon/cetak.jpg"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Cetak Pembayaran Terseleksi"/>
           </Properties>
           <Events>
