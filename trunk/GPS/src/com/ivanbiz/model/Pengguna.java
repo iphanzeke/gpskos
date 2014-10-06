@@ -11,9 +11,18 @@ package com.ivanbiz.model;
 public class Pengguna {
 
     private Long id;
+    private String kode;
     private String userName;
     private String password;
     private Groups groups;
+
+    public String getKode() {
+        return kode;
+    }
+
+    public void setKode(String kode) {
+        this.kode = kode;
+    }
 
     public Groups getGroups() {
         return groups;

@@ -111,6 +111,7 @@ public class KeuntunganDialog extends javax.swing.JDialog {
                 .addGap(20, 20, 20))
         );
 
+        buttonLihat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/lihat_laporan.jpg"))); // NOI18N
         buttonLihat.setText("Lihat Laporan");
         buttonLihat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -141,8 +142,8 @@ public class KeuntunganDialog extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-381)/2, (screenSize.height-291)/2, 381, 291);
+        setSize(new java.awt.Dimension(381, 291));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonLihatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonLihatActionPerformed

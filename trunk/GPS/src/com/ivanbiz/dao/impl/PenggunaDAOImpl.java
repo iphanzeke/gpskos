@@ -9,6 +9,7 @@ import com.ivanbiz.model.Pengguna;
 import com.ivanbiz.service.HibernateUtil;
 import java.util.List;
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
@@ -48,5 +49,29 @@ public class PenggunaDAOImpl extends GenericDAOImpl implements PenggunaDAO {
         } finally {
             HibernateUtil.closeSession();
         }
+    }
+
+    @Override
+    public String getLastKode() throws Exception {
+        Pengguna pengguna = null;
+        String kode = "";
+        try {
+            HibernateUtil.beginTransaction();
+            Session session = HibernateUtil.getSession();
+            Query query = (Query) session.createQuery("from Pengguna p order by p.id desc");
+            query.setFirstResult(0);
+            query.setMaxResults(1);
+            pengguna = (Pengguna) query.uniqueResult();
+            if (pengguna != null) {
+                kode = pengguna.getKode();
+            }
+            HibernateUtil.commitTransaction();
+        } catch (Exception e) {
+            HibernateUtil.rollbackTransaction();
+            throw e;
+        } finally {
+            HibernateUtil.closeSession();
+        }
+        return kode;
     }
 }

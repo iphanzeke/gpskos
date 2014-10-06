@@ -46,7 +46,7 @@ public class JurnalDialog extends javax.swing.JDialog {
         setModal(true);
         setResizable(false);
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 24));
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel3.setText("Laporan Jurnal");
 
         jPanel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -82,6 +82,7 @@ public class JurnalDialog extends javax.swing.JDialog {
                 .addGap(19, 19, 19))
         );
 
+        buttonLihat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/lihat_laporan.jpg"))); // NOI18N
         buttonLihat.setText("Lihat Laporan");
         buttonLihat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -112,8 +113,8 @@ public class JurnalDialog extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-329)/2, (screenSize.height-231)/2, 329, 231);
+        setSize(new java.awt.Dimension(329, 231));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonLihatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonLihatActionPerformed

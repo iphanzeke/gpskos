@@ -1,4 +1,4 @@
-<?xml version="1.1" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 
 <Form version="1.3" maxVersion="1.7" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <NonVisualComponents>
@@ -6,11 +6,17 @@
       <SubComponents>
         <Menu class="javax.swing.JMenu" name="menuAplikasi">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/com/ivanbiz/ui/icon/home.jpg"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Aplikasi"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="menuItemKeluar">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/com/ivanbiz/ui/icon/keluar.jpg"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Keluar Pengguna"/>
               </Properties>
               <Events>
@@ -19,6 +25,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuItemTutup">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/com/ivanbiz/ui/icon/tutup.jpg"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Tutup Aplikasi"/>
               </Properties>
               <Events>
@@ -29,11 +38,17 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="menuMaster">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/com/ivanbiz/ui/icon/master.jpg"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Data Master"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="menuItemPengajar">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/com/ivanbiz/ui/icon/pengajar.jpg"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Pengajar"/>
               </Properties>
               <Events>
@@ -42,6 +57,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuItemMurid">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/com/ivanbiz/ui/icon/murid.jpg"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Murid"/>
               </Properties>
               <Events>
@@ -50,6 +68,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuItemKelas">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/com/ivanbiz/ui/icon/kelas.jpg"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Kelas"/>
               </Properties>
               <Events>
@@ -60,6 +81,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuItemBank">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/com/ivanbiz/ui/icon/bank.jpg"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Bank"/>
               </Properties>
               <Events>
@@ -68,6 +92,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuItemPerusahaan">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/com/ivanbiz/ui/icon/perusahaan.jpg"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Perusahaan"/>
               </Properties>
               <Events>
@@ -76,6 +103,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuItemGLAccounts">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/com/ivanbiz/ui/icon/account.jpg"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="GL Account"/>
               </Properties>
               <Events>
@@ -86,11 +116,17 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="menuTransaksi">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/com/ivanbiz/ui/icon/transaksi.jpg"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Transaksi"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="menuItemTagihan">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/com/ivanbiz/ui/icon/tagihan.jpg"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Tagihan"/>
               </Properties>
               <Events>
@@ -99,11 +135,17 @@
             </MenuItem>
             <Menu class="javax.swing.JMenu" name="jMenu1">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/com/ivanbiz/ui/icon/pembayaran.jpg"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Pembayaran"/>
               </Properties>
               <SubComponents>
                 <MenuItem class="javax.swing.JMenuItem" name="menuItemPembayaranTagihan">
                   <Properties>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/com/ivanbiz/ui/icon/tagihan.jpg"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Tagihan"/>
                   </Properties>
                   <Events>
@@ -112,6 +154,9 @@
                 </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="menuItemPembayaranLain">
                   <Properties>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/com/ivanbiz/ui/icon/tagihan_lain2.jpg"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Lain - Lain"/>
                   </Properties>
                   <Events>
@@ -122,21 +167,41 @@
             </Menu>
             <MenuItem class="javax.swing.JMenuItem" name="menuItemKelulusan">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/com/ivanbiz/ui/icon/kelulusan.jpg"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Kelulusan"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItemKelulusanActionPerformed"/>
               </Events>
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="menuItemDaftarKelas">
+              <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/com/ivanbiz/ui/icon/daftar_kelas.jpg"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Buat Jadwal Kelas"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItemDaftarKelasActionPerformed"/>
+              </Events>
+            </MenuItem>
           </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="menuHakAkses">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/com/ivanbiz/ui/icon/hak_akses.jpg"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Hak Akses"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="menuItemGroup">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/com/ivanbiz/ui/icon/group.jpg"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Group"/>
               </Properties>
               <Events>
@@ -145,6 +210,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuItemPengguna">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/com/ivanbiz/ui/icon/Pengguna.jpg"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Pengguna"/>
               </Properties>
               <Events>
@@ -155,6 +223,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuItemPassword">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/com/ivanbiz/ui/icon/password.jpg"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Password"/>
               </Properties>
               <Events>
@@ -165,11 +236,17 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="menuLaporan">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/com/ivanbiz/ui/icon/report.jpg"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Laporan"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="menuItemTagihanReport">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/com/ivanbiz/ui/icon/tagihan.jpg"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Tagihan"/>
               </Properties>
               <Events>
@@ -178,11 +255,17 @@
             </MenuItem>
             <Menu class="javax.swing.JMenu" name="menuPembayaranReport">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/com/ivanbiz/ui/icon/pembayaran.jpg"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Pembayaran"/>
               </Properties>
               <SubComponents>
                 <MenuItem class="javax.swing.JMenuItem" name="menuItemPembayaranTagihanReport">
                   <Properties>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/com/ivanbiz/ui/icon/tagihan.jpg"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Tagihan"/>
                   </Properties>
                   <Events>
@@ -191,6 +274,9 @@
                 </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="menuItemPembayaranLainReport">
                   <Properties>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/com/ivanbiz/ui/icon/tagihan_lain2.jpg"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Lain - Lain"/>
                   </Properties>
                   <Events>
@@ -201,6 +287,9 @@
             </Menu>
             <MenuItem class="javax.swing.JMenuItem" name="menuItemDaftarKelasReport">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/com/ivanbiz/ui/icon/daftar_kelas.jpg"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Daftar Kelas"/>
               </Properties>
               <Events>
@@ -209,6 +298,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuItemReconsile">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/com/ivanbiz/ui/icon/perusahaan.jpg"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Data Kelas / Reconsile"/>
               </Properties>
               <Events>
@@ -217,6 +309,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuItemJurnal">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/com/ivanbiz/ui/icon/jurnal.jpg"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Jurnal"/>
               </Properties>
               <Events>
@@ -225,6 +320,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuItemKeuntunganReport">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/com/ivanbiz/ui/icon/keuntungan.jpg"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Keuntungan"/>
               </Properties>
               <Events>
@@ -233,6 +331,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuItemKelulusanReport">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/com/ivanbiz/ui/icon/kelulusan.jpg"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Kelulusan"/>
               </Properties>
               <Events>
@@ -275,7 +376,7 @@
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <EmptySpace min="0" pref="590" max="32767" attributes="0"/>
+          <EmptySpace min="0" pref="582" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>

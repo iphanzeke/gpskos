@@ -40,15 +40,24 @@ public class KelasDialog extends JDialog {
         initComponents();
         renderButtonAkses(GlobalSession.getListAksesMatrix());
         refresh();
+        buttonDetail.setVisible(false);
+        buttonTutup.setVisible(false);
     }
 
-    public KelasDialog(String lulus) {
+    public KelasDialog(String lulusOrDaftarKelas) {
         initComponents();
         refresh();
-        buttonTambah.setVisible(false);
-        buttonHapus.setVisible(false);
-        buttonTutup.setVisible(false);
-        this.lulus = lulus;
+        this.lulus = lulusOrDaftarKelas;
+        if (lulusOrDaftarKelas.contentEquals("kelulusan")) {
+            buttonTambah.setVisible(false);
+            buttonUbah.setVisible(false);
+            buttonHapus.setVisible(false);
+            buttonTutup.setVisible(false);
+        } else {
+            buttonTambah.setVisible(false);
+            buttonUbah.setVisible(false);
+            buttonHapus.setVisible(false);
+        }
     }
 
     /**
@@ -65,6 +74,7 @@ public class KelasDialog extends JDialog {
         tableKelas = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         buttonTambah = new javax.swing.JButton();
+        buttonUbah = new javax.swing.JButton();
         buttonHapus = new javax.swing.JButton();
         buttonDetail = new javax.swing.JButton();
         buttonTutup = new javax.swing.JButton();
@@ -72,8 +82,8 @@ public class KelasDialog extends JDialog {
         setAlwaysOnTop(true);
         setResizable(false);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24));
-        jLabel1.setText("Daftar Kelas");
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel1.setText("Kelas");
 
         tableKelas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -88,6 +98,7 @@ public class KelasDialog extends JDialog {
         ));
         jScrollPane1.setViewportView(tableKelas);
 
+        buttonTambah.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/tambah.jpg"))); // NOI18N
         buttonTambah.setText("Tambah Kelas Baru");
         buttonTambah.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -96,6 +107,11 @@ public class KelasDialog extends JDialog {
         });
         jPanel2.add(buttonTambah);
 
+        buttonUbah.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/ubah.jpg"))); // NOI18N
+        buttonUbah.setText("Ubah Kelas Terseleksi");
+        jPanel2.add(buttonUbah);
+
+        buttonHapus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/hapus.jpg"))); // NOI18N
         buttonHapus.setText("Hapus Kelas Terseleksi");
         buttonHapus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -104,7 +120,8 @@ public class KelasDialog extends JDialog {
         });
         jPanel2.add(buttonHapus);
 
-        buttonDetail.setText("Detail Daftar Kelas Terseleksi");
+        buttonDetail.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/daftar_kelas.jpg"))); // NOI18N
+        buttonDetail.setText("Daftar Kelas Terseleksi");
         buttonDetail.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonDetailActionPerformed(evt);
@@ -112,7 +129,8 @@ public class KelasDialog extends JDialog {
         });
         jPanel2.add(buttonDetail);
 
-        buttonTutup.setText("Tutup Kelas");
+        buttonTutup.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/tutup_kelas.jpg"))); // NOI18N
+        buttonTutup.setText("Tutup Kelas Terseleksi");
         buttonTutup.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonTutupActionPerformed(evt);
@@ -127,9 +145,9 @@ public class KelasDialog extends JDialog {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 788, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 788, Short.MAX_VALUE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 887, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -138,14 +156,14 @@ public class KelasDialog extends JDialog {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 515, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 507, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
-        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-816)/2, (screenSize.height-638)/2, 816, 638);
+        setSize(new java.awt.Dimension(915, 638));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTambahActionPerformed
@@ -172,7 +190,7 @@ public class KelasDialog extends JDialog {
             JOptionPane.showMessageDialog(this, "Pilih daftar Kelas", "warning", JOptionPane.WARNING_MESSAGE);
         } else {
             kelas = listKelas.get(tableKelas.getSelectedRow());
-            if (lulus != null) {
+            if (lulus.contentEquals("kelulusan")) {
                 new DaftarKelasDialog(kelas, lulus).setVisible(true);
             } else {
                 new DaftarKelasDialog(kelas).setVisible(true);
@@ -199,6 +217,7 @@ public class KelasDialog extends JDialog {
     private javax.swing.JButton buttonHapus;
     private javax.swing.JButton buttonTambah;
     private javax.swing.JButton buttonTutup;
+    private javax.swing.JButton buttonUbah;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
