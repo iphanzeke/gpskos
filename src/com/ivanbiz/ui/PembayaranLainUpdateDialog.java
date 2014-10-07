@@ -16,6 +16,8 @@ import com.ivanbiz.dao.impl.GLAccountDAOImpl;
 import com.ivanbiz.dao.impl.PembayaranDAOImpl;
 import com.ivanbiz.model.GLAccount;
 import com.ivanbiz.model.Pembayaran;
+import com.ivanbiz.service.GlobalSession;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -35,6 +37,7 @@ public class PembayaranLainUpdateDialog extends JDialog {
     PembayaranDAO pembayaranDAO = new PembayaranDAOImpl();
     List<GLAccount> listKreditur;
     List<GLAccount> listBiayaLain;
+    SimpleDateFormat sdf;
 
     /**
      * Creates new form PengajarUpdateDialog
@@ -44,6 +47,8 @@ public class PembayaranLainUpdateDialog extends JDialog {
      */
     public PembayaranLainUpdateDialog(MainFrame mainFrame, boolean modal) {
         initComponents();
+        sdf = new SimpleDateFormat("yyMMdd");
+        textTransaksiReference.setText(getTransaksiReference());
         renderDebitur();
         renderKreditur();
     }
@@ -58,6 +63,7 @@ public class PembayaranLainUpdateDialog extends JDialog {
         comboBoxKreditur.setSelectedItem(pembayaran.getKreditBankAccount().getNameGL() + " A/C No " + pembayaran.getKreditBankAccount().getNoGL());
         textJumlah.setText(String.valueOf(new Double(pembayaran.getJumlah()).intValue()));
         textDeskripsi.setText(pembayaran.getDeskripsi());
+        textTransaksiReference.setText(pembayaran.getTransactionReference());
     }
 
     /**
@@ -71,6 +77,8 @@ public class PembayaranLainUpdateDialog extends JDialog {
 
         labelPembayaran = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
+        jLabel9 = new javax.swing.JLabel();
+        textTransaksiReference = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         dateChooserPosting = new com.toedter.calendar.JDateChooser();
         jLabel2 = new javax.swing.JLabel();
@@ -95,6 +103,10 @@ public class PembayaranLainUpdateDialog extends JDialog {
         labelPembayaran.setText("Tambah Pembayaran Lain - Lain");
 
         jPanel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        jLabel9.setText("Transaksi Reference :");
+
+        textTransaksiReference.setEditable(false);
 
         jLabel8.setText("Tanggal Pembayaran :");
 
@@ -138,14 +150,20 @@ public class PembayaranLainUpdateDialog extends JDialog {
                             .addComponent(jLabel2)
                             .addComponent(jLabel3)
                             .addComponent(jLabel4)
-                            .addComponent(jLabel5))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel9))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(textTransaksiReference))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(jLabel9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(textTransaksiReference, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(dateChooserPosting, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -165,7 +183,7 @@ public class PembayaranLainUpdateDialog extends JDialog {
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         buttonSimpan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/simpan.jpg"))); // NOI18N
@@ -210,7 +228,7 @@ public class PembayaranLainUpdateDialog extends JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        setSize(new java.awt.Dimension(411, 456));
+        setSize(new java.awt.Dimension(411, 503));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -233,7 +251,7 @@ public class PembayaranLainUpdateDialog extends JDialog {
         pembayaran.setDateCreated(new Date());
         pembayaran.setStatus("2");
         pembayaran.setPathImage("");
-        pembayaran.setTransactionReference("");
+        pembayaran.setTransactionReference(textTransaksiReference.getText());
         pembayaran.setDatePosting(new Date());
         pembayaran.setDebitBankAccount(listKreditur.get(comboBoxDebitur.getSelectedIndex()));
         pembayaran.setKreditBankAccount(listBiayaLain.get(comboBoxKreditur.getSelectedIndex()));
@@ -241,6 +259,7 @@ public class PembayaranLainUpdateDialog extends JDialog {
         pembayaran.setDeskripsi(textDeskripsi.getText());
         validate(pembayaran);
     }//GEN-LAST:event_buttonSimpanActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonBatal;
     private javax.swing.JButton buttonSimpan;
@@ -252,12 +271,14 @@ public class PembayaranLainUpdateDialog extends JDialog {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel labelPembayaran;
     private javax.swing.JTextArea textDeskripsi;
     private javax.swing.JTextField textJumlah;
+    private javax.swing.JTextField textTransaksiReference;
     // End of variables declaration//GEN-END:variables
 
     private void validate(Pembayaran pembayaran) {
@@ -317,5 +338,27 @@ public class PembayaranLainUpdateDialog extends JDialog {
             x++;
         }
         comboBoxKreditur.setModel(new DefaultComboBoxModel(data));
+    }
+
+    private String getTransaksiReference() {
+        String noTransaksi = null;
+        try {
+            noTransaksi = pembayaranDAO.getLastNoTransaksi();
+            if (!"".equals(noTransaksi)) {
+                String[] splitNoTransaksi = noTransaksi.split("-");
+                int count = Integer.parseInt(splitNoTransaksi[1]);
+                count += 1;
+                if (count > 99999) {
+                    noTransaksi = sdf.format(new Date()) + "-PL" + GlobalSession.getPengguna().getKode() + "-" + String.format("%05d", 1);
+                } else {
+                    noTransaksi = sdf.format(new Date()) + "-PL" + GlobalSession.getPengguna().getKode() + "-" + String.format("%05d", count);
+                }
+            } else {
+                noTransaksi = sdf.format(new Date()) + "-PL" + GlobalSession.getPengguna().getKode() + "-" + String.format("%05d", 1);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(KelasUpdateDialog.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return noTransaksi;
     }
 }

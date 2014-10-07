@@ -8,10 +8,12 @@ package com.ivanbiz.dao.impl;
 import com.ivanbiz.dao.JurnalDAO;
 import com.ivanbiz.dao.PembayaranDAO;
 import com.ivanbiz.model.Invoice;
+import com.ivanbiz.model.Kelas;
 import com.ivanbiz.model.Pembayaran;
 import com.ivanbiz.service.HibernateUtil;
 import java.util.List;
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
@@ -122,5 +124,29 @@ public class PembayaranDAOImpl extends GenericDAOImpl implements PembayaranDAO {
             HibernateUtil.closeSession();
         }
         return list;
+    }
+
+    @Override
+    public String getLastNoTransaksi() throws Exception {
+        Pembayaran pembayaran = null;
+        String noTransaksi = "";
+        try {
+            HibernateUtil.beginTransaction();
+            Session session = HibernateUtil.getSession();
+            Query query = session.createQuery("from Pembayaran p where p.transactionReference like '%PL%' order by p.id desc");
+            query.setFirstResult(0);
+            query.setMaxResults(1);
+            pembayaran = (Pembayaran) query.uniqueResult();
+            if (pembayaran != null) {
+                noTransaksi = pembayaran.getTransactionReference();
+            }
+            HibernateUtil.commitTransaction();
+        } catch (Exception e) {
+            HibernateUtil.rollbackTransaction();
+            throw e;
+        } finally {
+            HibernateUtil.closeSession();
+        }
+        return noTransaksi;
     }
 }
