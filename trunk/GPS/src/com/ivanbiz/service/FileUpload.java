@@ -34,7 +34,7 @@ public class FileUpload {
             }
             sb.append(ftpServer);
             sb.append('/');
-            sb.append("folder/");            
+            sb.append("INBOX/");
             sb.append(fileName);
             /*
              * type ==&gt; a=ASCII mode, i=image (binary) mode, d= file directory
@@ -91,7 +91,7 @@ public class FileUpload {
             }
             sb.append(ftpServer);
             sb.append('/');
-            sb.append("folder/");
+            sb.append("INBOX/");
             sb.append(fileName);
             /*
              * type ==&gt; a=ASCII mode, i=image (binary) mode, d= file directory

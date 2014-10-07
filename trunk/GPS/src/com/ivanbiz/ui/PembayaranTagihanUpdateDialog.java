@@ -19,6 +19,9 @@ import com.ivanbiz.dao.impl.PembayaranDAOImpl;
 import com.ivanbiz.model.GLAccount;
 import com.ivanbiz.model.Invoice;
 import com.ivanbiz.model.Pembayaran;
+import com.ivanbiz.service.FileUpload;
+import java.io.File;
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -40,6 +43,7 @@ public class PembayaranTagihanUpdateDialog extends JDialog {
     List<Invoice> listInvoice;
     GLAccount glDebitur;
     GLAccount glKreditur;
+    String path;
 
     /**
      * Creates new form PengajarUpdateDialog
@@ -73,6 +77,8 @@ public class PembayaranTagihanUpdateDialog extends JDialog {
             textPajak.setEditable(false);
         }
         textPajak.setText(String.valueOf(new Double(pembayaran.getBiayaPajak()).intValue()));
+        textImage.setText(pembayaran.getPathImage());
+        this.path = pembayaran.getPathImage();
     }
 
     /**
@@ -101,6 +107,9 @@ public class PembayaranTagihanUpdateDialog extends JDialog {
         textDeskripsi = new javax.swing.JTextArea();
         textPajak = new javax.swing.JTextField();
         checkBoxPajak = new javax.swing.JCheckBox();
+        jLabel1 = new javax.swing.JLabel();
+        textImage = new javax.swing.JTextField();
+        buttonBrowse = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         buttonSimpan = new javax.swing.JButton();
         buttonBatal = new javax.swing.JButton();
@@ -168,6 +177,17 @@ public class PembayaranTagihanUpdateDialog extends JDialog {
             }
         });
 
+        jLabel1.setText("Bukti Pembayaran :");
+
+        textImage.setEditable(false);
+
+        buttonBrowse.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/pencarian.jpg"))); // NOI18N
+        buttonBrowse.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonBrowseActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -181,6 +201,7 @@ public class PembayaranTagihanUpdateDialog extends JDialog {
                     .addComponent(textDebitur, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 328, Short.MAX_VALUE)
                     .addComponent(textKreditur, javax.swing.GroupLayout.DEFAULT_SIZE, 328, Short.MAX_VALUE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE)
+                    .addComponent(textPajak)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel8)
@@ -189,9 +210,13 @@ public class PembayaranTagihanUpdateDialog extends JDialog {
                             .addComponent(jLabel3)
                             .addComponent(jLabel4)
                             .addComponent(jLabel5)
-                            .addComponent(checkBoxPajak))
+                            .addComponent(checkBoxPajak)
+                            .addComponent(jLabel1))
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(textPajak))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(textImage)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonBrowse)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -225,7 +250,13 @@ public class PembayaranTagihanUpdateDialog extends JDialog {
                 .addComponent(checkBoxPajak)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(textPajak, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(textImage, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buttonBrowse))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         buttonSimpan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/simpan.jpg"))); // NOI18N
@@ -264,13 +295,13 @@ public class PembayaranTagihanUpdateDialog extends JDialog {
                 .addContainerGap()
                 .addComponent(labelPembayaran)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        setSize(new java.awt.Dimension(390, 547));
+        setSize(new java.awt.Dimension(390, 596));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -292,7 +323,6 @@ public class PembayaranTagihanUpdateDialog extends JDialog {
         }
         pembayaran.setDateCreated(new Date());
         pembayaran.setStatus("0");
-        pembayaran.setPathImage("");
         pembayaran.setDatePosting(new Date());
         pembayaran.setInvoice(listInvoice.get(comboInvoice.getSelectedIndex()));
         pembayaran.setTransactionReference(pembayaran.getInvoice().getNII());
@@ -300,6 +330,7 @@ public class PembayaranTagihanUpdateDialog extends JDialog {
         pembayaran.setKreditBankAccount(glKreditur);
         pembayaran.setJumlah(textJumlah.getText().isEmpty() ? (double) 0 : new Double(textJumlah.getText()));
         pembayaran.setDeskripsi(textDeskripsi.getText());
+        pembayaran.setPathImage(textImage.getText());
         if (checkBoxPajak.isSelected()) {
             pembayaran.setStatusPajak("1");
             pembayaran.setBiayaPajak(textPajak.getText().isEmpty() ? (double) 0 : new Double(textPajak.getText()));
@@ -343,12 +374,28 @@ public class PembayaranTagihanUpdateDialog extends JDialog {
         }
     }//GEN-LAST:event_checkBoxPajakActionPerformed
 
+    private void buttonBrowseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBrowseActionPerformed
+        try {
+            if (pembayaran != null) {
+                new FileUpload().download("127.0.0.1", "Shbt Peterpan", "admin", pembayaran.getTransactionReference() + ".JPG", new File(pembayaran.getPathImage()));
+                textImage.setText(pembayaran.getPathImage());
+            }
+            PembayaranBuktiDialog image = new PembayaranBuktiDialog(null, true, textImage.getText());
+            textImage.setText(image.getImage());
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(this, ex);
+            Logger.getLogger(PembayaranTagihanUpdateDialog.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_buttonBrowseActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonBatal;
+    private javax.swing.JButton buttonBrowse;
     private javax.swing.JButton buttonSimpan;
     private javax.swing.JCheckBox checkBoxPajak;
     private javax.swing.JComboBox comboInvoice;
     private com.toedter.calendar.JDateChooser dateChooserPosting;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -361,6 +408,7 @@ public class PembayaranTagihanUpdateDialog extends JDialog {
     private javax.swing.JLabel labelPembayaran;
     private javax.swing.JTextField textDebitur;
     private javax.swing.JTextArea textDeskripsi;
+    private javax.swing.JTextField textImage;
     private javax.swing.JTextField textJumlah;
     private javax.swing.JTextField textKreditur;
     private javax.swing.JTextField textPajak;
@@ -401,12 +449,24 @@ public class PembayaranTagihanUpdateDialog extends JDialog {
             JOptionPane.showMessageDialog(this, "Jumlah tidak boleh kosong");
         } else if (pembayaran.getDeskripsi().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Deskripsi tidak boleh kosong");
-        } else if (pembayaran.getPathImage() == null) {
-            JOptionPane.showMessageDialog(this, "Upload Bukti Pembayaran tidak boleh kosong");
+        } else if (pembayaran.getPathImage().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Bukti Pembayaran tidak boleh kosong");
         } else {
             try {
+                if (null != path && path.equals(textImage.getText())) {
+                } else {
+                    new FileUpload().upload("127.0.0.1", "Shbt Peterpan", "admin", pembayaran.getTransactionReference() + ".JPG", new File(textImage.getText()));
+                }
+                File file = new File(pembayaran.getPathImage());
+                if (file.exists()) {
+                    file.delete();
+                }
+                pembayaran.setPathImage(System.getProperty("user.dir") + "\\image\\" + pembayaran.getTransactionReference() + ".JPG");
                 pembayaranDAO.saveOrUpdate(pembayaran);
                 dispose();
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(this, ex);
+                Logger.getLogger(PembayaranTagihanUpdateDialog.class.getName()).log(Level.SEVERE, null, ex);
             } catch (Exception ex) {
                 Logger.getLogger(PembayaranTagihanUpdateDialog.class.getName()).log(Level.SEVERE, null, ex);
             }

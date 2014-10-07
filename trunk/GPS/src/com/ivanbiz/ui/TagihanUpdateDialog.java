@@ -514,7 +514,6 @@ public class TagihanUpdateDialog extends javax.swing.JDialog {
             try {
                 long a = invoice.getId();
                 if (a == 0) {
-
                     if (invoiceDAO.validateField(Invoice.class, "NII", textNII.getText()).equals("Data sudah ada")) {
                         JOptionPane.showMessageDialog(this, "No Tagihan / NII sudah ada");
                     } else {
