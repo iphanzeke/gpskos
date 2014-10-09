@@ -5,8 +5,14 @@
  */
 package com.ivanbiz.ui;
 
+import com.ivanbiz.model.Pembayaran;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
@@ -29,10 +35,20 @@ public class PembayaranBuktiDialog extends javax.swing.JDialog {
     public PembayaranBuktiDialog(MainFrame mainFrame, boolean modal, String image) {
         initComponents();
         this.image = image;
-        if (!image.trim().isEmpty()) {
-            labelImage.setIcon(new ImageIcon(image));
-        }
+        labelImage.setIcon(new ImageIcon(image));
         setVisible(true);
+    }
+
+    public PembayaranBuktiDialog(MainFrame mainFrame, boolean modal, String images, Pembayaran pembayaran) {
+        try {
+            initComponents();
+            this.image = pembayaran.getPathImage();
+            labelImage.setIcon(new ImageIcon(new URL(images)));
+            setVisible(true);
+        } catch (MalformedURLException ex) {
+            JOptionPane.showMessageDialog(this, ex);
+            Logger.getLogger(PembayaranBuktiDialog.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -46,17 +62,12 @@ public class PembayaranBuktiDialog extends javax.swing.JDialog {
 
         jPanel2 = new javax.swing.JPanel();
         labelImage = new javax.swing.JLabel();
-        buttonUpload = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        buttonBrowse = new javax.swing.JButton();
+        buttonSimpan = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setAlwaysOnTop(true);
         setModal(true);
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosed(java.awt.event.WindowEvent evt) {
-                formWindowClosed(evt);
-            }
-        });
 
         jPanel2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
@@ -77,19 +88,19 @@ public class PembayaranBuktiDialog extends javax.swing.JDialog {
                 .addContainerGap())
         );
 
-        buttonUpload.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/process.jpg"))); // NOI18N
-        buttonUpload.setText("Browse");
-        buttonUpload.addActionListener(new java.awt.event.ActionListener() {
+        buttonBrowse.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/process.jpg"))); // NOI18N
+        buttonBrowse.setText("Browse");
+        buttonBrowse.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonUploadActionPerformed(evt);
+                buttonBrowseActionPerformed(evt);
             }
         });
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/simpan.jpg"))); // NOI18N
-        jButton1.setText("Upload");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        buttonSimpan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/simpan.jpg"))); // NOI18N
+        buttonSimpan.setText("Simpan");
+        buttonSimpan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                buttonSimpanActionPerformed(evt);
             }
         });
 
@@ -102,9 +113,9 @@ public class PembayaranBuktiDialog extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(buttonUpload)
+                        .addComponent(buttonBrowse)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1)))
+                        .addComponent(buttonSimpan)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -112,8 +123,8 @@ public class PembayaranBuktiDialog extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buttonUpload)
-                    .addComponent(jButton1))
+                    .addComponent(buttonBrowse)
+                    .addComponent(buttonSimpan))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -123,7 +134,7 @@ public class PembayaranBuktiDialog extends javax.swing.JDialog {
         setBounds((screenSize.width-616)/2, (screenSize.height-438)/2, 616, 438);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void buttonUploadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonUploadActionPerformed
+    private void buttonBrowseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBrowseActionPerformed
         browseImage = new JFileChooser();
         browseImage.setCurrentDirectory(null);
         browseImage.setAcceptAllFileFilterUsed(false);
@@ -132,21 +143,19 @@ public class PembayaranBuktiDialog extends javax.swing.JDialog {
         if (browseImage.getSelectedFile() != null) {
             labelImage.setIcon(new ImageIcon(browseImage.getSelectedFile().getAbsolutePath()));
         }
-    }//GEN-LAST:event_buttonUploadActionPerformed
+    }//GEN-LAST:event_buttonBrowseActionPerformed
 
-    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        if (!image.trim().isEmpty()) {
-            labelImage.setIcon(new ImageIcon(image));
+    private void buttonSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSimpanActionPerformed
+        try {
+            image = browseImage.getSelectedFile().getAbsolutePath();
+            dispose();
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Pilih gambar yang akan disimpan");
         }
-    }//GEN-LAST:event_formWindowClosed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        image = browseImage.getSelectedFile().getAbsolutePath();
-        dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_buttonSimpanActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton buttonUpload;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton buttonBrowse;
+    private javax.swing.JButton buttonSimpan;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel labelImage;
     // End of variables declaration//GEN-END:variables

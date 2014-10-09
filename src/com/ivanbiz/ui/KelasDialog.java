@@ -109,6 +109,11 @@ public class KelasDialog extends JDialog {
 
         buttonUbah.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/ubah.jpg"))); // NOI18N
         buttonUbah.setText("Ubah Kelas Terseleksi");
+        buttonUbah.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonUbahActionPerformed(evt);
+            }
+        });
         jPanel2.add(buttonUbah);
 
         buttonHapus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/hapus.jpg"))); // NOI18N
@@ -212,6 +217,16 @@ public class KelasDialog extends JDialog {
             }
         }
     }//GEN-LAST:event_buttonTutupActionPerformed
+
+    private void buttonUbahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonUbahActionPerformed
+        if (tableKelas.getSelectedRow() == -1) {
+            JOptionPane.showMessageDialog(this, "Pilih data yang akan diubah", "warning", JOptionPane.WARNING_MESSAGE);
+        } else {
+            kelas = listKelas.get(tableKelas.getSelectedRow());
+            new KelasUpdateDialog(null, true, kelas).setVisible(true);
+            refresh();
+        }
+    }//GEN-LAST:event_buttonUbahActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonDetail;
     private javax.swing.JButton buttonHapus;

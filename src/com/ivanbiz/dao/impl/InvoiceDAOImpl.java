@@ -120,8 +120,7 @@ public class InvoiceDAOImpl extends GenericDAOImpl implements InvoiceDAO {
         return list;
     }
 
-    @Override
-    public List getDataByEquals(Class clazImpl, String variable, Object input) throws Exception {
+    public List<Invoice> getDataByNotEquals(Class clazImpl, String variable, Object input) throws Exception {
         List list = null;
         try {
             Session session = HibernateUtil.getSession();

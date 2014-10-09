@@ -21,9 +21,11 @@ import com.ivanbiz.model.Invoice;
 import com.ivanbiz.model.Pembayaran;
 import com.ivanbiz.service.FileUpload;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
@@ -44,6 +46,8 @@ public class PembayaranTagihanUpdateDialog extends JDialog {
     GLAccount glDebitur;
     GLAccount glKreditur;
     String path;
+    PembayaranBuktiDialog image;
+    Properties properties;
 
     /**
      * Creates new form PengajarUpdateDialog
@@ -377,17 +381,23 @@ public class PembayaranTagihanUpdateDialog extends JDialog {
     private void buttonBrowseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBrowseActionPerformed
         try {
             if (pembayaran != null) {
-                new FileUpload().download("127.0.0.1", "Shbt Peterpan", "admin", pembayaran.getTransactionReference() + ".JPG", new File(pembayaran.getPathImage()));
-                textImage.setText(pembayaran.getPathImage());
+                properties = new Properties();
+                properties.load(new FileInputStream(ClassLoader.getSystemResource("ftp.properties").getFile()));
+                String sb = "ftp://" + properties.getProperty("user") + ":" + properties.getProperty("password") + "@" + properties.getProperty("ftpServer") + "/INBOX/" + pembayaran.getTransactionReference() + ".JPG;type=i";
+                if (textImage.getText().equals(pembayaran.getPathImage())) {
+                    image = new PembayaranBuktiDialog(null, true, sb, pembayaran);
+                } else {
+                    image = new PembayaranBuktiDialog(null, true, textImage.getText());
+                }
+            } else {
+                image = new PembayaranBuktiDialog(null, true, textImage.getText());
             }
-            PembayaranBuktiDialog image = new PembayaranBuktiDialog(null, true, textImage.getText());
             textImage.setText(image.getImage());
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(this, ex);
             Logger.getLogger(PembayaranTagihanUpdateDialog.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_buttonBrowseActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonBatal;
     private javax.swing.JButton buttonBrowse;
@@ -455,11 +465,9 @@ public class PembayaranTagihanUpdateDialog extends JDialog {
             try {
                 if (null != path && path.equals(textImage.getText())) {
                 } else {
-                    new FileUpload().upload("127.0.0.1", "Shbt Peterpan", "admin", pembayaran.getTransactionReference() + ".JPG", new File(textImage.getText()));
-                }
-                File file = new File(pembayaran.getPathImage());
-                if (file.exists()) {
-                    file.delete();
+                    properties = new Properties();
+                    properties.load(new FileInputStream(ClassLoader.getSystemResource("ftp.properties").getFile()));
+                    new FileUpload().upload(properties.getProperty("ftpServer"), properties.getProperty("user"), properties.getProperty("password"), pembayaran.getTransactionReference() + ".JPG", new File(textImage.getText()));
                 }
                 pembayaran.setPathImage(System.getProperty("user.dir") + "\\image\\" + pembayaran.getTransactionReference() + ".JPG");
                 pembayaranDAO.saveOrUpdate(pembayaran);

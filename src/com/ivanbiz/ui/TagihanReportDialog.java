@@ -217,7 +217,7 @@ public class TagihanReportDialog extends javax.swing.JDialog {
 
     private void refresh() {
         try {
-            listInvoice = invoiceDAO.getDataByEquals(Invoice.class, "status", "0");
+            listInvoice = invoiceDAO.getDataByNotEquals(Invoice.class, "status", "0");
             updateTableTagihan();
             updateComboPencarian();
         } catch (Exception ex) {
