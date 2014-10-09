@@ -70,7 +70,7 @@ public class LoginDialog extends javax.swing.JDialog {
         setAlwaysOnTop(true);
         setModal(true);
 
-        labelPerusahaan.setFont(new java.awt.Font("Tahoma", 1, 24));
+        labelPerusahaan.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         labelPerusahaan.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelPerusahaan.setText("GPS");
 
@@ -149,8 +149,8 @@ public class LoginDialog extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-416)/2, (screenSize.height-255)/2, 416, 255);
+        setSize(new java.awt.Dimension(408, 244));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonLoginActionPerformed
