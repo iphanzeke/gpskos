@@ -346,7 +346,7 @@ public class PembayaranLainUpdateDialog extends JDialog {
             noTransaksi = pembayaranDAO.getLastNoTransaksi();
             if (!"".equals(noTransaksi)) {
                 String[] splitNoTransaksi = noTransaksi.split("-");
-                int count = Integer.parseInt(splitNoTransaksi[1]);
+                int count = Integer.parseInt(splitNoTransaksi[2]);
                 count += 1;
                 if (count > 99999) {
                     noTransaksi = sdf.format(new Date()) + "-PL" + GlobalSession.getPengguna().getKode() + "-" + String.format("%05d", 1);

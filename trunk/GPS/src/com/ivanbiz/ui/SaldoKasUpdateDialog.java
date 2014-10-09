@@ -223,7 +223,6 @@ public class SaldoKasUpdateDialog extends javax.swing.JDialog {
         Object data[] = new Object[listGLAccounts.size()];
         int x = 0;
         for (GLAccount gLAccounts : listGLAccounts) {
-            data[0] = "";
             data[x] = gLAccounts.getNameGL() + " A/C No. " + gLAccounts.getNoGL();
             x++;
         }
