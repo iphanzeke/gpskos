@@ -284,4 +284,29 @@ public class GenericDAOImpl implements GenericDAO {
         } 
         return status;
     }
+
+    @Override
+    public List getDataByDateAndVar(Class claz, Date start, Date end,String variable,Object input) throws Exception {
+        List list = null;
+        try {
+            Session session = HibernateUtil.getSession();
+            HibernateUtil.beginTransaction();
+            start.setHours(0);
+            start.setMinutes(0);
+            start.setSeconds(0);
+            end.setHours(0);
+            end.setMinutes(0);
+            end.setSeconds(0);
+            Criteria crit = session.createCriteria(claz).add(Restrictions.ge("dateReference", start)).add(Restrictions.le("dateReference", end)).add(Restrictions.eq(variable, input));
+             list = crit.list();
+            HibernateUtil.commitTransaction();
+            
+        } catch (Exception e) {
+            HibernateUtil.rollbackTransaction();
+            throw e;
+        } finally {
+            HibernateUtil.closeSession();
+        }
+        return list;
+    }
 }
