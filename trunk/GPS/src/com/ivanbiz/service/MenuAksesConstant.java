@@ -26,6 +26,7 @@ public enum MenuAksesConstant {
     LIHAT_GLACCOUNT("Lihat GL ACCOUNT"),
     LIHAT_PEMBAYARAN_TAGIHAN("Lihat Pembayaran Tagihan"),
     LIHAT_PEMBAYARAN_LAIN("Lihat Pembayaran Lain - Lain"),
+    LIHAT_SALDO_KAS("Lihat Saldo Kas"),
     //tambah
     TAMBAH_PENGAJAR("Tambah Pengajar"),
     TAMBAH_MURID("Tambah Murid"),
@@ -38,6 +39,7 @@ public enum MenuAksesConstant {
     TAMBAH_TAGIHAN("Tambah Tagihan"),
     TAMBAH_PEMBAYARAN_TAGIHAN("Tambah Pembayaran Tagihan"),
     TAMBAH_PEMBAYARAN_LAIN("Tambah Pembayaran Lain - Lain"),
+    TAMBAH_SALDO_KAS("Tambah Saldo Kas"),
     //ubah
     UBAH_PENGAJAR("Ubah Pengajar"),
     UBAH_MURID("Ubah Murid"),
@@ -51,6 +53,7 @@ public enum MenuAksesConstant {
     UBAH_PEMBAYARAN_TAGIHAN("Ubah Pembayaran Tagihan"),
     UBAH_PEMBAYARAN_LAIN("Ubah Pembayaran Lain - Lain"),
     UBAH_KELULUSAN("Ubah Kelulusan"),
+    UBAH_SALDO_KAS("Ubah Saldo Kas"),
     //hapus
     HAPUS_PENGAJAR("Hapus Pengajar"),
     HAPUS_KELAS("Hapus Kelas"),
@@ -63,9 +66,14 @@ public enum MenuAksesConstant {
     HAPUS_TAGIHAN("Hapus Tagihan"),
     HAPUS_PEMBAYARAN_TAGIHAN("Hapus Pembayaran Tagihan"),
     HAPUS_PEMBAYARAN_LAIN("Hapus Pembayaran Lain - Lain"),
+    HAPUS_SALDO_KAS("Hapus Saldo Kas"),
     //
     TUTUP_KELAS("Tutup Kelas"),
     KIRIM_TAGIHAN("Kirim Tagihan"),
+    //
+    PROSES_PEMBAYARAN_TAGIHAN("Proses Pembayaran Tagihan"),
+    PROSES_PEMBAYARAN_LAIN("Proses Pembayaran Lain - Lain"),
+    PROSES_SALDO_KAS("Proses Saldo Kas"),
     //Report
     REPORT_DAFTAR_KELAS("Report Daftar Kelas"),
     REPORT_TAGIHAN("Report Tagihan"),
@@ -74,7 +82,8 @@ public enum MenuAksesConstant {
     REPORT_RECONSILE("Report Data Kelas / Reconsile"),
     REPORT_JURNAL("Report Jurnal"),
     REPORT_KELULUSAN("Report Kelulusan"),
-    REPORT_KEUNTUNGAN("Report Keuntungan");
+    REPORT_KEUNTUNGAN("Report Keuntungan"),
+    REPORT_SALDO_KAS("Report Saldo Kas");
 
     public static boolean validate(MenuAksesConstant menuAksesConstant, List<AksesMatrix> listAksesMatrix) {
         for (AksesMatrix aksesMatrix : listAksesMatrix) {

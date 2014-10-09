@@ -21,7 +21,6 @@ import com.ivanbiz.model.Invoice;
 import com.ivanbiz.model.Pembayaran;
 import com.ivanbiz.service.FileUpload;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
@@ -382,7 +381,7 @@ public class PembayaranTagihanUpdateDialog extends JDialog {
         try {
             if (pembayaran != null) {
                 properties = new Properties();
-                properties.load(new FileInputStream(ClassLoader.getSystemResource("ftp.properties").getFile()));
+                properties.load(ClassLoader.getSystemResourceAsStream("ftp.properties"));
                 String sb = "ftp://" + properties.getProperty("user") + ":" + properties.getProperty("password") + "@" + properties.getProperty("ftpServer") + "/INBOX/" + pembayaran.getTransactionReference() + ".JPG;type=i";
                 if (textImage.getText().equals(pembayaran.getPathImage())) {
                     image = new PembayaranBuktiDialog(null, true, sb, pembayaran);
@@ -466,7 +465,7 @@ public class PembayaranTagihanUpdateDialog extends JDialog {
                 if (null != path && path.equals(textImage.getText())) {
                 } else {
                     properties = new Properties();
-                    properties.load(new FileInputStream(ClassLoader.getSystemResource("ftp.properties").getFile()));
+                    properties.load(ClassLoader.getSystemResourceAsStream("ftp.properties"));
                     new FileUpload().upload(properties.getProperty("ftpServer"), properties.getProperty("user"), properties.getProperty("password"), pembayaran.getTransactionReference() + ".JPG", new File(textImage.getText()));
                 }
                 pembayaran.setPathImage(System.getProperty("user.dir") + "\\image\\" + pembayaran.getTransactionReference() + ".JPG");
