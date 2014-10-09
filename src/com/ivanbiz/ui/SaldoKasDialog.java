@@ -209,7 +209,7 @@ public class SaldoKasDialog extends javax.swing.JDialog {
             no += 1;
             isi[x][0] = no;
             isi[x][1] = cashBalances.getDateBalance();
-            isi[x][2] = cashBalances.getGlAccount().getNameGL() + " A/C No " + cashBalances.getGlAccount().getNoGL();
+            isi[x][2] = cashBalances.getGlAccount().getNameGL() + " A/C No. " + cashBalances.getGlAccount().getNoGL();
             isi[x][3] = cashBalances.getBalance();
             x++;
         }
