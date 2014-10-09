@@ -56,7 +56,8 @@ public class KelasUpdateDialog extends JDialog {
         textFieldTransaksi.setText(kelas.getTransactionReference());
         jTextFieldNIK.setText(kelas.getNIK());
         jTextFieldDeskripsi.setText(kelas.getDeskripsi());
-        textPengajar.setText(kelas.getPengajar().getNama());
+        pengajar = kelas.getPengajar();
+        textPengajar.setText(pengajar.getNama());
         jDateChooserTanggal.setDate(kelas.getTanggalKelas());
         jTextFieldTempat.setText(kelas.getTempatKelas());
         jTextAreaAlamat.setText(kelas.getAlamatKelas());
