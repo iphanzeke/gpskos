@@ -60,13 +60,13 @@ public class ReconDAOImpl extends GenericDAOImpl implements ReconDAO {
     @Override
     public List getDataByDateAndGLAccount(String dateAwal, String dateAkhir, String glAccount) throws Exception {
         List listData = new ArrayList();
-        try {
-            HibernateUtil.beginTransaction();
+        try {           
             Session session = HibernateUtil.getSession();
             listData = session.createQuery("from com.ivanbiz.model.Jurnal j where j.dateReference >='" + dateAwal + "'"
                     + " and j.dateReference <= '" + dateAkhir + "' and j.GLAccount = '" + glAccount + "'").list();
-            HibernateUtil.commitTransaction();
+           
         } catch (Exception e) {
+            e.printStackTrace();
             HibernateUtil.rollbackTransaction();
             throw e;
         } finally {
