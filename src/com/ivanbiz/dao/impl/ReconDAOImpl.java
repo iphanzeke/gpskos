@@ -65,7 +65,7 @@ public class ReconDAOImpl extends GenericDAOImpl implements ReconDAO {
             Session session = HibernateUtil.getSession();
             listData = session.createQuery("from com.ivanbiz.model.Jurnal j where j.dateReference >='" + dateAwal + "'"
                     + " and j.dateReference <= '" + dateAkhir + "' and j.GLAccount = '" + glAccount + "'").list();
-
+            HibernateUtil.commitTransaction();
         } catch (Exception e) {
             HibernateUtil.rollbackTransaction();
             throw e;
