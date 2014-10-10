@@ -28,6 +28,7 @@ public class CashBalanceDAOImpl extends GenericDAOImpl implements CashBalanceDAO
             Session session = HibernateUtil.getSession();
             Query query = session.createQuery("from com.ivanbiz.model.CashBalance c where c.glAccount.id='" + idGL + "' order by dateBalance desc");
             list = query.list();
+            HibernateUtil.commitTransaction();
         } catch (Exception e) {
             HibernateUtil.rollbackTransaction();
             throw e;
@@ -46,6 +47,7 @@ public class CashBalanceDAOImpl extends GenericDAOImpl implements CashBalanceDAO
             Query query = session.createQuery("from com.ivanbiz.model.CashBalance c where c.glAccount.id='" + idGL + "' order by dateBalance desc");
             query.setMaxResults(1);
             cashBalance = (CashBalance) query.uniqueResult();
+            HibernateUtil.commitTransaction();
         } catch (Exception e) {
             HibernateUtil.rollbackTransaction();
             throw e;
@@ -69,7 +71,7 @@ public class CashBalanceDAOImpl extends GenericDAOImpl implements CashBalanceDAO
             if(sdf.format(cashBalance.getDateBalance()).equals(sdf.format(date))){
                 status = true;
             }
-            
+            HibernateUtil.commitTransaction();
         } catch (Exception e) {
             HibernateUtil.rollbackTransaction();
             throw e;
