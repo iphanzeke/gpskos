@@ -6,21 +6,16 @@
 package com.ivanbiz.ui;
 
 import com.ivanbiz.dao.CashBalanceDAO;
-import com.ivanbiz.dao.GLAccountDAO;
-import com.ivanbiz.dao.ReconDAO;
 import com.ivanbiz.dao.impl.CashBalanceDAOImpl;
-import com.ivanbiz.dao.impl.GLAccountDAOImpl;
-import com.ivanbiz.dao.impl.ReconDAOImpl;
+import com.ivanbiz.model.AksesMatrix;
 import com.ivanbiz.model.CashBalance;
-import com.ivanbiz.model.GLAccount;
-import com.ivanbiz.model.Jurnal;
+import com.ivanbiz.service.GlobalSession;
+import com.ivanbiz.service.MenuAksesConstant;
+import com.ivanbiz.service.ServiceHelper;
 import java.text.NumberFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
 /**
@@ -30,33 +25,18 @@ import javax.swing.JOptionPane;
 public class SaldoKasDialog extends javax.swing.JDialog {
 
     CashBalance cashBalance;
-    CashBalanceDAO cashBalanceDAO = new CashBalanceDAOImpl();
-    GLAccountDAO gLAccountDAO = new GLAccountDAOImpl();
-    List<GLAccount> listGLAccounts;
-    List<Jurnal> listJurnal;
-    ReconDAO reconDAO;
-    SimpleDateFormat dateFormat;
+    CashBalanceDAO cashBalanceDAO;
+    List<CashBalance> listCashBalance;
     NumberFormat numberFormat;
 
     public SaldoKasDialog() {
         initComponents();
-        dateChooser.setDate(new Date());
-        renderGLAccount();
-    }
-
-    public SaldoKasDialog(MainFrame mainFrame, boolean modal) {
-        initComponents();
-        dateChooser.setDate(new Date());
-        renderGLAccount();
-    }
-
-    public SaldoKasDialog(Object object, boolean b, CashBalance cashBalance) {
-        initComponents();
-        this.cashBalance = cashBalance;
-        dateChooser.setDate(new Date());
-        renderGLAccount();
-        comboBoxGLAccount.setSelectedItem(cashBalance.getGlAccount());
-        textJumlah.setText(String.valueOf(new Double(cashBalance.getBalance()).intValue()));
+        buttonProses.setVisible(false);
+        buttonUbah.setVisible(false);
+        cashBalanceDAO = new CashBalanceDAOImpl();
+        renderButtonAkses(GlobalSession.getListAksesMatrix());
+        numberFormat = NumberFormat.getCurrencyInstance();
+        refresh();
     }
 
     /**
@@ -69,20 +49,13 @@ public class SaldoKasDialog extends javax.swing.JDialog {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tableSaldoKas = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        comboBoxGLAccount = new javax.swing.JComboBox();
-        jLabel3 = new javax.swing.JLabel();
-        dateChooser = new com.toedter.calendar.JDateChooser();
-        jLabel4 = new javax.swing.JLabel();
-        textJumlah = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        textTotal = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox();
-        jPanel2 = new javax.swing.JPanel();
-        buttonSimpan = new javax.swing.JButton();
-        buttonBatal = new javax.swing.JButton();
+        buttonTambah = new javax.swing.JButton();
+        buttonUbah = new javax.swing.JButton();
+        buttonHapus = new javax.swing.JButton();
+        buttonProses = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setAlwaysOnTop(true);
@@ -90,103 +63,56 @@ public class SaldoKasDialog extends javax.swing.JDialog {
         setResizable(false);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel1.setText("Saldo Kas");
+        jLabel1.setText("Daftar Saldo Kas");
 
-        jPanel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        tableSaldoKas.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(tableSaldoKas);
 
-        jLabel2.setText("Kreditur :");
-
-        comboBoxGLAccount.addActionListener(new java.awt.event.ActionListener() {
+        buttonTambah.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/tambah.jpg"))); // NOI18N
+        buttonTambah.setText("Tambah Saldo Kas Baru");
+        buttonTambah.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboBoxGLAccountActionPerformed(evt);
+                buttonTambahActionPerformed(evt);
             }
         });
+        jPanel1.add(buttonTambah);
 
-        jLabel3.setText("Tanggal :");
-
-        dateChooser.setEnabled(false);
-
-        jLabel4.setText("Jumlah Yang akan di Close / Open:");
-
-        textJumlah.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                textJumlahKeyReleased(evt);
-            }
-        });
-
-        jLabel5.setText("Total Kreditur :");
-
-        textTotal.setEditable(false);
-
-        jLabel6.setText("Close / Open Saldo :");
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Close Saldo", "Open Saldo", " " }));
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(comboBoxGLAccount, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(dateChooser, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE)
-                    .addComponent(textTotal)
-                    .addComponent(textJumlah)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel6))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(dateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(comboBoxGLAccount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textJumlah, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(17, Short.MAX_VALUE))
-        );
-
-        buttonSimpan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/simpan.jpg"))); // NOI18N
-        buttonSimpan.setText("Simpan");
-        buttonSimpan.addActionListener(new java.awt.event.ActionListener() {
+        buttonUbah.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/ubah.jpg"))); // NOI18N
+        buttonUbah.setText("Ubah Saldo Kas Terseleksi");
+        buttonUbah.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonSimpanActionPerformed(evt);
+                buttonUbahActionPerformed(evt);
             }
         });
-        jPanel2.add(buttonSimpan);
+        jPanel1.add(buttonUbah);
 
-        buttonBatal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/batal.jpg"))); // NOI18N
-        buttonBatal.setText("Batal");
-        buttonBatal.addActionListener(new java.awt.event.ActionListener() {
+        buttonHapus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/hapus.jpg"))); // NOI18N
+        buttonHapus.setText("Hapus Saldo Kas Terseleksi");
+        buttonHapus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonBatalActionPerformed(evt);
+                buttonHapusActionPerformed(evt);
             }
         });
-        jPanel2.add(buttonBatal);
+        jPanel1.add(buttonHapus);
+
+        buttonProses.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/process.jpg"))); // NOI18N
+        buttonProses.setText("Proses Saldo Kas Terseleksi");
+        buttonProses.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonProsesActionPerformed(evt);
+            }
+        });
+        jPanel1.add(buttonProses);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -195,11 +121,11 @@ public class SaldoKasDialog extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -208,122 +134,95 @@ public class SaldoKasDialog extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
-        setSize(new java.awt.Dimension(408, 389));
+        setSize(new java.awt.Dimension(808, 627));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void textJumlahKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textJumlahKeyReleased
-        try {
-            Long.parseLong(textJumlah.getText());
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Format salah, harus angka", "warning", JOptionPane.WARNING_MESSAGE);
+    private void buttonTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTambahActionPerformed
+        new SaldoKasUpdateDialog(null, true).setVisible(true);
+        refresh();
+    }//GEN-LAST:event_buttonTambahActionPerformed
+
+    private void buttonUbahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonUbahActionPerformed
+        if (tableSaldoKas.getSelectedRow() == -1) {
+            JOptionPane.showMessageDialog(this, "Pilih data yang akan diubah", "warning", JOptionPane.WARNING_MESSAGE);
+        } else {
+            cashBalance = listCashBalance.get(tableSaldoKas.getSelectedRow());
+            new SaldoKasUpdateDialog(null, true, cashBalance).setVisible(true);
+            refresh();
         }
-    }//GEN-LAST:event_textJumlahKeyReleased
+    }//GEN-LAST:event_buttonUbahActionPerformed
 
-    private void buttonSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSimpanActionPerformed
-        if (cashBalance == null) {
-            cashBalance = new CashBalance();
-        }
-        cashBalance.setGlAccount(listGLAccounts.get(comboBoxGLAccount.getSelectedIndex()));
-        cashBalance.setDateBalance(new Date());
-        cashBalance.setBalance(textJumlah.getText().isEmpty() ? (double) 0 : new Double(textJumlah.getText()));
-        cashBalance.setStatus("0");
-        validate(cashBalance);
-    }//GEN-LAST:event_buttonSimpanActionPerformed
-
-    private void buttonBatalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBatalActionPerformed
-        dispose();
-    }//GEN-LAST:event_buttonBatalActionPerformed
-
-    private void comboBoxGLAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxGLAccountActionPerformed
-        reconDAO = new ReconDAOImpl();
-        dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        numberFormat = NumberFormat.getCurrencyInstance();
-        try {
-            CashBalance cashBalances = cashBalanceDAO.getBalanceByOrderDate(listGLAccounts.get(comboBoxGLAccount.getSelectedIndex()).getId());
-            if (cashBalances == null) {
-                listJurnal = reconDAO.getDataByEquals(Jurnal.class, "GLAccount", listGLAccounts.get(comboBoxGLAccount.getSelectedIndex()).getNoGL());
-                updateData();
-            } else {
-                listJurnal = reconDAO.getDataByDateAndGLAccount(dateFormat.format(cashBalances.getBalance()), dateFormat.format(new Date()), listGLAccounts.get(comboBoxGLAccount.getSelectedIndex()).getNoGL());
-                updateData();
-            }
-        } catch (Exception ex) {
-            Logger.getLogger(SaldoKasDialog.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_comboBoxGLAccountActionPerformed
-
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton buttonBatal;
-    private javax.swing.JButton buttonSimpan;
-    private javax.swing.JComboBox comboBoxGLAccount;
-    private com.toedter.calendar.JDateChooser dateChooser;
-    private javax.swing.JComboBox jComboBox1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField textJumlah;
-    private javax.swing.JTextField textTotal;
-    // End of variables declaration//GEN-END:variables
-
-    private void renderGLAccount() {
-        try {
-            listGLAccounts = gLAccountDAO.getDataByEquals(GLAccount.class, "groupACC", "Kreditur");
-            updateComboGLAccount();
-        } catch (Exception ex) {
-            Logger.getLogger(SaldoKasDialog.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    private void updateComboGLAccount() {
-        Object data[] = new Object[listGLAccounts.size()];
-        int x = 0;
-        for (GLAccount gLAccounts : listGLAccounts) {
-            data[x] = gLAccounts.getNameGL() + " A/C No. " + gLAccounts.getNoGL();
-            x++;
-        }
-        comboBoxGLAccount.setModel(new DefaultComboBoxModel(data));
-    }
-
-    private void validate(CashBalance cashBalance) {
-        if (cashBalance == null) {
-            JOptionPane.showMessageDialog(this, "Murid tidak boleh null");
-        } else if (cashBalance.getGlAccount() == null) {
-            JOptionPane.showMessageDialog(this, "Kreditur tidak boleh kosong");
-        } else if (cashBalance.getBalance() == ((double) 0)) {
-            JOptionPane.showMessageDialog(this, "Jumlah Tagihan tidak boleh kosong");
+    private void buttonHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonHapusActionPerformed
+        if (tableSaldoKas.getSelectedRow() == -1) {
+            JOptionPane.showMessageDialog(this, "Pilih data yang akan dihapus", "warning", JOptionPane.WARNING_MESSAGE);
         } else {
             try {
-                cashBalanceDAO.saveOrUpdate(cashBalance);
-                dispose();
+                cashBalance = listCashBalance.get(tableSaldoKas.getSelectedRow());
+                cashBalanceDAO.delete(cashBalance);
+                refresh();
             } catch (Exception ex) {
                 Logger.getLogger(SaldoKasDialog.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+    }//GEN-LAST:event_buttonHapusActionPerformed
+
+    private void buttonProsesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonProsesActionPerformed
+        if (tableSaldoKas.getSelectedRow() == -1) {
+            JOptionPane.showMessageDialog(this, "Pilih data yang akan diproses", "warning", JOptionPane.WARNING_MESSAGE);
+        } else {
+            cashBalance = listCashBalance.get(tableSaldoKas.getSelectedRow());
+            refresh();
+        }
+    }//GEN-LAST:event_buttonProsesActionPerformed
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton buttonHapus;
+    private javax.swing.JButton buttonProses;
+    private javax.swing.JButton buttonTambah;
+    private javax.swing.JButton buttonUbah;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tableSaldoKas;
+    // End of variables declaration//GEN-END:variables
+
+    private void refresh() {
+        try {
+            listCashBalance = cashBalanceDAO.getDataByEquals(CashBalance.class, "status", "1");
+            updateTableSaldoKas();
+        } catch (Exception ex) {
+            Logger.getLogger(SaldoKasDialog.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
-    private void updateData() {
+    private void updateTableSaldoKas() {
+        String[] judul = {"No", "Tanggal", "GL Account", "Jumlah"};
+        Object[][] isi = new Object[listCashBalance.size()][4];
         int x = 0;
-        double totalDebet = 0;
-        double totalKredit = 0;
-        double totalKeuntungan;
-        for (Jurnal jurnal : listJurnal) {
-            totalDebet += jurnal.getDebit();
-            totalKredit += jurnal.getCredit();
+        int no = 0;
+        for (CashBalance cashBalances : listCashBalance) {
+            no += 1;
+            isi[x][0] = no;
+            isi[x][1] = cashBalances.getDateBalance();
+            isi[x][2] = cashBalances.getGlAccount().getNameGL() + " A/C No. " + cashBalances.getGlAccount().getNoGL();
+            isi[x][3] = cashBalances.getBalance();
             x++;
         }
-        totalKeuntungan = totalKredit - totalDebet;
-        textTotal.setText(numberFormat.format(totalKeuntungan));
+        new ServiceHelper().setAutoRize(isi, judul, tableSaldoKas);
+
+    }
+
+    private void renderButtonAkses(List<AksesMatrix> listAksesMatrix) {
+        buttonTambah.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.TAMBAH_SALDO_KAS, listAksesMatrix));
+        buttonUbah.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.UBAH_SALDO_KAS, listAksesMatrix));
+        buttonHapus.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.HAPUS_SALDO_KAS, listAksesMatrix));
+        buttonHapus.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.PROSES_SALDO_KAS, listAksesMatrix));
     }
 }
