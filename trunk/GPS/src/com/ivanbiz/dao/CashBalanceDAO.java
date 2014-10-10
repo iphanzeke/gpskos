@@ -5,6 +5,7 @@
 package com.ivanbiz.dao;
 
 import com.ivanbiz.model.CashBalance;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -14,4 +15,5 @@ import java.util.List;
 public interface CashBalanceDAO extends GenericDAO{
     public List getBalanceOrderDate(long idGL)throws Exception;
     public CashBalance getBalanceByOrderDate(long idGL)throws Exception;
+    public boolean validateSameDate(long idGL,Date date)throws Exception;
 }
