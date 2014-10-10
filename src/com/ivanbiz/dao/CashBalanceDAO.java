@@ -12,8 +12,11 @@ import java.util.List;
  *
  * @author City_Z
  */
-public interface CashBalanceDAO extends GenericDAO{
-    public List getBalanceOrderDate(long idGL)throws Exception;
-    public CashBalance getBalanceByOrderDate(long idGL)throws Exception;
-    public boolean validateSameDate(long idGL,Date date)throws Exception;
+public interface CashBalanceDAO extends GenericDAO {
+
+    public List getBalanceOrderDate(long idGL) throws Exception;
+
+    public CashBalance getBalanceByOrderDate(long idGL) throws Exception;
+
+    public boolean validateSameDate(long idGL, Date date) throws Exception;
 }

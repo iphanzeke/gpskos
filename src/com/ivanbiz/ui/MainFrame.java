@@ -512,7 +512,7 @@ public class MainFrame extends JFrame {
     }//GEN-LAST:event_menuItemSaldoKasActionPerformed
 
     private void menuItemSaldoKasReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemSaldoKasReportActionPerformed
-        new SaldoKasReportDialog().setVisible(true);
+//        new SaldoKasReportDialog().setVisible(true);
     }//GEN-LAST:event_menuItemSaldoKasReportActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
