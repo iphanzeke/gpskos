@@ -37,14 +37,13 @@ public class CashBalanceDAOImpl extends GenericDAOImpl implements CashBalanceDAO
 
     @Override
     public CashBalance getBalanceByOrderDate(long idGL) throws Exception {
-         List list = new ArrayList();
-         CashBalance cashBalance = new CashBalance();
+        CashBalance cashBalance = new CashBalance();
         try {
             HibernateUtil.beginTransaction();
             Session session = HibernateUtil.getSession();
             Query query = session.createQuery("from com.ivanbiz.model.CashBalance c where c.glAccount.id='" + idGL + "' order by dateBalance desc");
             query.setMaxResults(1);
-            cashBalance = (CashBalance)query.uniqueResult();            
+            cashBalance = (CashBalance) query.uniqueResult();
         } catch (Exception e) {
             HibernateUtil.rollbackTransaction();
             throw e;
