@@ -18,6 +18,7 @@ import com.ivanbiz.dao.impl.PerusahaanDAOImpl;
 import com.ivanbiz.model.Pengguna;
 import com.ivanbiz.model.Perusahaan;
 import com.ivanbiz.service.GlobalSession;
+import com.ivanbiz.service.MD5;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -155,10 +156,11 @@ public class LoginDialog extends javax.swing.JDialog {
 
     private void buttonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonLoginActionPerformed
         try {
-            pengguna = penggunaDAO.login(textUser.getText(), textPassword.getText());
+            MD5 md5 = new MD5(textPassword.getText());
+            pengguna = penggunaDAO.login(textUser.getText(), md5.asHex());
             if (pengguna == null) {
                 JOptionPane.showMessageDialog(this, "username tidak ada");
-            } else if (!pengguna.getPassword().equals(textPassword.getText())) {
+            } else if (!pengguna.getPassword().equals(md5.asHex())) {
                 JOptionPane.showMessageDialog(this, "password salah");
             } else {
                 dispose();

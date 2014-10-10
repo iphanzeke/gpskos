@@ -15,6 +15,7 @@ import com.ivanbiz.dao.impl.PenggunaDAOImpl;
 import com.ivanbiz.model.Pengguna;
 import com.ivanbiz.service.GlobalSession;
 import com.ivanbiz.service.JTextFieldLimit;
+import com.ivanbiz.service.MD5;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -136,7 +137,8 @@ public class PasswordDialog extends javax.swing.JDialog {
         if (!textPasswordBaru.getText().equals(textPasswordConfirm.getText())) {
             JOptionPane.showMessageDialog(this, "Password Confirm tidak sama dengan Password Baru", "warning", JOptionPane.WARNING_MESSAGE);
         } else {
-            pengguna.setPassword(textPasswordBaru.getText());
+            MD5 md5 = new MD5(textPasswordConfirm.getText());
+            pengguna.setPassword(md5.asHex());
             validate(pengguna);
         }
 }//GEN-LAST:event_buttonSimpanActionPerformed

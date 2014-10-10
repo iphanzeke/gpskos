@@ -6,7 +6,7 @@
             <generator class="native"/>
         </id>
         <property column="USER_NAME" length="10" name="userName" type="string"/>
-        <property column="PASSWORD" length="30" name="password" type="string"/>
+        <property column="PASSWORD" length="100" name="password" type="string"/>
         <property column="KODE" length="3" name="kode" type="string"/>
         <many-to-one class="com.ivanbiz.model.Groups" column="GROUPS_ID" lazy="false" name="groups"/>
     </class>
