@@ -6,6 +6,7 @@ package com.ivanbiz.dao.impl;
 
 import com.ivanbiz.dao.GenericDAO;
 import com.ivanbiz.service.HibernateUtil;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -80,18 +81,21 @@ public class GenericDAOImpl implements GenericDAO {
 
     @Override
     public List getAll(Class claz) throws Exception {
+        List list = null;
         try {
             Session session = HibernateUtil.getSession();
             HibernateUtil.beginTransaction();
             Criteria criteria = session.createCriteria(claz);
+            list = criteria.list();
             HibernateUtil.commitTransaction();
-            return criteria.list();
+            
         } catch (Exception e) {
             HibernateUtil.rollbackTransaction();
             throw e;
         } finally {
             HibernateUtil.closeSession();
         }
+        return list;
     }
 
     @Override
