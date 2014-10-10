@@ -212,7 +212,6 @@ public class PembayaranTagihanReportDialog extends JDialog {
         int x = 0;
         int no = 0;
         for (Pembayaran pembayaran : listPembayaran) {
-//            if (pembayaran.getTransactionReference().trim().isEmpty()) {
             no += 1;
             isi[x][0] = no;
             isi[x][1] = pembayaran.getDatePosting();
@@ -221,9 +220,9 @@ public class PembayaranTagihanReportDialog extends JDialog {
             isi[x][4] = pembayaran.getKreditBankAccount().getNameGL() + " A/C NO. " + pembayaran.getKreditBankAccount().getNoGL();
             isi[x][5] = numberFormat.format(pembayaran.getJumlah());
             isi[x][6] = pembayaran.getDeskripsi();
-//            }
             x++;
         }
+        tablePembayaran.setAutoResizeMode(tablePembayaran.AUTO_RESIZE_OFF);
         new ServiceHelper().setAutoRize(isi, judul, tablePembayaran);
     }
 }

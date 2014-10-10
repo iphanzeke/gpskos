@@ -18,9 +18,7 @@ import com.ivanbiz.service.GlobalSession;
 import com.ivanbiz.service.MenuAksesConstant;
 import com.ivanbiz.service.ServiceHelper;
 import java.text.NumberFormat;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JDialog;
@@ -70,7 +68,7 @@ public class PembayaranTagihanDialog extends JDialog {
         setModal(true);
         setResizable(false);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24));
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setText("Daftar Pembayaran Tagihan");
 
         tablePembayaran.setModel(new javax.swing.table.DefaultTableModel(
@@ -146,8 +144,8 @@ public class PembayaranTagihanDialog extends JDialog {
                 .addContainerGap())
         );
 
-        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-916)/2, (screenSize.height-638)/2, 916, 638);
+        setSize(new java.awt.Dimension(908, 627));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonUbahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonUbahActionPerformed
@@ -222,7 +220,6 @@ public class PembayaranTagihanDialog extends JDialog {
         int x = 0;
         int no = 0;
         for (Pembayaran pembayarans : listPembayaran) {
-//            if (pembayaran.getTransactionReference().trim().isEmpty()) {
             no += 1;
             isi[x][0] = no;
             isi[x][1] = pembayarans.getDatePosting();
@@ -232,9 +229,9 @@ public class PembayaranTagihanDialog extends JDialog {
             isi[x][5] = numberFormat.format(pembayarans.getJumlah());
             isi[x][6] = pembayarans.getDeskripsi();
             isi[x][7] = numberFormat.format(pembayarans.getBiayaPajak());
-//            }
             x++;
         }
+        tablePembayaran.setAutoResizeMode(tablePembayaran.AUTO_RESIZE_OFF);
         new ServiceHelper().setAutoRize(isi, judul, tablePembayaran);
     }
 

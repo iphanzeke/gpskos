@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 
 /**
  *
@@ -63,7 +64,7 @@ public class TagihanDialog extends javax.swing.JDialog {
         setModal(true);
         setResizable(false);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24));
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setText("Daftar Tagihan");
 
         tableTagihan.setAutoCreateRowSorter(true);
@@ -140,8 +141,8 @@ public class TagihanDialog extends javax.swing.JDialog {
                 .addContainerGap())
         );
 
-        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-816)/2, (screenSize.height-638)/2, 816, 638);
+        setSize(new java.awt.Dimension(808, 627));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTambahActionPerformed
@@ -217,19 +218,22 @@ public class TagihanDialog extends javax.swing.JDialog {
             no += 1;
             String[] kepada;
             kepada = invoices.getDeskripsiKepada().split("#");
+            String[] deskripsi;
+            deskripsi = invoices.getDeskripsiUntuk().split("#");
             isi[x][0] = no;
             isi[x][1] = sdf.format(invoices.getDate());
             isi[x][2] = invoices.getNII();
             isi[x][3] = invoices.getKelas().getTransactionReference();
             isi[x][4] = invoices.getBank().getNama();
-            isi[x][5] = kepada[0];
+            isi[x][5] = kepada[1] + " A/C No. " + kepada[0];
             isi[x][6] = invoices.getDeskripsiUntukPembayaran();
             isi[x][7] = invoices.getDeskripsiJumlahPeserta();
             isi[x][8] = numberFormat.format(invoices.getJumlahTagihan());
             isi[x][9] = invoices.getJatuhTempo();
-            isi[x][10] = invoices.getDeskripsiUntuk();
+            isi[x][10] = deskripsi[1] + " A/C No. " + deskripsi[0];
             x++;
         }
+        tableTagihan.setAutoResizeMode(tableTagihan.AUTO_RESIZE_OFF);
         new ServiceHelper().setAutoRize(isi, judul, tableTagihan);
     }
 
