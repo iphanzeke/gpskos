@@ -360,7 +360,7 @@ public class KeuntunganReportDialog extends javax.swing.JDialog {
                 cashBalanceDAO.saveOrUpdate(cashBalanceSave);
                 dispose();
             } catch (Exception ex) {
-                Logger.getLogger(SaldoKasDialogSalah.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(KeuntunganReportDialog.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
