@@ -11,7 +11,6 @@
 package com.ivanbiz.ui;
 
 import com.ivanbiz.dao.CashBalanceDAO;
-import com.ivanbiz.dao.JurnalDAO;
 import com.ivanbiz.dao.ReconDAO;
 import com.ivanbiz.dao.impl.CashBalanceDAOImpl;
 import com.ivanbiz.dao.impl.ReconDAOImpl;
@@ -33,13 +32,10 @@ import javax.swing.JOptionPane;
  */
 public class KeuntunganReportDialog extends javax.swing.JDialog {
 
-    List<Jurnal> listJurnal;
-    JurnalDAO jurnalDAO;
+    List<Jurnal> listJurnal;    
     SimpleDateFormat dateFormat;
     SimpleDateFormat dateFormat1;
-    NumberFormat numberFormat;
-    ReconDAO reconDAO;
-    CashBalanceDAO cashBalanceDAO;
+    NumberFormat numberFormat;  
     CashBalance cashBalance;
     CashBalance cashBalanceSave;
     GLAccount glAccount;
@@ -48,8 +44,8 @@ public class KeuntunganReportDialog extends javax.swing.JDialog {
         try {
             initComponents();
             this.glAccount = gLAccount;
-            reconDAO = new ReconDAOImpl();
-            cashBalanceDAO = new CashBalanceDAOImpl();
+            ReconDAO reconDAO = new ReconDAOImpl();
+            CashBalanceDAO cashBalanceDAO = new CashBalanceDAOImpl();
             numberFormat = NumberFormat.getCurrencyInstance();
             dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             dateFormat1 = new SimpleDateFormat("dd-MMMM-yyyy");
@@ -357,6 +353,7 @@ public class KeuntunganReportDialog extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Jumlah Tagihan tidak boleh kosong");
         } else {
             try {
+                CashBalanceDAO cashBalanceDAO = new CashBalanceDAOImpl();
                 cashBalanceDAO.saveOrUpdate(cashBalanceSave);
                 dispose();
             } catch (Exception ex) {
