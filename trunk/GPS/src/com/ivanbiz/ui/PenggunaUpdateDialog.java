@@ -17,6 +17,7 @@ import com.ivanbiz.dao.impl.PenggunaDAOImpl;
 import com.ivanbiz.model.Groups;
 import com.ivanbiz.model.Pengguna;
 import com.ivanbiz.service.JTextFieldLimit;
+import com.ivanbiz.service.MD5;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -181,9 +182,10 @@ public class PenggunaUpdateDialog extends javax.swing.JDialog {
         if (pengguna == null) {
             pengguna = new Pengguna();
         }
+        MD5 md5 = new MD5(textUserName.getText());
         pengguna.setKode(textKode.getText());
         pengguna.setUserName(textUserName.getText());
-        pengguna.setPassword(textUserName.getText());
+        pengguna.setPassword(md5.asHex());
         pengguna.setGroups(listGroups.get(comboGroup.getSelectedIndex()));
         validate(pengguna);
 }//GEN-LAST:event_buttonSimpanActionPerformed
