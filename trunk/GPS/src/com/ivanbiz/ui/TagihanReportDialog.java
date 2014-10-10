@@ -106,7 +106,7 @@ public class TagihanReportDialog extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(comboBoxPencarian, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textCari, javax.swing.GroupLayout.DEFAULT_SIZE, 499, Short.MAX_VALUE)
+                .addComponent(textCari, javax.swing.GroupLayout.DEFAULT_SIZE, 511, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -159,7 +159,7 @@ public class TagihanReportDialog extends javax.swing.JDialog {
                 .addContainerGap())
         );
 
-        setSize(new java.awt.Dimension(816, 638));
+        setSize(new java.awt.Dimension(808, 627));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -234,6 +234,8 @@ public class TagihanReportDialog extends javax.swing.JDialog {
             no += 1;
             String[] kepada;
             kepada = invoices.getDeskripsiKepada().split("#");
+            String[] deskripsi;
+            deskripsi = invoices.getDeskripsiUntuk().split("#");
             isi[x][0] = no;
             isi[x][1] = sdf.format(invoices.getDate());
             isi[x][2] = invoices.getNII();
@@ -244,10 +246,11 @@ public class TagihanReportDialog extends javax.swing.JDialog {
             isi[x][7] = invoices.getDeskripsiJumlahPeserta();
             isi[x][8] = numberFormat.format(invoices.getJumlahTagihan());
             isi[x][9] = invoices.getJatuhTempo();
-            isi[x][10] = invoices.getDeskripsiUntuk();
+            isi[x][10] = deskripsi[1] + " A/C No. " + deskripsi[0];
             isi[x][11] = invoices.getStatus().equals("1") ? "N" : "Y";
             x++;
         }
+        tableTagihan.setAutoResizeMode(tableTagihan.AUTO_RESIZE_OFF);
         new ServiceHelper().setAutoRize(isi, judul, tableTagihan);
     }
 
