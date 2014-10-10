@@ -32,10 +32,10 @@ import javax.swing.JOptionPane;
  */
 public class KeuntunganReportDialog extends javax.swing.JDialog {
 
-    List<Jurnal> listJurnal;    
+    List<Jurnal> listJurnal;
     SimpleDateFormat dateFormat;
     SimpleDateFormat dateFormat1;
-    NumberFormat numberFormat;  
+    NumberFormat numberFormat;
     CashBalance cashBalance;
     CashBalance cashBalanceSave;
     GLAccount glAccount;
@@ -44,14 +44,15 @@ public class KeuntunganReportDialog extends javax.swing.JDialog {
         try {
             initComponents();
             this.glAccount = gLAccount;
-            ReconDAO reconDAO = new ReconDAOImpl();
             CashBalanceDAO cashBalanceDAO = new CashBalanceDAOImpl();
+            cashBalance = cashBalanceDAO.getBalanceByOrderDate(gLAccount.getId());
             numberFormat = NumberFormat.getCurrencyInstance();
             dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             dateFormat1 = new SimpleDateFormat("dd-MMMM-yyyy");
             jLabelJudul.setText("Dari tanggal " + dateFormat1.format(dari) + " sampai tanggal " + dateFormat1.format(sampai));
-            cashBalance = cashBalanceDAO.getBalanceByOrderDate(gLAccount.getId());
+            ReconDAO reconDAO = new ReconDAOImpl();
             listJurnal = reconDAO.getDataByDateAndGLAccount(dateFormat.format(dari), dateFormat.format(sampai), gLAccount.getNoGL());
+
             updateTableKeuntungan();
         } catch (Exception ex) {
             Logger.getLogger(KeuntunganReportDialog.class.getName()).log(Level.SEVERE, null, ex);
@@ -291,7 +292,6 @@ public class KeuntunganReportDialog extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Format salah, harus angka", "warning", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_textJumlahKeyReleased
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonTutup;
     private javax.swing.JLabel jLabel1;
