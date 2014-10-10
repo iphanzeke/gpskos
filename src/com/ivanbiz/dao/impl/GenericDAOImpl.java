@@ -38,15 +38,17 @@ public class GenericDAOImpl implements GenericDAO {
 
     @Override
     public Object load(Class clasz, long id) throws Exception {
+        Session session = null;
         try {
-            Session session = HibernateUtil.getSession();
-            return session.get(clasz, id);
+            session = HibernateUtil.getSession();
+
         } catch (Exception e) {
             HibernateUtil.rollbackTransaction();
             throw e;
         } finally {
             HibernateUtil.closeSession();
         }
+        return session.get(clasz, id);
     }
 
     @Override
@@ -88,7 +90,7 @@ public class GenericDAOImpl implements GenericDAO {
             Criteria criteria = session.createCriteria(claz);
             list = criteria.list();
             HibernateUtil.commitTransaction();
-            
+
         } catch (Exception e) {
             HibernateUtil.rollbackTransaction();
             throw e;
@@ -122,7 +124,7 @@ public class GenericDAOImpl implements GenericDAO {
             Criteria crit = session.createCriteria(clasImpl);
             crit.add(Restrictions.like(variable, "%" + input + "%"));
             list = crit.list();
-            HibernateUtil.commitTransaction();            
+            HibernateUtil.commitTransaction();
         } catch (Exception e) {
             HibernateUtil.rollbackTransaction();
             throw e;
@@ -142,7 +144,7 @@ public class GenericDAOImpl implements GenericDAO {
             crit.add(Restrictions.eq(variable, input));
             list = crit.list();
             HibernateUtil.commitTransaction();
-            
+
         } catch (Exception e) {
             HibernateUtil.rollbackTransaction();
             throw e;
@@ -154,20 +156,21 @@ public class GenericDAOImpl implements GenericDAO {
 
     @Override
     public Object getDataByEqual(Class clazImpl, String variable, Object input) throws Exception {
+        Object obj = null;
         try {
             Session session = HibernateUtil.getSession();
             HibernateUtil.beginTransaction();
             Criteria crit = session.createCriteria(clazImpl);
             crit.add(Restrictions.eq(variable, input));
-            Object obj = crit.uniqueResult();
+            obj = crit.uniqueResult();
             HibernateUtil.commitTransaction();
-            return obj;
         } catch (Exception e) {
             HibernateUtil.rollbackTransaction();
             throw e;
         } finally {
             HibernateUtil.closeSession();
         }
+        return obj;
     }
 
     @Override
@@ -183,9 +186,9 @@ public class GenericDAOImpl implements GenericDAO {
             end.setMinutes(0);
             end.setSeconds(0);
             Criteria crit = session.createCriteria(claz).add(Restrictions.ge("dateReference", start)).add(Restrictions.le("dateReference", end));
-             list = crit.list();
+            list = crit.list();
             HibernateUtil.commitTransaction();
-            
+
         } catch (Exception e) {
             HibernateUtil.rollbackTransaction();
             throw e;
@@ -211,7 +214,7 @@ public class GenericDAOImpl implements GenericDAO {
             }
             // crit.add(Restrictions.eq(variable, input));
             list = crit.list();
-            HibernateUtil.commitTransaction();            
+            HibernateUtil.commitTransaction();
         } catch (Exception e) {
             HibernateUtil.rollbackTransaction();
             throw e;
@@ -235,9 +238,9 @@ public class GenericDAOImpl implements GenericDAO {
                         + ",value is :" + mapEntry.getValue());
                 crit.add(Restrictions.eq(mapEntry.getKey().toString(), mapEntry.getValue().toString()));
             }
-             obj = crit.uniqueResult();
+            obj = crit.uniqueResult();
             HibernateUtil.commitTransaction();
-            
+
         } catch (Exception e) {
             HibernateUtil.rollbackTransaction();
             throw e;
@@ -256,11 +259,11 @@ public class GenericDAOImpl implements GenericDAO {
             Criteria crit = session.createCriteria(clazImpl);
             crit.add(Restrictions.eq(variable, input));
             Object obj = crit.uniqueResult();
-            if(obj == null){
+            if (obj == null) {
                 status = "";
             }
             HibernateUtil.commitTransaction();
-            
+
         } catch (Exception e) {
             HibernateUtil.rollbackTransaction();
             throw e;
@@ -271,26 +274,26 @@ public class GenericDAOImpl implements GenericDAO {
     }
 
     @Override
-    public String validateFieldSession(Class clazImpl, String variable, Object input, Session session)throws Exception {
+    public String validateFieldSession(Class clazImpl, String variable, Object input, Session session) throws Exception {
         String status = "Data sudah ada";
         try {
-            
+
             HibernateUtil.beginTransaction();
             Criteria crit = session.createCriteria(clazImpl);
             crit.add(Restrictions.eq(variable, input));
             Object obj = crit.uniqueResult();
-            if(obj == null){
+            if (obj == null) {
                 status = "";
-            }          
-            
-        } catch (Exception e) {            
+            }
+
+        } catch (Exception e) {
             throw e;
-        } 
+        }
         return status;
     }
 
     @Override
-    public List getDataByDateAndVar(Class claz, Date start, Date end,String variable,Object input) throws Exception {
+    public List getDataByDateAndVar(Class claz, Date start, Date end, String variable, Object input) throws Exception {
         List list = null;
         try {
             Session session = HibernateUtil.getSession();
@@ -302,9 +305,9 @@ public class GenericDAOImpl implements GenericDAO {
             end.setMinutes(0);
             end.setSeconds(0);
             Criteria crit = session.createCriteria(claz).add(Restrictions.ge("dateReference", start)).add(Restrictions.le("dateReference", end)).add(Restrictions.eq(variable, input));
-             list = crit.list();
+            list = crit.list();
             HibernateUtil.commitTransaction();
-            
+
         } catch (Exception e) {
             HibernateUtil.rollbackTransaction();
             throw e;
