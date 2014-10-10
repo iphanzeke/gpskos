@@ -25,12 +25,11 @@ import javax.swing.DefaultComboBoxModel;
  */
 public class KeuntunganDialog extends javax.swing.JDialog {
 
-    GLAccountDAO gLAccountDAO;
+     
     List<GLAccount> listGLAccount;
 
     public KeuntunganDialog() {
-        initComponents();
-        gLAccountDAO = new GLAccountDAOImpl();
+        initComponents();        
         refresh();
     }
 
@@ -168,6 +167,7 @@ public class KeuntunganDialog extends javax.swing.JDialog {
 
     private void refresh() {
         try {
+            GLAccountDAO gLAccountDAO = new GLAccountDAOImpl();
             listGLAccount = gLAccountDAO.getDataByEquals(GLAccount.class, "groupACC", "Kreditur");
             updateComboKreditur();
             jDateChooserDariTanggal.setDate(new Date());
