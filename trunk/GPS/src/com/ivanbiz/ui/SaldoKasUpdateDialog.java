@@ -238,7 +238,7 @@ public class SaldoKasUpdateDialog extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Jumlah Tagihan tidak boleh kosong");
         } else {
             try {
-                if (new Date().equals(cashBalanceDAO.validateSameDate(cashBalance.getGlAccount().getId(), cashBalance.getDateBalance()))) {
+                if (cashBalanceDAO.validateSameDate(cashBalance.getGlAccount().getId(), cashBalance.getDateBalance())) {
                     JOptionPane.showMessageDialog(this, "Close Balance suda dilakukan untuk tanggal " + new Date());
                 } else {
                     cashBalanceDAO.saveOrUpdate(cashBalance);

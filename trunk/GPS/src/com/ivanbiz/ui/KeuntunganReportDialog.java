@@ -355,7 +355,7 @@ public class KeuntunganReportDialog extends javax.swing.JDialog {
         } else {
             try {
                 CashBalanceDAO cashBalanceDAO = new CashBalanceDAOImpl();
-                if (sampai.equals(cashBalanceDAO.validateSameDate(cashBalanceSave.getGlAccount().getId(), cashBalanceSave.getDateBalance()))) {
+                if (cashBalanceDAO.validateSameDate(cashBalanceSave.getGlAccount().getId(), cashBalanceSave.getDateBalance())) {
                     JOptionPane.showMessageDialog(this, "Close Balance suda dilakukan untuk tanggal " + sampai);
                 } else {
                     cashBalanceDAO.saveOrUpdate(cashBalanceSave);
