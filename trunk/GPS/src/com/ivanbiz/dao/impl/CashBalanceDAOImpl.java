@@ -58,19 +58,22 @@ public class CashBalanceDAOImpl extends GenericDAOImpl implements CashBalanceDAO
     }
 
     @Override
-    public boolean validateSameDate(long idGL,Date date) throws Exception {
-         CashBalance cashBalance = new CashBalance();
-         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-         boolean status = false;
+    public boolean validateSameDate(long idGL, Date date) throws Exception {
+        CashBalance cashBalance = new CashBalance();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+        boolean status = false;
         try {
             HibernateUtil.beginTransaction();
             Session session = HibernateUtil.getSession();
             Query query = session.createQuery("from com.ivanbiz.model.CashBalance c where c.glAccount.id='" + idGL + "'order by dateBalance desc");
             query.setMaxResults(1);
             cashBalance = (CashBalance) query.uniqueResult();
-            if(sdf.format(cashBalance.getDateBalance()).equals(sdf.format(date))){
-                status = true;
+            if (cashBalance != null) {
+                if (sdf.format(cashBalance.getDateBalance()).equals(sdf.format(date))) {
+                    status = true;
+                }
             }
+
             HibernateUtil.commitTransaction();
         } catch (Exception e) {
             HibernateUtil.rollbackTransaction();
@@ -78,7 +81,7 @@ public class CashBalanceDAOImpl extends GenericDAOImpl implements CashBalanceDAO
         } finally {
             HibernateUtil.closeSession();
         }
-      
+
         return status;
     }
 }
