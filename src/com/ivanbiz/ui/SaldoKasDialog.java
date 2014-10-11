@@ -13,7 +13,9 @@ import com.ivanbiz.service.GlobalSession;
 import com.ivanbiz.service.MenuAksesConstant;
 import com.ivanbiz.service.ServiceHelper;
 import java.text.NumberFormat;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -194,8 +196,8 @@ public class SaldoKasDialog extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
 
     private void refresh() {
-        try {
-            listCashBalance = cashBalanceDAO.getDataByEquals(CashBalance.class, "status", "1");
+        try {            
+            listCashBalance = cashBalanceDAO.getAll(CashBalance.class);
             updateTableSaldoKas();
         } catch (Exception ex) {
             Logger.getLogger(SaldoKasDialog.class.getName()).log(Level.SEVERE, null, ex);
