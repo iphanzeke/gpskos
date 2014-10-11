@@ -13,9 +13,7 @@ import com.ivanbiz.service.GlobalSession;
 import com.ivanbiz.service.MenuAksesConstant;
 import com.ivanbiz.service.ServiceHelper;
 import java.text.NumberFormat;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -196,7 +194,7 @@ public class SaldoKasDialog extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
 
     private void refresh() {
-        try {            
+        try {
             listCashBalance = cashBalanceDAO.getAll(CashBalance.class);
             updateTableSaldoKas();
         } catch (Exception ex) {
@@ -214,7 +212,7 @@ public class SaldoKasDialog extends javax.swing.JDialog {
             isi[x][0] = no;
             isi[x][1] = cashBalances.getDateBalance();
             isi[x][2] = cashBalances.getGlAccount().getNameGL() + " A/C No. " + cashBalances.getGlAccount().getNoGL();
-            isi[x][3] = cashBalances.getBalance();
+            isi[x][3] = numberFormat.format(cashBalances.getBalance());
             x++;
         }
         new ServiceHelper().setAutoRize(isi, judul, tableSaldoKas);
