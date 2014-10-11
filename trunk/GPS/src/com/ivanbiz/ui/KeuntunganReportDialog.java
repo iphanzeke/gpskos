@@ -39,7 +39,6 @@ public class KeuntunganReportDialog extends javax.swing.JDialog {
     CashBalance cashBalance;
     CashBalance cashBalanceSave;
     GLAccount glAccount;
-    Date sampai;
 
     public KeuntunganReportDialog(GLAccount gLAccount, Date dari, Date sampai) {
         try {
@@ -53,7 +52,6 @@ public class KeuntunganReportDialog extends javax.swing.JDialog {
             jLabelJudul.setText("Dari tanggal " + dateFormat1.format(dari) + " sampai tanggal " + dateFormat1.format(sampai));
             ReconDAO reconDAO = new ReconDAOImpl();
             listJurnal = reconDAO.getDataByDateAndGLAccount(dateFormat.format(dari), dateFormat.format(sampai), gLAccount.getNoGL());
-            this.sampai = sampai;
             updateTableKeuntungan();
         } catch (Exception ex) {
             Logger.getLogger(KeuntunganReportDialog.class.getName()).log(Level.SEVERE, null, ex);
@@ -356,7 +354,7 @@ public class KeuntunganReportDialog extends javax.swing.JDialog {
             try {
                 CashBalanceDAO cashBalanceDAO = new CashBalanceDAOImpl();
                 if (cashBalanceDAO.validateSameDate(cashBalanceSave.getGlAccount().getId(), cashBalanceSave.getDateBalance())) {
-                    JOptionPane.showMessageDialog(this, "Close Balance suda dilakukan untuk tanggal " + sampai);
+                    JOptionPane.showMessageDialog(this, "Close Balance suda dilakukan untuk tanggal " + dateFormat1.format(cashBalanceSave.getDateBalance()));
                 } else {
                     cashBalanceDAO.saveOrUpdate(cashBalanceSave);
                     dispose();

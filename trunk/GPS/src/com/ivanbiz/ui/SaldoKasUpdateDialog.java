@@ -11,6 +11,7 @@ import com.ivanbiz.dao.impl.CashBalanceDAOImpl;
 import com.ivanbiz.dao.impl.GLAccountDAOImpl;
 import com.ivanbiz.model.CashBalance;
 import com.ivanbiz.model.GLAccount;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -28,15 +29,18 @@ public class SaldoKasUpdateDialog extends javax.swing.JDialog {
     CashBalanceDAO cashBalanceDAO = new CashBalanceDAOImpl();
     GLAccountDAO gLAccountDAO = new GLAccountDAOImpl();
     List<GLAccount> listGLAccounts;
+    SimpleDateFormat dateFormat;
 
     public SaldoKasUpdateDialog(MainFrame mainFrame, boolean modal) {
         initComponents();
         dateChooser.setDate(new Date());
         renderGLAccount();
+        dateFormat = new SimpleDateFormat("dd-MMMM-yyyy");
     }
 
-    public SaldoKasUpdateDialog(Object object, boolean b, CashBalance cashBalance) {
+    public SaldoKasUpdateDialog(MainFrame mainFrame, boolean modal, CashBalance cashBalance) {
         initComponents();
+        dateFormat = new SimpleDateFormat("dd-MMMM-yyyy");
         this.cashBalance = cashBalance;
         dateChooser.setDate(new Date());
         renderGLAccount();
@@ -239,7 +243,7 @@ public class SaldoKasUpdateDialog extends javax.swing.JDialog {
         } else {
             try {
                 if (cashBalanceDAO.validateSameDate(cashBalance.getGlAccount().getId(), cashBalance.getDateBalance())) {
-                    JOptionPane.showMessageDialog(this, "Close Balance suda dilakukan untuk tanggal " + new Date());
+                    JOptionPane.showMessageDialog(this, "Open Balance sudah dilakukan untuk tanggal " + dateFormat.format(cashBalance.getDateBalance()));
                 } else {
                     cashBalanceDAO.saveOrUpdate(cashBalance);
                     dispose();
