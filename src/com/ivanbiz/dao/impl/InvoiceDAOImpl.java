@@ -6,9 +6,13 @@ package com.ivanbiz.dao.impl;
 
 import com.ivanbiz.dao.InvoiceDAO;
 import com.ivanbiz.dao.JurnalDAO;
+import com.ivanbiz.dao.PembayaranDAO;
 import com.ivanbiz.model.Invoice;
+import com.ivanbiz.model.Jurnal;
+import com.ivanbiz.model.Pembayaran;
 import com.ivanbiz.service.HibernateUtil;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
@@ -137,5 +141,44 @@ public class InvoiceDAOImpl extends GenericDAOImpl implements InvoiceDAO {
             HibernateUtil.closeSession();
         }
         return list;
+    }
+
+    @Override
+    public String rejectInvoice(String noInvoice) throws Exception {
+        String status = "";
+        try {
+            HibernateUtil.beginTransaction();
+            Session session = HibernateUtil.getSession();
+            JurnalDAO jurnalDAO = new JurnalDAOImpl();
+            PembayaranDAO pembayaranDAO = new PembayaranDAOImpl();
+            Pembayaran pembayaran = (Pembayaran) pembayaranDAO.getDataByEqual(Pembayaran.class, "transactionReference", noInvoice);
+            if (pembayaran == null) {
+                List listJurnal = jurnalDAO.getDataByEquals(Jurnal.class, "transactionReference", noInvoice);
+                for (int x = 0; x < listJurnal.size(); x++) {
+                    Jurnal jurnal = (Jurnal) listJurnal.get(x);
+                    Jurnal jurnal1 = new Jurnal();
+                    jurnal1.setAccountingReference(jurnal.getAccountingReference());
+                    jurnal1.setCurrency(jurnal.getCurrency());
+                    jurnal1.setDateReference(new Date());
+                    jurnal1.setGLAccount(jurnal.getGLAccount());
+                    jurnal1.setStatus(jurnal.getStatus());
+                    jurnal1.setTransactionReference(jurnal.getTransactionReference());
+                    jurnal1.setCredit(jurnal.getDebit());
+                    jurnal1.setDebit(jurnal.getCredit());
+                    session.save(jurnal1);
+                }
+                 status = "sukses";
+            }else{
+                status = "gagal";
+            }
+            HibernateUtil.commitTransaction();           
+        } catch (Exception e) {
+            status = "gagal";
+            HibernateUtil.rollbackTransaction();
+            throw e;
+        } finally {
+            HibernateUtil.closeSession();
+        }
+        return status;
     }
 }
