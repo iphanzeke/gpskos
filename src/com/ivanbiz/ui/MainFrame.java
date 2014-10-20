@@ -74,6 +74,7 @@ public class MainFrame extends JFrame {
             menuItemKeuntunganReport.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.REPORT_KEUNTUNGAN, listAksesMatrix));
             menuItemSaldoKas.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.LIHAT_SALDO_KAS, listAksesMatrix));
             menuItemKeuntunganBiayaLain.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.REPORT_KEUNTUNGAN_BIAYA_LAIN, listAksesMatrix));
+            menuItemReturTagihan.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.RETUR_TAGIHAN, listAksesMatrix));
         } catch (Exception ex) {
             Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -103,6 +104,8 @@ public class MainFrame extends JFrame {
         menuItemKelulusan = new javax.swing.JMenuItem();
         menuItemDaftarKelas = new javax.swing.JMenuItem();
         menuItemSaldoKas = new javax.swing.JMenuItem();
+        menuRetur = new javax.swing.JMenu();
+        menuItemReturTagihan = new javax.swing.JMenuItem();
         menuHakAkses = new javax.swing.JMenu();
         menuItemGroup = new javax.swing.JMenuItem();
         menuItemPengguna = new javax.swing.JMenuItem();
@@ -244,7 +247,7 @@ public class MainFrame extends JFrame {
         menuTransaksi.add(jMenu1);
 
         menuItemKelulusan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/kelulusan.jpg"))); // NOI18N
-        menuItemKelulusan.setText("Kelulusan");
+        menuItemKelulusan.setText("Kelulusan/Kehadiran/Tanggal Ujian");
         menuItemKelulusan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuItemKelulusanActionPerformed(evt);
@@ -270,6 +273,20 @@ public class MainFrame extends JFrame {
         });
         menuTransaksi.add(menuItemSaldoKas);
 
+        menuRetur.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/retur.jpg"))); // NOI18N
+        menuRetur.setText("Retur");
+
+        menuItemReturTagihan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/tagihan.jpg"))); // NOI18N
+        menuItemReturTagihan.setText("Tagihan");
+        menuItemReturTagihan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemReturTagihanActionPerformed(evt);
+            }
+        });
+        menuRetur.add(menuItemReturTagihan);
+
+        menuTransaksi.add(menuRetur);
+
         menuBarApp.add(menuTransaksi);
 
         menuHakAkses.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/hak_akses.jpg"))); // NOI18N
@@ -284,7 +301,7 @@ public class MainFrame extends JFrame {
         });
         menuHakAkses.add(menuItemGroup);
 
-        menuItemPengguna.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/Pengguna.jpg"))); // NOI18N
+        menuItemPengguna.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/pengguna.jpg"))); // NOI18N
         menuItemPengguna.setText("Pengguna");
         menuItemPengguna.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -536,6 +553,10 @@ public class MainFrame extends JFrame {
         new KeuntunganBiayaLainDialog().setVisible(true);
     }//GEN-LAST:event_menuItemKeuntunganBiayaLainActionPerformed
 
+    private void menuItemReturTagihanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemReturTagihanActionPerformed
+        new TagihanReturDialog().setVisible(true);
+    }//GEN-LAST:event_menuItemReturTagihanActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;
     private javax.swing.JSeparator jSeparator1;
@@ -565,6 +586,7 @@ public class MainFrame extends JFrame {
     private javax.swing.JMenuItem menuItemPengguna;
     private javax.swing.JMenuItem menuItemPerusahaan;
     private javax.swing.JMenuItem menuItemReconsile;
+    private javax.swing.JMenuItem menuItemReturTagihan;
     private javax.swing.JMenuItem menuItemSaldoKas;
     private javax.swing.JMenuItem menuItemSaldoKasReport;
     private javax.swing.JMenuItem menuItemTagihan;
@@ -574,6 +596,7 @@ public class MainFrame extends JFrame {
     private javax.swing.JMenu menuLaporan;
     private javax.swing.JMenu menuMaster;
     private javax.swing.JMenu menuPembayaranReport;
+    private javax.swing.JMenu menuRetur;
     private javax.swing.JMenu menuTransaksi;
     // End of variables declaration//GEN-END:variables
 }

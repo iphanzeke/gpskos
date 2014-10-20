@@ -128,7 +128,7 @@ public class DaftarKelasReportDialog extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Pilih data yang akan dilihat", "warning", JOptionPane.WARNING_MESSAGE);
         } else {
             try {
-                listDaftarKelas = daftarKelasDAO.getDataByEquals(DaftarKelas.class, "transactionReference", listKelas.get(tableKelas.getSelectedRow()).getTransactionReference());
+                listDaftarKelas = daftarKelasDAO.getDataByEqualsOrderByBankAndNama(listKelas.get(tableKelas.getSelectedRow()).getTransactionReference());
                 if (lulus.contentEquals("kelulusan")) {
                     new DaftarKelasReport().previewAndCetakTagihan(listDaftarKelas, "preview", "kelulusan");
                 } else {
@@ -145,7 +145,7 @@ public class DaftarKelasReportDialog extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Pilih data yang akan dicetak", "warning", JOptionPane.WARNING_MESSAGE);
         } else {
             try {
-                listDaftarKelas = daftarKelasDAO.getDataByEquals(DaftarKelas.class, "transactionReference", listKelas.get(tableKelas.getSelectedRow()).getTransactionReference());
+                listDaftarKelas = daftarKelasDAO.getDataByEqualsOrderByBankAndNama(listKelas.get(tableKelas.getSelectedRow()).getTransactionReference());
                 if (lulus.contentEquals("kelulusan")) {
                     new DaftarKelasReport().previewAndCetakTagihan(listDaftarKelas, "cetak", "kelulusan");
                 } else {

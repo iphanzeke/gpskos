@@ -50,7 +50,7 @@ public class DaftarKelasDialog extends javax.swing.JDialog {
         initComponents();
         textKelas.setText(kelas.getTransactionReference());
         this.listDaftarKelas = listDaftarKelas;
-        updateTableDaftarKelas();
+        updateTableDaftarKelasInvoice();
         buttonTambah.setVisible(false);
         buttonHapus.setVisible(false);
         buttonKelulusan.setVisible(false);
@@ -64,7 +64,7 @@ public class DaftarKelasDialog extends javax.swing.JDialog {
         refreshKelulusan(kelas);
         buttonTambah.setVisible(false);
         buttonHapus.setVisible(false);
-        buttonKelulusan.setVisible(true);
+        buttonKelulusan.setVisible(false);
         renderButtonAksesKelulusan(GlobalSession.getListAksesMatrix());
     }
 
@@ -93,7 +93,7 @@ public class DaftarKelasDialog extends javax.swing.JDialog {
         setModal(true);
         setResizable(false);
 
-        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 24));
+        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel10.setText("Detail Daftar Kelas");
 
         jPanel5.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -115,6 +115,11 @@ public class DaftarKelasDialog extends javax.swing.JDialog {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tableDaftarKelas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableDaftarKelasMouseClicked(evt);
+            }
+        });
         jScrollPane3.setViewportView(tableDaftarKelas);
 
         buttonTambah.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/tambah.jpg"))); // NOI18N
@@ -134,7 +139,7 @@ public class DaftarKelasDialog extends javax.swing.JDialog {
         });
 
         buttonKelulusan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/kelulusan.jpg"))); // NOI18N
-        buttonKelulusan.setText("Update Kelulusan");
+        buttonKelulusan.setText("Update Data");
         buttonKelulusan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonKelulusanActionPerformed(evt);
@@ -161,7 +166,7 @@ public class DaftarKelasDialog extends javax.swing.JDialog {
                                 .addComponent(buttonHapus)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(buttonKelulusan)))
-                        .addGap(0, 152, Short.MAX_VALUE)))
+                        .addGap(0, 176, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
@@ -172,13 +177,13 @@ public class DaftarKelasDialog extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(textKelas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(buttonKelulusan, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(buttonTambah, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(buttonHapus, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buttonTambah, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(buttonHapus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel12))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 431, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 438, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -203,8 +208,8 @@ public class DaftarKelasDialog extends javax.swing.JDialog {
                 .addContainerGap())
         );
 
-        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-816)/2, (screenSize.height-638)/2, 816, 638);
+        setSize(new java.awt.Dimension(816, 638));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTambahActionPerformed
@@ -230,12 +235,12 @@ public class DaftarKelasDialog extends javax.swing.JDialog {
         try {
             List<DaftarKelas> listDaftarkelasTemp = new ArrayList<DaftarKelas>();
             for (int x = 0; x < listDaftarKelas.size(); x++) {
-                DaftarKelas daftarKelas = listDaftarKelas.get(x);
+                DaftarKelas daftarKelass = listDaftarKelas.get(x);
                 if ((Boolean) tableDaftarKelas.getValueAt(x, 4)) {
-                    daftarKelas.setChoose(true);
-                    listDaftarkelasTemp.add(daftarKelas);
+                    daftarKelass.setChoose(true);
+                    listDaftarkelasTemp.add(daftarKelass);
                 } else {
-                    listDaftarkelasTemp.add(daftarKelas);
+                    listDaftarkelasTemp.add(daftarKelass);
                 }
             }
             daftarKelasDAO.updateByKelulusan(listDaftarkelasTemp);
@@ -244,6 +249,14 @@ public class DaftarKelasDialog extends javax.swing.JDialog {
             Logger.getLogger(DaftarKelasDialog.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_buttonKelulusanActionPerformed
+
+    private void tableDaftarKelasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableDaftarKelasMouseClicked
+        if ((Boolean) tableDaftarKelas.getValueAt(tableDaftarKelas.getSelectedRow(), 0)) {
+            new DaftarKelasUpdateDataDialog(null, true, listDaftarKelas.get(tableDaftarKelas.getSelectedRow())).setVisible(true);
+            refreshKelulusan(kelas);
+        }
+    }//GEN-LAST:event_tableDaftarKelasMouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonHapus;
     private javax.swing.JButton buttonKelulusan;
@@ -272,7 +285,7 @@ public class DaftarKelasDialog extends javax.swing.JDialog {
     }
 
     private void updateTableDaftarKelas() {
-        String[] judul = {"No", "NIM", "Nama", "Bank", "Kelulusan"};
+        String[] judul = {"No", "NIM", "Nama", "Bank"};
         Object[][] isi = new Object[listDaftarKelas.size()][4];
         int x = 0;
         int no = 0;
@@ -297,8 +310,45 @@ public class DaftarKelasDialog extends javax.swing.JDialog {
     }
 
     private void updateTableDaftarKelulusanKelas() {
-        String[] judul = {"No", "NIM", "Nama", "Bank", "Lulus=[x]"};
-        Object[][] isi = new Object[listDaftarKelas.size()][5];
+        String[] judul = {"Choose", "No", "NIM", "Nama", "Bank", "Lulus", "Hadir", "Keterangan", "Tanggal Ujian"};
+        Object[][] isi = new Object[listDaftarKelas.size()][9];
+        int x = 0;
+        int no = 0;
+        for (DaftarKelas daftarKelass : listDaftarKelas) {
+            no += 1;
+            isi[x][0] = daftarKelass.isChoose();
+            isi[x][1] = no;
+            isi[x][2] = daftarKelass.getMurid().getNIM();
+            isi[x][3] = daftarKelass.getMurid().getNama();
+            isi[x][4] = daftarKelass.getMurid().getBank().getNama();
+            isi[x][5] = daftarKelass.getStatus().equals("1") ? "Y" : "N";
+            isi[x][6] = daftarKelass.getStatus().equals("1") ? "Y" : "N";
+            isi[x][7] = daftarKelass.getKeterangan();
+            isi[x][8] = daftarKelass.getUjian();
+            x++;
+        }
+        tableDaftarKelas.setModel(new DefaultTableModel(isi, judul) {
+
+            @Override
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return columnIdentifiers.get(columnIndex).equals("Choose");
+            }
+
+            @Override
+            public Class getColumnClass(int columnIndex) {
+                if (columnIdentifiers.get(columnIndex).equals("Choose")) {
+                    return Boolean.class;
+                } else {
+                    return columnIdentifiers.get(columnIndex).getClass();
+                }
+            }
+        });
+//        new ServiceHelper().setAutoRize(isi, judul, tableDaftarKelas);
+    }
+
+    private void updateTableDaftarKelasInvoice() {
+        String[] judul = {"No", "NIM", "Nama", "Bank", "Lulus", "Hadir", "Keterangan", "Tanggal Ujian"};
+        Object[][] isi = new Object[listDaftarKelas.size()][8];
         int x = 0;
         int no = 0;
         for (DaftarKelas daftarKelass : listDaftarKelas) {
@@ -307,26 +357,13 @@ public class DaftarKelasDialog extends javax.swing.JDialog {
             isi[x][1] = daftarKelass.getMurid().getNIM();
             isi[x][2] = daftarKelass.getMurid().getNama();
             isi[x][3] = daftarKelass.getMurid().getBank().getNama();
-            isi[x][4] = daftarKelass.getStatus().equals("1") ? true : false;
+            isi[x][4] = daftarKelass.getStatus().equals("1") ? "Y" : "N";
+            isi[x][5] = daftarKelass.getStatus().equals("1") ? "Y" : "N";
+            isi[x][6] = daftarKelass.getKeterangan();
+            isi[x][7] = daftarKelass.getUjian();
             x++;
         }
-        tableDaftarKelas.setModel(new DefaultTableModel(isi, judul) {
-
-            @Override
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return columnIdentifiers.get(columnIndex).equals("Lulus=[x]");
-            }
-
-            @Override
-            public Class getColumnClass(int columnIndex) {
-                if (columnIdentifiers.get(columnIndex).equals("Lulus=[x]")) {
-                    return Boolean.class;
-                } else {
-                    return columnIdentifiers.get(columnIndex).getClass();
-                }
-            }
-        });
-//        new ServiceHelper().setAutoRize(isi, judul, tableDaftarKelas);
+        new ServiceHelper().setAutoRize(isi, judul, tableDaftarKelas);
     }
 
     private void renderButtonAksesKelulusan(List<AksesMatrix> listAksesMatrix) {

@@ -113,8 +113,10 @@ public class TagihanReport {
                 jasperViewer.setSize(800, 600);
                 jasperViewer.setAlwaysOnTop(true);
                 jasperViewer.setExtendedState(JFrame.MAXIMIZED_BOTH);
+                new DaftarKelasReport().previewAndCetakTagihan(listDaftarKelas, "preview", "daftarKelas");
                 jasperViewer.setVisible(true);
             } else {
+                new DaftarKelasReport().previewAndCetakTagihan(listDaftarKelas, "print", "daftarKelas");
                 JasperPrintManager.printReport(report, false);
             }
         } catch (Exception ex) {

@@ -82,7 +82,7 @@ public class KelasDialog extends JDialog {
         setAlwaysOnTop(true);
         setResizable(false);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24));
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setText("Kelas");
 
         tableKelas.setModel(new javax.swing.table.DefaultTableModel(
@@ -150,9 +150,9 @@ public class KelasDialog extends JDialog {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 880, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 880, Short.MAX_VALUE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -167,8 +167,8 @@ public class KelasDialog extends JDialog {
                 .addContainerGap())
         );
 
-        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-916)/2, (screenSize.height-638)/2, 916, 638);
+        setSize(new java.awt.Dimension(808, 627));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTambahActionPerformed
@@ -208,10 +208,13 @@ public class KelasDialog extends JDialog {
             JOptionPane.showMessageDialog(this, "Pilih data yang akan ditutup", "warning", JOptionPane.WARNING_MESSAGE);
         } else {
             try {
-                kelas = listKelas.get(tableKelas.getSelectedRow());
-                kelas.setStatusKelas("Y");
-                kelasDAO.saveOrUpdate(kelas);
-                refresh();
+                int response = JOptionPane.showConfirmDialog(this, "Apakah Kelas ingin ditutup ?", "Konfirmasi", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                if (response == JOptionPane.YES_OPTION) {
+                    kelas = listKelas.get(tableKelas.getSelectedRow());
+                    kelas.setStatusKelas("Y");
+                    kelasDAO.saveOrUpdate(kelas);
+                    refresh();
+                }
             } catch (Exception ex) {
                 Logger.getLogger(KelasDialog.class.getName()).log(Level.SEVERE, null, ex);
             }

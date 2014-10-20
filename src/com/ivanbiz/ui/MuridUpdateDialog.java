@@ -15,7 +15,7 @@ import com.ivanbiz.dao.impl.MuridDAOImpl;
 import com.ivanbiz.model.Bank;
 import com.ivanbiz.model.Murid;
 import com.ivanbiz.service.JTextFieldLimit;
-import com.ivanbiz.service.ServiceHelper;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JDialog;
@@ -30,6 +30,7 @@ public class MuridUpdateDialog extends JDialog {
     Murid murid;
     MuridDAO muridDAO = new MuridDAOImpl();
     Bank bank;
+    String NIM;
 
     /**
      * Creates new form PengajarUpdateDialog
@@ -43,6 +44,7 @@ public class MuridUpdateDialog extends JDialog {
 
     public MuridUpdateDialog(MainFrame mainFrame, boolean modal, Murid murid) {
         initComponents();
+        this.NIM = murid.getNIM();
         this.murid = murid;
         labelMurid.setText("Ubah Murid");
         jTextFieldNIM.setText(murid.getNIM());
@@ -270,7 +272,7 @@ public class MuridUpdateDialog extends JDialog {
         murid.setHandphone(jTextFieldHP.getText());
         murid.setEmail(jTextFieldEmail.getText());
         murid.setAlamat(jTextAreaAlamat.getText());
-        murid.setDate(jDateChooserTanggal.getDate());
+        murid.setDate(jDateChooserTanggal.getDate() == null ? new Date() : jDateChooserTanggal.getDate());
         murid.setBank(bank);
         validate(murid);
 }//GEN-LAST:event_buttonSimpanActionPerformed
@@ -320,30 +322,50 @@ public class MuridUpdateDialog extends JDialog {
             JOptionPane.showMessageDialog(this, "Nama tidak boleh kosong");
         } else if (murid.getBank() == null) {
             JOptionPane.showMessageDialog(this, "Bank tidak boleh null");
-        } else if (murid.getTelp() == null) {
-            JOptionPane.showMessageDialog(this, "Telp tidak boleh null");
-        } else if (murid.getTelp().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Telp tidak boleh kosong");
-        } else if (murid.getHandphone() == null) {
-            JOptionPane.showMessageDialog(this, "HP tidak boleh null");
-        } else if (murid.getHandphone().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "HP tidak boleh kosong");
-        } else if (murid.getEmail() == null) {
-            JOptionPane.showMessageDialog(this, "Email tidak boleh null");
-        } else if (murid.getEmail().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Email tidak boleh kosong");
-        } else if (new ServiceHelper().validateEmail(murid.getEmail())) {
-            JOptionPane.showMessageDialog(this, "Format Email salah");
-        } else if (murid.getDate() == null) {
-            JOptionPane.showMessageDialog(this, "Tanggal Lahir tidak boleh null");
-        } else if (murid.getAlamat() == null) {
-            JOptionPane.showMessageDialog(this, "Alamat tidak boleh null");
-        } else if (murid.getAlamat().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Alamat tidak boleh kosong");
-        } else {
+        } //        else if (murid.getTelp() == null) {
+        //            JOptionPane.showMessageDialog(this, "Telp tidak boleh null");
+        //        } else if (murid.getTelp().trim().isEmpty()) {
+        //            JOptionPane.showMessageDialog(this, "Telp tidak boleh kosong");
+        //        } else if (murid.getHandphone() == null) {
+        //            JOptionPane.showMessageDialog(this, "HP tidak boleh null");
+        //        } else if (murid.getHandphone().trim().isEmpty()) {
+        //            JOptionPane.showMessageDialog(this, "HP tidak boleh kosong");
+        //        } else if (murid.getEmail() == null) {
+        //            JOptionPane.showMessageDialog(this, "Email tidak boleh null");
+        //        } else if (murid.getEmail().trim().isEmpty()) {
+        //            JOptionPane.showMessageDialog(this, "Email tidak boleh kosong");
+        //        } else if (new ServiceHelper().validateEmail(murid.getEmail())) {
+        //            JOptionPane.showMessageDialog(this, "Format Email salah");
+        //        } else if (murid.getDate() == null) {
+        //            JOptionPane.showMessageDialog(this, "Tanggal Lahir tidak boleh null");
+        //        } else if (murid.getAlamat() == null) {
+        //            JOptionPane.showMessageDialog(this, "Alamat tidak boleh null");
+        //        } else if (murid.getAlamat().trim().isEmpty()) {
+        //            JOptionPane.showMessageDialog(this, "Alamat tidak boleh kosong");
+        //        } 
+        else {
             try {
-                muridDAO.saveOrUpdate(murid);
-                dispose();
+                long a = murid.getId();
+                if (a == 0) {
+                    if (muridDAO.validateField(Murid.class, "NIM", jTextFieldNIM.getText()).equals("Data sudah ada")) {
+                        JOptionPane.showMessageDialog(this, "NIM sudah ada");
+                    } else {
+                        muridDAO.saveOrUpdate(murid);
+                        dispose();
+                    }
+                } else {
+                    if (!NIM.equals(jTextFieldNIM.getText())) {
+                        if (muridDAO.validateField(Murid.class, "NIM", jTextFieldNIM.getText()).equals("Data sudah ada")) {
+                            JOptionPane.showMessageDialog(this, "NIM sudah ada");
+                        } else {
+                            muridDAO.saveOrUpdate(murid);
+                            dispose();
+                        }
+                    } else {
+                        muridDAO.saveOrUpdate(murid);
+                        dispose();
+                    }
+                }
             } catch (Exception ex) {
                 Logger.getLogger(MuridUpdateDialog.class.getName()).log(Level.SEVERE, null, ex);
             }

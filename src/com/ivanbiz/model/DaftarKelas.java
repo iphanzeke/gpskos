@@ -16,6 +16,33 @@ public class DaftarKelas {
     private Murid murid;
     private String transactionReference;
     private String status;/*0=belum ada hasil 1=lulus   2=tidak lulus*/
+    private String kehadiran; /*0=tidak Hadir 1=Hadir*/
+    private String keterangan;
+    private String ujian;
+
+    public String getKeterangan() {
+        return keterangan;
+    }
+
+    public void setKeterangan(String keterangan) {
+        this.keterangan = keterangan;
+    }
+
+    public String getKehadiran() {
+        return kehadiran;
+    }
+
+    public void setKehadiran(String kehadiran) {
+        this.kehadiran = kehadiran;
+    }
+
+    public String getUjian() {
+        return ujian;
+    }
+
+    public void setUjian(String ujian) {
+        this.ujian = ujian;
+    }
 
     private boolean choose;
 
