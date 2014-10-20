@@ -178,13 +178,16 @@ public class TagihanDialog extends javax.swing.JDialog {
         if (tableTagihan.getSelectedRow() == -1) {
             JOptionPane.showMessageDialog(this, "Pilih data yang akan dikirim", "warning", JOptionPane.WARNING_MESSAGE);
         } else {
-            try {
-                invoice = listInvoice.get(tableTagihan.getSelectedRow());
-                String[] kode_noGL = invoice.getDeskripsiKepada().split("#");
-                invoiceDAO.sendInvoice(invoice, kode_noGL[2], kode_noGL[0]);
-                refresh();
-            } catch (Exception ex) {
-                Logger.getLogger(TagihanDialog.class.getName()).log(Level.SEVERE, null, ex);
+            int response = JOptionPane.showConfirmDialog(this, "Apakah Tagihan ingin dikirim ?", "Konfirmasi", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if (response == JOptionPane.YES_OPTION) {
+                try {
+                    invoice = listInvoice.get(tableTagihan.getSelectedRow());
+                    String[] kode_noGL = invoice.getDeskripsiKepada().split("#");
+                    invoiceDAO.sendInvoice(invoice, kode_noGL[2], kode_noGL[0]);
+                    refresh();
+                } catch (Exception ex) {
+                    Logger.getLogger(TagihanDialog.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
     }//GEN-LAST:event_buttonKirimActionPerformed
@@ -233,7 +236,7 @@ public class TagihanDialog extends javax.swing.JDialog {
             isi[x][10] = deskripsi[1] + " A/C No. " + deskripsi[0];
             x++;
         }
-        tableTagihan.setAutoResizeMode(tableTagihan.AUTO_RESIZE_OFF);
+        tableTagihan.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         new ServiceHelper().setAutoRize(isi, judul, tableTagihan);
     }
 

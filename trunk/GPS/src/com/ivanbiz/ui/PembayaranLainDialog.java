@@ -185,12 +185,15 @@ public class PembayaranLainDialog extends JDialog {
         if (tablePembayaran.getSelectedRow() == -1) {
             JOptionPane.showMessageDialog(this, "Pilih data yang akan diproses", "warning", JOptionPane.WARNING_MESSAGE);
         } else {
-            try {
-                pembayaran = listPembayaran.get(tablePembayaran.getSelectedRow());
-                pembayaranDAO.postingJurnalPembayaranLain(pembayaran);
-                refresh();
-            } catch (Exception ex) {
-                Logger.getLogger(PembayaranLainDialog.class.getName()).log(Level.SEVERE, null, ex);
+            int response = JOptionPane.showConfirmDialog(this, "Apakah Pembayaran ingin diproses ?", "Konfirmasi", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if (response == JOptionPane.YES_OPTION) {
+                try {
+                    pembayaran = listPembayaran.get(tablePembayaran.getSelectedRow());
+                    pembayaranDAO.postingJurnalPembayaranLain(pembayaran);
+                    refresh();
+                } catch (Exception ex) {
+                    Logger.getLogger(PembayaranLainDialog.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
     }//GEN-LAST:event_buttonProcessActionPerformed

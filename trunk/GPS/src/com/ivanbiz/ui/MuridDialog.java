@@ -83,7 +83,7 @@ public class MuridDialog extends JDialog {
         setModal(true);
         setResizable(false);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24));
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setText("Daftar Murid");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Pencarian Murid"));
@@ -114,6 +114,7 @@ public class MuridDialog extends JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        tableMurid.setAutoCreateRowSorter(true);
         tableMurid.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -186,8 +187,8 @@ public class MuridDialog extends JDialog {
                 .addContainerGap())
         );
 
-        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-816)/2, (screenSize.height-638)/2, 816, 638);
+        setSize(new java.awt.Dimension(816, 638));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void renderButtonAkses(List<AksesMatrix> listAksesMatrix) {
@@ -198,7 +199,11 @@ public class MuridDialog extends JDialog {
 
     private void textCariKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textCariKeyReleased
         try {
-            listMurid = muridDAO.getDataByLike(Murid.class, comboBoxCari.getSelectedItem().toString(), textCari.getText());
+            if (comboBoxCari.getSelectedItem().toString().equals("bank")) {
+                listMurid = muridDAO.getDataByLikeBank(textCari.getText());
+            } else {
+                listMurid = muridDAO.getDataByLike(Murid.class, comboBoxCari.getSelectedItem().toString(), textCari.getText());
+            }
             updateTableMurid();
         } catch (Exception ex) {
             Logger.getLogger(MuridDialog.class.getName()).log(Level.SEVERE, null, ex);
@@ -251,6 +256,9 @@ public class MuridDialog extends JDialog {
                     daftarKelas.setMurid(murid);
                     daftarKelas.setTransactionReference(kelas.getTransactionReference());
                     daftarKelas.setStatus("1");
+                    daftarKelas.setKehadiran("1");
+                    daftarKelas.setKeterangan("");
+                    daftarKelas.setUjian("");
                     validateDaftarKelas(daftarKelas);
                 }
             }
@@ -271,7 +279,7 @@ public class MuridDialog extends JDialog {
 
     private void refresh() {
         try {
-            listMurid = muridDAO.getAll(Murid.class);
+            listMurid = muridDAO.getAll(murid);
             updateTableMurid();
             updateComboCari();
         } catch (Exception ex) {
@@ -282,14 +290,14 @@ public class MuridDialog extends JDialog {
     private void updateComboCari() {
         Object[] dataClass = new ServiceHelper().getPropertyClass(Murid.class);
         Object[] dataSearch = new Object[3];
-        dataSearch[0] = dataClass[1];
-        dataSearch[1] = dataClass[2];
-        dataSearch[2] = dataClass[7];
+        dataSearch[0] = dataClass[2];
+        dataSearch[1] = dataClass[7];
+        dataSearch[2] = dataClass[1];
         comboBoxCari.setModel(new DefaultComboBoxModel(dataSearch));
     }
 
     private void updateTableMurid() {
-        String[] judul = {"No", "NIM", "Nama", "Telp", "Handphone", "Email", "Date", "Nama Bank", "Alamat"};
+        String[] judul = {"No", "NIM", "Nama", "Institusi", "Telp", "Handphone", "Email", "Date", "Alamat"};
         Object[][] isi = new Object[listMurid.size()][9];
         int x = 0;
         int no = 0;
@@ -298,11 +306,11 @@ public class MuridDialog extends JDialog {
             isi[x][0] = no;
             isi[x][1] = murids.getNIM();
             isi[x][2] = murids.getNama();
-            isi[x][3] = murids.getTelp();
-            isi[x][4] = murids.getHandphone();
-            isi[x][5] = murids.getEmail();
-            isi[x][6] = sdf.format(murids.getDate());
-            isi[x][7] = murids.getBank().getNama();
+            isi[x][3] = murids.getBank().getNama();
+            isi[x][4] = murids.getTelp();
+            isi[x][5] = murids.getHandphone();
+            isi[x][6] = murids.getEmail();
+            isi[x][7] = sdf.format(murids.getDate());
             isi[x][8] = murids.getAlamat();
             x++;
         }

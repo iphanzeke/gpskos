@@ -6,7 +6,6 @@ package com.ivanbiz.dao.impl;
 
 import com.ivanbiz.dao.GenericDAO;
 import com.ivanbiz.service.HibernateUtil;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;

@@ -266,14 +266,17 @@ public class KeuntunganReportDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonTutupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTutupActionPerformed
-        if (cashBalanceSave == null) {
-            cashBalanceSave = new CashBalance();
+        int response = JOptionPane.showConfirmDialog(this, "Apakah Tutup Cash Balance ingin diproses ?", "Konfirmasi", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (response == JOptionPane.YES_OPTION) {
+            if (cashBalanceSave == null) {
+                cashBalanceSave = new CashBalance();
+            }
+            cashBalanceSave.setGlAccount(glAccount);
+            cashBalanceSave.setDateBalance(new Date());
+            cashBalanceSave.setBalance(textJumlah.getText().isEmpty() ? (double) 0 : new Double(textJumlah.getText()));
+            cashBalanceSave.setStatus("0");
+            validate(cashBalanceSave);
         }
-        cashBalanceSave.setGlAccount(glAccount);
-        cashBalanceSave.setDateBalance(new Date());
-        cashBalanceSave.setBalance(textJumlah.getText().isEmpty() ? (double) 0 : new Double(textJumlah.getText()));
-        cashBalanceSave.setStatus("0");
-        validate(cashBalanceSave);
     }//GEN-LAST:event_buttonTutupActionPerformed
 
     private void textCashBalanceKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textCashBalanceKeyReleased

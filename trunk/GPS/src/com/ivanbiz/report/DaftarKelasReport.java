@@ -11,6 +11,7 @@ import com.ivanbiz.model.Murid;
 import com.ivanbiz.model.Perusahaan;
 import com.ivanbiz.service.GlobalSession;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -45,10 +46,12 @@ public class DaftarKelasReport {
     JasperPrint report;
     JasperViewer jasperViewer;
     List<DaftarKelas> listDaftarKelases;
+    SimpleDateFormat simpleDateFormat;
 
     public void previewAndCetakTagihan(List<DaftarKelas> listDaftarKelas, String previewOrCetak, String kelulusan) {
         try {
             listDaftarKelases = new ArrayList<DaftarKelas>();
+            simpleDateFormat = new SimpleDateFormat("dd MMMMM yyyy");
             for (DaftarKelas daftarKelas : listDaftarKelas) {
                 murid = daftarKelas.getMurid();
                 murid.setTelp("Telp : " + murid.getTelp() + "\n" + " HP   : " + murid.getHandphone());
@@ -72,6 +75,7 @@ public class DaftarKelasReport {
             map.put("perusahaan.alamat", perusahaan.getAlamat());
             map.put("logo", System.getProperty("user.dir") + "\\\\image\\\\logo.jpg");
             map.put("kelas.alamatKelas", kelas.getAlamatKelas() + "\n" + "bertempat di : " + kelas.getTempatKelas());
+            map.put("kelas.tempatKelas", kelas.getTempatKelas() + " , " + simpleDateFormat.format(kelas.getTanggalKelas()));
             map.put("peserta", listDaftarKelases.size());
 
             report = JasperFillManager.fillReport(inputStream, map);

@@ -107,4 +107,49 @@ public class DaftarKelasDAOImpl extends GenericDAOImpl implements DaftarKelasDAO
         }
         return status;
     }
+
+    @Override
+    public String updateByKehadiran(List<DaftarKelas> listDaftarKelas) throws Exception {
+        String status = "";
+        try {
+            HibernateUtil.beginTransaction();
+            Session session = HibernateUtil.getSession();
+            for (DaftarKelas listDaftarKela : listDaftarKelas) {
+                DaftarKelas daftarKelas = (DaftarKelas) listDaftarKela;
+                if (!daftarKelas.isChoose()) {
+                    daftarKelas.setKehadiran("0");
+                    session.update(daftarKelas);
+                } else {
+                    daftarKelas.setKehadiran("1");
+                    session.update(daftarKelas);
+                }
+            }
+            HibernateUtil.commitTransaction();
+            status = "sukses";
+        } catch (Exception e) {
+            HibernateUtil.rollbackTransaction();
+            status = "error";
+            throw e;
+        } finally {
+            HibernateUtil.closeSession();
+        }
+        return status;
+    }
+
+    @Override
+    public List<DaftarKelas> getDataByEqualsOrderByBankAndNama(String transactionReference) throws Exception {
+        try {
+            Session session = HibernateUtil.getSession();
+            HibernateUtil.beginTransaction();
+            Query query = session.createQuery("from DaftarKelas dk where dk.kelas.transactionReference = :transactionReference order by dk.murid.bank.nama asc, dk.murid.nama asc");
+            query.setParameter("transactionReference", transactionReference);
+            HibernateUtil.commitTransaction();
+            return query.list();
+        } catch (Exception e) {
+            HibernateUtil.rollbackTransaction();
+            throw e;
+        } finally {
+            HibernateUtil.closeSession();
+        }
+    }
 }

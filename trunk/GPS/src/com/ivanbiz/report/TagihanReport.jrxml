@@ -555,30 +555,7 @@
 			</band>
 		</pageFooter>
 		<summary>
-			<band height="134"  isSplitAllowed="true" >
-				<subreport  isUsingCache="true">
-					<reportElement
-						x="-30"
-						y="94"
-						width="565"
-						height="40"
-						key="subreport-1"
-						stretchType="RelativeToBandHeight"/>
-					<subreportParameter  name="logo">
-						<subreportParameterExpression><![CDATA[$P{logo}]]></subreportParameterExpression>
-					</subreportParameter>
-					<subreportParameter  name="perusahaan.alamat">
-						<subreportParameterExpression><![CDATA[$P{perusahaan.alamat}]]></subreportParameterExpression>
-					</subreportParameter>
-					<subreportParameter  name="kelas.alamatKelas">
-						<subreportParameterExpression><![CDATA[$P{kelas.alamatKelas}]]></subreportParameterExpression>
-					</subreportParameter>
-					<subreportParameter  name="peserta">
-						<subreportParameterExpression><![CDATA[$P{peserta}]]></subreportParameterExpression>
-					</subreportParameter>
-					<dataSourceExpression><![CDATA[new JRBeanCollectionDataSource($P{PRM_DETAIL_VALUE})]]></dataSourceExpression>
-					<subreportExpression  class="java.io.InputStream"><![CDATA[$P{SUBREPORT_DIR}]]></subreportExpression>
-				</subreport>
+			<band height="0"  isSplitAllowed="true" >
 			</band>
 		</summary>
 </jasperReport>
