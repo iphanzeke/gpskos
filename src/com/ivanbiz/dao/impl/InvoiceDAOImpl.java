@@ -171,6 +171,9 @@ public class InvoiceDAOImpl extends GenericDAOImpl implements InvoiceDAO {
             }else{
                 status = "gagal";
             }
+            Invoice invoice = (Invoice) getDataByEqual(Invoice.class, "NII", noInvoice);
+            invoice.setStatus("5");
+            session.update(invoice);
             HibernateUtil.commitTransaction();           
         } catch (Exception e) {
             status = "gagal";
