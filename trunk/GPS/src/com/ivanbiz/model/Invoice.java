@@ -21,7 +21,7 @@ public class Invoice {
     private String deskripsiJumlahPeserta;
     private double jumlahTagihan;
     private Date date;
-    private String status;/* 0=simpan 1=sudah kejurnal 2=sudah terbayar*/
+    private String status;/* 0=simpan 1=sudah kejurnal 2=sudah terbayar 5=reject */
 
     private String jatuhTempo;
     private String deskripsiUntuk;
