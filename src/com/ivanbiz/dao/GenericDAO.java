@@ -43,4 +43,8 @@ public interface GenericDAO {
     public String validateFieldSession(Class clazImpl,String variable,Object input,Session session)throws Exception;
     
     public List getDataByDateAndVar(Class claz,Date start,Date end,String variable,Object input)throws Exception;
+    
+    public List getDataByEquals(Class clazImpl, String variable, Object input,Session session) throws Exception;
+    
+    public Object getDataByEqual(Class clazImpl, String variable, Object input,Session session) throws Exception;
 }

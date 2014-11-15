@@ -315,4 +315,32 @@ public class GenericDAOImpl implements GenericDAO {
         }
         return list;
     }
+
+    @Override
+    public List getDataByEquals(Class clazImpl, String variable, Object input, Session session) throws Exception {
+        List list = null;
+        try {
+            Criteria crit = session.createCriteria(clazImpl);
+            crit.add(Restrictions.eq(variable, input));
+            list = crit.list();
+        } catch (Exception e) {
+            throw e;
+        }
+        return list;
+    }
+
+    @Override
+    public Object getDataByEqual(Class clazImpl, String variable, Object input, Session session) throws Exception {
+        Object obj = null;
+        try {
+            Criteria crit = session.createCriteria(clazImpl);
+            crit.add(Restrictions.eq(variable, input));
+            obj = crit.uniqueResult();
+
+        } catch (Exception e) {
+
+            throw e;
+        }
+        return obj;
+    }
 }

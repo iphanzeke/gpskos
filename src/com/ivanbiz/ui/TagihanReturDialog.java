@@ -170,7 +170,11 @@ public class TagihanReturDialog extends javax.swing.JDialog {
             map.put("NII", textCari.getText());
             map.put("status", "1");
             Invoice invoice = (Invoice) invoiceDAO.getDataByEqualMore(Invoice.class, map);
-            textTagihan.setText(invoice.getNII());
+            if (invoice == null) {
+                JOptionPane.showMessageDialog(this, "Invoice tidak ditemukan");
+            } else {
+                textTagihan.setText(invoice.getNII());
+            }
         } catch (Exception ex) {
             Logger.getLogger(TagihanReturDialog.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -193,7 +197,6 @@ public class TagihanReturDialog extends javax.swing.JDialog {
             }
         }
     }//GEN-LAST:event_buttonProcesActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonBatal;
     private javax.swing.JButton buttonCari;
