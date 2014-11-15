@@ -151,9 +151,9 @@ public class InvoiceDAOImpl extends GenericDAOImpl implements InvoiceDAO {
             Session session = HibernateUtil.getSession();
             JurnalDAO jurnalDAO = new JurnalDAOImpl();
             PembayaranDAO pembayaranDAO = new PembayaranDAOImpl();
-            Pembayaran pembayaran = (Pembayaran) pembayaranDAO.getDataByEqual(Pembayaran.class, "transactionReference", noInvoice);
+            Pembayaran pembayaran = (Pembayaran) pembayaranDAO.getDataByEqual(Pembayaran.class, "transactionReference", noInvoice,session);
             if (pembayaran == null) {
-                List listJurnal = jurnalDAO.getDataByEquals(Jurnal.class, "transactionReference", noInvoice);
+                List listJurnal = jurnalDAO.getDataByEquals(Jurnal.class, "transactionReference", noInvoice,session);
                 for (int x = 0; x < listJurnal.size(); x++) {
                     Jurnal jurnal = (Jurnal) listJurnal.get(x);
                     Jurnal jurnal1 = new Jurnal();
@@ -171,7 +171,7 @@ public class InvoiceDAOImpl extends GenericDAOImpl implements InvoiceDAO {
             }else{
                 status = "gagal";
             }
-            Invoice invoice = (Invoice) getDataByEqual(Invoice.class, "NII", noInvoice);
+            Invoice invoice = (Invoice) getDataByEqual(Invoice.class, "NII", noInvoice,session);
             invoice.setStatus("5");
             session.update(invoice);
             HibernateUtil.commitTransaction();           
