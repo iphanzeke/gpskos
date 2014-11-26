@@ -21,6 +21,7 @@ import com.ivanbiz.model.Invoice;
 import com.ivanbiz.model.Pembayaran;
 import com.ivanbiz.service.FileUpload;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
@@ -46,7 +47,8 @@ public class PembayaranTagihanUpdateDialog extends JDialog {
     GLAccount glKreditur;
     String path;
     PembayaranBuktiDialog image;
-    Properties properties;
+    Properties ftpProperties;
+    Properties configProperties;
 
     /**
      * Creates new form PengajarUpdateDialog
@@ -380,9 +382,11 @@ public class PembayaranTagihanUpdateDialog extends JDialog {
     private void buttonBrowseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBrowseActionPerformed
         try {
             if (pembayaran != null) {
-                properties = new Properties();
-                properties.load(ClassLoader.getSystemResourceAsStream("ftp.properties"));
-                String sb = "ftp://" + properties.getProperty("user") + ":" + properties.getProperty("password") + "@" + properties.getProperty("ftpServer") + "/INBOX/" + pembayaran.getTransactionReference() + ".JPG;type=i";
+                configProperties = new Properties();
+                ftpProperties = new Properties();
+                configProperties.load(new FileInputStream(new File(System.getProperty("user.dir") + "\\config.properties")));
+                ftpProperties.load(ClassLoader.getSystemResourceAsStream("ftp.properties"));
+                String sb = "ftp://" + ftpProperties.getProperty("user") + ":" + ftpProperties.getProperty("password") + "@" + configProperties.getProperty("ip") + "/INBOX/" + pembayaran.getTransactionReference() + ".JPG;type=i";
                 if (textImage.getText().equals(pembayaran.getPathImage())) {
                     image = new PembayaranBuktiDialog(null, true, sb, pembayaran);
                 } else {
@@ -464,9 +468,11 @@ public class PembayaranTagihanUpdateDialog extends JDialog {
             try {
                 if (null != path && path.equals(textImage.getText())) {
                 } else {
-                    properties = new Properties();
-                    properties.load(ClassLoader.getSystemResourceAsStream("ftp.properties"));
-                    new FileUpload().upload(properties.getProperty("ftpServer"), properties.getProperty("user"), properties.getProperty("password"), pembayaran.getTransactionReference() + ".JPG", new File(textImage.getText()));
+                    configProperties = new Properties();
+                    ftpProperties = new Properties();
+                    configProperties.load(new FileInputStream(new File(System.getProperty("user.dir") + "\\config.properties")));
+                    ftpProperties.load(ClassLoader.getSystemResourceAsStream("ftp.properties"));
+                    new FileUpload().upload(configProperties.getProperty("ip"), ftpProperties.getProperty("user"), ftpProperties.getProperty("password"), pembayaran.getTransactionReference() + ".JPG", new File(textImage.getText()));
                 }
                 pembayaran.setPathImage(System.getProperty("user.dir") + "\\image\\" + pembayaran.getTransactionReference() + ".JPG");
                 pembayaranDAO.saveOrUpdate(pembayaran);
