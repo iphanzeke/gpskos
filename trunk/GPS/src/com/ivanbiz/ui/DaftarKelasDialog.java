@@ -272,7 +272,7 @@ public class DaftarKelasDialog extends javax.swing.JDialog {
 
     private void refresh(Kelas kelas) {
         try {
-            listDaftarKelas = daftarKelasDAO.getDataByEquals(DaftarKelas.class, "kelas.id", kelas.getId());
+            listDaftarKelas = daftarKelasDAO.getDataByEqualsOrderByBankAndNama(textKelas.getText());
             updateTableDaftarKelas();
         } catch (Exception ex) {
             Logger.getLogger(DaftarKelasDialog.class.getName()).log(Level.SEVERE, null, ex);

@@ -297,21 +297,17 @@ public class MuridDialog extends JDialog {
     }
 
     private void updateTableMurid() {
-        String[] judul = {"No", "NIM", "Nama", "Institusi", "Telp", "Handphone", "Email", "Date", "Alamat"};
-        Object[][] isi = new Object[listMurid.size()][9];
+        String[] judul = {"No", "Nama", "Institusi", "Handphone", "Email"};
+        Object[][] isi = new Object[listMurid.size()][5];
         int x = 0;
         int no = 0;
         for (Murid murids : listMurid) {
             no += 1;
-            isi[x][0] = no;
-            isi[x][1] = murids.getNIM();
-            isi[x][2] = murids.getNama();
-            isi[x][3] = murids.getBank().getNama();
-            isi[x][4] = murids.getTelp();
-            isi[x][5] = murids.getHandphone();
-            isi[x][6] = murids.getEmail();
-            isi[x][7] = sdf.format(murids.getDate());
-            isi[x][8] = murids.getAlamat();
+            isi[x][0] = no;          
+            isi[x][1] = murids.getNama();
+            isi[x][2] = murids.getBank().getNama();          
+            isi[x][3] = murids.getHandphone();
+            isi[x][4] = murids.getEmail();        
             x++;
         }
         new ServiceHelper().setAutoRize(isi, judul, tableMurid);

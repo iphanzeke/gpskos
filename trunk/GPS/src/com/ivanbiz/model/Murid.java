@@ -65,6 +65,54 @@ public class Murid {
         this.email = email;
     }
 
+   
+
+   
+
+    /**
+     * @return the handphone
+     */
+    public String getHandphone() {
+        return handphone;
+    }
+
+    /**
+     * @param handphone the handphone to set
+     */
+    public void setHandphone(String handphone) {
+        this.handphone = handphone;
+    }
+
+
+
+    /**
+     * @return the bank
+     */
+    public Bank getBank() {
+        return bank;
+    }
+
+    /**
+     * @param bank the bank to set
+     */
+    public void setBank(Bank bank) {
+        this.bank = bank;
+    }
+
+    /**
+     * @return the NIM
+     */
+    public String getNIM() {
+        return NIM;
+    }
+
+    /**
+     * @param NIM the NIM to set
+     */
+    public void setNIM(String NIM) {
+        this.NIM = NIM;
+    }
+
     /**
      * @return the alamat
      */
@@ -94,34 +142,6 @@ public class Murid {
     }
 
     /**
-     * @return the handphone
-     */
-    public String getHandphone() {
-        return handphone;
-    }
-
-    /**
-     * @param handphone the handphone to set
-     */
-    public void setHandphone(String handphone) {
-        this.handphone = handphone;
-    }
-
-    /**
-     * @return the NIM
-     */
-    public String getNIM() {
-        return NIM;
-    }
-
-    /**
-     * @param NIM the NIM to set
-     */
-    public void setNIM(String NIM) {
-        this.NIM = NIM;
-    }
-
-    /**
      * @return the date
      */
     public Date getDate() {
@@ -133,19 +153,5 @@ public class Murid {
      */
     public void setDate(Date date) {
         this.date = date;
-    }
-
-    /**
-     * @return the bank
-     */
-    public Bank getBank() {
-        return bank;
-    }
-
-    /**
-     * @param bank the bank to set
-     */
-    public void setBank(Bank bank) {
-        this.bank = bank;
     }
 }

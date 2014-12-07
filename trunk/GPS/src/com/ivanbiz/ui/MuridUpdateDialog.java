@@ -40,10 +40,28 @@ public class MuridUpdateDialog extends JDialog {
      */
     public MuridUpdateDialog(MainFrame mainFrame, boolean modal) {
         initComponents();
+        jLabel2.setVisible(false);
+        jTextFieldNIM.setVisible(false);
+        jLabel4.setVisible(false);
+        jTextFieldTelp.setVisible(false);
+        jLabel7.setVisible(false);
+        jDateChooserTanggal.setVisible(false);
+        jLabel8.setVisible(false);
+        jScrollPane1.setVisible(false);
+        jTextAreaAlamat.setVisible(false);
     }
 
     public MuridUpdateDialog(MainFrame mainFrame, boolean modal, Murid murid) {
         initComponents();
+        jLabel2.setVisible(false);
+        jTextFieldNIM.setVisible(false);
+        jLabel4.setVisible(false);
+        jTextFieldTelp.setVisible(false);
+        jLabel7.setVisible(false);
+        jDateChooserTanggal.setVisible(false);
+        jLabel8.setVisible(false);
+        jScrollPane1.setVisible(false);
+        jTextAreaAlamat.setVisible(false);
         this.NIM = murid.getNIM();
         this.murid = murid;
         labelMurid.setText("Ubah Murid");
