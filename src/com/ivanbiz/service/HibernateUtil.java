@@ -8,9 +8,6 @@
  */
 package com.ivanbiz.service;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.util.Properties;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -29,10 +26,7 @@ public class HibernateUtil {
 
     static {
         try {
-            Properties properties = new Properties();
-            properties.load(new FileInputStream(new File(System.getProperty("user.dir") + "\\config.properties")));
-            String ip = properties.getProperty("ip").trim();
-            sessionFactory = new Configuration().configure("hibernate.cfg.xml").setProperty("hibernate.connection.url", "jdbc:mysql://" + ip + ":3306/acc").buildSessionFactory();
+            sessionFactory = new Configuration().configure().buildSessionFactory();
         } catch (Throwable ex) {
             System.err.println("Initial SessionFactory failed. " + ex);
             throw new ExceptionInInitializerError(ex);

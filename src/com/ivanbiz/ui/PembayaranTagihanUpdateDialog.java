@@ -21,7 +21,6 @@ import com.ivanbiz.model.Invoice;
 import com.ivanbiz.model.Pembayaran;
 import com.ivanbiz.service.FileUpload;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
@@ -48,7 +47,6 @@ public class PembayaranTagihanUpdateDialog extends JDialog {
     String path;
     PembayaranBuktiDialog image;
     Properties ftpProperties;
-    Properties configProperties;
 
     /**
      * Creates new form PengajarUpdateDialog
@@ -59,6 +57,7 @@ public class PembayaranTagihanUpdateDialog extends JDialog {
     public PembayaranTagihanUpdateDialog(MainFrame mainFrame, boolean modal) {
         initComponents();
         renderNoInvoice();
+        buttonBrowse.setVisible(false);
     }
 
     public PembayaranTagihanUpdateDialog(MainFrame mainFrame, boolean modal, Pembayaran pembayaran) {
@@ -84,6 +83,7 @@ public class PembayaranTagihanUpdateDialog extends JDialog {
         textPajak.setText(String.valueOf(new Double(pembayaran.getBiayaPajak()).intValue()));
         textImage.setText(pembayaran.getPathImage());
         this.path = pembayaran.getPathImage();
+        buttonBrowse.setVisible(false);
     }
 
     /**
@@ -335,7 +335,7 @@ public class PembayaranTagihanUpdateDialog extends JDialog {
         pembayaran.setKreditBankAccount(glKreditur);
         pembayaran.setJumlah(textJumlah.getText().isEmpty() ? (double) 0 : new Double(textJumlah.getText()));
         pembayaran.setDeskripsi(textDeskripsi.getText());
-        pembayaran.setPathImage(textImage.getText());
+        pembayaran.setPathImage("");
         if (checkBoxPajak.isSelected()) {
             pembayaran.setStatusPajak("1");
             pembayaran.setBiayaPajak(textPajak.getText().isEmpty() ? (double) 0 : new Double(textPajak.getText()));
@@ -382,11 +382,9 @@ public class PembayaranTagihanUpdateDialog extends JDialog {
     private void buttonBrowseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBrowseActionPerformed
         try {
             if (pembayaran != null) {
-                configProperties = new Properties();
                 ftpProperties = new Properties();
-                configProperties.load(new FileInputStream(new File(System.getProperty("user.dir") + "\\config.properties")));
                 ftpProperties.load(ClassLoader.getSystemResourceAsStream("ftp.properties"));
-                String sb = "ftp://" + ftpProperties.getProperty("user") + ":" + ftpProperties.getProperty("password") + "@" + configProperties.getProperty("ip") + "/INBOX/" + pembayaran.getTransactionReference() + ".JPG;type=i";
+                String sb = "ftp://" + ftpProperties.getProperty("user") + ":" + ftpProperties.getProperty("password") + "@" + ftpProperties.getProperty("ip") + "/INBOX/" + pembayaran.getTransactionReference() + ".JPG;type=i";
                 if (textImage.getText().equals(pembayaran.getPathImage())) {
                     image = new PembayaranBuktiDialog(null, true, sb, pembayaran);
                 } else {
@@ -462,19 +460,17 @@ public class PembayaranTagihanUpdateDialog extends JDialog {
             JOptionPane.showMessageDialog(this, "Jumlah tidak boleh kosong");
         } else if (pembayaran.getDeskripsi().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Deskripsi tidak boleh kosong");
-        } else if (pembayaran.getPathImage().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Bukti Pembayaran tidak boleh kosong");
+//        } else if (pembayaran.getPathImage().trim().isEmpty()) {
+//            JOptionPane.showMessageDialog(this, "Bukti Pembayaran tidak boleh kosong");
         } else {
             try {
-                if (null != path && path.equals(textImage.getText())) {
-                } else {
-                    configProperties = new Properties();
-                    ftpProperties = new Properties();
-                    configProperties.load(new FileInputStream(new File(System.getProperty("user.dir") + "\\config.properties")));
-                    ftpProperties.load(ClassLoader.getSystemResourceAsStream("ftp.properties"));
-                    new FileUpload().upload(configProperties.getProperty("ip"), ftpProperties.getProperty("user"), ftpProperties.getProperty("password"), pembayaran.getTransactionReference() + ".JPG", new File(textImage.getText()));
-                }
-                pembayaran.setPathImage(System.getProperty("user.dir") + "\\image\\" + pembayaran.getTransactionReference() + ".JPG");
+//                if (null != path && path.equals(textImage.getText())) {
+//                } else {
+//                    ftpProperties = new Properties();
+//                    ftpProperties.load(ClassLoader.getSystemResourceAsStream("ftp.properties"));
+//                    new FileUpload().upload(ftpProperties.getProperty("ip"), ftpProperties.getProperty("user"), ftpProperties.getProperty("password"), pembayaran.getTransactionReference() + ".JPG", new File(textImage.getText()));
+//                }
+//                pembayaran.setPathImage(System.getProperty("user.dir") + "\\image\\" + pembayaran.getTransactionReference() + ".JPG");
                 pembayaranDAO.saveOrUpdate(pembayaran);
                 dispose();
             } catch (IOException ex) {

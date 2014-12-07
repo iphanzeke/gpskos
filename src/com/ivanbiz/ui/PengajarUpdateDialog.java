@@ -14,7 +14,7 @@ import com.ivanbiz.dao.PengajarDAO;
 import com.ivanbiz.dao.impl.PengajarDAOImpl;
 import com.ivanbiz.model.Pengajar;
 import com.ivanbiz.service.JTextFieldLimit;
-import com.ivanbiz.service.ServiceHelper;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -31,12 +31,19 @@ public class PengajarUpdateDialog extends JDialog {
     List<Pengajar> listPengajar;
     PengajarDAO pengajarDAO = new PengajarDAOImpl();
 
-    /** Creates new form PengajarUpdateDialog
+    /**
+     * Creates new form PengajarUpdateDialog
+     *
      * @param mainFrame
-     * @param modal */
+     * @param modal
+     */
     public PengajarUpdateDialog(MainFrame mainFrame, boolean modal) {
         super(mainFrame, modal);
         initComponents();
+        jLabel5.setVisible(false);
+        textTelp.setVisible(false);
+        jLabel8.setVisible(false);
+        textTanggal.setVisible(false);
     }
 
     public PengajarUpdateDialog(MainFrame mainFrame, boolean modal, Pengajar pengajar) {
@@ -88,7 +95,7 @@ public class PengajarUpdateDialog extends JDialog {
         setModal(true);
         setResizable(false);
 
-        labelPengajar.setFont(new java.awt.Font("Tahoma", 1, 24));
+        labelPengajar.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         labelPengajar.setText("Tambah Pengajar Baru");
 
         buttonSimpan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/simpan.jpg"))); // NOI18N
@@ -111,7 +118,7 @@ public class PengajarUpdateDialog extends JDialog {
 
         jPanel4.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jLabel2.setText("NIP :");
+        jLabel2.setText("NPWP :");
 
         textNIP.setDocument(new JTextFieldLimit(10));
 
@@ -222,8 +229,8 @@ public class PengajarUpdateDialog extends JDialog {
                 .addContainerGap())
         );
 
-        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-416)/2, (screenSize.height-565)/2, 416, 565);
+        setSize(new java.awt.Dimension(416, 565));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSimpanActionPerformed
@@ -235,7 +242,7 @@ public class PengajarUpdateDialog extends JDialog {
         pengajar.setTelp(textTelp.getText());
         pengajar.setHandphone(textHP.getText());
         pengajar.setEmail(textEmail.getText());
-        pengajar.setDate(textTanggal.getDate());
+        pengajar.setDate(textTanggal.getDate() == null ? new Date() : textTanggal.getDate());
         pengajar.setAlamat(textAlamat.getText());
         validate(pengajar);
 }//GEN-LAST:event_buttonSimpanActionPerformed
@@ -269,34 +276,34 @@ public class PengajarUpdateDialog extends JDialog {
     private void validate(Pengajar pengajar) {
         if (pengajar == null) {
             JOptionPane.showMessageDialog(this, "Pengajar tidak boleh null");
-        } else if (pengajar.getNIP() == null) {
-            JOptionPane.showMessageDialog(this, "NIP tidak boleh null");
-        } else if (pengajar.getNIP().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "NIP tidak boleh kosong");
-        } else if (pengajar.getNama() == null) {
-            JOptionPane.showMessageDialog(this, "Nama tidak boleh null");
-        } else if (pengajar.getNama().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Nama tidak boleh kosong");
-        } else if (pengajar.getTelp() == null) {
-            JOptionPane.showMessageDialog(this, "Telp tidak boleh null");
-        } else if (pengajar.getTelp().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Telp tidak boleh kosong");
-        } else if (pengajar.getHandphone() == null) {
-            JOptionPane.showMessageDialog(this, "HP tidak boleh null");
-        } else if (pengajar.getHandphone().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "HP tidak boleh kosong");
-        } else if (pengajar.getEmail() == null) {
-            JOptionPane.showMessageDialog(this, "Email tidak boleh null");
-        } else if (pengajar.getEmail().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Email tidak boleh kosong");
-        } else if (new ServiceHelper().validateEmail(pengajar.getEmail())) {
-            JOptionPane.showMessageDialog(this, "Format Email salah");
-        } else if (pengajar.getDate() == null) {
-            JOptionPane.showMessageDialog(this, "Date tidak boleh null");
-        } else if (pengajar.getAlamat() == null) {
-            JOptionPane.showMessageDialog(this, "Alamat tidak boleh null");
-        } else if (pengajar.getAlamat().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Alamat tidak boleh kosong");
+//        } else if (pengajar.getNIP() == null) {
+//            JOptionPane.showMessageDialog(this, "NIP tidak boleh null");
+//        } else if (pengajar.getNIP().trim().isEmpty()) {
+//            JOptionPane.showMessageDialog(this, "NIP tidak boleh kosong");
+//        } else if (pengajar.getNama() == null) {
+//            JOptionPane.showMessageDialog(this, "Nama tidak boleh null");
+//        } else if (pengajar.getNama().trim().isEmpty()) {
+//            JOptionPane.showMessageDialog(this, "Nama tidak boleh kosong");
+//        } else if (pengajar.getTelp() == null) {
+//            JOptionPane.showMessageDialog(this, "Telp tidak boleh null");
+//        } else if (pengajar.getTelp().trim().isEmpty()) {
+//            JOptionPane.showMessageDialog(this, "Telp tidak boleh kosong");
+//        } else if (pengajar.getHandphone() == null) {
+//            JOptionPane.showMessageDialog(this, "HP tidak boleh null");
+//        } else if (pengajar.getHandphone().trim().isEmpty()) {
+//            JOptionPane.showMessageDialog(this, "HP tidak boleh kosong");
+//        } else if (pengajar.getEmail() == null) {
+//            JOptionPane.showMessageDialog(this, "Email tidak boleh null");
+//        } else if (pengajar.getEmail().trim().isEmpty()) {
+//            JOptionPane.showMessageDialog(this, "Email tidak boleh kosong");
+//        } else if (new ServiceHelper().validateEmail(pengajar.getEmail())) {
+//            JOptionPane.showMessageDialog(this, "Format Email salah");
+//        } else if (pengajar.getDate() == null) {
+//            JOptionPane.showMessageDialog(this, "Date tidak boleh null");
+//        } else if (pengajar.getAlamat() == null) {
+//            JOptionPane.showMessageDialog(this, "Alamat tidak boleh null");
+//        } else if (pengajar.getAlamat().trim().isEmpty()) {
+//            JOptionPane.showMessageDialog(this, "Alamat tidak boleh kosong");
         } else {
             try {
                 pengajarDAO.saveOrUpdate(pengajar);

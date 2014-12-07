@@ -215,20 +215,18 @@ public class PengajarDialog extends JDialog {
     }
 
     private void updateTablePengajar() {
-        String[] judul = {"No", "NIP", "Nama", "Telp", "Handphone", "Email", "Date", "Alamat"};
-        Object[][] isi = new Object[listPengajar.size()][8];
+        String[] judul = {"No", "NPWP", "Nama", "Handphone", "Email", "Alamat"};
+        Object[][] isi = new Object[listPengajar.size()][6];
         int x = 0;
         int no = 0;
         for (Pengajar pengajars : listPengajar) {
             no += 1;
             isi[x][0] = no;
             isi[x][1] = pengajars.getNIP();
-            isi[x][2] = pengajars.getNama();
-            isi[x][3] = pengajars.getTelp();
-            isi[x][4] = pengajars.getHandphone();
-            isi[x][5] = pengajars.getEmail();
-            isi[x][6] = sdf.format(pengajars.getDate());
-            isi[x][7] = pengajars.getAlamat();
+            isi[x][2] = pengajars.getNama();            
+            isi[x][3] = pengajars.getHandphone();
+            isi[x][4] = pengajars.getEmail();            
+            isi[x][5] = pengajars.getAlamat();
             x++;
         }
         new ServiceHelper().setAutoRize(isi, judul, tablePengajar);

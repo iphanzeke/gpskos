@@ -46,6 +46,8 @@ public class KelasUpdateDialog extends JDialog {
         labelKelas.setText("Tambah Kelas Baru");
         sdf = new SimpleDateFormat("yyMMdd");
         textFieldTransaksi.setText(getNoTransaksi());
+        jLabel6.setVisible(false);
+        jTextFieldNIK.setVisible(false);
     }
 
     public KelasUpdateDialog(MainFrame mainFrame, boolean modal, Kelas kelas) {
@@ -61,6 +63,8 @@ public class KelasUpdateDialog extends JDialog {
         jDateChooserTanggal.setDate(kelas.getTanggalKelas());
         jTextFieldTempat.setText(kelas.getTempatKelas());
         jTextAreaAlamat.setText(kelas.getAlamatKelas());
+        jLabel6.setVisible(false);
+        jTextFieldNIK.setVisible(false);
     }
 
     private String getNoTransaksi() {
@@ -69,7 +73,7 @@ public class KelasUpdateDialog extends JDialog {
             noTransaksi = kelasDAO.getLastNoTransaksi();
             if (!"".equals(noTransaksi)) {
                 String[] splitNoTransaksi = noTransaksi.split("-");
-                int count = Integer.parseInt(splitNoTransaksi[1]);
+                int count = Integer.parseInt(splitNoTransaksi[2]);
                 count += 1;
                 if (count > 99999) {
                     noTransaksi = sdf.format(new Date()) + "-" + GlobalSession.getPengguna().getKode() + "-" + String.format("%05d", 1);
@@ -278,7 +282,8 @@ public class KelasUpdateDialog extends JDialog {
             kelas = new Kelas();
         }
         kelas.setTransactionReference(textFieldTransaksi.getText());
-        kelas.setNIK(jTextFieldNIK.getText());
+//        kelas.setNIK(jTextFieldNIK.getText());
+        kelas.setNIK("");
         kelas.setDeskripsi(jTextFieldDeskripsi.getText());
         kelas.setPengajar(pengajar);
         kelas.setTanggalKelas(jDateChooserTanggal.getDate());
@@ -329,10 +334,10 @@ public class KelasUpdateDialog extends JDialog {
             JOptionPane.showMessageDialog(this, "Transaksi Reference tidak boleh null");
         } else if (kelas.getTransactionReference().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Transaksi Reference tidak boleh kosong");
-        } else if (kelas.getNIK() == null) {
-            JOptionPane.showMessageDialog(this, "NIK tidak boleh null");
-        } else if (kelas.getNIK().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "NIK tidak boleh kosong");
+//        } else if (kelas.getNIK() == null) {
+//            JOptionPane.showMessageDialog(this, "NIK tidak boleh null");
+//        } else if (kelas.getNIK().trim().isEmpty()) {
+//            JOptionPane.showMessageDialog(this, "NIK tidak boleh kosong");
         } else if (kelas.getDeskripsi() == null) {
             JOptionPane.showMessageDialog(this, "Deskripsi tidak boleh null");
         } else if (kelas.getDeskripsi().trim().isEmpty()) {

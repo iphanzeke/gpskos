@@ -75,6 +75,7 @@ public class MainFrame extends JFrame {
             menuItemSaldoKas.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.LIHAT_SALDO_KAS, listAksesMatrix));
             menuItemKeuntunganBiayaLain.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.REPORT_KEUNTUNGAN_BIAYA_LAIN, listAksesMatrix));
             menuItemReturTagihan.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.RETUR_TAGIHAN, listAksesMatrix));
+            menuItemGLAccounts.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.LIHAT_GLACCOUNT, listAksesMatrix));
         } catch (Exception ex) {
             Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
