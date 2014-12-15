@@ -285,16 +285,15 @@ public class DaftarKelasDialog extends javax.swing.JDialog {
     }
 
     private void updateTableDaftarKelas() {
-        String[] judul = {"No", "NIM", "Nama", "Bank"};
-        Object[][] isi = new Object[listDaftarKelas.size()][4];
+        String[] judul = {"No", "Nama", "Bank"};
+        Object[][] isi = new Object[listDaftarKelas.size()][3];
         int x = 0;
         int no = 0;
         for (DaftarKelas daftarKelass : listDaftarKelas) {
             no += 1;
             isi[x][0] = no;
-            isi[x][1] = daftarKelass.getMurid().getNIM();
-            isi[x][2] = daftarKelass.getMurid().getNama();
-            isi[x][3] = daftarKelass.getMurid().getBank().getNama();
+            isi[x][1] = daftarKelass.getMurid().getNama();
+            isi[x][2] = daftarKelass.getMurid().getBank().getNama();
             x++;
         }
         new ServiceHelper().setAutoRize(isi, judul, tableDaftarKelas);
@@ -302,7 +301,7 @@ public class DaftarKelasDialog extends javax.swing.JDialog {
 
     private void refreshKelulusan(Kelas kelas) {
         try {
-            listDaftarKelas = daftarKelasDAO.getDataByEquals(DaftarKelas.class, "kelas.id", kelas.getId());
+            listDaftarKelas = daftarKelasDAO.getDataByEqualsOrderByBankAndNama(textKelas.getText());
             updateTableDaftarKelulusanKelas();
         } catch (Exception ex) {
             Logger.getLogger(DaftarKelasDialog.class.getName()).log(Level.SEVERE, null, ex);
@@ -310,21 +309,27 @@ public class DaftarKelasDialog extends javax.swing.JDialog {
     }
 
     private void updateTableDaftarKelulusanKelas() {
-        String[] judul = {"Choose", "No", "NIM", "Nama", "Bank", "Lulus", "Hadir", "Keterangan", "Tanggal Ujian"};
-        Object[][] isi = new Object[listDaftarKelas.size()][9];
+        String[] judul = {"Choose", "No", "Nama", "Bank", "Lulus", "Hadir Hari 1", "Keterangan Hari 1", "Hadir Hari 2", "Keterangan Hari 2", "Tanggal Ujian"};
+        Object[][] isi = new Object[listDaftarKelas.size()][10];
         int x = 0;
         int no = 0;
         for (DaftarKelas daftarKelass : listDaftarKelas) {
             no += 1;
             isi[x][0] = daftarKelass.isChoose();
             isi[x][1] = no;
-            isi[x][2] = daftarKelass.getMurid().getNIM();
-            isi[x][3] = daftarKelass.getMurid().getNama();
-            isi[x][4] = daftarKelass.getMurid().getBank().getNama();
-            isi[x][5] = daftarKelass.getStatus().equals("1") ? "Y" : "N";
-            isi[x][6] = daftarKelass.getStatus().equals("1") ? "Y" : "N";
-            isi[x][7] = daftarKelass.getKeterangan();
-            isi[x][8] = daftarKelass.getUjian();
+            isi[x][2] = daftarKelass.getMurid().getNama();
+            isi[x][3] = daftarKelass.getMurid().getBank().getNama();
+            isi[x][4] = daftarKelass.getStatus().equals("1") ? "Y" : "N";
+            isi[x][5] = daftarKelass.getKehadiran().equals("1") ? "Y" : "N";
+            isi[x][6] = daftarKelass.getKeterangan();
+            if (daftarKelass.getKelas().getTanggalKelas2().isEmpty()) {
+                isi[x][7] = "";
+                isi[x][8] = "";
+            } else {
+                isi[x][7] = daftarKelass.getKehadiran2().equals("1") ? "Y" : "N";
+                isi[x][8] = daftarKelass.getKeterangan2();
+            }
+            isi[x][9] = daftarKelass.getUjian();
             x++;
         }
         tableDaftarKelas.setModel(new DefaultTableModel(isi, judul) {
@@ -347,20 +352,26 @@ public class DaftarKelasDialog extends javax.swing.JDialog {
     }
 
     private void updateTableDaftarKelasInvoice() {
-        String[] judul = {"No", "NIM", "Nama", "Bank", "Lulus", "Hadir", "Keterangan", "Tanggal Ujian"};
-        Object[][] isi = new Object[listDaftarKelas.size()][8];
+        String[] judul = {"No", "Nama", "Bank", "Lulus", "Hadir Hari 1", "Keterangan Hari 1", "Hadir Hari 2", "Keterangan Hari 2", "Tanggal Ujian"};
+        Object[][] isi = new Object[listDaftarKelas.size()][9];
         int x = 0;
         int no = 0;
         for (DaftarKelas daftarKelass : listDaftarKelas) {
             no += 1;
             isi[x][0] = no;
-            isi[x][1] = daftarKelass.getMurid().getNIM();
-            isi[x][2] = daftarKelass.getMurid().getNama();
-            isi[x][3] = daftarKelass.getMurid().getBank().getNama();
-            isi[x][4] = daftarKelass.getStatus().equals("1") ? "Y" : "N";
-            isi[x][5] = daftarKelass.getStatus().equals("1") ? "Y" : "N";
-            isi[x][6] = daftarKelass.getKeterangan();
-            isi[x][7] = daftarKelass.getUjian();
+            isi[x][1] = daftarKelass.getMurid().getNama();
+            isi[x][2] = daftarKelass.getMurid().getBank().getNama();
+            isi[x][3] = daftarKelass.getStatus().equals("1") ? "Y" : "N";
+            isi[x][4] = daftarKelass.getKehadiran().equals("1") ? "Y" : "N";
+            isi[x][5] = daftarKelass.getKeterangan();
+            if (daftarKelass.getKelas().getTanggalKelas2().isEmpty()) {
+                isi[x][6] = "";
+                isi[x][7] = "";
+            } else {
+                isi[x][6] = daftarKelass.getKehadiran2().equals("1") ? "Y" : "N";
+                isi[x][7] = daftarKelass.getKeterangan2();
+            }
+            isi[x][8] = daftarKelass.getUjian();
             x++;
         }
         new ServiceHelper().setAutoRize(isi, judul, tableDaftarKelas);

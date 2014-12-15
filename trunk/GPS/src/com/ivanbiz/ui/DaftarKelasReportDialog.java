@@ -175,7 +175,7 @@ public class DaftarKelasReportDialog extends javax.swing.JDialog {
     }
 
     private void updateTableDaftarKelas() {
-        String[] judul = {"No", "Transaksi Reference", "NIK", "Deskripsi", "Pengajar", "Tanggal", "Tempat", "Alamat"};
+        String[] judul = {"No", "Transaksi Reference", "Deskripsi", "Pengajar", "Tanggal", "Tanggal 2", "Tempat", "Alamat"};
         Object[][] isi = new Object[listKelas.size()][8];
         int x = 0;
         int no = 0;
@@ -183,10 +183,10 @@ public class DaftarKelasReportDialog extends javax.swing.JDialog {
             no += 1;
             isi[x][0] = no;
             isi[x][1] = kelass.getTransactionReference();
-            isi[x][2] = kelass.getNIK();
-            isi[x][3] = kelass.getDeskripsi();
-            isi[x][4] = "(" + kelass.getPengajar().getNIP() + ") - " + kelass.getPengajar().getNama();
-            isi[x][5] = sdf.format(kelass.getTanggalKelas());
+            isi[x][2] = kelass.getDeskripsi();
+            isi[x][3] = "(" + kelass.getPengajar().getNIP() + ") - " + kelass.getPengajar().getNama();
+            isi[x][4] = sdf.format(kelass.getTanggalKelas());
+            isi[x][5] = kelass.getTanggalKelas2();
             isi[x][6] = kelass.getTempatKelas();
             isi[x][7] = kelass.getAlamatKelas();
             x++;

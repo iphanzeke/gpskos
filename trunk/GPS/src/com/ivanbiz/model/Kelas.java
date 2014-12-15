@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.ivanbiz.model;
 
 import java.util.Date;
@@ -13,15 +12,25 @@ import java.util.Date;
  * @author ivan
  */
 public class Kelas {
+
     private long id;
     private String NIK;
     private String deskripsi;
     private Date tanggalKelas;
+    private String tanggalKelas2;
     private String tempatKelas;
     private String alamatKelas;
     private Pengajar pengajar;
     private String statusKelas;
     private String transactionReference;
+
+    public String getTanggalKelas2() {
+        return tanggalKelas2;
+    }
+
+    public void setTanggalKelas2(String tanggalKelas2) {
+        this.tanggalKelas2 = tanggalKelas2;
+    }
 
     /**
      * @return the id
@@ -64,7 +73,6 @@ public class Kelas {
     public void setDeskripsi(String deskripsi) {
         this.deskripsi = deskripsi;
     }
-
 
     /**
      * @return the tempatKelas
@@ -149,6 +157,5 @@ public class Kelas {
     public void setTransactionReference(String transactionReference) {
         this.transactionReference = transactionReference;
     }
-    
-    
+
 }

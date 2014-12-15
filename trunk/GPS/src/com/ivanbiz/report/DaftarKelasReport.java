@@ -64,16 +64,17 @@ public class DaftarKelasReport {
             perusahaan.setAlamat(GlobalSession.getPerusahaan().getAlamat() + "\n" + "Ph  :" + GlobalSession.getPerusahaan().getTelephone() + "\n" + "Fax :" + GlobalSession.getPerusahaan().getFax());
 
             if (kelulusan.contentEquals("kelulusan")) {
-                inputStream = JRLoader.getFileInputStream(System.getProperty("user.dir") + "/report/DaftarKelasKelulusanReport.jasper");
+//                inputStream = JRLoader.getFileInputStream(System.getProperty("user.dir") + "/report/DaftarKelasKelulusanReport.jasper");
+                inputStream = JRLoader.getURLInputStream("http://" + System.getProperty("ip") + ":" + System.getProperty("port") + "/GPS/report/DaftarKelasKelulusanReport.jasper");
             } else {
-                inputStream = JRLoader.getFileInputStream(System.getProperty("user.dir") + "/report/DaftarKelasReport.jasper");
+                inputStream = JRLoader.getURLInputStream("http://" + System.getProperty("ip") + ":" + System.getProperty("port") + "/GPS/report/DaftarKelasReport.jasper");
             }
 
             dataSource = new JRBeanCollectionDataSource(listDaftarKelases);
             map = new HashMap();
             map.put(JRParameter.REPORT_DATA_SOURCE, dataSource);
             map.put("perusahaan.alamat", perusahaan.getAlamat());
-            map.put("logo", System.getProperty("user.dir") + "\\\\image\\\\logo.jpg");
+            map.put("logo", "http://" + System.getProperty("ip") + ":" + System.getProperty("port") + "/GPS/image/logo.jpg");
             map.put("kelas.alamatKelas", kelas.getAlamatKelas() + "\n" + "bertempat di : " + kelas.getTempatKelas());
             map.put("kelas.tempatKelas", kelas.getTempatKelas() + " , " + simpleDateFormat.format(kelas.getTanggalKelas()));
             map.put("peserta", listDaftarKelases.size());

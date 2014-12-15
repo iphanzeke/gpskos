@@ -16,6 +16,7 @@ import com.ivanbiz.model.Kelas;
 import com.ivanbiz.model.Pengajar;
 import com.ivanbiz.service.GlobalSession;
 import com.ivanbiz.service.JTextFieldLimit;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
@@ -116,6 +117,8 @@ public class KelasUpdateDialog extends JDialog {
         jLabel6 = new javax.swing.JLabel();
         textPengajar = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        jLabel10 = new javax.swing.JLabel();
+        jDateChooserTanggal2 = new com.toedter.calendar.JDateChooser();
         jPanel2 = new javax.swing.JPanel();
         buttonSimpan = new javax.swing.JButton();
         buttonBatal = new javax.swing.JButton();
@@ -142,7 +145,7 @@ public class KelasUpdateDialog extends JDialog {
 
         jTextFieldTempat.setDocument(new JTextFieldLimit(100));
 
-        jLabel7.setText("Tanggal :");
+        jLabel7.setText("Tanggal 1:");
 
         jLabel8.setText("Alamat :");
 
@@ -152,8 +155,8 @@ public class KelasUpdateDialog extends JDialog {
 
         jLabel9.setText("Pengajar :");
 
-        textFieldTransaksi.setDocument(new JTextFieldLimit(50));
         textFieldTransaksi.setEditable(false);
+        textFieldTransaksi.setDocument(new JTextFieldLimit(50));
 
         jLabel6.setText("NIK :");
 
@@ -165,6 +168,8 @@ public class KelasUpdateDialog extends JDialog {
                 jButton1ActionPerformed(evt);
             }
         });
+
+        jLabel10.setText("Tanggal 2:");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -181,6 +186,7 @@ public class KelasUpdateDialog extends JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1))
                     .addComponent(jDateChooserTanggal, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE)
+                    .addComponent(jDateChooserTanggal2, javax.swing.GroupLayout.DEFAULT_SIZE, 362, Short.MAX_VALUE)
                     .addComponent(jTextFieldTempat, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -190,6 +196,7 @@ public class KelasUpdateDialog extends JDialog {
                             .addComponent(jLabel3)
                             .addComponent(jLabel9)
                             .addComponent(jLabel7)
+                            .addComponent(jLabel10)
                             .addComponent(jLabel4)
                             .addComponent(jLabel8))
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -220,6 +227,10 @@ public class KelasUpdateDialog extends JDialog {
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jDateChooserTanggal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jDateChooserTanggal2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -268,12 +279,12 @@ public class KelasUpdateDialog extends JDialog {
                 .addComponent(labelKelas)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        setSize(new java.awt.Dimension(416, 559));
+        setSize(new java.awt.Dimension(416, 600));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -287,6 +298,7 @@ public class KelasUpdateDialog extends JDialog {
         kelas.setDeskripsi(jTextFieldDeskripsi.getText());
         kelas.setPengajar(pengajar);
         kelas.setTanggalKelas(jDateChooserTanggal.getDate());
+        kelas.setTanggalKelas2(jDateChooserTanggal2.getDate() == null ? "" : DateFormat.getDateInstance().format(jDateChooserTanggal2.getDate()));
         kelas.setStatusKelas("N");
         kelas.setTempatKelas(jTextFieldTempat.getText());
         kelas.setAlamatKelas(jTextAreaAlamat.getText());
@@ -308,6 +320,8 @@ public class KelasUpdateDialog extends JDialog {
     private javax.swing.JButton buttonSimpan;
     private javax.swing.JButton jButton1;
     private com.toedter.calendar.JDateChooser jDateChooserTanggal;
+    private com.toedter.calendar.JDateChooser jDateChooserTanggal2;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

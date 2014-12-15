@@ -17,8 +17,26 @@ public class DaftarKelas {
     private String transactionReference;
     private String status;/*0=belum ada hasil 1=lulus   2=tidak lulus*/
     private String kehadiran; /*0=tidak Hadir 1=Hadir*/
+    private String kehadiran2;
     private String keterangan;
+    private String keterangan2;
     private String ujian;
+
+    public String getKeterangan2() {
+        return keterangan2;
+    }
+
+    public void setKeterangan2(String keterangan2) {
+        this.keterangan2 = keterangan2;
+    }
+
+    public String getKehadiran2() {
+        return kehadiran2;
+    }
+
+    public void setKehadiran2(String kehadiran2) {
+        this.kehadiran2 = kehadiran2;
+    }
 
     public String getKeterangan() {
         return keterangan;

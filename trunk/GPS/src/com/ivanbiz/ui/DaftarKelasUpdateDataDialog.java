@@ -10,6 +10,7 @@ import com.ivanbiz.dao.impl.DaftarKelasDAOImpl;
 import com.ivanbiz.model.DaftarKelas;
 import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -24,19 +25,33 @@ public class DaftarKelasUpdateDataDialog extends javax.swing.JDialog {
     public DaftarKelasUpdateDataDialog(MainFrame mainFrame, boolean modal, DaftarKelas daftarKelas) {
         initComponents();
         this.daftarKelas = daftarKelas;
-        textNIM.setText(daftarKelas.getMurid().getNIM());
+        SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy");
         textNama.setText(daftarKelas.getMurid().getNama());
         if (daftarKelas.getStatus().equals("1")) {
             checkBoxLulusY.setSelected(true);
         } else {
             checkBoxLulusN.setSelected(true);
         }
+        labelHadir1.setText("Hadir Hari 1 tanggal " + sdf.format(daftarKelas.getKelas().getTanggalKelas()));
         if (daftarKelas.getKehadiran().equals("1")) {
             checkBoxHadirY.setSelected(true);
         } else {
             checkBoxHadirN.setSelected(true);
         }
         textKeterangan.setText(daftarKelas.getKeterangan());
+
+        if (daftarKelas.getKelas().getTanggalKelas2().isEmpty()) {
+            jPanel6.setVisible(false);
+        } else {
+            labelHadir2.setText("Hadir Hari 2 tanggal " + daftarKelas.getKelas().getTanggalKelas2());
+            if (daftarKelas.getKehadiran2().equals("1")) {
+                checkBoxHadirY1.setSelected(true);
+            } else {
+                checkBoxHadirN1.setSelected(true);
+            }
+            textKeterangan1.setText(daftarKelas.getKeterangan2());
+        }
+
         if (!daftarKelas.getUjian().isEmpty()) {
             try {
                 dateChooserUjian.setDate(DateFormat.getDateInstance().parse(daftarKelas.getUjian()));
@@ -57,10 +72,9 @@ public class DaftarKelasUpdateDataDialog extends javax.swing.JDialog {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
         buttonGroup2 = new javax.swing.ButtonGroup();
+        buttonGroup3 = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        textNIM = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         textNama = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
@@ -68,10 +82,16 @@ public class DaftarKelasUpdateDataDialog extends javax.swing.JDialog {
         checkBoxLulusY = new javax.swing.JCheckBox();
         checkBoxLulusN = new javax.swing.JCheckBox();
         jPanel4 = new javax.swing.JPanel();
-        jLabel6 = new javax.swing.JLabel();
+        labelHadir1 = new javax.swing.JLabel();
         checkBoxHadirY = new javax.swing.JCheckBox();
         checkBoxHadirN = new javax.swing.JCheckBox();
         textKeterangan = new javax.swing.JTextField();
+        jPanel6 = new javax.swing.JPanel();
+        labelHadir2 = new javax.swing.JLabel();
+        checkBoxHadirY1 = new javax.swing.JCheckBox();
+        checkBoxHadirN1 = new javax.swing.JCheckBox();
+        textKeterangan1 = new javax.swing.JTextField();
+        jPanel3 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         dateChooserUjian = new com.toedter.calendar.JDateChooser();
         jPanel5 = new javax.swing.JPanel();
@@ -87,10 +107,6 @@ public class DaftarKelasUpdateDataDialog extends javax.swing.JDialog {
         jLabel1.setText("Update Data Daftar Kelas");
 
         jPanel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-
-        jLabel2.setText("NIM :");
-
-        textNIM.setEditable(false);
 
         jLabel3.setText("Nama :");
 
@@ -123,9 +139,9 @@ public class DaftarKelasUpdateDataDialog extends javax.swing.JDialog {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(6, 6, 6)
                 .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(checkBoxLulusN, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(checkBoxLulusY, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -134,25 +150,13 @@ public class DaftarKelasUpdateDataDialog extends javax.swing.JDialog {
 
         jPanel4.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jLabel6.setText("Hadir :");
+        labelHadir1.setText("Hadir :");
 
         buttonGroup2.add(checkBoxHadirY);
         checkBoxHadirY.setText("Y");
-        checkBoxHadirY.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkBoxHadirYActionPerformed(evt);
-            }
-        });
 
         buttonGroup2.add(checkBoxHadirN);
         checkBoxHadirN.setText("N");
-        checkBoxHadirN.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkBoxHadirNActionPerformed(evt);
-            }
-        });
-
-        textKeterangan.setEditable(false);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -162,31 +166,96 @@ public class DaftarKelasUpdateDataDialog extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jLabel6)
+                        .addComponent(labelHadir1)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(checkBoxHadirY)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(checkBoxHadirN)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(textKeterangan, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)))
+                        .addComponent(textKeterangan)))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel6)
+                .addComponent(labelHadir1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(checkBoxHadirY)
                     .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(checkBoxHadirN)
                         .addComponent(textKeterangan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(11, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jPanel6.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        labelHadir2.setText("Hadir :");
+
+        buttonGroup3.add(checkBoxHadirY1);
+        checkBoxHadirY1.setText("Y");
+
+        buttonGroup3.add(checkBoxHadirN1);
+        checkBoxHadirN1.setText("N");
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(labelHadir2)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(checkBoxHadirY1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(checkBoxHadirN1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(textKeterangan1, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(labelHadir2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(checkBoxHadirY1)
+                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(checkBoxHadirN1)
+                        .addComponent(textKeterangan1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel3.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
         jLabel5.setText("Tanggal Ujian :");
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(dateChooserUjian, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(6, 6, 6)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(dateChooserUjian, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 11, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -195,40 +264,35 @@ public class DaftarKelasUpdateDataDialog extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(dateChooserUjian, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(textNIM)
                     .addComponent(textNama)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel5))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textNIM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(textNama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(dateChooserUjian, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -258,7 +322,7 @@ public class DaftarKelasUpdateDataDialog extends javax.swing.JDialog {
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addGap(0, 78, Short.MAX_VALUE))
+                        .addGap(0, 271, Short.MAX_VALUE))
                     .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -267,24 +331,16 @@ public class DaftarKelasUpdateDataDialog extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        setSize(new java.awt.Dimension(408, 359));
+        setSize(new java.awt.Dimension(601, 339));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void checkBoxHadirNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxHadirNActionPerformed
-        if (checkBoxHadirN.isSelected()) {
-            textKeterangan.setEditable(true);
-        } else {
-            textKeterangan.setEditable(false);
-        }
-    }//GEN-LAST:event_checkBoxHadirNActionPerformed
 
     private void buttonBatalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBatalActionPerformed
         dispose();
@@ -300,11 +356,20 @@ public class DaftarKelasUpdateDataDialog extends javax.swing.JDialog {
             }
             if (checkBoxHadirY.isSelected()) {
                 daftarKelas.setKehadiran("1");
-                daftarKelas.setKeterangan("");
             }
             if (checkBoxHadirN.isSelected()) {
                 daftarKelas.setKehadiran("0");
-                daftarKelas.setKeterangan(textKeterangan.getText());
+            }
+            daftarKelas.setKeterangan(textKeterangan.getText());
+
+            if (!daftarKelas.getKelas().getTanggalKelas2().isEmpty()) {
+                if (checkBoxHadirY1.isSelected()) {
+                    daftarKelas.setKehadiran2("1");
+                }
+                if (checkBoxHadirN1.isSelected()) {
+                    daftarKelas.setKehadiran2("0");
+                }
+                daftarKelas.setKeterangan2(textKeterangan1.getText());
             }
             daftarKelas.setUjian(dateChooserUjian.getDate() == null ? "" : DateFormat.getDateInstance().format(dateChooserUjian.getDate()));
             DaftarKelasDAO daftarKelasDAO = new DaftarKelasDAOImpl();
@@ -315,32 +380,33 @@ public class DaftarKelasUpdateDataDialog extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_buttonSimpanActionPerformed
 
-    private void checkBoxHadirYActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxHadirYActionPerformed
-        textKeterangan.setEditable(false);
-    }//GEN-LAST:event_checkBoxHadirYActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonBatal;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
+    private javax.swing.ButtonGroup buttonGroup3;
     private javax.swing.JButton buttonSimpan;
     private javax.swing.JCheckBox checkBoxHadirN;
+    private javax.swing.JCheckBox checkBoxHadirN1;
     private javax.swing.JCheckBox checkBoxHadirY;
+    private javax.swing.JCheckBox checkBoxHadirY1;
     private javax.swing.JCheckBox checkBoxLulusN;
     private javax.swing.JCheckBox checkBoxLulusY;
     private com.toedter.calendar.JDateChooser dateChooserUjian;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JLabel labelHadir1;
+    private javax.swing.JLabel labelHadir2;
     private javax.swing.JTextField textKeterangan;
-    private javax.swing.JTextField textNIM;
+    private javax.swing.JTextField textKeterangan1;
     private javax.swing.JTextField textNama;
     // End of variables declaration//GEN-END:variables
 }
