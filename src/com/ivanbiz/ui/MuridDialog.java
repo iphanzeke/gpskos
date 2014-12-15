@@ -258,6 +258,8 @@ public class MuridDialog extends JDialog {
                     daftarKelas.setStatus("1");
                     daftarKelas.setKehadiran("1");
                     daftarKelas.setKeterangan("");
+                    daftarKelas.setKehadiran2("1");
+                    daftarKelas.setKeterangan2("");
                     daftarKelas.setUjian("");
                     validateDaftarKelas(daftarKelas);
                 }
@@ -303,11 +305,11 @@ public class MuridDialog extends JDialog {
         int no = 0;
         for (Murid murids : listMurid) {
             no += 1;
-            isi[x][0] = no;          
+            isi[x][0] = no;
             isi[x][1] = murids.getNama();
-            isi[x][2] = murids.getBank().getNama();          
+            isi[x][2] = murids.getBank().getNama();
             isi[x][3] = murids.getHandphone();
-            isi[x][4] = murids.getEmail();        
+            isi[x][4] = murids.getEmail();
             x++;
         }
         new ServiceHelper().setAutoRize(isi, judul, tableMurid);

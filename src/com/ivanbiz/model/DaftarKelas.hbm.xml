@@ -11,6 +11,8 @@
         <property column="STATUS" length="1" name="status" type="string"/>
         <property column="KEHADIRAN" length="1" name="kehadiran" type="string"/>
         <property column="KETERANGAN_HADIR" length="50" name="keterangan" type="string"/>
+        <property column="KEHADIRAN_2" length="1" name="kehadiran2" type="string"/>
+        <property column="KETERANGAN_HADIR_2" length="50" name="keterangan2" type="string"/>
         <property column="UJIAN" length="30" name="ujian" type="string"/>
     </class>
 </hibernate-mapping>

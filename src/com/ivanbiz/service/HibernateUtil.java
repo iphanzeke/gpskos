@@ -26,7 +26,8 @@ public class HibernateUtil {
 
     static {
         try {
-            sessionFactory = new Configuration().configure().buildSessionFactory();
+//            sessionFactory = new Configuration().configure().buildSessionFactory();
+            sessionFactory = new Configuration().configure("hibernate.cfg.xml").setProperty("hibernate.connection.url", "jdbc:mysql://" + System.getProperty("ip") + ":3306/acc").buildSessionFactory();
         } catch (Throwable ex) {
             System.err.println("Initial SessionFactory failed. " + ex);
             throw new ExceptionInInitializerError(ex);

@@ -33,7 +33,7 @@ public class KelasDialog extends JDialog {
     Kelas kelas;
     List<Kelas> listKelas;
     KelasDAO kelasDAO = new KelasDAOImpl();
-    SimpleDateFormat sdf = new SimpleDateFormat("dd-MMMM-yyyy");
+    SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy");
     String lulus;
 
     public KelasDialog() {
@@ -258,19 +258,20 @@ public class KelasDialog extends JDialog {
     }
 
     private void updateTableKelas() {
-        String[] judul = {"No", "Transaksi Reference", "Deskripsi", "Pengajar", "Tanggal", "Tempat", "Alamat"};
-        Object[][] isi = new Object[listKelas.size()][7];
+        String[] judul = {"No", "Transaksi Reference", "Deskripsi", "Pengajar", "Tanggal", "Tanggal 2", "Tempat", "Alamat"};
+        Object[][] isi = new Object[listKelas.size()][8];
         int x = 0;
         int no = 0;
         for (Kelas kelass : listKelas) {
             no += 1;
             isi[x][0] = no;
-            isi[x][1] = kelass.getTransactionReference();          
+            isi[x][1] = kelass.getTransactionReference();
             isi[x][2] = kelass.getDeskripsi();
             isi[x][3] = "(" + kelass.getPengajar().getNIP() + ") - " + kelass.getPengajar().getNama();
             isi[x][4] = sdf.format(kelass.getTanggalKelas());
-            isi[x][5] = kelass.getTempatKelas();
-            isi[x][6] = kelass.getAlamatKelas();
+            isi[x][5] = kelass.getTanggalKelas2();
+            isi[x][6] = kelass.getTempatKelas();
+            isi[x][7] = kelass.getAlamatKelas();
             x++;
         }
         new ServiceHelper().setAutoRize(isi, judul, tableKelas);
