@@ -27,6 +27,7 @@ public class CompileReport {
                     String filesJasper = filesJrxml.replaceAll(".jrxml", "");
                     try {
                         JasperCompileManager.compileReportToFile(folder.getAbsolutePath() + "/" + filesJrxml, System.getProperty("user.dir") + "/report/" + filesJasper + ".jasper");
+//                        JasperCompileManager.compileReportToFile(folder.getAbsolutePath() + "/" + filesJrxml, folder.getAbsolutePath() + "/" + filesJasper + ".jasper");
                     } catch (JRException ex) {
                         Logger.getLogger(CompileReport.class.getName()).log(Level.SEVERE, null, ex);
                     }

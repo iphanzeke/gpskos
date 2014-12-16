@@ -74,6 +74,7 @@ public enum MenuAksesConstant {
     PROSES_PEMBAYARAN_TAGIHAN("Proses Pembayaran Tagihan"),
     PROSES_PEMBAYARAN_LAIN("Proses Pembayaran Lain - Lain"),
     PROSES_SALDO_KAS("Proses Saldo Kas"),
+    PROSES_TRANSFER_KREDITUR_TO_KREDITUR("Transfer Kreditur to Kreditur"),
     //Report
     REPORT_DAFTAR_KELAS("Report Daftar Kelas"),
     REPORT_TAGIHAN("Report Tagihan"),
