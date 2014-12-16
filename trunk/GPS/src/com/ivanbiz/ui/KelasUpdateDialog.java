@@ -17,6 +17,7 @@ import com.ivanbiz.model.Pengajar;
 import com.ivanbiz.service.GlobalSession;
 import com.ivanbiz.service.JTextFieldLimit;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
@@ -53,19 +54,24 @@ public class KelasUpdateDialog extends JDialog {
 
     public KelasUpdateDialog(MainFrame mainFrame, boolean modal, Kelas kelas) {
         super(mainFrame, modal);
-        initComponents();
-        this.kelas = kelas;
-        labelKelas.setText("Ubah Kelas");
-        textFieldTransaksi.setText(kelas.getTransactionReference());
-        jTextFieldNIK.setText(kelas.getNIK());
-        jTextFieldDeskripsi.setText(kelas.getDeskripsi());
-        pengajar = kelas.getPengajar();
-        textPengajar.setText(pengajar.getNama());
-        jDateChooserTanggal.setDate(kelas.getTanggalKelas());
-        jTextFieldTempat.setText(kelas.getTempatKelas());
-        jTextAreaAlamat.setText(kelas.getAlamatKelas());
-        jLabel6.setVisible(false);
-        jTextFieldNIK.setVisible(false);
+        try {
+            initComponents();
+            this.kelas = kelas;
+            labelKelas.setText("Ubah Kelas");
+            textFieldTransaksi.setText(kelas.getTransactionReference());
+            jTextFieldNIK.setText(kelas.getNIK());
+            jTextFieldDeskripsi.setText(kelas.getDeskripsi());
+            pengajar = kelas.getPengajar();
+            textPengajar.setText(pengajar.getNama());
+            jDateChooserTanggal.setDate(kelas.getTanggalKelas());
+            jDateChooserTanggal2.setDate(DateFormat.getDateInstance().parse(kelas.getTanggalKelas2()));
+            jTextFieldTempat.setText(kelas.getTempatKelas());
+            jTextAreaAlamat.setText(kelas.getAlamatKelas());
+            jLabel6.setVisible(false);
+            jTextFieldNIK.setVisible(false);
+        } catch (ParseException ex) {
+            Logger.getLogger(KelasUpdateDialog.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     private String getNoTransaksi() {
@@ -128,7 +134,7 @@ public class KelasUpdateDialog extends JDialog {
         setModal(true);
         setResizable(false);
 
-        labelKelas.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        labelKelas.setFont(new java.awt.Font("Tahoma", 1, 24));
         labelKelas.setText("Tambah Kelas Baru");
 
         jPanel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -149,14 +155,16 @@ public class KelasUpdateDialog extends JDialog {
 
         jLabel8.setText("Alamat :");
 
+        jDateChooserTanggal.setDateFormatString("dd MMM yyyy");
+
         jTextAreaAlamat.setDocument(new JTextFieldLimit(100));
         jTextAreaAlamat.setRows(5);
         jScrollPane1.setViewportView(jTextAreaAlamat);
 
         jLabel9.setText("Pengajar :");
 
-        textFieldTransaksi.setEditable(false);
         textFieldTransaksi.setDocument(new JTextFieldLimit(50));
+        textFieldTransaksi.setEditable(false);
 
         jLabel6.setText("NIK :");
 
@@ -170,6 +178,8 @@ public class KelasUpdateDialog extends JDialog {
         });
 
         jLabel10.setText("Tanggal 2:");
+
+        jDateChooserTanggal2.setDateFormatString("dd MMM yyyy");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -186,7 +196,7 @@ public class KelasUpdateDialog extends JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1))
                     .addComponent(jDateChooserTanggal, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE)
-                    .addComponent(jDateChooserTanggal2, javax.swing.GroupLayout.DEFAULT_SIZE, 362, Short.MAX_VALUE)
+                    .addComponent(jDateChooserTanggal2, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE)
                     .addComponent(jTextFieldTempat, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -199,7 +209,7 @@ public class KelasUpdateDialog extends JDialog {
                             .addComponent(jLabel10)
                             .addComponent(jLabel4)
                             .addComponent(jLabel8))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 249, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -269,7 +279,7 @@ public class KelasUpdateDialog extends JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(labelKelas)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -284,8 +294,8 @@ public class KelasUpdateDialog extends JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        setSize(new java.awt.Dimension(416, 600));
-        setLocationRelativeTo(null);
+        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+        setBounds((screenSize.width-416)/2, (screenSize.height-600)/2, 416, 600);
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSimpanActionPerformed

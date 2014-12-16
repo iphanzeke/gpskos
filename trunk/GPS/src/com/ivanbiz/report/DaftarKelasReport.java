@@ -47,11 +47,13 @@ public class DaftarKelasReport {
     JasperViewer jasperViewer;
     List<DaftarKelas> listDaftarKelases;
     SimpleDateFormat simpleDateFormat;
+    SimpleDateFormat simpleDateFormatFrom;
 
     public void previewAndCetakTagihan(List<DaftarKelas> listDaftarKelas, String previewOrCetak, String kelulusan) {
         try {
             listDaftarKelases = new ArrayList<DaftarKelas>();
             simpleDateFormat = new SimpleDateFormat("dd MMMMM yyyy");
+            simpleDateFormatFrom = new SimpleDateFormat("MMM dd, yyyy");
             for (DaftarKelas daftarKelas : listDaftarKelas) {
                 murid = daftarKelas.getMurid();
                 murid.setTelp("Telp : " + murid.getTelp() + "\n" + " HP   : " + murid.getHandphone());
@@ -67,7 +69,11 @@ public class DaftarKelasReport {
 //                inputStream = JRLoader.getFileInputStream(System.getProperty("user.dir") + "/report/DaftarKelasKelulusanReport.jasper");
                 inputStream = JRLoader.getURLInputStream("http://" + System.getProperty("ip") + ":" + System.getProperty("port") + "/GPS/report/DaftarKelasKelulusanReport.jasper");
             } else {
-                inputStream = JRLoader.getURLInputStream("http://" + System.getProperty("ip") + ":" + System.getProperty("port") + "/GPS/report/DaftarKelasReport.jasper");
+                if (kelas.getTanggalKelas2().isEmpty()) {
+                    inputStream = JRLoader.getURLInputStream("http://" + System.getProperty("ip") + ":" + System.getProperty("port") + "/GPS/report/DaftarKelasReport.jasper");
+                } else {
+                    inputStream = JRLoader.getURLInputStream("http://" + System.getProperty("ip") + ":" + System.getProperty("port") + "/GPS/report/DaftarKelasReport2.jasper");
+                }
             }
 
             dataSource = new JRBeanCollectionDataSource(listDaftarKelases);
@@ -77,6 +83,8 @@ public class DaftarKelasReport {
             map.put("logo", "http://" + System.getProperty("ip") + ":" + System.getProperty("port") + "/GPS/image/logo.jpg");
             map.put("kelas.alamatKelas", kelas.getAlamatKelas() + "\n" + "bertempat di : " + kelas.getTempatKelas());
             map.put("kelas.tempatKelas", kelas.getTempatKelas() + " , " + simpleDateFormat.format(kelas.getTanggalKelas()));
+            map.put("kelas.tanggalFrom", simpleDateFormatFrom.format(kelas.getTanggalKelas()));
+            map.put("kelas.tanggalTo", kelas.getTanggalKelas2().isEmpty() ? simpleDateFormatFrom.format(kelas.getTanggalKelas()) : kelas.getTanggalKelas2());
             map.put("peserta", listDaftarKelases.size());
 
             report = JasperFillManager.fillReport(inputStream, map);
