@@ -2,7 +2,7 @@
 <!-- Created with iReport - A designer for JasperReports -->
 <!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
 <jasperReport
-		 name="DaftarKelasReport"
+		 name="DaftarKelasReport2"
 		 columnCount="1"
 		 printOrder="Vertical"
 		 orientation="Landscape"
@@ -18,7 +18,7 @@
 		 isTitleNewPage="false"
 		 isSummaryNewPage="false">
 	<property name="ireport.zoom" value="1.0" />
-	<property name="ireport.x" value="0" />
+	<property name="ireport.x" value="249" />
 	<property name="ireport.y" value="0" />
 	<property name="ireport.scriptlethandling" value="0" />
 	<property name="ireport.encoding" value="UTF-8" />
@@ -35,7 +35,7 @@
 	<parameter name="peserta" isForPrompting="false" class="java.lang.Integer"/>
 	<parameter name="kelas.tempatKelas" isForPrompting="false" class="java.lang.String"/>
 	<parameter name="kelas.tanggalFrom" isForPrompting="false" class="java.lang.String"/>
-	<parameter name="kelas.tanggalTo" isForPrompting="true" class="java.lang.String"/>
+	<parameter name="kelas.tanggalTo" isForPrompting="false" class="java.lang.String"/>
 
 	<field name="transactionReference" class="java.lang.String"/>
 	<field name="kelas.tanggalKelas" class="java.util.Date"/>
@@ -272,12 +272,12 @@
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$P{kelas.tempatKelas}]]></textFieldExpression>
 				</textField>
-				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						mode="Opaque"
 						x="591"
 						y="64"
-						width="96"
+						width="48"
 						height="13"
 						backcolor="#9999FF"
 						key="textField"/>
@@ -287,10 +287,30 @@
 					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
 					<rightPen lineWidth="1.0" lineStyle="Solid"/>
 </box>
-					<textElement textAlignment="Center">
-						<font size="8" isBold="true"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="6" isBold="true"/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$P{kelas.tanggalFrom}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						mode="Opaque"
+						x="639"
+						y="64"
+						width="48"
+						height="13"
+						backcolor="#9999FF"
+						key="textField"/>
+					<box>					<pen lineWidth="1.0" lineStyle="Solid"/>
+					<topPen lineWidth="1.0" lineStyle="Solid"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="6" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{kelas.tanggalTo}]]></textFieldExpression>
 				</textField>
 			</band>
 		</columnHeader>
@@ -395,7 +415,7 @@
 					<reportElement
 						x="591"
 						y="0"
-						width="96"
+						width="48"
 						height="26"
 						key="staticText-21"/>
 					<box>					<pen lineWidth="1.0" lineStyle="Solid"/>
@@ -429,6 +449,25 @@
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[" "+$F{ujian}]]></textFieldExpression>
 				</textField>
+				<staticText>
+					<reportElement
+						x="639"
+						y="0"
+						width="48"
+						height="26"
+						key="staticText-21"/>
+					<box>					<pen lineWidth="1.0" lineStyle="Solid"/>
+					<topPen lineWidth="1.0" lineStyle="Solid"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<text><![CDATA[
+                ]]></text>
+				</staticText>
 			</band>
 		</detail>
 		<columnFooter>
