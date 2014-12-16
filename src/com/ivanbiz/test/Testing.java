@@ -15,11 +15,9 @@ import com.ivanbiz.model.Bank;
 import com.ivanbiz.model.GroupAcc;
 import com.ivanbiz.model.Groups;
 import com.ivanbiz.model.Pengguna;
-import com.ivanbiz.service.FileUpload;
+import com.ivanbiz.service.MD5;
 import com.ivanbiz.service.MenuAksesConstant;
 import com.ivanbiz.ui.LoginDialog;
-import java.io.File;
-import java.io.IOException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -33,39 +31,7 @@ public class Testing {
     BankDAO bankDAO = new BankDAOImpl();
 
     public static void main(String[] args) {
-        try {
-            //        try {
-            //        try {
-            //                List listJurnal = new ArrayList();
-//                listJurnal.add("001-02#10000#CC003");
-//                listJurnal.add("001-01#5000#CC003");
-//		JurnalDAO jurnalDAO = new JurnalDAOImpl();
-//		try {
-////			System.out.println(jurnalDAO.saveJurnal("XXX002", 5000,"-","IDRPMT02",null));
-//			//                 System.out.println(jurnalDAO.saveJurnalMore(listJurnal));
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//        new Testing().saveData();
-//        new Testing().deleteData();
-            FileUpload fileUpload = new FileUpload();
-////            fileUpload.upload("127.0.0.1", "Shbt Peterpan", "admin", "ivan.jpg", new File("E:\\Project\\GPS\\image\\logo.jpg"));
-            fileUpload.download("127.0.0.1", "Shbt Peterpan", "admin", "12312.JPG", new File("E:/Project/12312.JPG"));
-//        } catch (IOException ex) {
-//            Logger.getLogger(Testing.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//            Properties properties = new Properties();
-//            properties.load(ClassLoader.getSystemResourceAsStream("ftp.properties"));
-//            System.out.println("pro=" + properties.getProperty("ftpServer"));
-//            System.out.println("pro=" + properties.getProperty("user"));
-//            System.out.println("pro=" + properties.getProperty("password"));
-//        } catch (IOException ex) {
-//            Logger.getLogger(Testing.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-        } catch (IOException ex) {
-            Logger.getLogger(Testing.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        new Testing().saveData();
     }
 
     private void deleteData() {
@@ -109,8 +75,10 @@ public class Testing {
             }
             //save Pengguna
             Pengguna pengguna = new Pengguna();
+            MD5 md5 = new MD5("admin");
+            pengguna.setKode("001");
             pengguna.setUserName("admin");
-            pengguna.setPassword("admin");
+            pengguna.setPassword(md5.asHex());
             pengguna.setGroups(groups);
             penggunaDAO.save(pengguna);
             //save Group Acc
@@ -123,8 +91,8 @@ public class Testing {
             groupAcc1.setDeskripsi("Kreditur");
             groupAccDAO.save(groupAcc1);
             GroupAcc groupAcc2 = new GroupAcc();
-            groupAcc2.setNamaGroup("Biaya Lain");
-            groupAcc2.setDeskripsi("Biaya Lain");
+            groupAcc2.setNamaGroup("BiayaLain");
+            groupAcc2.setDeskripsi("BiayaLain");
             groupAccDAO.save(groupAcc2);
             //save Bank
             Bank bank = new Bank();
