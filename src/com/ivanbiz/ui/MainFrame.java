@@ -76,6 +76,7 @@ public class MainFrame extends JFrame {
             menuItemKeuntunganBiayaLain.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.REPORT_KEUNTUNGAN_BIAYA_LAIN, listAksesMatrix));
             menuItemReturTagihan.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.RETUR_TAGIHAN, listAksesMatrix));
             menuItemGLAccounts.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.LIHAT_GLACCOUNT, listAksesMatrix));
+            menuItemKrediturToKreditur.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.PROSES_TRANSFER_KREDITUR_TO_KREDITUR, listAksesMatrix));
         } catch (Exception ex) {
             Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -107,6 +108,7 @@ public class MainFrame extends JFrame {
         menuItemSaldoKas = new javax.swing.JMenuItem();
         menuRetur = new javax.swing.JMenu();
         menuItemReturTagihan = new javax.swing.JMenuItem();
+        menuItemKrediturToKreditur = new javax.swing.JMenuItem();
         menuHakAkses = new javax.swing.JMenu();
         menuItemGroup = new javax.swing.JMenuItem();
         menuItemPengguna = new javax.swing.JMenuItem();
@@ -288,6 +290,14 @@ public class MainFrame extends JFrame {
 
         menuTransaksi.add(menuRetur);
 
+        menuItemKrediturToKreditur.setText("Tranfer Kreditur ke Kreditur ");
+        menuItemKrediturToKreditur.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemKrediturToKrediturActionPerformed(evt);
+            }
+        });
+        menuTransaksi.add(menuItemKrediturToKreditur);
+
         menuBarApp.add(menuTransaksi);
 
         menuHakAkses.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/hak_akses.jpg"))); // NOI18N
@@ -441,8 +451,8 @@ public class MainFrame extends JFrame {
             .addGap(0, 576, Short.MAX_VALUE)
         );
 
-        setSize(new java.awt.Dimension(816, 638));
-        setLocationRelativeTo(null);
+        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+        setBounds((screenSize.width-816)/2, (screenSize.height-638)/2, 816, 638);
     }// </editor-fold>//GEN-END:initComponents
 
     private void menuItemPengajarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemPengajarActionPerformed
@@ -558,6 +568,9 @@ public class MainFrame extends JFrame {
         new TagihanReturDialog().setVisible(true);
     }//GEN-LAST:event_menuItemReturTagihanActionPerformed
 
+    private void menuItemKrediturToKrediturActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemKrediturToKrediturActionPerformed
+        new TransferKrediturToKrediturDialog().setVisible(true);
+    }//GEN-LAST:event_menuItemKrediturToKrediturActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;
     private javax.swing.JSeparator jSeparator1;
@@ -577,6 +590,7 @@ public class MainFrame extends JFrame {
     private javax.swing.JMenuItem menuItemKelulusanReport;
     private javax.swing.JMenuItem menuItemKeuntunganBiayaLain;
     private javax.swing.JMenuItem menuItemKeuntunganReport;
+    private javax.swing.JMenuItem menuItemKrediturToKreditur;
     private javax.swing.JMenuItem menuItemMurid;
     private javax.swing.JMenuItem menuItemPassword;
     private javax.swing.JMenuItem menuItemPembayaranLain;
