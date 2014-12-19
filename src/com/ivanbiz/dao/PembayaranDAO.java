@@ -20,4 +20,6 @@ public interface PembayaranDAO extends GenericDAO {
     public String postingJurnalPembayaranLain(Pembayaran pembayaran) throws Exception;
 
     public String getLastNoTransaksi() throws Exception;
+    
+    public String postingJurnalTransKreditur(Pembayaran pembayaran)throws Exception;
 }
