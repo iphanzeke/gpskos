@@ -275,7 +275,7 @@ public class TransferKrediturToKrediturDialog extends JDialog {
             int response = JOptionPane.showConfirmDialog(this, "Apakah Transfer ingin diproses ?", "Konfirmasi", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
             if (response == JOptionPane.YES_OPTION) {
                 try {
-                    pembayaranDAO.postingJurnalPembayaranLain(pembayaran);
+                    pembayaranDAO.postingJurnalTransKreditur(pembayaran);
                     dispose();
                 } catch (Exception ex) {
                     Logger.getLogger(TransferKrediturToKrediturReportDialog.class.getName()).log(Level.SEVERE, null, ex);
