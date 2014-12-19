@@ -27,7 +27,7 @@ public class Pembayaran {
     private String statusPajak;/*0=tidak ada pajak    1=ada pajak*/
 
     private double biayaPajak;
-
+    private String noCheque;
     /**
      * @return the id
      */
@@ -208,5 +208,19 @@ public class Pembayaran {
      */
     public void setBiayaPajak(double biayaPajak) {
         this.biayaPajak = biayaPajak;
+    }
+
+    /**
+     * @return the noCheque
+     */
+    public String getNoCheque() {
+        return noCheque;
+    }
+
+    /**
+     * @param noCheque the noCheque to set
+     */
+    public void setNoCheque(String noCheque) {
+        this.noCheque = noCheque;
     }
 }

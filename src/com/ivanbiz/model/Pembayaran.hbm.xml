@@ -17,5 +17,6 @@
     <many-to-one class="com.ivanbiz.model.Invoice" column="INVOICE_ID" lazy="false" name="invoice"/>
     <property column="STATUS_PAJAK" length="1" name="statusPajak" type="string"/>
     <property column="BIAYA_PAJAK" length="12" name="biayaPajak" type="double"/>
+    <property column="NO_CHEQUE" length="20" name="noCheque" type="string"/>
   </class>
 </hibernate-mapping>
