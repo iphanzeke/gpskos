@@ -33,7 +33,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
                   <Component id="labelPembayaran" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="jPanel2" alignment="1" pref="430" max="32767" attributes="0"/>
+                  <Component id="jPanel2" alignment="1" pref="438" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -77,11 +77,11 @@
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="dateChooserPosting" alignment="0" pref="404" max="32767" attributes="0"/>
-                      <Component id="textJumlah" alignment="0" pref="404" max="32767" attributes="0"/>
-                      <Component id="jScrollPane1" alignment="0" pref="404" max="32767" attributes="0"/>
-                      <Component id="comboBoxFrom" alignment="0" pref="404" max="32767" attributes="0"/>
-                      <Component id="comboBoxTo" alignment="1" pref="404" max="32767" attributes="0"/>
+                      <Component id="dateChooserPosting" alignment="0" pref="412" max="32767" attributes="0"/>
+                      <Component id="textJumlah" alignment="0" pref="412" max="32767" attributes="0"/>
+                      <Component id="jScrollPane1" alignment="0" pref="412" max="32767" attributes="0"/>
+                      <Component id="comboBoxFrom" alignment="0" pref="412" max="32767" attributes="0"/>
+                      <Component id="comboBoxTo" alignment="1" pref="412" max="32767" attributes="0"/>
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
@@ -91,9 +91,9 @@
                               <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel9" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="0" pref="299" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="307" max="32767" attributes="0"/>
                       </Group>
-                      <Component id="textTransaksiReference" alignment="0" pref="404" max="32767" attributes="0"/>
+                      <Component id="textTransaksiReference" alignment="0" pref="412" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -126,7 +126,7 @@
                   <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jScrollPane1" min="-2" pref="85" max="-2" attributes="0"/>
-                  <EmptySpace pref="13" max="32767" attributes="0"/>
+                  <EmptySpace pref="20" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
