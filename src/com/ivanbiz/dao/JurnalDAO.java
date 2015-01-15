@@ -11,4 +11,6 @@ public interface JurnalDAO extends GenericDAO {
        // public String saveJurnalMore(List listItem,String glDebit,String glKredit,Session session)throws Exception;
         public String saveJurnalWithVA(String proCode,double amount,String transRef,String virtualAccount,String glDebit,String glKredit,Session session)throws Exception;
        // public String saveJurnalMoreWithVA(List listItem,String glDebit,String glKredit,Session session)throws Exception;
+        public double getSumDebetGLAccount(String startDate,String endDate, String glAccount)throws Exception;
+         public double getSumCreditGLAccount(String startDate,String endDate, String glAccount)throws Exception;
 }

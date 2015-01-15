@@ -7,6 +7,8 @@ import com.ivanbiz.dao.JurnalDAO;
 import com.ivanbiz.dao.SettingGLDAO;
 import com.ivanbiz.model.Jurnal;
 import com.ivanbiz.model.SettingGL;
+import com.ivanbiz.service.HibernateUtil;
+import org.hibernate.Query;
 
 public class JurnalDAOImpl extends GenericDAOImpl implements JurnalDAO {
 
@@ -211,4 +213,44 @@ public class JurnalDAOImpl extends GenericDAOImpl implements JurnalDAO {
     return status;
     }
      */
+
+    @Override
+    public double getSumDebetGLAccount(String startDate,String endDate, String glAccount) throws Exception {
+        double hasil = 0;
+        try {
+            HibernateUtil.beginTransaction();
+            Session session = HibernateUtil.getSession();
+            Query query = session.createQuery("select SUM(j.debit) from com.ivanbiz.model.Jurnal j where j.dateReference >= '" + startDate + "' and j.dateReference <= '"+endDate+"' and j.GLAccount ='" + glAccount + "' ");
+            if (query != null) {
+                hasil = (Double) query.uniqueResult();
+            }
+            HibernateUtil.commitTransaction();
+        } catch (Exception e) {
+            e.printStackTrace();
+            HibernateUtil.rollbackTransaction();
+        } finally {
+            HibernateUtil.closeSession();
+        }
+        return hasil;
+    }
+    
+    @Override
+    public double getSumCreditGLAccount(String startDate,String endDate, String glAccount) throws Exception {
+        double hasil = 0;
+        try {
+            HibernateUtil.beginTransaction();
+            Session session = HibernateUtil.getSession();
+            Query query = session.createQuery("select SUM(j.credit) from com.ivanbiz.model.Jurnal j where j.dateReference >= '" + startDate + "' and j.dateReference <= '"+endDate+"' and j.GLAccount ='" + glAccount + "' ");
+            if (query != null) {
+                hasil = (Double) query.uniqueResult();
+            }
+            HibernateUtil.commitTransaction();
+        } catch (Exception e) {
+            e.printStackTrace();
+            HibernateUtil.rollbackTransaction();
+        } finally {
+            HibernateUtil.closeSession();
+        }
+        return hasil;
+    }
 }
