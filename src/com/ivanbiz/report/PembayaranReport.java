@@ -66,13 +66,15 @@ public class PembayaranReport {
             globalReport = new GlobalReport();
             globalReport.setPerusahaan(perusahaan);
             globalReport.setPembayaran(pembayaran);
-            globalReport.setLogo("http://" + System.getProperty("ip") + ":" + System.getProperty("port") + "/GPS/image/logo.jpg");
+            globalReport.setLogo(System.getProperty("user.dir") + "\\image\\logo.jpg");
+//            globalReport.setLogo("http://" + System.getProperty("ip") + ":" + System.getProperty("port") + "/GPS/image/logo.jpg");
             globalReport.setJumlah(numberFormat.format(pembayaran.getJumlah()));
 
             listReport = new ArrayList<GlobalReport>();
             listReport.add(globalReport);
 
-            inputStream = JRLoader.getURLInputStream("http://" + System.getProperty("ip") + ":" + System.getProperty("port") + "/GPS/report/PembayaranReport.jasper");
+            inputStream = JRLoader.getFileInputStream(System.getProperty("user.dir") + "/report/PembayaranReport.jasper");
+//            inputStream = JRLoader.getURLInputStream("http://" + System.getProperty("ip") + ":" + System.getProperty("port") + "/GPS/report/PembayaranReport.jasper");
             dataSource = new JRBeanCollectionDataSource(listReport);
             map = new HashMap();
             map.put(JRParameter.REPORT_DATA_SOURCE, dataSource);

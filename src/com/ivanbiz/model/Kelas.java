@@ -17,18 +17,18 @@ public class Kelas {
     private String NIK;
     private String deskripsi;
     private Date tanggalKelas;
-    private String tanggalKelas2;
+    private Date tanggalKelas2;
     private String tempatKelas;
     private String alamatKelas;
     private Pengajar pengajar;
     private String statusKelas;
     private String transactionReference;
 
-    public String getTanggalKelas2() {
+    public Date getTanggalKelas2() {
         return tanggalKelas2;
     }
 
-    public void setTanggalKelas2(String tanggalKelas2) {
+    public void setTanggalKelas2(Date tanggalKelas2) {
         this.tanggalKelas2 = tanggalKelas2;
     }
 

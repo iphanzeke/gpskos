@@ -576,7 +576,6 @@ public class TagihanUpdateDialog extends javax.swing.JDialog {
         try {
             listKelas = kelasDAO.getDataByEquals(Kelas.class, "statusKelas", "N");
             Kelas kelas = new Kelas();
-            kelas.setTransactionReference("");
             listKelas.add(0, kelas);
             updateComboKelas();
         } catch (Exception ex) {
@@ -588,7 +587,8 @@ public class TagihanUpdateDialog extends javax.swing.JDialog {
         Object data[] = new Object[listKelas.size()];
         int x = 0;
         for (Kelas kelas : listKelas) {
-            data[x] = kelas.getTransactionReference();
+            data[0] = "";
+            data[x] = kelas.getTransactionReference() + " ( " + kelas.getTanggalKelas() + " )";
             x++;
         }
         comboKelas.setModel(new DefaultComboBoxModel(data));
@@ -633,7 +633,8 @@ public class TagihanUpdateDialog extends javax.swing.JDialog {
 
     private void renderBank(String kelas) {
         try {
-            listBank = bankDAO.getDataBankByKelas(kelas);
+            String[] kelasReff=kelas.split(" ");
+            listBank = bankDAO.getDataBankByKelas(kelasReff[0]);
             Bank bank = new Bank();
             bank.setNama("");
             listBank.add(0, bank);

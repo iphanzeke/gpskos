@@ -8,8 +8,6 @@ package com.ivanbiz.ui;
 import com.ivanbiz.dao.DaftarKelasDAO;
 import com.ivanbiz.dao.impl.DaftarKelasDAOImpl;
 import com.ivanbiz.model.DaftarKelas;
-import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -40,7 +38,7 @@ public class DaftarKelasUpdateDataDialog extends javax.swing.JDialog {
         }
         textKeterangan.setText(daftarKelas.getKeterangan());
 
-        if (daftarKelas.getKelas().getTanggalKelas2().isEmpty()) {
+        if (daftarKelas.getKelas().getTanggalKelas2() == null) {
             jPanel6.setVisible(false);
         } else {
             labelHadir2.setText("Hadir Hari 2 tanggal " + daftarKelas.getKelas().getTanggalKelas2());
@@ -52,13 +50,7 @@ public class DaftarKelasUpdateDataDialog extends javax.swing.JDialog {
             textKeterangan1.setText(daftarKelas.getKeterangan2());
         }
 
-        if (!daftarKelas.getUjian().isEmpty()) {
-            try {
-                dateChooserUjian.setDate(DateFormat.getDateInstance().parse(daftarKelas.getUjian()));
-            } catch (ParseException ex) {
-                Logger.getLogger(DaftarKelasUpdateDataDialog.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
+        dateChooserUjian.setDate(daftarKelas.getUjian());
     }
 
     /**
@@ -362,7 +354,7 @@ public class DaftarKelasUpdateDataDialog extends javax.swing.JDialog {
             }
             daftarKelas.setKeterangan(textKeterangan.getText());
 
-            if (!daftarKelas.getKelas().getTanggalKelas2().isEmpty()) {
+            if (daftarKelas.getKelas().getTanggalKelas2() != null) {
                 if (checkBoxHadirY1.isSelected()) {
                     daftarKelas.setKehadiran2("1");
                 }
@@ -371,7 +363,7 @@ public class DaftarKelasUpdateDataDialog extends javax.swing.JDialog {
                 }
                 daftarKelas.setKeterangan2(textKeterangan1.getText());
             }
-            daftarKelas.setUjian(dateChooserUjian.getDate() == null ? "" : DateFormat.getDateInstance().format(dateChooserUjian.getDate()));
+            daftarKelas.setUjian(dateChooserUjian.getDate());
             DaftarKelasDAO daftarKelasDAO = new DaftarKelasDAOImpl();
             daftarKelasDAO.saveOrUpdate(daftarKelas);
             dispose();

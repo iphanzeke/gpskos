@@ -99,7 +99,7 @@ public class PembayaranLainUpdateDialog extends JDialog {
         setModal(true);
         setResizable(false);
 
-        labelPembayaran.setFont(new java.awt.Font("Tahoma", 1, 24));
+        labelPembayaran.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         labelPembayaran.setText("Tambah Pembayaran Lain - Lain");
 
         jPanel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -112,11 +112,10 @@ public class PembayaranLainUpdateDialog extends JDialog {
 
         dateChooserPosting.setDate(new Date());
         dateChooserPosting.setDateFormatString("dd MMM yyyy");
-        dateChooserPosting.setEnabled(false);
 
-        jLabel2.setText("Debitur :");
+        jLabel2.setText("Bank ACC :");
 
-        jLabel3.setText("Kreditur :");
+        jLabel3.setText("Transaksi :");
 
         jLabel4.setText("Jumlah :");
 
@@ -228,8 +227,8 @@ public class PembayaranLainUpdateDialog extends JDialog {
                 .addContainerGap())
         );
 
-        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-466)/2, (screenSize.height-504)/2, 466, 504);
+        setSize(new java.awt.Dimension(466, 504));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void actionButton(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actionButton

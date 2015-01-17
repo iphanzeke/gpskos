@@ -269,7 +269,7 @@ public class KelasDialog extends JDialog {
             isi[x][2] = kelass.getDeskripsi();
             isi[x][3] = "(" + kelass.getPengajar().getNIP() + ") - " + kelass.getPengajar().getNama();
             isi[x][4] = sdf.format(kelass.getTanggalKelas());
-            isi[x][5] = kelass.getTanggalKelas2();
+            isi[x][5] = kelass.getTanggalKelas2()==null?"":sdf.format(kelass.getTanggalKelas2());
             isi[x][6] = kelass.getTempatKelas();
             isi[x][7] = kelass.getAlamatKelas();
             x++;

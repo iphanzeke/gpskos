@@ -248,6 +248,11 @@ public class GLAccountUpdateDialog extends JDialog {
             jLabel2.setVisible(true);
             textFieldKode.setVisible(true);
             textFieldKode.setText(getGenereateKode());
+        } else if (comboBoxGroupAccount.getSelectedItem().equals("BiayaLain")) {
+            jLabel2.setVisible(false);
+            textFieldKode.setVisible(false);
+            textFieldKode.setText("XXX");
+            textFieldNoGL.setText("KASKECIL#");
         } else {
             jLabel2.setVisible(false);
             textFieldKode.setVisible(false);

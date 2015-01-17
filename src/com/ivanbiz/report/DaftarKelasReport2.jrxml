@@ -35,7 +35,7 @@
 	<parameter name="peserta" isForPrompting="false" class="java.lang.Integer"/>
 	<parameter name="kelas.tempatKelas" isForPrompting="false" class="java.lang.String"/>
 	<parameter name="kelas.tanggalFrom" isForPrompting="false" class="java.lang.String"/>
-	<parameter name="kelas.tanggalTo" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="kelas.tanggalTo" isForPrompting="false" class="java.util.Date"/>
 
 	<field name="transactionReference" class="java.lang.String"/>
 	<field name="kelas.tanggalKelas" class="java.util.Date"/>
@@ -45,7 +45,7 @@
 	<field name="murid.nama" class="java.lang.String"/>
 	<field name="murid.email" class="java.lang.String"/>
 	<field name="murid.telp" class="java.lang.String"/>
-	<field name="ujian" class="java.lang.String"/>
+	<field name="ujian" class="java.util.Date"/>
 	<field name="kelas.deskripsi" class="java.lang.String"/>
 	<field name="kelas.tempatKelas" class="java.lang.String"/>
 	<field name="murid.handphone" class="java.lang.String"/>
@@ -292,7 +292,7 @@
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$P{kelas.tanggalFrom}]]></textFieldExpression>
 				</textField>
-				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+				<textField isStretchWithOverflow="true" pattern="dd-MMM-yy" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						mode="Opaque"
 						x="639"
@@ -310,7 +310,7 @@
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="6" isBold="true"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$P{kelas.tanggalTo}]]></textFieldExpression>
+				<textFieldExpression   class="java.util.Date"><![CDATA[$P{kelas.tanggalTo}]]></textFieldExpression>
 				</textField>
 			</band>
 		</columnHeader>
@@ -430,7 +430,7 @@
 				<text><![CDATA[
                 ]]></text>
 				</staticText>
-				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+				<textField isStretchWithOverflow="true" pattern="dd-MMM-yy" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="687"
 						y="0"
@@ -447,7 +447,7 @@
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="8"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[" "+$F{ujian}]]></textFieldExpression>
+				<textFieldExpression   class="java.util.Date"><![CDATA[$F{ujian}]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement
