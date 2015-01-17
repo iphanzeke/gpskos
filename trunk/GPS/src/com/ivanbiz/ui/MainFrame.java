@@ -290,6 +290,7 @@ public class MainFrame extends JFrame {
 
         menuTransaksi.add(menuRetur);
 
+        menuItemKrediturToKreditur.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/transfer.jpg"))); // NOI18N
         menuItemKrediturToKreditur.setText("Tranfer Kreditur ke Kreditur ");
         menuItemKrediturToKreditur.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -451,8 +452,8 @@ public class MainFrame extends JFrame {
             .addGap(0, 576, Short.MAX_VALUE)
         );
 
-        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-816)/2, (screenSize.height-638)/2, 816, 638);
+        setSize(new java.awt.Dimension(816, 638));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void menuItemPengajarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemPengajarActionPerformed
