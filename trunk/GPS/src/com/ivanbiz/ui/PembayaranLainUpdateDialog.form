@@ -153,17 +153,16 @@
               <Connection code="new Date()" type="code"/>
             </Property>
             <Property name="dateFormatString" type="java.lang.String" value="dd MMM yyyy"/>
-            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel2">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Debitur :"/>
+            <Property name="text" type="java.lang.String" value="Bank ACC :"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel3">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Kreditur :"/>
+            <Property name="text" type="java.lang.String" value="Transaksi :"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel4">

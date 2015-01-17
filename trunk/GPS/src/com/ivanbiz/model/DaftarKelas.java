@@ -5,6 +5,8 @@
  */
 package com.ivanbiz.model;
 
+import java.util.Date;
+
 /**
  *
  * @author ivan
@@ -16,11 +18,21 @@ public class DaftarKelas {
     private Murid murid;
     private String transactionReference;
     private String status;/*0=belum ada hasil 1=lulus   2=tidak lulus*/
+
     private String kehadiran; /*0=tidak Hadir 1=Hadir*/
+
     private String kehadiran2;
     private String keterangan;
     private String keterangan2;
-    private String ujian;
+    private Date ujian;
+
+    public Date getUjian() {
+        return ujian;
+    }
+
+    public void setUjian(Date ujian) {
+        this.ujian = ujian;
+    }
 
     public String getKeterangan2() {
         return keterangan2;
@@ -52,14 +64,6 @@ public class DaftarKelas {
 
     public void setKehadiran(String kehadiran) {
         this.kehadiran = kehadiran;
-    }
-
-    public String getUjian() {
-        return ujian;
-    }
-
-    public void setUjian(String ujian) {
-        this.ujian = ujian;
     }
 
     private boolean choose;

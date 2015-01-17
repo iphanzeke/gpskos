@@ -35,6 +35,7 @@ public class DaftarKelasDialog extends javax.swing.JDialog {
     DaftarKelasDAO daftarKelasDAO;
     List<DaftarKelas> listDaftarKelas;
     Kelas kelas;
+    String lulus;
 
     public DaftarKelasDialog(Kelas kelas) {
         initComponents();
@@ -58,6 +59,7 @@ public class DaftarKelasDialog extends javax.swing.JDialog {
 
     public DaftarKelasDialog(Kelas kelas, String lulus) {
         initComponents();
+        this.lulus = lulus;
         this.kelas = kelas;
         daftarKelasDAO = new DaftarKelasDAOImpl();
         textKelas.setText(kelas.getTransactionReference());
@@ -251,9 +253,11 @@ public class DaftarKelasDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_buttonKelulusanActionPerformed
 
     private void tableDaftarKelasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableDaftarKelasMouseClicked
-        if ((Boolean) tableDaftarKelas.getValueAt(tableDaftarKelas.getSelectedRow(), 0)) {
-            new DaftarKelasUpdateDataDialog(null, true, listDaftarKelas.get(tableDaftarKelas.getSelectedRow())).setVisible(true);
-            refreshKelulusan(kelas);
+        if (lulus != null) {
+            if ((Boolean) tableDaftarKelas.getValueAt(tableDaftarKelas.getSelectedRow(), 0)) {
+                new DaftarKelasUpdateDataDialog(null, true, listDaftarKelas.get(tableDaftarKelas.getSelectedRow())).setVisible(true);
+                refreshKelulusan(kelas);
+            }
         }
     }//GEN-LAST:event_tableDaftarKelasMouseClicked
 
@@ -322,7 +326,7 @@ public class DaftarKelasDialog extends javax.swing.JDialog {
             isi[x][4] = daftarKelass.getStatus().equals("1") ? "Y" : "N";
             isi[x][5] = daftarKelass.getKehadiran().equals("1") ? "Y" : "N";
             isi[x][6] = daftarKelass.getKeterangan();
-            if (daftarKelass.getKelas().getTanggalKelas2().isEmpty()) {
+            if (daftarKelass.getKelas().getTanggalKelas2() == null) {
                 isi[x][7] = "";
                 isi[x][8] = "";
             } else {
@@ -364,7 +368,7 @@ public class DaftarKelasDialog extends javax.swing.JDialog {
             isi[x][3] = daftarKelass.getStatus().equals("1") ? "Y" : "N";
             isi[x][4] = daftarKelass.getKehadiran().equals("1") ? "Y" : "N";
             isi[x][5] = daftarKelass.getKeterangan();
-            if (daftarKelass.getKelas().getTanggalKelas2().isEmpty()) {
+            if (daftarKelass.getKelas().getTanggalKelas2() == null) {
                 isi[x][6] = "";
                 isi[x][7] = "";
             } else {

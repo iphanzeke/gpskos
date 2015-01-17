@@ -16,8 +16,6 @@ import com.ivanbiz.model.Kelas;
 import com.ivanbiz.model.Pengajar;
 import com.ivanbiz.service.GlobalSession;
 import com.ivanbiz.service.JTextFieldLimit;
-import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
@@ -54,24 +52,20 @@ public class KelasUpdateDialog extends JDialog {
 
     public KelasUpdateDialog(MainFrame mainFrame, boolean modal, Kelas kelas) {
         super(mainFrame, modal);
-        try {
-            initComponents();
-            this.kelas = kelas;
-            labelKelas.setText("Ubah Kelas");
-            textFieldTransaksi.setText(kelas.getTransactionReference());
-            jTextFieldNIK.setText(kelas.getNIK());
-            jTextFieldDeskripsi.setText(kelas.getDeskripsi());
-            pengajar = kelas.getPengajar();
-            textPengajar.setText(pengajar.getNama());
-            jDateChooserTanggal.setDate(kelas.getTanggalKelas());
-            jDateChooserTanggal2.setDate(DateFormat.getDateInstance().parse(kelas.getTanggalKelas2()));
-            jTextFieldTempat.setText(kelas.getTempatKelas());
-            jTextAreaAlamat.setText(kelas.getAlamatKelas());
-            jLabel6.setVisible(false);
-            jTextFieldNIK.setVisible(false);
-        } catch (ParseException ex) {
-            Logger.getLogger(KelasUpdateDialog.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        initComponents();
+        this.kelas = kelas;
+        labelKelas.setText("Ubah Kelas");
+        textFieldTransaksi.setText(kelas.getTransactionReference());
+        jTextFieldNIK.setText(kelas.getNIK());
+        jTextFieldDeskripsi.setText(kelas.getDeskripsi());
+        pengajar = kelas.getPengajar();
+        textPengajar.setText(pengajar.getNama());
+        jDateChooserTanggal.setDate(kelas.getTanggalKelas());
+        jDateChooserTanggal2.setDate(kelas.getTanggalKelas2());
+        jTextFieldTempat.setText(kelas.getTempatKelas());
+        jTextAreaAlamat.setText(kelas.getAlamatKelas());
+        jLabel6.setVisible(false);
+        jTextFieldNIK.setVisible(false);
     }
 
     private String getNoTransaksi() {
@@ -308,7 +302,7 @@ public class KelasUpdateDialog extends JDialog {
         kelas.setDeskripsi(jTextFieldDeskripsi.getText());
         kelas.setPengajar(pengajar);
         kelas.setTanggalKelas(jDateChooserTanggal.getDate());
-        kelas.setTanggalKelas2(jDateChooserTanggal2.getDate() == null ? "" : DateFormat.getDateInstance().format(jDateChooserTanggal2.getDate()));
+        kelas.setTanggalKelas2(jDateChooserTanggal2.getDate());
         kelas.setStatusKelas("N");
         kelas.setTempatKelas(jTextFieldTempat.getText());
         kelas.setAlamatKelas(jTextAreaAlamat.getText());

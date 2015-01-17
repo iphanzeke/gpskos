@@ -13,6 +13,6 @@
         <property column="KETERANGAN_HADIR" length="50" name="keterangan" type="string"/>
         <property column="KEHADIRAN_2" length="1" name="kehadiran2" type="string"/>
         <property column="KETERANGAN_HADIR_2" length="50" name="keterangan2" type="string"/>
-        <property column="UJIAN" length="30" name="ujian" type="string"/>
+        <property column="UJIAN" name="ujian" type="date"/>
     </class>
 </hibernate-mapping>

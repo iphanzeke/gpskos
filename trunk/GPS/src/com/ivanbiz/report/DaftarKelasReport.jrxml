@@ -45,7 +45,7 @@
 	<field name="murid.nama" class="java.lang.String"/>
 	<field name="murid.email" class="java.lang.String"/>
 	<field name="murid.telp" class="java.lang.String"/>
-	<field name="ujian" class="java.lang.String"/>
+	<field name="ujian" class="java.util.Date"/>
 	<field name="kelas.deskripsi" class="java.lang.String"/>
 	<field name="kelas.tempatKelas" class="java.lang.String"/>
 	<field name="murid.handphone" class="java.lang.String"/>
@@ -410,7 +410,7 @@
 				<text><![CDATA[
                 ]]></text>
 				</staticText>
-				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+				<textField isStretchWithOverflow="true" pattern="dd-MMM-yy" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="687"
 						y="0"
@@ -427,8 +427,17 @@
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="8"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[" "+$F{ujian}]]></textFieldExpression>
+				<textFieldExpression   class="java.util.Date"><![CDATA[$F{ujian}]]></textFieldExpression>
 				</textField>
+				<line direction="TopDown">
+					<reportElement
+						x="739"
+						y="13"
+						width="0"
+						height="0"
+						key="line-1"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
 			</band>
 		</detail>
 		<columnFooter>

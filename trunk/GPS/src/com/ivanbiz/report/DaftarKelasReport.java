@@ -53,7 +53,7 @@ public class DaftarKelasReport {
         try {
             listDaftarKelases = new ArrayList<DaftarKelas>();
             simpleDateFormat = new SimpleDateFormat("dd MMMMM yyyy");
-            simpleDateFormatFrom = new SimpleDateFormat("MMM dd, yyyy");
+            simpleDateFormatFrom = new SimpleDateFormat("dd-MMM-yy");
             for (DaftarKelas daftarKelas : listDaftarKelas) {
                 murid = daftarKelas.getMurid();
                 murid.setTelp("Telp : " + murid.getTelp() + "\n" + " HP   : " + murid.getHandphone());
@@ -66,13 +66,15 @@ public class DaftarKelasReport {
             perusahaan.setAlamat(GlobalSession.getPerusahaan().getAlamat() + "\n" + "Ph  :" + GlobalSession.getPerusahaan().getTelephone() + "\n" + "Fax :" + GlobalSession.getPerusahaan().getFax());
 
             if (kelulusan.contentEquals("kelulusan")) {
-//                inputStream = JRLoader.getFileInputStream(System.getProperty("user.dir") + "/report/DaftarKelasKelulusanReport.jasper");
-                inputStream = JRLoader.getURLInputStream("http://" + System.getProperty("ip") + ":" + System.getProperty("port") + "/GPS/report/DaftarKelasKelulusanReport.jasper");
+                inputStream = JRLoader.getFileInputStream(System.getProperty("user.dir") + "/report/DaftarKelasKelulusanReport.jasper");
+//                inputStream = JRLoader.getURLInputStream("http://" + System.getProperty("ip") + ":" + System.getProperty("port") + "/GPS/report/DaftarKelasKelulusanReport.jasper");
             } else {
-                if (kelas.getTanggalKelas2().isEmpty()) {
-                    inputStream = JRLoader.getURLInputStream("http://" + System.getProperty("ip") + ":" + System.getProperty("port") + "/GPS/report/DaftarKelasReport.jasper");
+                if (kelas.getTanggalKelas2() == null) {
+                    inputStream = JRLoader.getFileInputStream(System.getProperty("user.dir") + "/report/DaftarKelasReport.jasper");
+//                inputStream = JRLoader.getURLInputStream("http://" + System.getProperty("ip") + ":" + System.getProperty("port") + "/GPS/report/DaftarKelasReport.jasper");
                 } else {
-                    inputStream = JRLoader.getURLInputStream("http://" + System.getProperty("ip") + ":" + System.getProperty("port") + "/GPS/report/DaftarKelasReport2.jasper");
+                    inputStream = JRLoader.getFileInputStream(System.getProperty("user.dir") + "/report/DaftarKelasReport2.jasper");
+//                inputStream = JRLoader.getURLInputStream("http://" + System.getProperty("ip") + ":" + System.getProperty("port") + "/GPS/report/DaftarKelasReport2.jasper");
                 }
             }
 
@@ -80,11 +82,12 @@ public class DaftarKelasReport {
             map = new HashMap();
             map.put(JRParameter.REPORT_DATA_SOURCE, dataSource);
             map.put("perusahaan.alamat", perusahaan.getAlamat());
-            map.put("logo", "http://" + System.getProperty("ip") + ":" + System.getProperty("port") + "/GPS/image/logo.jpg");
+//            map.put("logo", "http://" + System.getProperty("ip") + ":" + System.getProperty("port") + "/GPS/image/logo.jpg");
+            map.put("logo", System.getProperty("user.dir") + "\\image\\logo.jpg");
             map.put("kelas.alamatKelas", kelas.getAlamatKelas() + "\n" + "bertempat di : " + kelas.getTempatKelas());
             map.put("kelas.tempatKelas", kelas.getTempatKelas() + " , " + simpleDateFormat.format(kelas.getTanggalKelas()));
             map.put("kelas.tanggalFrom", simpleDateFormatFrom.format(kelas.getTanggalKelas()));
-            map.put("kelas.tanggalTo", kelas.getTanggalKelas2().isEmpty() ? simpleDateFormatFrom.format(kelas.getTanggalKelas()) : kelas.getTanggalKelas2());
+            map.put("kelas.tanggalTo", kelas.getTanggalKelas2() == null ? "" : kelas.getTanggalKelas2());
             map.put("peserta", listDaftarKelases.size());
 
             report = JasperFillManager.fillReport(inputStream, map);

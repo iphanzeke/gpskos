@@ -260,7 +260,7 @@ public class MuridDialog extends JDialog {
                     daftarKelas.setKeterangan("");
                     daftarKelas.setKehadiran2("1");
                     daftarKelas.setKeterangan2("");
-                    daftarKelas.setUjian("");
+                    daftarKelas.setUjian(null);
                     validateDaftarKelas(daftarKelas);
                 }
             }

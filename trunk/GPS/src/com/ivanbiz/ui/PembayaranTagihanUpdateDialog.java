@@ -81,7 +81,7 @@ public class PembayaranTagihanUpdateDialog extends JDialog {
             textPajak.setEditable(false);
         }
         textPajak.setText(String.valueOf(new Double(pembayaran.getBiayaPajak()).intValue()));
-        textImage.setText(pembayaran.getPathImage());
+        textCheck.setText(pembayaran.getNoCheque());
         this.path = pembayaran.getPathImage();
         buttonBrowse.setVisible(false);
     }
@@ -113,7 +113,7 @@ public class PembayaranTagihanUpdateDialog extends JDialog {
         textPajak = new javax.swing.JTextField();
         checkBoxPajak = new javax.swing.JCheckBox();
         jLabel1 = new javax.swing.JLabel();
-        textImage = new javax.swing.JTextField();
+        textCheck = new javax.swing.JTextField();
         buttonBrowse = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         buttonSimpan = new javax.swing.JButton();
@@ -124,7 +124,7 @@ public class PembayaranTagihanUpdateDialog extends JDialog {
         setModal(true);
         setResizable(false);
 
-        labelPembayaran.setFont(new java.awt.Font("Tahoma", 1, 24));
+        labelPembayaran.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         labelPembayaran.setText("Tambah Pembayaran Tagihan");
 
         jPanel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -133,7 +133,6 @@ public class PembayaranTagihanUpdateDialog extends JDialog {
 
         dateChooserPosting.setDate(new Date());
         dateChooserPosting.setDateFormatString("dd MMM yyyy");
-        dateChooserPosting.setEnabled(false);
 
         jLabel6.setText("No Tagihan / Invoice :");
 
@@ -182,9 +181,7 @@ public class PembayaranTagihanUpdateDialog extends JDialog {
             }
         });
 
-        jLabel1.setText("Bukti Pembayaran :");
-
-        textImage.setEditable(false);
+        jLabel1.setText("No Check :");
 
         buttonBrowse.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/pencarian.jpg"))); // NOI18N
         buttonBrowse.addActionListener(new java.awt.event.ActionListener() {
@@ -219,7 +216,7 @@ public class PembayaranTagihanUpdateDialog extends JDialog {
                             .addComponent(jLabel1))
                         .addGap(0, 248, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(textImage, javax.swing.GroupLayout.DEFAULT_SIZE, 297, Short.MAX_VALUE)
+                        .addComponent(textCheck, javax.swing.GroupLayout.DEFAULT_SIZE, 297, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonBrowse)))
                 .addContainerGap())
@@ -259,7 +256,7 @@ public class PembayaranTagihanUpdateDialog extends JDialog {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textImage, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(textCheck, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(buttonBrowse))
                 .addContainerGap(13, Short.MAX_VALUE))
         );
@@ -306,8 +303,8 @@ public class PembayaranTagihanUpdateDialog extends JDialog {
                 .addContainerGap())
         );
 
-        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-416)/2, (screenSize.height-607)/2, 416, 607);
+        setSize(new java.awt.Dimension(416, 607));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void actionButton(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actionButton
@@ -336,6 +333,7 @@ public class PembayaranTagihanUpdateDialog extends JDialog {
         pembayaran.setJumlah(textJumlah.getText().isEmpty() ? (double) 0 : new Double(textJumlah.getText()));
         pembayaran.setDeskripsi(textDeskripsi.getText());
         pembayaran.setPathImage("");
+        pembayaran.setNoCheque(textCheck.getText());
         if (checkBoxPajak.isSelected()) {
             pembayaran.setStatusPajak("1");
             pembayaran.setBiayaPajak(textPajak.getText().isEmpty() ? (double) 0 : new Double(textPajak.getText()));
@@ -385,15 +383,15 @@ public class PembayaranTagihanUpdateDialog extends JDialog {
                 ftpProperties = new Properties();
                 ftpProperties.load(ClassLoader.getSystemResourceAsStream("ftp.properties"));
                 String sb = "ftp://" + ftpProperties.getProperty("user") + ":" + ftpProperties.getProperty("password") + "@" + ftpProperties.getProperty("ip") + "/INBOX/" + pembayaran.getTransactionReference() + ".JPG;type=i";
-                if (textImage.getText().equals(pembayaran.getPathImage())) {
+                if (textCheck.getText().equals(pembayaran.getPathImage())) {
                     image = new PembayaranBuktiDialog(null, true, sb, pembayaran);
                 } else {
-                    image = new PembayaranBuktiDialog(null, true, textImage.getText());
+                    image = new PembayaranBuktiDialog(null, true, textCheck.getText());
                 }
             } else {
-                image = new PembayaranBuktiDialog(null, true, textImage.getText());
+                image = new PembayaranBuktiDialog(null, true, textCheck.getText());
             }
-            textImage.setText(image.getImage());
+            textCheck.setText(image.getImage());
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(this, ex);
             Logger.getLogger(PembayaranTagihanUpdateDialog.class.getName()).log(Level.SEVERE, null, ex);
@@ -417,9 +415,9 @@ public class PembayaranTagihanUpdateDialog extends JDialog {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel labelPembayaran;
+    private javax.swing.JTextField textCheck;
     private javax.swing.JTextField textDebitur;
     private javax.swing.JTextArea textDeskripsi;
-    private javax.swing.JTextField textImage;
     private javax.swing.JTextField textJumlah;
     private javax.swing.JTextField textKreditur;
     private javax.swing.JTextField textPajak;

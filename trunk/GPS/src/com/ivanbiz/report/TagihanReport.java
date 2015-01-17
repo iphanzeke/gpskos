@@ -80,7 +80,8 @@ public class TagihanReport {
             globalReport.setInvoice(invoice);
             globalReport.setNamaGLDebitur(gLAccountKepada.getNameGL());
             globalReport.setNamaGLKreditur(gLAccountDitransferKe.getNameGL());
-            globalReport.setLogo("http://" + System.getProperty("ip") + ":" + System.getProperty("port") + "/GPS/image/logo.jpg");
+//            globalReport.setLogo("http://" + System.getProperty("ip") + ":" + System.getProperty("port") + "/GPS/image/logo.jpg");
+            globalReport.setLogo(System.getProperty("user.dir") + "\\image\\logo.jpg");
             globalReport.setJumlah(numberFormat.format(invoice.getJumlahTagihan()));
 
             listReport = new ArrayList<GlobalReport>();
@@ -95,8 +96,10 @@ public class TagihanReport {
                 listDaftarKelases.add(daftarKelas);
             }
 
-            inputStream = JRLoader.getFileInputStream("http://" + System.getProperty("ip") + ":" + System.getProperty("port") + "/GPS/report/TagihanReport.jasper");
-            inputStreamSubReport = JRLoader.getFileInputStream("http://" + System.getProperty("ip") + ":" + System.getProperty("port") + "/GPS/report/DaftarKelasReport.jasper");
+            inputStream = JRLoader.getFileInputStream(System.getProperty("user.dir") + "/report/TagihanReport.jasper");
+//            inputStream = JRLoader.getFileInputStream("http://" + System.getProperty("ip") + ":" + System.getProperty("port") + "/GPS/report/TagihanReport.jasper");
+            inputStreamSubReport = JRLoader.getFileInputStream(System.getProperty("user.dir") + "/report/DaftarKelasReport.jasper");
+//            inputStreamSubReport = JRLoader.getFileInputStream("http://" + System.getProperty("ip") + ":" + System.getProperty("port") + "/GPS/report/DaftarKelasReport.jasper");
             dataSource = new JRBeanCollectionDataSource(listReport);
             map = new HashMap();
             map.put(JRParameter.REPORT_DATA_SOURCE, dataSource);
