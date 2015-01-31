@@ -119,6 +119,7 @@ public class MainFrame extends JFrame {
         menuPembayaranReport = new javax.swing.JMenu();
         menuItemPembayaranTagihanReport = new javax.swing.JMenuItem();
         menuItemPembayaranLainReport = new javax.swing.JMenuItem();
+        menuItemSumBiayaLain = new javax.swing.JMenuItem();
         menuItemDaftarKelasReport = new javax.swing.JMenuItem();
         menuItemReconsile = new javax.swing.JMenuItem();
         menuItemJurnal = new javax.swing.JMenuItem();
@@ -367,6 +368,15 @@ public class MainFrame extends JFrame {
         });
         menuPembayaranReport.add(menuItemPembayaranLainReport);
 
+        menuItemSumBiayaLain.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/tagihan_lain2.jpg"))); // NOI18N
+        menuItemSumBiayaLain.setText("Sum Biaya Lain - Lain");
+        menuItemSumBiayaLain.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemSumBiayaLainActionPerformed(evt);
+            }
+        });
+        menuPembayaranReport.add(menuItemSumBiayaLain);
+
         menuLaporan.add(menuPembayaranReport);
 
         menuItemDaftarKelasReport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/daftar_kelas.jpg"))); // NOI18N
@@ -572,6 +582,11 @@ public class MainFrame extends JFrame {
     private void menuItemKrediturToKrediturActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemKrediturToKrediturActionPerformed
         new TransferKrediturToKrediturDialog().setVisible(true);
     }//GEN-LAST:event_menuItemKrediturToKrediturActionPerformed
+
+    private void menuItemSumBiayaLainActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemSumBiayaLainActionPerformed
+        new BiayaLainSumDialog().setVisible(true);
+    }//GEN-LAST:event_menuItemSumBiayaLainActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;
     private javax.swing.JSeparator jSeparator1;
@@ -605,6 +620,7 @@ public class MainFrame extends JFrame {
     private javax.swing.JMenuItem menuItemReturTagihan;
     private javax.swing.JMenuItem menuItemSaldoKas;
     private javax.swing.JMenuItem menuItemSaldoKasReport;
+    private javax.swing.JMenuItem menuItemSumBiayaLain;
     private javax.swing.JMenuItem menuItemTagihan;
     private javax.swing.JMenuItem menuItemTagihanReport;
     private javax.swing.JMenuItem menuItemTutup;
