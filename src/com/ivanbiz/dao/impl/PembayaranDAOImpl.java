@@ -8,7 +8,6 @@ package com.ivanbiz.dao.impl;
 import com.ivanbiz.dao.JurnalDAO;
 import com.ivanbiz.dao.PembayaranDAO;
 import com.ivanbiz.model.Invoice;
-import com.ivanbiz.model.Kelas;
 import com.ivanbiz.model.Pembayaran;
 import com.ivanbiz.service.HibernateUtil;
 import java.util.List;
@@ -157,10 +156,10 @@ public class PembayaranDAOImpl extends GenericDAOImpl implements PembayaranDAO {
         try {
             Session session = HibernateUtil.getSession();
             pembayaran.setTransactionReference(pembayaran.getInvoice().getNII());
-            pembayaran.setStatus("1");          
+            pembayaran.setStatus("8");
             session.update(pembayaran);
             JurnalDAO jurnalDAO = new JurnalDAOImpl();
-            jurnalDAO.saveJurnal("888888", pembayaran.getJumlah(), "KAS_KECIL", pembayaran.getDebitBankAccount().getNoGL(), pembayaran.getKreditBankAccount().getNoGL(), session);       
+            jurnalDAO.saveJurnal("888888", pembayaran.getJumlah(), "KAS_KECIL", pembayaran.getDebitBankAccount().getNoGL(), pembayaran.getKreditBankAccount().getNoGL(), session);
             HibernateUtil.commitTransaction();
             status = "sukses";
         } catch (Exception ex) {
