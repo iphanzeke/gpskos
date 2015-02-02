@@ -46,7 +46,19 @@ public class PembayaranBuktiDialog extends javax.swing.JDialog {
             labelImage.setIcon(new ImageIcon(new URL(images)));
             setVisible(true);
         } catch (MalformedURLException ex) {
-            JOptionPane.showMessageDialog(this, ex);
+            Logger.getLogger(PembayaranBuktiDialog.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public PembayaranBuktiDialog(MainFrame mainFrame, boolean modal, String images, Pembayaran pembayaran, String report) {
+        try {
+            initComponents();
+            this.image = pembayaran.getPathImage();
+            labelImage.setIcon(new ImageIcon(new URL(images)));
+            buttonBrowse.setVisible(false);
+            buttonSimpan.setVisible(false);
+            setVisible(true);
+        } catch (MalformedURLException ex) {
             Logger.getLogger(PembayaranBuktiDialog.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

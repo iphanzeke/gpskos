@@ -15,8 +15,10 @@ import com.ivanbiz.dao.impl.PembayaranDAOImpl;
 import com.ivanbiz.model.Pembayaran;
 import com.ivanbiz.report.PembayaranReport;
 import com.ivanbiz.service.ServiceHelper;
+import java.io.IOException;
 import java.text.NumberFormat;
 import java.util.List;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JDialog;
@@ -165,7 +167,16 @@ public class PembayaranTagihanReportDialog extends JDialog {
         if (tablePembayaran.getSelectedRow() == -1) {
             JOptionPane.showMessageDialog(this, "Pilih data yang akan dilihat", "warning", JOptionPane.WARNING_MESSAGE);
         } else {
-            new PembayaranReport().previewAndCetakTagihan(listPembayaran.get(tablePembayaran.getSelectedRow()), "preview");
+            try {
+                new PembayaranReport().previewAndCetakTagihan(listPembayaran.get(tablePembayaran.getSelectedRow()), "preview");
+                Pembayaran pembayaran = listPembayaran.get(tablePembayaran.getSelectedRow());
+                Properties ftpProperties = new Properties();
+                ftpProperties.load(ClassLoader.getSystemResourceAsStream("ftp.properties"));
+                String sb = "ftp://" + ftpProperties.getProperty("user") + ":" + ftpProperties.getProperty("password") + "@" + ftpProperties.getProperty("ip") + "/INBOX/" + pembayaran.getTransactionReference() + ".JPG;type=i";
+                new PembayaranBuktiDialog(null, true, sb, pembayaran, "report");
+            } catch (IOException ex) {
+                Logger.getLogger(PembayaranTagihanReportDialog.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_buttonPreviewActionPerformed
 

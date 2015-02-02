@@ -16,10 +16,14 @@ import com.ivanbiz.dao.impl.GLAccountDAOImpl;
 import com.ivanbiz.dao.impl.PembayaranDAOImpl;
 import com.ivanbiz.model.GLAccount;
 import com.ivanbiz.model.Pembayaran;
+import com.ivanbiz.service.FileUpload;
 import com.ivanbiz.service.GlobalSession;
+import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
@@ -38,6 +42,10 @@ public class PembayaranLainUpdateDialog extends JDialog {
     List<GLAccount> listKreditur;
     List<GLAccount> listBiayaLain;
     SimpleDateFormat sdf;
+    PembayaranBuktiDialog image;
+    String path;
+    String sb;
+    Properties ftpProperties;
 
     /**
      * Creates new form PengajarUpdateDialog
@@ -64,6 +72,8 @@ public class PembayaranLainUpdateDialog extends JDialog {
         textJumlah.setText(String.valueOf(new Double(pembayaran.getJumlah()).intValue()));
         textDeskripsi.setText(pembayaran.getDeskripsi());
         textTransaksiReference.setText(pembayaran.getTransactionReference());
+        this.path = pembayaran.getPathImage();
+        textImage.setText(pembayaran.getPathImage());
     }
 
     /**
@@ -90,6 +100,9 @@ public class PembayaranLainUpdateDialog extends JDialog {
         textDeskripsi = new javax.swing.JTextArea();
         comboBoxDebitur = new javax.swing.JComboBox();
         comboBoxKreditur = new javax.swing.JComboBox();
+        jLabel1 = new javax.swing.JLabel();
+        textImage = new javax.swing.JTextField();
+        buttonImage = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         buttonSimpan = new javax.swing.JButton();
         buttonBatal = new javax.swing.JButton();
@@ -131,6 +144,17 @@ public class PembayaranLainUpdateDialog extends JDialog {
         textDeskripsi.setRows(5);
         jScrollPane1.setViewportView(textDeskripsi);
 
+        jLabel1.setText("Image :");
+
+        textImage.setEditable(false);
+
+        buttonImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/pencarian.jpg"))); // NOI18N
+        buttonImage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonImageActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -143,6 +167,7 @@ public class PembayaranLainUpdateDialog extends JDialog {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 404, Short.MAX_VALUE)
                     .addComponent(comboBoxDebitur, 0, 404, Short.MAX_VALUE)
                     .addComponent(comboBoxKreditur, javax.swing.GroupLayout.Alignment.TRAILING, 0, 404, Short.MAX_VALUE)
+                    .addComponent(textTransaksiReference, javax.swing.GroupLayout.DEFAULT_SIZE, 404, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel8)
@@ -150,9 +175,13 @@ public class PembayaranLainUpdateDialog extends JDialog {
                             .addComponent(jLabel3)
                             .addComponent(jLabel4)
                             .addComponent(jLabel5)
-                            .addComponent(jLabel9))
-                        .addGap(0, 296, Short.MAX_VALUE))
-                    .addComponent(textTransaksiReference, javax.swing.GroupLayout.DEFAULT_SIZE, 404, Short.MAX_VALUE))
+                            .addComponent(jLabel9)
+                            .addComponent(jLabel1))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(textImage)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonImage)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -182,7 +211,13 @@ public class PembayaranLainUpdateDialog extends JDialog {
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(textImage, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buttonImage))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         buttonSimpan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/simpan.jpg"))); // NOI18N
@@ -221,13 +256,13 @@ public class PembayaranLainUpdateDialog extends JDialog {
                 .addContainerGap()
                 .addComponent(labelPembayaran)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        setSize(new java.awt.Dimension(466, 504));
+        setSize(new java.awt.Dimension(466, 550));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -249,9 +284,9 @@ public class PembayaranLainUpdateDialog extends JDialog {
         }
         pembayaran.setDateCreated(new Date());
         pembayaran.setStatus("2");
-        pembayaran.setPathImage("");
+        pembayaran.setPathImage(textImage.getText());
         pembayaran.setTransactionReference(textTransaksiReference.getText());
-        pembayaran.setDatePosting(new Date());
+        pembayaran.setDatePosting(dateChooserPosting.getDate());
         pembayaran.setDebitBankAccount(listKreditur.get(comboBoxDebitur.getSelectedIndex()));
         pembayaran.setKreditBankAccount(listBiayaLain.get(comboBoxKreditur.getSelectedIndex()));
         pembayaran.setJumlah(textJumlah.getText().isEmpty() ? (double) 0 : new Double(textJumlah.getText()));
@@ -259,12 +294,37 @@ public class PembayaranLainUpdateDialog extends JDialog {
         validate(pembayaran);
     }//GEN-LAST:event_buttonSimpanActionPerformed
 
+    private void buttonImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonImageActionPerformed
+        sb = null;
+        if (pembayaran != null) {
+            try {
+                ftpProperties = new Properties();
+                ftpProperties.load(ClassLoader.getSystemResourceAsStream("ftp.properties"));
+                sb = "ftp://" + ftpProperties.getProperty("user") + ":" + ftpProperties.getProperty("password") + "@" + ftpProperties.getProperty("ip") + "/INBOX/" + pembayaran.getTransactionReference() + ".JPG;type=i";
+                if (textImage.getText().equals(pembayaran.getPathImage())) {
+                    System.out.println("masuk");
+                    image = new PembayaranBuktiDialog(null, true, sb, pembayaran);
+                } else {
+                    System.out.println("masukl");
+                    image = new PembayaranBuktiDialog(null, true, textImage.getText());
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(PembayaranLainUpdateDialog.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            image = new PembayaranBuktiDialog(null, true, textImage.getText());
+        }
+        textImage.setText(image.getImage());    
+    }//GEN-LAST:event_buttonImageActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonBatal;
+    private javax.swing.JButton buttonImage;
     private javax.swing.JButton buttonSimpan;
     private javax.swing.JComboBox comboBoxDebitur;
     private javax.swing.JComboBox comboBoxKreditur;
     private com.toedter.calendar.JDateChooser dateChooserPosting;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -276,6 +336,7 @@ public class PembayaranLainUpdateDialog extends JDialog {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel labelPembayaran;
     private javax.swing.JTextArea textDeskripsi;
+    private javax.swing.JTextField textImage;
     private javax.swing.JTextField textJumlah;
     private javax.swing.JTextField textTransaksiReference;
     // End of variables declaration//GEN-END:variables
@@ -291,8 +352,17 @@ public class PembayaranLainUpdateDialog extends JDialog {
             JOptionPane.showMessageDialog(this, "Jumlah tidak boleh kosong");
         } else if (pembayaran.getDeskripsi().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Deskripsi tidak boleh kosong");
+        } else if (pembayaran.getPathImage().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Deskripsi tidak boleh kosong");
         } else {
             try {
+                if (null != path && path.equals(textImage.getText())) {
+                } else {
+                    Properties ftpProperties = new Properties();
+                    ftpProperties.load(ClassLoader.getSystemResourceAsStream("ftp.properties"));
+                    new FileUpload().upload(ftpProperties.getProperty("ip"), ftpProperties.getProperty("user"), ftpProperties.getProperty("password"), pembayaran.getTransactionReference() + ".JPG", new File(textImage.getText()));
+                }
+                pembayaran.setPathImage(System.getProperty("user.dir") + "\\image\\" + pembayaran.getTransactionReference() + ".JPG");
                 pembayaranDAO.saveOrUpdate(pembayaran);
                 dispose();
             } catch (Exception ex) {

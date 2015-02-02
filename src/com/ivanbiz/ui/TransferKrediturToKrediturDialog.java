@@ -232,7 +232,7 @@ public class TransferKrediturToKrediturDialog extends JDialog {
         pembayaran.setStatus("");
         pembayaran.setPathImage("");
         pembayaran.setTransactionReference(textTransaksiReference.getText());
-        pembayaran.setDatePosting(new Date());
+        pembayaran.setDatePosting(dateChooserPosting.getDate());
         pembayaran.setDebitBankAccount(listFrom.get(comboBoxFrom.getSelectedIndex()));
         pembayaran.setKreditBankAccount(listTo.get(comboBoxTo.getSelectedIndex()));
         pembayaran.setJumlah(textJumlah.getText().isEmpty() ? (double) 0 : new Double(textJumlah.getText()));
