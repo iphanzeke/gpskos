@@ -19,8 +19,6 @@ import com.ivanbiz.dao.impl.PembayaranDAOImpl;
 import com.ivanbiz.model.GLAccount;
 import com.ivanbiz.model.Invoice;
 import com.ivanbiz.model.Pembayaran;
-import com.ivanbiz.service.FileUpload;
-import java.io.File;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
@@ -325,7 +323,7 @@ public class PembayaranTagihanUpdateDialog extends JDialog {
         }
         pembayaran.setDateCreated(new Date());
         pembayaran.setStatus("0");
-        pembayaran.setDatePosting(new Date());
+        pembayaran.setDatePosting(dateChooserPosting.getDate());
         pembayaran.setInvoice(listInvoice.get(comboInvoice.getSelectedIndex()));
         pembayaran.setTransactionReference(pembayaran.getInvoice().getNII());
         pembayaran.setDebitBankAccount(glDebitur);
