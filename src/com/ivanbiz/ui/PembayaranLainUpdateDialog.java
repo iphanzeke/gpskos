@@ -284,7 +284,7 @@ public class PembayaranLainUpdateDialog extends JDialog {
         }
         pembayaran.setDateCreated(new Date());
         pembayaran.setStatus("2");
-        pembayaran.setPathImage(textImage.getText());
+        pembayaran.setPathImage(textTransaksiReference.getText() + System.currentTimeMillis() + ".JPG");
         pembayaran.setTransactionReference(textTransaksiReference.getText());
         pembayaran.setDatePosting(dateChooserPosting.getDate());
         pembayaran.setDebitBankAccount(listKreditur.get(comboBoxDebitur.getSelectedIndex()));
@@ -300,12 +300,10 @@ public class PembayaranLainUpdateDialog extends JDialog {
             try {
                 ftpProperties = new Properties();
                 ftpProperties.load(ClassLoader.getSystemResourceAsStream("ftp.properties"));
-                sb = "ftp://" + ftpProperties.getProperty("user") + ":" + ftpProperties.getProperty("password") + "@" + ftpProperties.getProperty("ip") + "/INBOX/" + pembayaran.getTransactionReference() + ".JPG;type=i";
+                sb = "ftp://" + ftpProperties.getProperty("user") + ":" + ftpProperties.getProperty("password") + "@" + ftpProperties.getProperty("ip") + "/INBOX/" + pembayaran.getPathImage() + ";type=i";
                 if (textImage.getText().equals(pembayaran.getPathImage())) {
-                    System.out.println("masuk");
                     image = new PembayaranBuktiDialog(null, true, sb, pembayaran);
                 } else {
-                    System.out.println("masukl");
                     image = new PembayaranBuktiDialog(null, true, textImage.getText());
                 }
             } catch (IOException ex) {
@@ -314,7 +312,7 @@ public class PembayaranLainUpdateDialog extends JDialog {
         } else {
             image = new PembayaranBuktiDialog(null, true, textImage.getText());
         }
-        textImage.setText(image.getImage());    
+        textImage.setText(image.getImage());
     }//GEN-LAST:event_buttonImageActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -352,17 +350,17 @@ public class PembayaranLainUpdateDialog extends JDialog {
             JOptionPane.showMessageDialog(this, "Jumlah tidak boleh kosong");
         } else if (pembayaran.getDeskripsi().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Deskripsi tidak boleh kosong");
-        } else if (pembayaran.getPathImage().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Deskripsi tidak boleh kosong");
+        } else if (textImage.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Bukti Pembayaran tidak boleh kosong");
         } else {
             try {
                 if (null != path && path.equals(textImage.getText())) {
-                } else {
-                    Properties ftpProperties = new Properties();
-                    ftpProperties.load(ClassLoader.getSystemResourceAsStream("ftp.properties"));
-                    new FileUpload().upload(ftpProperties.getProperty("ip"), ftpProperties.getProperty("user"), ftpProperties.getProperty("password"), pembayaran.getTransactionReference() + ".JPG", new File(textImage.getText()));
+                    pembayaran.setPathImage(textImage.getText());
+                } else {                    
+                    Properties ftpPropertie = new Properties();
+                    ftpPropertie.load(ClassLoader.getSystemResourceAsStream("ftp.properties"));
+                    new FileUpload().upload(ftpPropertie.getProperty("ip"), ftpPropertie.getProperty("user"), ftpPropertie.getProperty("password"), pembayaran.getPathImage(), new File(textImage.getText()));
                 }
-                pembayaran.setPathImage(System.getProperty("user.dir") + "\\image\\" + pembayaran.getTransactionReference() + ".JPG");
                 pembayaranDAO.saveOrUpdate(pembayaran);
                 dispose();
             } catch (Exception ex) {
