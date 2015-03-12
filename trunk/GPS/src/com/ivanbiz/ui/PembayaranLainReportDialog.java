@@ -13,14 +13,14 @@ package com.ivanbiz.ui;
 import com.ivanbiz.dao.PembayaranDAO;
 import com.ivanbiz.dao.impl.PembayaranDAOImpl;
 import com.ivanbiz.model.Pembayaran;
-import com.ivanbiz.report.PembayaranReport;
 import com.ivanbiz.service.ServiceHelper;
+import java.io.IOException;
 import java.text.NumberFormat;
 import java.util.List;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JDialog;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -30,7 +30,6 @@ public class PembayaranLainReportDialog extends JDialog {
 
     PembayaranDAO pembayaranDAO;
     List<Pembayaran> listPembayaran;
-    Pembayaran pembayaran;
     NumberFormat numberFormat;
 
     /**
@@ -57,7 +56,6 @@ public class PembayaranLainReportDialog extends JDialog {
         tablePembayaran = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         buttonPreview = new javax.swing.JButton();
-        buttonCetak = new javax.swing.JButton();
 
         setAlwaysOnTop(true);
         setResizable(false);
@@ -79,22 +77,13 @@ public class PembayaranLainReportDialog extends JDialog {
         jScrollPane1.setViewportView(tablePembayaran);
 
         buttonPreview.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/preview.jpg"))); // NOI18N
-        buttonPreview.setText("Lihat Pembayaran Terseleksi");
+        buttonPreview.setText("Lihat Bukti Pembayaran Terseleksi");
         buttonPreview.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonPreviewActionPerformed(evt);
             }
         });
         jPanel2.add(buttonPreview);
-
-        buttonCetak.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/cetak.jpg"))); // NOI18N
-        buttonCetak.setText("Cetak Pembayaran Terseleksi");
-        buttonCetak.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonCetakActionPerformed(evt);
-            }
-        });
-        jPanel2.add(buttonCetak);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -125,23 +114,18 @@ public class PembayaranLainReportDialog extends JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonPreviewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPreviewActionPerformed
-        if (tablePembayaran.getSelectedRow() == -1) {
-            JOptionPane.showMessageDialog(this, "Pilih data yang akan dilihat", "warning", JOptionPane.WARNING_MESSAGE);
-        } else {
-//            new PembayaranReport().previewAndCetakTagihan(listPembayaran.get(tablePembayaran.getSelectedRow()), "preview");
+        try {
+            Pembayaran pembayaran = listPembayaran.get(tablePembayaran.getSelectedRow());
+            Properties ftpProperties = new Properties();
+            ftpProperties.load(ClassLoader.getSystemResourceAsStream("ftp.properties"));
+            String sb = "ftp://" + ftpProperties.getProperty("user") + ":" + ftpProperties.getProperty("password") + "@" + ftpProperties.getProperty("ip") + "/INBOX/" + pembayaran.getPathImage() + ";type=i";
+            PembayaranBuktiDialog image = new PembayaranBuktiDialog(null, true, sb, pembayaran, "lihat");
+        } catch (IOException ex) {
+            Logger.getLogger(PembayaranLainReportDialog.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_buttonPreviewActionPerformed
 
-    private void buttonCetakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCetakActionPerformed
-        if (tablePembayaran.getSelectedRow() == -1) {
-            JOptionPane.showMessageDialog(this, "Pilih data yang akan dicetak", "warning", JOptionPane.WARNING_MESSAGE);
-        } else {
-//            new PembayaranReport().previewAndCetakTagihan(listPembayaran.get(tablePembayaran.getSelectedRow()), "cetak");
-        }
-    }//GEN-LAST:event_buttonCetakActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton buttonCetak;
     private javax.swing.JButton buttonPreview;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel2;

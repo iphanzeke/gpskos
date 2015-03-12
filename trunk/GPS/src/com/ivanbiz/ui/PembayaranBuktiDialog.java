@@ -6,7 +6,6 @@
 package com.ivanbiz.ui;
 
 import com.ivanbiz.model.Pembayaran;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -45,7 +44,7 @@ public class PembayaranBuktiDialog extends javax.swing.JDialog {
             this.image = pembayaran.getPathImage();
             labelImage.setIcon(new ImageIcon(new URL(images)));
             setVisible(true);
-        } catch (MalformedURLException ex) {
+        } catch (Exception ex) {
             Logger.getLogger(PembayaranBuktiDialog.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -58,7 +57,7 @@ public class PembayaranBuktiDialog extends javax.swing.JDialog {
             buttonBrowse.setVisible(false);
             buttonSimpan.setVisible(false);
             setVisible(true);
-        } catch (MalformedURLException ex) {
+        } catch (Exception ex) {
             Logger.getLogger(PembayaranBuktiDialog.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
