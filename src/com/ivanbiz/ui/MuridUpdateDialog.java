@@ -30,7 +30,8 @@ public class MuridUpdateDialog extends JDialog {
     Murid murid;
     MuridDAO muridDAO = new MuridDAOImpl();
     Bank bank;
-    String NIM;
+//    String NIM;
+    String nama;
 
     /**
      * Creates new form PengajarUpdateDialog
@@ -62,7 +63,8 @@ public class MuridUpdateDialog extends JDialog {
         jLabel8.setVisible(false);
         jScrollPane1.setVisible(false);
         jTextAreaAlamat.setVisible(false);
-        this.NIM = murid.getNIM();
+//        this.NIM = murid.getNIM();
+        this.nama = murid.getNama();
         this.murid = murid;
         labelMurid.setText("Ubah Murid");
         jTextFieldNIM.setText(murid.getNIM());
@@ -330,16 +332,16 @@ public class MuridUpdateDialog extends JDialog {
     private void validate(Murid murid) {
         if (murid == null) {
             JOptionPane.showMessageDialog(this, "Murid tidak boleh null");
-        } else if (murid.getNIM() == null) {
-            JOptionPane.showMessageDialog(this, "NIM tidak boleh null");
-        } else if (murid.getNIM().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "NIM tidak boleh kosong");
-        } else if (murid.getNama() == null) {
-            JOptionPane.showMessageDialog(this, "Nama tidak boleh null");
+//        } else if (murid.getNIM() == null) {
+//            JOptionPane.showMessageDialog(this, "NIM tidak boleh null");
+//        } else if (murid.getNIM().trim().isEmpty()) {
+//            JOptionPane.showMessageDialog(this, "NIM tidak boleh kosong");
+//        } else if (murid.getNama() == null) {
+//            JOptionPane.showMessageDialog(this, "Nama tidak boleh null");
         } else if (murid.getNama().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Nama tidak boleh kosong");
         } else if (murid.getBank() == null) {
-            JOptionPane.showMessageDialog(this, "Bank tidak boleh null");
+            JOptionPane.showMessageDialog(this, "Bank tidak boleh kosong");
         } //        else if (murid.getTelp() == null) {
         //            JOptionPane.showMessageDialog(this, "Telp tidak boleh null");
         //        } else if (murid.getTelp().trim().isEmpty()) {
@@ -365,16 +367,16 @@ public class MuridUpdateDialog extends JDialog {
             try {
                 long a = murid.getId();
                 if (a == 0) {
-                    if (muridDAO.validateField(Murid.class, "NIM", jTextFieldNIM.getText()).equals("Data sudah ada")) {
-                        JOptionPane.showMessageDialog(this, "NIM sudah ada");
+                    if (muridDAO.validateField(Murid.class, "nama", jTextFieldNama.getText()).equals("Data sudah ada")) {
+                        JOptionPane.showMessageDialog(this, "nama sudah ada");
                     } else {
                         muridDAO.saveOrUpdate(murid);
                         dispose();
                     }
                 } else {
-                    if (!NIM.equals(jTextFieldNIM.getText())) {
-                        if (muridDAO.validateField(Murid.class, "NIM", jTextFieldNIM.getText()).equals("Data sudah ada")) {
-                            JOptionPane.showMessageDialog(this, "NIM sudah ada");
+                    if (!nama.equals(jTextFieldNama.getText())) {
+                        if (muridDAO.validateField(Murid.class, "nama", jTextFieldNama.getText()).equals("Data sudah ada")) {
+                            JOptionPane.showMessageDialog(this, "nama sudah ada");
                         } else {
                             muridDAO.saveOrUpdate(murid);
                             dispose();
