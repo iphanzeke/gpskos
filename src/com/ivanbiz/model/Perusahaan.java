@@ -15,6 +15,51 @@ public class Perusahaan {
     private String alamat;
     private String telephone;
     private String fax;
+    private String email;
+    private String passEmail;
+    private String ftpIP;
+    private String ftpUser;
+    private String ftpPass;
+
+    public String getFtpIP() {
+        return ftpIP;
+    }
+
+    public void setFtpIP(String ftpIP) {
+        this.ftpIP = ftpIP;
+    }
+
+    public String getFtpPass() {
+        return ftpPass;
+    }
+
+    public void setFtpPass(String ftpPass) {
+        this.ftpPass = ftpPass;
+    }
+
+    public String getFtpUser() {
+        return ftpUser;
+    }
+
+    public void setFtpUser(String ftpUser) {
+        this.ftpUser = ftpUser;
+    }
+
+    public String getPassEmail() {
+        return passEmail;
+    }
+
+    public void setPassEmail(String passEmail) {
+        this.passEmail = passEmail;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     public String getAlamat() {
         return alamat;

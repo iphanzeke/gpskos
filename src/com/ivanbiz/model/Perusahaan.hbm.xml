@@ -9,5 +9,10 @@
     <property column="ALAMAT" length="150" name="alamat" type="string"/>
     <property column="TELP" length="20" name="telephone" type="string"/>
     <property column="FAX" length="20" name="fax" type="string"/>
+    <property column="EMAIL" length="100" name="email" type="string"/>
+    <property column="PASS_EMAIL" length="100" name="passEmail" type="string"/>
+    <property column="FTP_IP" length="15" name="ftpIP" type="string"/>
+    <property column="FTP_USER" length="100" name="ftpUser" type="string"/>
+    <property column="FTP_PASS" length="100" name="ftpPass" type="string"/>
   </class>
 </hibernate-mapping>

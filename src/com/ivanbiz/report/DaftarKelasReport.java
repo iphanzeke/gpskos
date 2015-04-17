@@ -22,6 +22,7 @@ import javax.swing.JFrame;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRParameter;
+import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperPrintManager;
@@ -97,8 +98,10 @@ public class DaftarKelasReport {
                 jasperViewer.setAlwaysOnTop(true);
                 jasperViewer.setExtendedState(JFrame.MAXIMIZED_BOTH);
                 jasperViewer.setVisible(true);
-            } else {
+            } else if (previewOrCetak.equals("cetak")) {
                 JasperPrintManager.printReport(report, false);
+            } else {
+                JasperExportManager.exportReportToPdfFile(report, System.getProperty("user.dir") + "\\report\\" + kelas.getTransactionReference() + ".pdf");
             }
         } catch (JRException ex) {
             Logger.getLogger(DaftarKelasReport.class.getName()).log(Level.SEVERE, null, ex);

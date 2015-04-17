@@ -16,14 +16,13 @@ import com.ivanbiz.dao.impl.GLAccountDAOImpl;
 import com.ivanbiz.dao.impl.PembayaranDAOImpl;
 import com.ivanbiz.model.GLAccount;
 import com.ivanbiz.model.Pembayaran;
+import com.ivanbiz.model.Perusahaan;
 import com.ivanbiz.service.FileUpload;
 import com.ivanbiz.service.GlobalSession;
 import java.io.File;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
@@ -45,7 +44,7 @@ public class PembayaranLainUpdateDialog extends JDialog {
     PembayaranBuktiDialog image;
     String path;
     String sb;
-    Properties ftpProperties;
+    Perusahaan perusahaan = GlobalSession.getPerusahaan();
 
     /**
      * Creates new form PengajarUpdateDialog
@@ -297,24 +296,17 @@ public class PembayaranLainUpdateDialog extends JDialog {
     private void buttonImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonImageActionPerformed
         sb = null;
         if (pembayaran != null) {
-            try {
-                ftpProperties = new Properties();
-                ftpProperties.load(ClassLoader.getSystemResourceAsStream("ftp.properties"));
-                sb = "ftp://" + ftpProperties.getProperty("user") + ":" + ftpProperties.getProperty("password") + "@" + ftpProperties.getProperty("ip") + "/INBOX/" + pembayaran.getPathImage() + ";type=i";
-                if (textImage.getText().equals(pembayaran.getPathImage())) {
-                    image = new PembayaranBuktiDialog(null, true, sb, pembayaran);
-                } else {
-                    image = new PembayaranBuktiDialog(null, true, textImage.getText());
-                }
-            } catch (IOException ex) {
-                Logger.getLogger(PembayaranLainUpdateDialog.class.getName()).log(Level.SEVERE, null, ex);
+            sb = "ftp://" + perusahaan.getFtpUser() + ":" + perusahaan.getFtpPass() + "@" + perusahaan.getFtpIP() + "/INBOX/" + pembayaran.getPathImage() + ";type=i";
+            if (textImage.getText().equals(pembayaran.getPathImage())) {
+                image = new PembayaranBuktiDialog(null, true, sb, pembayaran);
+            } else {
+                image = new PembayaranBuktiDialog(null, true, textImage.getText());
             }
         } else {
             image = new PembayaranBuktiDialog(null, true, textImage.getText());
         }
         textImage.setText(image.getImage());
     }//GEN-LAST:event_buttonImageActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonBatal;
     private javax.swing.JButton buttonImage;
@@ -356,10 +348,8 @@ public class PembayaranLainUpdateDialog extends JDialog {
             try {
                 if (null != path && path.equals(textImage.getText())) {
                     pembayaran.setPathImage(textImage.getText());
-                } else {                    
-                    Properties ftpPropertie = new Properties();
-                    ftpPropertie.load(ClassLoader.getSystemResourceAsStream("ftp.properties"));
-                    new FileUpload().upload(ftpPropertie.getProperty("ip"), ftpPropertie.getProperty("user"), ftpPropertie.getProperty("password"), pembayaran.getPathImage(), new File(textImage.getText()));
+                } else {
+                    new FileUpload().upload(perusahaan.getFtpIP(), perusahaan.getFtpUser(), perusahaan.getFtpPass(), pembayaran.getPathImage(), new File(textImage.getText()));
                 }
                 pembayaranDAO.saveOrUpdate(pembayaran);
                 dispose();

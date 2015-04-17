@@ -22,7 +22,6 @@ import com.ivanbiz.model.Pembayaran;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
-import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
@@ -44,7 +43,7 @@ public class PembayaranTagihanUpdateDialog extends JDialog {
     GLAccount glKreditur;
     String path;
     PembayaranBuktiDialog image;
-    Properties ftpProperties;
+//    Properties ftpProperties;
 
     /**
      * Creates new form PengajarUpdateDialog
@@ -376,24 +375,24 @@ public class PembayaranTagihanUpdateDialog extends JDialog {
     }//GEN-LAST:event_checkBoxPajakActionPerformed
 
     private void buttonBrowseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBrowseActionPerformed
-        try {
-            if (pembayaran != null) {
-                ftpProperties = new Properties();
-                ftpProperties.load(ClassLoader.getSystemResourceAsStream("ftp.properties"));
-                String sb = "ftp://" + ftpProperties.getProperty("user") + ":" + ftpProperties.getProperty("password") + "@" + ftpProperties.getProperty("ip") + "/INBOX/" + pembayaran.getTransactionReference() + ".JPG;type=i";
-                if (textCheck.getText().equals(pembayaran.getPathImage())) {
-                    image = new PembayaranBuktiDialog(null, true, sb, pembayaran);
-                } else {
-                    image = new PembayaranBuktiDialog(null, true, textCheck.getText());
-                }
-            } else {
-                image = new PembayaranBuktiDialog(null, true, textCheck.getText());
-            }
-            textCheck.setText(image.getImage());
-        } catch (IOException ex) {
-            JOptionPane.showMessageDialog(this, ex);
-            Logger.getLogger(PembayaranTagihanUpdateDialog.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        try {
+//            if (pembayaran != null) {
+//                ftpProperties = new Properties();
+//                ftpProperties.load(ClassLoader.getSystemResourceAsStream("ftp.properties"));
+//                String sb = "ftp://" + ftpProperties.getProperty("user") + ":" + ftpProperties.getProperty("password") + "@" + ftpProperties.getProperty("ip") + "/INBOX/" + pembayaran.getTransactionReference() + ".JPG;type=i";
+//                if (textCheck.getText().equals(pembayaran.getPathImage())) {
+//                    image = new PembayaranBuktiDialog(null, true, sb, pembayaran);
+//                } else {
+//                    image = new PembayaranBuktiDialog(null, true, textCheck.getText());
+//                }
+//            } else {
+//                image = new PembayaranBuktiDialog(null, true, textCheck.getText());
+//            }
+//            textCheck.setText(image.getImage());
+//        } catch (IOException ex) {
+//            JOptionPane.showMessageDialog(this, ex);
+//            Logger.getLogger(PembayaranTagihanUpdateDialog.class.getName()).log(Level.SEVERE, null, ex);
+//        }
     }//GEN-LAST:event_buttonBrowseActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonBatal;
