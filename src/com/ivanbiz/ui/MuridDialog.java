@@ -83,7 +83,7 @@ public class MuridDialog extends JDialog {
         setModal(true);
         setResizable(false);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24));
         jLabel1.setText("Daftar Murid");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Pencarian Murid"));
@@ -187,8 +187,8 @@ public class MuridDialog extends JDialog {
                 .addContainerGap())
         );
 
-        setSize(new java.awt.Dimension(816, 638));
-        setLocationRelativeTo(null);
+        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+        setBounds((screenSize.width-816)/2, (screenSize.height-638)/2, 816, 638);
     }// </editor-fold>//GEN-END:initComponents
 
     private void renderButtonAkses(List<AksesMatrix> listAksesMatrix) {
@@ -325,7 +325,8 @@ public class MuridDialog extends JDialog {
         } else {
             try {
                 daftarKelasDAO.save(daftarKelas);
-                dispose();
+                listDaftarKelas.add(daftarKelas);
+//                dispose();
             } catch (Exception ex) {
                 Logger.getLogger(MuridDialog.class.getName()).log(Level.SEVERE, null, ex);
             }
