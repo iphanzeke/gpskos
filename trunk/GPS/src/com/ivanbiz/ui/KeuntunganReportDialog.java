@@ -46,7 +46,7 @@ public class KeuntunganReportDialog extends javax.swing.JDialog {
             this.glAccount = gLAccount;
             CashBalanceDAO cashBalanceDAO = new CashBalanceDAOImpl();
             cashBalance = cashBalanceDAO.getBalanceByOrderDate(gLAccount.getId());
-            numberFormat = NumberFormat.getCurrencyInstance();
+            numberFormat = NumberFormat.getNumberInstance();
             dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             dateFormat1 = new SimpleDateFormat("dd-MMMM-yyyy");
             jLabelJudul.setText("Dari tanggal " + dateFormat1.format(dari) + " sampai tanggal " + dateFormat1.format(sampai));
@@ -342,7 +342,8 @@ public class KeuntunganReportDialog extends javax.swing.JDialog {
         textFieldKeuntungan.setText(numberFormat.format(totalKeuntungan));
         textCashBalance.setText(numberFormat.format(cashBalance == null ? new Double("0") : cashBalance.getBalance()));
         jumlah = totalKeuntungan + (cashBalance == null ? new Double("0") : cashBalance.getBalance());
-        textJumlah.setText(String.valueOf(new Double(jumlah).intValue()));
+//        textJumlah.setText(String.valueOf(new Double(jumlah).intValue()));
+        textJumlah.setText(numberFormat.format(jumlah));
         new ServiceHelper().setAutoRize(isi, judul, tableJurnal);
     }
 

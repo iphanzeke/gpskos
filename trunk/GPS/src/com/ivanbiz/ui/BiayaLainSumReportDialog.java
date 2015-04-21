@@ -49,7 +49,7 @@ public class BiayaLainSumReportDialog extends javax.swing.JDialog {
             gLAccountDAO = new GLAccountDAOImpl();
             dateFormat = new SimpleDateFormat("dd-MMMM-yyyy");
             formatDate = new SimpleDateFormat("yyyy-MM-dd");
-            numberFormat = NumberFormat.getCurrencyInstance();
+            numberFormat = NumberFormat.getNumberInstance();
             jLabelJudul.setText("Dari tanggal " + dateFormat.format(dariTanggal) + " sampai tanggal " + dateFormat.format(sampaiTanggal));
             listGLAccount = gLAccountDAO.getDataByEquals(GLAccount.class, "groupACC", "BiayaLain");
             updateTableJurnal(dariTanggal, sampaiTanggal);

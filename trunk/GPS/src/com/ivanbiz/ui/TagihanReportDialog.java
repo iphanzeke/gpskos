@@ -42,7 +42,7 @@ public class TagihanReportDialog extends javax.swing.JDialog {
         invoiceDAO = new InvoiceDAOImpl();
         daftarKelasDAO = new DaftarKelasDAOImpl();
         sdf = new SimpleDateFormat("dd-MMMM-yyyy");
-        numberFormat = NumberFormat.getCurrencyInstance();
+        numberFormat = NumberFormat.getNumberInstance();
         refresh();
     }
 

@@ -44,7 +44,7 @@ public class BiayaLainReportDialog extends javax.swing.JDialog {
             initComponents();
             dateFormat1 = new SimpleDateFormat("dd-MMMM-yyyy");
             jLabelJudul.setText("Dari tanggal " + dateFormat1.format(dari) + " sampai tanggal " + dateFormat1.format(sampai));
-            numberFormat = NumberFormat.getCurrencyInstance();
+            numberFormat = NumberFormat.getNumberInstance();
             dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             gLAccountDAO = new GLAccountDAOImpl();
             jurnalDAO = new JurnalDAOImpl();

@@ -35,7 +35,7 @@ public class SaldoKasDialog extends javax.swing.JDialog {
         buttonUbah.setVisible(false);
         cashBalanceDAO = new CashBalanceDAOImpl();
         renderButtonAkses(GlobalSession.getListAksesMatrix());
-        numberFormat = NumberFormat.getCurrencyInstance();
+        numberFormat = NumberFormat.getNumberInstance();
         refresh();
     }
 
@@ -181,7 +181,6 @@ public class SaldoKasDialog extends javax.swing.JDialog {
             refresh();
         }
     }//GEN-LAST:event_buttonProsesActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonHapus;
     private javax.swing.JButton buttonProses;

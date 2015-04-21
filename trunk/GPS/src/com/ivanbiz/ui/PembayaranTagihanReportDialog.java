@@ -40,7 +40,7 @@ public class PembayaranTagihanReportDialog extends JDialog {
     public PembayaranTagihanReportDialog() {
         initComponents();
         pembayaranDAO = new PembayaranDAOImpl();
-        numberFormat = NumberFormat.getCurrencyInstance();
+        numberFormat = NumberFormat.getNumberInstance();
         refresh();
     }
 

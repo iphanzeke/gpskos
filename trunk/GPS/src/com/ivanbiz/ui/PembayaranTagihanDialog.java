@@ -42,7 +42,7 @@ public class PembayaranTagihanDialog extends JDialog {
         initComponents();
         pembayaranDAO = new PembayaranDAOImpl();
         renderButtonAkses(GlobalSession.getListAksesMatrix());
-        numberFormat = NumberFormat.getCurrencyInstance();
+        numberFormat = NumberFormat.getNumberInstance();
         refresh();
     }
 
