@@ -37,7 +37,7 @@ public class TagihanDialog extends javax.swing.JDialog {
         renderButtonAkses(GlobalSession.getListAksesMatrix());
         invoiceDAO = new InvoiceDAOImpl();
         sdf = new SimpleDateFormat("dd-MMMM-yyyy");
-        numberFormat = NumberFormat.getCurrencyInstance();
+        numberFormat = NumberFormat.getNumberInstance();
         refresh();
     }
 
@@ -191,7 +191,6 @@ public class TagihanDialog extends javax.swing.JDialog {
             }
         }
     }//GEN-LAST:event_buttonKirimActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonHapus;
     private javax.swing.JButton buttonKirim;

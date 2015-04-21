@@ -38,7 +38,7 @@ public class PembayaranLainReportDialog extends JDialog {
     public PembayaranLainReportDialog() {
         initComponents();
         pembayaranDAO = new PembayaranDAOImpl();
-        numberFormat = NumberFormat.getCurrencyInstance();
+        numberFormat = NumberFormat.getNumberInstance();
         refresh();
     }
 
@@ -124,7 +124,6 @@ public class PembayaranLainReportDialog extends JDialog {
             Logger.getLogger(PembayaranLainReportDialog.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_buttonPreviewActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonPreview;
     private javax.swing.JLabel jLabel1;

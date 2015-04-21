@@ -369,7 +369,7 @@ public class ReconsileDialog extends javax.swing.JFrame {
     private void buttonTampilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTampilActionPerformed
         try {
             sdf = new SimpleDateFormat("dd-MMMM-yyyy");
-            numberFormat = NumberFormat.getCurrencyInstance();
+            numberFormat = NumberFormat.getNumberInstance();
             reconDAO = new ReconDAOImpl();
             Map map = reconDAO.getDataByKelas(listKelas.get(comboBoxKelas.getSelectedIndex()).getId());
             listDaftarKelas = (List<DaftarKelas>) map.get("listDaftarKelas");

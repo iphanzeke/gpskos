@@ -38,7 +38,7 @@ public class TransferKrediturToKrediturReportDialog extends JDialog {
     public TransferKrediturToKrediturReportDialog() {
         initComponents();
         pembayaranDAO = new PembayaranDAOImpl();
-        numberFormat = NumberFormat.getCurrencyInstance();
+        numberFormat = NumberFormat.getNumberInstance();
         refresh();
     }
 

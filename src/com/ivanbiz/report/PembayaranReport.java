@@ -53,7 +53,7 @@ public class PembayaranReport {
 
     public void previewAndCetakTagihan(Pembayaran pembayaran, String previewOrCetak) {
         try {
-            numberFormat = NumberFormat.getCurrencyInstance();
+            numberFormat = NumberFormat.getNumberInstance();
             gLAccountDAO = new GLAccountDAOImpl();
 
             perusahaan = new Perusahaan();
@@ -68,7 +68,7 @@ public class PembayaranReport {
             globalReport.setPembayaran(pembayaran);
             globalReport.setLogo(System.getProperty("user.dir") + "\\image\\logo.jpg");
 //            globalReport.setLogo("http://" + System.getProperty("ip") + ":" + System.getProperty("port") + "/GPS/image/logo.jpg");
-            globalReport.setJumlah(numberFormat.format(pembayaran.getJumlah()));
+            globalReport.setJumlah("Rp " + numberFormat.format(pembayaran.getJumlah()) + ",00");
 
             listReport = new ArrayList<GlobalReport>();
             listReport.add(globalReport);

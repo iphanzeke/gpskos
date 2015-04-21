@@ -43,7 +43,7 @@ public class JurnalReportDialog extends javax.swing.JDialog {
             initComponents();
             jurnalDAO = new JurnalDAOImpl();
             dateFormat = new SimpleDateFormat("dd-MMMM-yyyy");
-            numberFormat = NumberFormat.getCurrencyInstance();
+            numberFormat = NumberFormat.getNumberInstance();
             jLabelJudul.setText("Dari tanggal " + dateFormat.format(dariTanggal) + " sampai tanggal " + dateFormat.format(sampaiTanggal));
             listJurnal = jurnalDAO.getData(Jurnal.class, dariTanggal, sampaiTanggal);
             updateTableJurnal();

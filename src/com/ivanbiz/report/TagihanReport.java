@@ -60,7 +60,7 @@ public class TagihanReport {
 
     public void previewAndCetakTagihan(Invoice invoice, List<DaftarKelas> listDaftarKelas, String previeworCetak) {
         gLAccountDAO = new GLAccountDAOImpl();
-        numberFormat = NumberFormat.getCurrencyInstance();
+        numberFormat = NumberFormat.getNumberInstance();
         try {
             perusahaan = new Perusahaan();
             perusahaan.setAlamat(GlobalSession.getPerusahaan().getAlamat() + "\n" + "Ph  :" + GlobalSession.getPerusahaan().getTelephone() + "\n" + "Fax :" + GlobalSession.getPerusahaan().getFax());
@@ -82,7 +82,7 @@ public class TagihanReport {
             globalReport.setNamaGLKreditur(gLAccountDitransferKe.getNameGL());
 //            globalReport.setLogo("http://" + System.getProperty("ip") + ":" + System.getProperty("port") + "/GPS/image/logo.jpg");
             globalReport.setLogo(System.getProperty("user.dir") + "\\image\\logo.jpg");
-            globalReport.setJumlah(numberFormat.format(invoice.getJumlahTagihan()));
+            globalReport.setJumlah("Rp " + numberFormat.format(invoice.getJumlahTagihan()) + ",00");
 
             listReport = new ArrayList<GlobalReport>();
             listReport.add(globalReport);

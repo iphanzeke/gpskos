@@ -71,7 +71,7 @@ public class TagihanUpdateDialog extends javax.swing.JDialog {
         dateChooserDate.setDate(invoice.getDate());
         textNII.setText(invoice.getNII());
         renderKelas();
-        comboKelas.setSelectedItem(invoice.getKelas().getTransactionReference());
+        comboKelas.setSelectedItem(invoice.getKelas().getTransactionReference() + " ( " + invoice.getKelas().getTanggalKelas() + " )");
         renderBankUbah(invoice.getKelas().getTransactionReference());
         comboBank.setSelectedItem(invoice.getBank().getNama());
         renderKepada(invoice.getBank());
@@ -633,7 +633,7 @@ public class TagihanUpdateDialog extends javax.swing.JDialog {
 
     private void renderBank(String kelas) {
         try {
-            String[] kelasReff=kelas.split(" ");
+            String[] kelasReff = kelas.split(" ");
             listBank = bankDAO.getDataBankByKelas(kelasReff[0]);
             Bank bank = new Bank();
             bank.setNama("");
