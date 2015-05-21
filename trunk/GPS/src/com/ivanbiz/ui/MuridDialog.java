@@ -242,30 +242,31 @@ public class MuridDialog extends JDialog {
     private void tableMuridMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMuridMouseClicked
         if (null != kelas) {
             if (evt.getClickCount() == 2) {
-                int response = JOptionPane.showConfirmDialog(this, "Tambah murid Ke Daftar Kelas ?", "Konfirmasi", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-                if (response == JOptionPane.YES_OPTION) {
-                    murid = listMurid.get(tableMurid.getSelectedRow());
-                    for (DaftarKelas daftarKelass : listDaftarKelas) {
-                        if (daftarKelass.getMurid().getId() == murid.getId()) {
-                            JOptionPane.showMessageDialog(this, "Murid sudah ada pada daftar Kelas", "warning", JOptionPane.WARNING_MESSAGE);
-                            return;
-                        }
+                //int response = JOptionPane.showConfirmDialog(this, "Tambah murid Ke Daftar Kelas ?", "Konfirmasi", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                //if (response == JOptionPane.YES_OPTION) {
+                murid = listMurid.get(tableMurid.getSelectedRow());
+                for (DaftarKelas daftarKelass : listDaftarKelas) {
+                    if (daftarKelass.getMurid().getId() == murid.getId()) {
+                        JOptionPane.showMessageDialog(this, "Murid sudah ada pada daftar Kelas", "warning", JOptionPane.WARNING_MESSAGE);
+                        return;
                     }
-                    daftarKelas = new DaftarKelas();
-                    daftarKelas.setKelas(kelas);
-                    daftarKelas.setMurid(murid);
-                    daftarKelas.setTransactionReference(kelas.getTransactionReference());
-                    daftarKelas.setStatus("1");
-                    daftarKelas.setKehadiran("1");
-                    daftarKelas.setKeterangan("");
-                    daftarKelas.setKehadiran2("1");
-                    daftarKelas.setKeterangan2("");
-                    daftarKelas.setUjian(null);
-                    validateDaftarKelas(daftarKelas);
                 }
+                daftarKelas = new DaftarKelas();
+                daftarKelas.setKelas(kelas);
+                daftarKelas.setMurid(murid);
+                daftarKelas.setTransactionReference(kelas.getTransactionReference());
+                daftarKelas.setStatus("1");
+                daftarKelas.setKehadiran("1");
+                daftarKelas.setKeterangan("");
+                daftarKelas.setKehadiran2("1");
+                daftarKelas.setKeterangan2("");
+                daftarKelas.setUjian(null);
+                validateDaftarKelas(daftarKelas);
+                //}
             }
         }
     }//GEN-LAST:event_tableMuridMouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonHapus;
     private javax.swing.JButton buttonTambah;

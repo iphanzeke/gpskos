@@ -76,7 +76,7 @@ public class PerusahaanDialog extends javax.swing.JDialog {
         setModal(true);
         setResizable(false);
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24));
         jLabel2.setText("Perusahaan");
 
         buttonRegistrasi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/process.jpg"))); // NOI18N
@@ -148,9 +148,11 @@ public class PerusahaanDialog extends javax.swing.JDialog {
 
         jLabel8.setText("User :");
 
-        textEmail.setDocument(new JTextFieldLimit(20));
+        textEmail.setDocument(new JTextFieldLimit(50));
 
         jLabel9.setText("Password :");
+
+        textPassEmail.setDocument(new JTextFieldLimit(100));
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
