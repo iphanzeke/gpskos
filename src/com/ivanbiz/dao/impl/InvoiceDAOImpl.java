@@ -17,6 +17,7 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
 /**
@@ -124,6 +125,7 @@ public class InvoiceDAOImpl extends GenericDAOImpl implements InvoiceDAO {
         return list;
     }
 
+    @Override
     public List<Invoice> getDataByNotEquals(Class clazImpl, String variable, Object input) throws Exception {
         List list = null;
         try {
@@ -151,9 +153,9 @@ public class InvoiceDAOImpl extends GenericDAOImpl implements InvoiceDAO {
             Session session = HibernateUtil.getSession();
             JurnalDAO jurnalDAO = new JurnalDAOImpl();
             PembayaranDAO pembayaranDAO = new PembayaranDAOImpl();
-            Pembayaran pembayaran = (Pembayaran) pembayaranDAO.getDataByEqual(Pembayaran.class, "transactionReference", noInvoice,session);
+            Pembayaran pembayaran = (Pembayaran) pembayaranDAO.getDataByEqual(Pembayaran.class, "transactionReference", noInvoice, session);
             if (pembayaran == null) {
-                List listJurnal = jurnalDAO.getDataByEquals(Jurnal.class, "transactionReference", noInvoice,session);
+                List listJurnal = jurnalDAO.getDataByEquals(Jurnal.class, "transactionReference", noInvoice, session);
                 for (int x = 0; x < listJurnal.size(); x++) {
                     Jurnal jurnal = (Jurnal) listJurnal.get(x);
                     Jurnal jurnal1 = new Jurnal();
@@ -167,14 +169,14 @@ public class InvoiceDAOImpl extends GenericDAOImpl implements InvoiceDAO {
                     jurnal1.setDebit(jurnal.getCredit());
                     session.save(jurnal1);
                 }
-                 status = "sukses";
-            }else{
+                status = "sukses";
+            } else {
                 status = "gagal";
             }
-            Invoice invoice = (Invoice) getDataByEqual(Invoice.class, "NII", noInvoice,session);
+            Invoice invoice = (Invoice) getDataByEqual(Invoice.class, "NII", noInvoice, session);
             invoice.setStatus("5");
             session.update(invoice);
-            HibernateUtil.commitTransaction();           
+            HibernateUtil.commitTransaction();
         } catch (Exception e) {
             status = "gagal";
             HibernateUtil.rollbackTransaction();
@@ -183,5 +185,25 @@ public class InvoiceDAOImpl extends GenericDAOImpl implements InvoiceDAO {
             HibernateUtil.closeSession();
         }
         return status;
+    }
+
+    @Override
+    public List getDataByEquals(Class clazImpl, String variable, Object input) throws Exception {
+        List list = null;
+        try {
+            Session session = HibernateUtil.getSession();
+            HibernateUtil.beginTransaction();
+            Criteria crit = session.createCriteria(clazImpl);
+            crit.add(Restrictions.eq(variable, input));
+            crit.addOrder(Order.asc("NII"));
+            list = crit.list();
+            HibernateUtil.commitTransaction();
+        } catch (Exception e) {
+            HibernateUtil.rollbackTransaction();
+            throw e;
+        } finally {
+            HibernateUtil.closeSession();
+        }
+        return list;
     }
 }

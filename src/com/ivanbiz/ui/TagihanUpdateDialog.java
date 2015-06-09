@@ -679,7 +679,7 @@ public class TagihanUpdateDialog extends javax.swing.JDialog {
     private void renderBankUbah(String transactionReference) {
         try {
             listBank = bankDAO.getDataBankByKelas(transactionReference);
-            listBank.add(0, invoice.getBank());
+//            listBank.add(0, invoice.getBank());
             updateComboBank();
         } catch (Exception ex) {
             Logger.getLogger(TagihanUpdateDialog.class.getName()).log(Level.SEVERE, null, ex);
