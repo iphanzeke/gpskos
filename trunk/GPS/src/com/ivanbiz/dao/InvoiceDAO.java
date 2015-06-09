@@ -20,6 +20,8 @@ public interface InvoiceDAO extends GenericDAO {
     public List<Invoice> getDataByEquals(String string) throws Exception;
 
     public List getDataByNotEquals(Class clazImpl, String variable, Object input) throws Exception;
-    
-    public String rejectInvoice(String noInvoice)throws Exception;
+
+    public String rejectInvoice(String noInvoice) throws Exception;
+
+    public List getDataByEquals(Class clazImpl, String variable, Object input) throws Exception;
 }
