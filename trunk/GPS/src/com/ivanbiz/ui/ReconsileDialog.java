@@ -428,7 +428,7 @@ public class ReconsileDialog extends javax.swing.JFrame {
         Object data[] = new Object[listKelas.size()];
         int x = 0;
         for (Kelas kelas : listKelas) {
-            data[x] = kelas.getNIK();
+            data[x] = kelas.getDeskripsi();
             x++;
         }
         comboBoxKelas.setModel(new DefaultComboBoxModel(data));
