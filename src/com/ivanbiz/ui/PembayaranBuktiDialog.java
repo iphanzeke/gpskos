@@ -53,9 +53,10 @@ public class PembayaranBuktiDialog extends javax.swing.JDialog {
         try {
             initComponents();
             this.image = pembayaran.getPathImage();
+            labelImage.setAutoscrolls(true);
             labelImage.setIcon(new ImageIcon(new URL(images)));
             buttonBrowse.setVisible(false);
-            buttonSimpan.setVisible(false);
+            buttonSimpan.setVisible(false);           
             setVisible(true);
         } catch (Exception ex) {
             Logger.getLogger(PembayaranBuktiDialog.class.getName()).log(Level.SEVERE, null, ex);
@@ -81,6 +82,9 @@ public class PembayaranBuktiDialog extends javax.swing.JDialog {
         setModal(true);
 
         jPanel2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel2.setAutoscrolls(true);
+
+        labelImage.setAutoscrolls(true);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -141,8 +145,8 @@ public class PembayaranBuktiDialog extends javax.swing.JDialog {
                 .addContainerGap())
         );
 
-        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-616)/2, (screenSize.height-438)/2, 616, 438);
+        setSize(new java.awt.Dimension(616, 438));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonBrowseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBrowseActionPerformed

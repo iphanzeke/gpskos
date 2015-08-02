@@ -13,11 +13,11 @@ package com.ivanbiz.ui;
 import com.ivanbiz.dao.PembayaranDAO;
 import com.ivanbiz.dao.impl.PembayaranDAOImpl;
 import com.ivanbiz.model.Pembayaran;
+import com.ivanbiz.model.Perusahaan;
+import com.ivanbiz.service.GlobalSession;
 import com.ivanbiz.service.ServiceHelper;
-import java.io.IOException;
 import java.text.NumberFormat;
 import java.util.List;
-import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JDialog;
@@ -31,6 +31,8 @@ public class PembayaranLainReportDialog extends JDialog {
     PembayaranDAO pembayaranDAO;
     List<Pembayaran> listPembayaran;
     NumberFormat numberFormat;
+    Perusahaan perusahaan = GlobalSession.getPerusahaan();
+    String sb;
 
     /**
      * Creates new form PengajarDialog
@@ -114,15 +116,9 @@ public class PembayaranLainReportDialog extends JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonPreviewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPreviewActionPerformed
-        try {
-            Pembayaran pembayaran = listPembayaran.get(tablePembayaran.getSelectedRow());
-            Properties ftpProperties = new Properties();
-            ftpProperties.load(ClassLoader.getSystemResourceAsStream("ftp.properties"));
-            String sb = "ftp://" + ftpProperties.getProperty("user") + ":" + ftpProperties.getProperty("password") + "@" + ftpProperties.getProperty("ip") + "/INBOX/" + pembayaran.getPathImage() + ";type=i";
-            PembayaranBuktiDialog image = new PembayaranBuktiDialog(null, true, sb, pembayaran, "lihat");
-        } catch (IOException ex) {
-            Logger.getLogger(PembayaranLainReportDialog.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        Pembayaran pembayaran = listPembayaran.get(tablePembayaran.getSelectedRow());
+        sb = "ftp://" + perusahaan.getFtpUser() + ":" + perusahaan.getFtpPass() + "@" + perusahaan.getFtpIP() + "/INBOX/" + pembayaran.getPathImage() + ";type=i";
+        PembayaranBuktiDialog image = new PembayaranBuktiDialog(null, true, sb, pembayaran, "lihat");
     }//GEN-LAST:event_buttonPreviewActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonPreview;
