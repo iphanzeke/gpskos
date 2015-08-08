@@ -37,10 +37,13 @@ public class KeuntunganReportBiayaLainDialog extends javax.swing.JDialog {
     public KeuntunganReportBiayaLainDialog(GLAccount gLAccount, Date dari, Date sampai) {
         try {
             initComponents();
+            textFieldKeuntungan.setVisible(false);
+            jLabel1.setVisible(false);
             this.glAccount = gLAccount;
-            numberFormat = NumberFormat.getCurrencyInstance();
+            numberFormat = NumberFormat.getNumberInstance();
             dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             dateFormat1 = new SimpleDateFormat("dd-MMMM-yyyy");
+            labelLaporan.setText("Laporan Account " + glAccount.getNameGL());
             jLabelJudul.setText("Dari tanggal " + dateFormat1.format(dari) + " sampai tanggal " + dateFormat1.format(sampai));
             ReconDAO reconDAO = new ReconDAOImpl();
             listJurnal = reconDAO.getDataByDateAndGLAccount(dateFormat.format(dari), dateFormat.format(sampai), gLAccount.getNoGL());
@@ -59,7 +62,7 @@ public class KeuntunganReportBiayaLainDialog extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel3 = new javax.swing.JLabel();
+        labelLaporan = new javax.swing.JLabel();
         jLabelJudul = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableJurnal = new javax.swing.JTable();
@@ -75,8 +78,8 @@ public class KeuntunganReportBiayaLainDialog extends javax.swing.JDialog {
         setAlwaysOnTop(true);
         setModal(true);
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel3.setText("Laporan Keuntugan Biaya Lain - Lain");
+        labelLaporan.setFont(new java.awt.Font("Tahoma", 1, 24));
+        labelLaporan.setText("Laporan Keuntugan Biaya Lain - Lain");
 
         jLabelJudul.setText("Dari Tanggal {} Sampai {}");
 
@@ -126,9 +129,9 @@ public class KeuntunganReportBiayaLainDialog extends javax.swing.JDialog {
                             .addComponent(jLabel2))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(textFieldKredit)
-                            .addComponent(textFieldDebet))))
+                            .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
+                            .addComponent(textFieldKredit, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
+                            .addComponent(textFieldDebet, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -158,40 +161,39 @@ public class KeuntunganReportBiayaLainDialog extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 780, Short.MAX_VALUE)
-                    .addComponent(jLabelJudul, javax.swing.GroupLayout.DEFAULT_SIZE, 780, Short.MAX_VALUE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 780, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 772, Short.MAX_VALUE)
+                    .addComponent(jLabelJudul, javax.swing.GroupLayout.DEFAULT_SIZE, 772, Short.MAX_VALUE)
+                    .addComponent(labelLaporan, javax.swing.GroupLayout.DEFAULT_SIZE, 772, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGap(0, 455, Short.MAX_VALUE)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel3)
+                .addComponent(labelLaporan)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabelJudul)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 414, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 403, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
-        setSize(new java.awt.Dimension(808, 627));
-        setLocationRelativeTo(null);
+        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+        setBounds((screenSize.width-808)/2, (screenSize.height-627)/2, 808, 627);
     }// </editor-fold>//GEN-END:initComponents
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabelJudul;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JLabel labelLaporan;
     private javax.swing.JTable tableJurnal;
     private javax.swing.JTextField textFieldDebet;
     private javax.swing.JTextField textFieldKeuntungan;

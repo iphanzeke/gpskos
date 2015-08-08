@@ -226,7 +226,7 @@ public class JurnalDAOImpl extends GenericDAOImpl implements JurnalDAO {
             }
             HibernateUtil.commitTransaction();
         } catch (Exception e) {
-            e.printStackTrace();
+//            e.printStackTrace();
             HibernateUtil.rollbackTransaction();
         } finally {
             HibernateUtil.closeSession();

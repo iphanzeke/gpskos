@@ -17,6 +17,8 @@ import com.ivanbiz.dao.impl.ReconDAOImpl;
 import com.ivanbiz.model.CashBalance;
 import com.ivanbiz.model.GLAccount;
 import com.ivanbiz.model.Jurnal;
+import com.ivanbiz.model.Pengguna;
+import com.ivanbiz.service.GlobalSession;
 import com.ivanbiz.service.ServiceHelper;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
@@ -43,12 +45,18 @@ public class KeuntunganReportDialog extends javax.swing.JDialog {
     public KeuntunganReportDialog(GLAccount gLAccount, Date dari, Date sampai) {
         try {
             initComponents();
+            Pengguna pengguna = GlobalSession.getPengguna();
+            System.out.println("pengguna="+pengguna.getUserName()+pengguna.getGroups().getNama());
+            if(!pengguna.getGroups().getNama().equals("Admin")){
+                buttonTutup.setVisible(false);
+            }
             this.glAccount = gLAccount;
             CashBalanceDAO cashBalanceDAO = new CashBalanceDAOImpl();
             cashBalance = cashBalanceDAO.getBalanceByOrderDate(gLAccount.getId());
             numberFormat = NumberFormat.getNumberInstance();
             dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             dateFormat1 = new SimpleDateFormat("dd-MMMM-yyyy");
+            labelLaporan.setText("Laporan Account " + glAccount.getNameGL());
             jLabelJudul.setText("Dari tanggal " + dateFormat1.format(dari) + " sampai tanggal " + dateFormat1.format(sampai));
             ReconDAO reconDAO = new ReconDAOImpl();
             listJurnal = reconDAO.getDataByDateAndGLAccount(dateFormat.format(dari), dateFormat.format(sampai), gLAccount.getNoGL());
@@ -67,7 +75,7 @@ public class KeuntunganReportDialog extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel3 = new javax.swing.JLabel();
+        labelLaporan = new javax.swing.JLabel();
         jLabelJudul = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableJurnal = new javax.swing.JTable();
@@ -89,8 +97,8 @@ public class KeuntunganReportDialog extends javax.swing.JDialog {
         setAlwaysOnTop(true);
         setModal(true);
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel3.setText("Laporan Keuntugan");
+        labelLaporan.setFont(new java.awt.Font("Tahoma", 1, 24));
+        labelLaporan.setText("Laporan Keuntugan");
 
         jLabelJudul.setText("Dari Tanggal {} Sampai {}");
 
@@ -140,9 +148,9 @@ public class KeuntunganReportDialog extends javax.swing.JDialog {
                             .addComponent(jLabel2))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(textFieldKredit)
-                            .addComponent(textFieldDebet))))
+                            .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
+                            .addComponent(textFieldKredit, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
+                            .addComponent(textFieldDebet, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -236,11 +244,11 @@ public class KeuntunganReportDialog extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 780, Short.MAX_VALUE)
-                    .addComponent(jLabelJudul, javax.swing.GroupLayout.DEFAULT_SIZE, 780, Short.MAX_VALUE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 780, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 772, Short.MAX_VALUE)
+                    .addComponent(jLabelJudul, javax.swing.GroupLayout.DEFAULT_SIZE, 772, Short.MAX_VALUE)
+                    .addComponent(labelLaporan, javax.swing.GroupLayout.DEFAULT_SIZE, 772, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGap(0, 455, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -249,11 +257,11 @@ public class KeuntunganReportDialog extends javax.swing.JDialog {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel3)
+                .addComponent(labelLaporan)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabelJudul)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 302, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 291, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -261,8 +269,8 @@ public class KeuntunganReportDialog extends javax.swing.JDialog {
                 .addContainerGap())
         );
 
-        setSize(new java.awt.Dimension(808, 627));
-        setLocationRelativeTo(null);
+        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+        setBounds((screenSize.width-808)/2, (screenSize.height-627)/2, 808, 627);
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonTutupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTutupActionPerformed
@@ -273,6 +281,10 @@ public class KeuntunganReportDialog extends javax.swing.JDialog {
             }
             cashBalanceSave.setGlAccount(glAccount);
             cashBalanceSave.setDateBalance(new Date());
+
+            if (textJumlah.getText().contains(",")) {
+                textJumlah.setText(textJumlah.getText().replace(",", ""));
+            }
             cashBalanceSave.setBalance(textJumlah.getText().isEmpty() ? (double) 0 : new Double(textJumlah.getText()));
             cashBalanceSave.setStatus("0");
             validate(cashBalanceSave);
@@ -298,7 +310,6 @@ public class KeuntunganReportDialog extends javax.swing.JDialog {
     private javax.swing.JButton buttonTutup;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -307,6 +318,7 @@ public class KeuntunganReportDialog extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JLabel labelLaporan;
     private javax.swing.JTable tableJurnal;
     private javax.swing.JTextField textCashBalance;
     private javax.swing.JTextField textFieldDebet;
@@ -359,7 +371,9 @@ public class KeuntunganReportDialog extends javax.swing.JDialog {
                 CashBalanceDAO cashBalanceDAO = new CashBalanceDAOImpl();
                 if (cashBalanceDAO.validateSameDate(cashBalanceSave.getGlAccount().getId(), cashBalanceSave.getDateBalance())) {
                     JOptionPane.showMessageDialog(this, "Close Balance suda dilakukan untuk tanggal " + dateFormat1.format(cashBalanceSave.getDateBalance()));
+                    System.out.println("no");
                 } else {
+                    System.out.println("ok");
                     cashBalanceDAO.saveOrUpdate(cashBalanceSave);
                     dispose();
                 }

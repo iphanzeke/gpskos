@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class name="com.ivanbiz.model.DaftarKelas" table="DAFTAR_KELAS">
-        <id column="ID" name="id">
-            <generator class="native"/>
-        </id>
-        <many-to-one class="com.ivanbiz.model.Kelas" column="KELAS_ID" lazy="false" name="kelas"/>
-        <many-to-one class="com.ivanbiz.model.Murid" column="MURID_ID" lazy="false" name="murid"/>
-        <property column="TRANSACTION_REFERENCE" length="50" name="transactionReference" type="string"/>
-        <property column="STATUS" length="1" name="status" type="string"/>
-        <property column="KEHADIRAN" length="1" name="kehadiran" type="string"/>
-        <property column="KETERANGAN_HADIR" length="50" name="keterangan" type="string"/>
-        <property column="KEHADIRAN_2" length="1" name="kehadiran2" type="string"/>
-        <property column="KETERANGAN_HADIR_2" length="50" name="keterangan2" type="string"/>
-        <property column="UJIAN" name="ujian" type="date"/>
-    </class>
+  <class name="com.ivanbiz.model.DaftarKelas" table="DAFTAR_KELAS">
+    <id column="ID" name="id">
+      <generator class="native"/>
+    </id>
+    <many-to-one class="com.ivanbiz.model.Kelas" column="KELAS_ID" lazy="false" name="kelas"/>
+    <many-to-one class="com.ivanbiz.model.Murid" column="MURID_ID" lazy="false" name="murid"/>
+    <property column="TRANSACTION_REFERENCE" length="50" name="transactionReference" type="string"/>
+    <property column="STATUS" length="1" name="status" type="string"/>
+    <property column="KEHADIRAN" length="1" name="kehadiran" type="string"/>
+    <property column="KETERANGAN_HADIR" length="50" name="keterangan" type="string"/>
+    <property column="KEHADIRAN_2" length="1" name="kehadiran2" type="string"/>
+    <property column="KETERANGAN_HADIR_2" length="50" name="keterangan2" type="string"/>
+    <property column="UJIAN" name="ujian" type="date"/>
+  </class>
 </hibernate-mapping>

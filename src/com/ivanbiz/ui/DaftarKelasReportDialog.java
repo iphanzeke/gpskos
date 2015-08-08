@@ -11,17 +11,25 @@ import com.ivanbiz.dao.impl.DaftarKelasDAOImpl;
 import com.ivanbiz.dao.impl.KelasDAOImpl;
 import com.ivanbiz.model.DaftarKelas;
 import com.ivanbiz.model.Kelas;
+import com.ivanbiz.model.Pengajar;
+import com.ivanbiz.model.Pengguna;
 import com.ivanbiz.model.Perusahaan;
 import com.ivanbiz.report.DaftarKelasReport;
 import com.ivanbiz.service.Email;
 import com.ivanbiz.service.GlobalSession;
 import com.ivanbiz.service.ServiceHelper;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.mail.MessagingException;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 
 /**
  *
@@ -35,6 +43,9 @@ public class DaftarKelasReportDialog extends javax.swing.JDialog {
     KelasDAO kelasDAO;
     SimpleDateFormat sdf;
     String lulus;
+    Date dari;
+    Date sampai;
+    Pengajar pengajar;
 
     public DaftarKelasReportDialog(String kelulusan) {
         initComponents();
@@ -42,7 +53,42 @@ public class DaftarKelasReportDialog extends javax.swing.JDialog {
         kelasDAO = new KelasDAOImpl();
         sdf = new SimpleDateFormat("dd-MMMM-yyyy");
         this.lulus = kelulusan;
+        jLabelJudul.setVisible(false);
+        buttonKirimEmailAll.setVisible(false);
         refresh();
+    }
+
+    public DaftarKelasReportDialog(Pengajar pengajar, Date dari, Date sampai) {
+        try {
+            initComponents();
+            this.dari = dari;
+            this.sampai = sampai;
+            daftarKelasDAO = new DaftarKelasDAOImpl();
+            kelasDAO = new KelasDAOImpl();
+            sdf = new SimpleDateFormat("dd-MMMM-yyyy");
+            jLabelJudul.setText("Dari tanggal " + sdf.format(dari) + " sampai tanggal " + sdf.format(sampai));
+            if (pengajar.getNama().equals("ALL")) {
+                List<Pengguna> listGroups = GlobalSession.getListGroups();
+                String email = "";
+                String nama = "";
+                for (Pengguna pengguna : listGroups) {
+                    if (pengguna.getEmail() != null) {
+                        email += pengguna.getEmail() + ",";
+                        nama += pengguna.getUserName() + ",";
+                    }
+                }
+                pengajar.setNama(nama);
+                pengajar.setEmail(email);
+                this.pengajar = pengajar;
+                listKelas = kelasDAO.getData(dari, sampai);
+            } else {
+                this.pengajar = pengajar;
+                listKelas = kelasDAO.getData(pengajar, dari, sampai);
+            }
+            updateTableDaftarKelas();
+        } catch (Exception ex) {
+            Logger.getLogger(DaftarKelasReportDialog.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -61,9 +107,12 @@ public class DaftarKelasReportDialog extends javax.swing.JDialog {
         buttonPreview = new javax.swing.JButton();
         buttonCetak = new javax.swing.JButton();
         buttonKirimEmail = new javax.swing.JButton();
+        buttonKirimEmailAll = new javax.swing.JButton();
+        jLabelJudul = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setAlwaysOnTop(true);
+        setModal(true);
         setResizable(false);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24));
@@ -101,7 +150,7 @@ public class DaftarKelasReportDialog extends javax.swing.JDialog {
         jPanel1.add(buttonCetak);
 
         buttonKirimEmail.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/transfer.jpg"))); // NOI18N
-        buttonKirimEmail.setText("Kirim Email");
+        buttonKirimEmail.setText("Kirim Email Daftar Kelas Terseleksi");
         buttonKirimEmail.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonKirimEmailActionPerformed(evt);
@@ -109,16 +158,28 @@ public class DaftarKelasReportDialog extends javax.swing.JDialog {
         });
         jPanel1.add(buttonKirimEmail);
 
+        buttonKirimEmailAll.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/transfer.jpg"))); // NOI18N
+        buttonKirimEmailAll.setText("Kirim Email Kelas");
+        buttonKirimEmailAll.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonKirimEmailAllActionPerformed(evt);
+            }
+        });
+        jPanel1.add(buttonKirimEmailAll);
+
+        jLabelJudul.setText("Dari Tanggal {} Sampai {}");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 780, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 780, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 780, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 1004, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 1004, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 1004, Short.MAX_VALUE)
+                    .addComponent(jLabelJudul, javax.swing.GroupLayout.Alignment.LEADING))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -127,14 +188,16 @@ public class DaftarKelasReportDialog extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 491, Short.MAX_VALUE)
+                .addComponent(jLabelJudul)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 575, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-816)/2, (screenSize.height-638)/2, 816, 638);
+        setBounds((screenSize.width-1040)/2, (screenSize.height-738)/2, 1040, 738);
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonPreviewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPreviewActionPerformed
@@ -143,10 +206,12 @@ public class DaftarKelasReportDialog extends javax.swing.JDialog {
         } else {
             try {
                 listDaftarKelas = daftarKelasDAO.getDataByEqualsOrderByBankAndNama(listKelas.get(tableKelas.getSelectedRow()).getTransactionReference());
-                if (lulus.contentEquals("kelulusan")) {
-                    new DaftarKelasReport().previewAndCetakTagihan(listDaftarKelas, "preview", "kelulusan");
+                if (listDaftarKelas.isEmpty()) {
+                    JOptionPane.showMessageDialog(this, "Tidak ada Murid dalam Kelas " + listKelas.get(tableKelas.getSelectedRow()).getTransactionReference(), "warning", JOptionPane.WARNING_MESSAGE);
+                } else if ("kelulusan".equals(lulus)) {
+                    new DaftarKelasReport().previewAndCetakDaftarKelas(listDaftarKelas, "preview", "kelulusan");
                 } else {
-                    new DaftarKelasReport().previewAndCetakTagihan(listDaftarKelas, "preview", "daftarKelas");
+                    new DaftarKelasReport().previewAndCetakDaftarKelas(listDaftarKelas, "preview", "daftarKelas");
                 }
             } catch (Exception ex) {
                 Logger.getLogger(DaftarKelasReportDialog.class.getName()).log(Level.SEVERE, null, ex);
@@ -161,9 +226,9 @@ public class DaftarKelasReportDialog extends javax.swing.JDialog {
             try {
                 listDaftarKelas = daftarKelasDAO.getDataByEqualsOrderByBankAndNama(listKelas.get(tableKelas.getSelectedRow()).getTransactionReference());
                 if (lulus.contentEquals("kelulusan")) {
-                    new DaftarKelasReport().previewAndCetakTagihan(listDaftarKelas, "cetak", "kelulusan");
+                    new DaftarKelasReport().previewAndCetakDaftarKelas(listDaftarKelas, "cetak", "kelulusan");
                 } else {
-                    new DaftarKelasReport().previewAndCetakTagihan(listDaftarKelas, "cetak", "daftarKelas");
+                    new DaftarKelasReport().previewAndCetakDaftarKelas(listDaftarKelas, "cetak", "daftarKelas");
                 }
             } catch (Exception ex) {
                 Logger.getLogger(DaftarKelasReportDialog.class.getName()).log(Level.SEVERE, null, ex);
@@ -173,10 +238,10 @@ public class DaftarKelasReportDialog extends javax.swing.JDialog {
 
     private void buttonKirimEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonKirimEmailActionPerformed
         try {
-            listDaftarKelas = daftarKelasDAO.getDataByEqualsOrderByBankAndNama(listKelas.get(tableKelas.getSelectedRow()).getTransactionReference());
-            new DaftarKelasReport().previewAndCetakTagihan(listDaftarKelas, "email", "daftarKelas");
-            Kelas kelas = listKelas.get(tableKelas.getSelectedRow());
             Perusahaan perusahaan = GlobalSession.getPerusahaan();
+            listDaftarKelas = daftarKelasDAO.getDataByEqualsOrderByBankAndNama(listKelas.get(tableKelas.getSelectedRow()).getTransactionReference());
+            new DaftarKelasReport().previewAndCetakDaftarKelas(listDaftarKelas, "email", "daftarKelas");
+            Kelas kelas = listKelas.get(tableKelas.getSelectedRow());
             File file = new File(System.getProperty("user.dir") + "\\report\\" + kelas.getTransactionReference() + ".pdf");
             if (!file.exists()) {
                 JOptionPane.showMessageDialog(null, "file gagal dibuat");
@@ -214,11 +279,42 @@ public class DaftarKelasReportDialog extends javax.swing.JDialog {
             Logger.getLogger(DaftarKelasReportDialog.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_buttonKirimEmailActionPerformed
+
+    private void buttonKirimEmailAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonKirimEmailAllActionPerformed
+        Perusahaan perusahaan = GlobalSession.getPerusahaan();
+        sdf = new SimpleDateFormat("dd-MMM-yy");
+        new DaftarKelasReport().previewKelas(listKelas, jLabelJudul.getText());
+        File file = new File(System.getProperty("user.dir") + "\\report\\Kelas_" + sdf.format(new Date()) + ".pdf");
+        if (!file.exists()) {
+            JOptionPane.showMessageDialog(null, "file gagal dibuat");
+        } else if (perusahaan.getEmail().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Email Perusahaan kosong");
+        } else if (pengajar.getEmail().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Email Pengajar kosong");
+        } else {
+            try {
+                Email email = new Email();
+                String password = perusahaan.getPassEmail();
+                String from = perusahaan.getEmail();
+                String to = pengajar.getEmail();
+                String subject = "Daftar Kelas " + jLabelJudul.getText();
+                String message = "Kepada Yth " + pengajar.getNama() + "\n\n" + "Detail Kelas " + jLabelJudul.getText() + " terlampir. \n\n\n" + "Terimakasih\n\n" + perusahaan.getNama();
+                String[] attachments = {file.getAbsolutePath()};
+                email.sendMail(from, password, from, to, subject, message, attachments);
+                file.delete();
+                JOptionPane.showMessageDialog(rootPane, "Jadwal sudah dikirim");
+            } catch (MessagingException ex) {
+                Logger.getLogger(DaftarKelasReportDialog.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_buttonKirimEmailAllActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonCetak;
     private javax.swing.JButton buttonKirimEmail;
+    private javax.swing.JButton buttonKirimEmailAll;
     private javax.swing.JButton buttonPreview;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabelJudul;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tableKelas;
@@ -250,6 +346,70 @@ public class DaftarKelasReportDialog extends javax.swing.JDialog {
             isi[x][7] = kelass.getAlamatKelas();
             x++;
         }
+        tableKelas.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         new ServiceHelper().setAutoRize(isi, judul, tableKelas);
+    }
+
+    private void update() {
+        BufferedWriter bfw = null;
+        try {
+            bfw = new BufferedWriter(new FileWriter("D:\\Data.txt"));
+            for (int i = 0; i < tableKelas.getColumnCount(); i++) {
+                //first loop is used for titles of each column
+                String name = String.valueOf(tableKelas.getColumnName(i));
+                if (name.length() > 20) {
+                    //20 (characters long) is the constant I chose to make each value
+                    name = name.substring(0, 20);
+                } else if (name.length() == 20) {
+                } else {
+                    String spaces = "";
+                    int diff = 20 - name.length();
+                    while (diff > 0) {
+                        spaces = spaces + " ";
+                        diff--;
+                    }
+                    name = name.concat(spaces);
+                }
+                bfw.write(name);
+                bfw.write("\t");
+            }
+            for (int i = 0; i < tableKelas.getRowCount(); i++) {
+                //for all the data in the Jtable excluding column headers
+                bfw.newLine();
+                for (int j = 0; j < tableKelas.getColumnCount(); j++) {
+                    if (tableKelas.getValueAt(i, j) == null) {
+                        bfw.write("                    ");
+                        bfw.write("\t");
+                    } else {
+                        String name = String.valueOf(tableKelas.getValueAt(i, j));
+                        if (name.contains("(")) {
+                            name = name.substring(0, name.indexOf("("));
+                        }
+                        if (name.length() > 20) {
+                            name = name.substring(0, 20);
+                        } else if (name.length() == 20) {
+                        } else {
+                            String spaces = "";
+                            int diff = 20 - name.length();
+                            while (diff > 0) {
+                                spaces = spaces + " ";
+                                diff--;
+                            }
+                            name = name.concat(spaces);
+                        }
+                        bfw.write(name);
+                        bfw.write("\t");
+                    }
+                }
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(DaftarKelasReportDialog.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                bfw.close();
+            } catch (IOException ex) {
+                Logger.getLogger(DaftarKelasReportDialog.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 }

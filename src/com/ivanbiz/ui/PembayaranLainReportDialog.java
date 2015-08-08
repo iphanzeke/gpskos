@@ -21,6 +21,8 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
 
 /**
  *
@@ -116,9 +118,18 @@ public class PembayaranLainReportDialog extends JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonPreviewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPreviewActionPerformed
-        Pembayaran pembayaran = listPembayaran.get(tablePembayaran.getSelectedRow());
-        sb = "ftp://" + perusahaan.getFtpUser() + ":" + perusahaan.getFtpPass() + "@" + perusahaan.getFtpIP() + "/INBOX/" + pembayaran.getPathImage() + ";type=i";
-        PembayaranBuktiDialog image = new PembayaranBuktiDialog(null, true, sb, pembayaran, "lihat");
+        if (tablePembayaran.getSelectedRow() == -1) {
+            JOptionPane.showMessageDialog(this, "Data belum dipilih", "warning", JOptionPane.WARNING_MESSAGE);
+        } else {
+            Pembayaran pembayaran = listPembayaran.get(tablePembayaran.getSelectedRow());
+            sb = "ftp://" + perusahaan.getFtpUser() + ":" + perusahaan.getFtpPass() + "@" + perusahaan.getFtpIP() + "/INBOX/" + pembayaran.getPathImage() + ";type=i";
+            if (sb.contentEquals(pembayaran.getPathImage())) {
+                PembayaranBuktiDialog image = new PembayaranBuktiDialog(null, true, sb, pembayaran, "lihat");
+            } else {
+                JOptionPane.showMessageDialog(this, "Bukti Pembayaran tidak ada", "warning", JOptionPane.WARNING_MESSAGE);
+            }
+
+        }
     }//GEN-LAST:event_buttonPreviewActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonPreview;

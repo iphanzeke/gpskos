@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class name="com.ivanbiz.model.Kelas" table="KELAS">
-        <id column="ID" name="id">
-            <generator class="native"/>
-        </id>
-        <property column="NIK" length="10" name="NIK" type="string"/>
-        <property column="DESKRIPSI" length="50" name="deskripsi" type="string"/>
-        <property column="TANGGAL_KELAS" name="tanggalKelas" type="date"/>
-        <property column="TANGGAL_KELAS_2" name="tanggalKelas2" type="date"/>
-        <property column="TEMPAT_KELAS" length="100" name="tempatKelas" type="string"/>
-        <property column="ALAMAT_KELAS" length="100" name="alamatKelas" type="string"/>
-        <many-to-one class="com.ivanbiz.model.Pengajar" column="PENGAJAR_ID" lazy="false" name="pengajar"/>
-        <property column="STATUS_KELAS" length="2" name="statusKelas" type="string"/>
-        <property column="TRANSACTION_REFERENCE" length="50" name="transactionReference" type="string"/>
-    </class>
+  <class name="com.ivanbiz.model.Kelas" table="KELAS">
+    <id column="ID" name="id">
+      <generator class="native"/>
+    </id>
+    <property column="NIK" length="10" name="NIK" type="string"/>
+    <property column="DESKRIPSI" length="50" name="deskripsi" type="string"/>
+    <property column="TANGGAL_KELAS" name="tanggalKelas" type="date"/>
+    <property column="TANGGAL_KELAS_2" name="tanggalKelas2" type="date"/>
+    <property column="TEMPAT_KELAS" length="100" name="tempatKelas" type="string"/>
+    <property column="ALAMAT_KELAS" length="100" name="alamatKelas" type="string"/>
+    <many-to-one class="com.ivanbiz.model.Pengajar" column="PENGAJAR_ID" lazy="false" name="pengajar"/>
+    <property column="STATUS_KELAS" length="2" name="statusKelas" type="string"/>
+    <property column="TRANSACTION_REFERENCE" length="50" name="transactionReference" type="string"/>
+  </class>
 </hibernate-mapping>

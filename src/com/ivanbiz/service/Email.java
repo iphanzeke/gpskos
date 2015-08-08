@@ -49,14 +49,18 @@ public class Email {
         Message message = new MimeMessage(session);
         message.setFrom(new InternetAddress(from));
 
-//        InternetAddress[] addressTo = new InternetAddress[toList.size()];
-//        int counter = 0;
-//        for (Object recipient : toList) {
-//            addressTo[counter] = new InternetAddress(recipient.toString());
-//            counter++;
-//        }
-//        message.setRecipients(Message.RecipientType.TO, addressTo);
-        message.setRecipient(Message.RecipientType.TO, new InternetAddress(to));
+        if (to.contains(",")) {
+            String[] toList = to.split(",");
+            InternetAddress[] addressTo = new InternetAddress[toList.length];
+            int counter = 0;
+            for (String recipient : toList) {
+                addressTo[counter] = new InternetAddress(recipient.toString());
+                counter++;
+            }
+            message.setRecipients(Message.RecipientType.TO, addressTo);
+        } else {
+            message.setRecipient(Message.RecipientType.TO, new InternetAddress(to));
+        }
 
         message.setSubject(subject);
 

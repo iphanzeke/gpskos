@@ -10,9 +10,11 @@ import com.ivanbiz.model.Kelas;
 import com.ivanbiz.model.Murid;
 import com.ivanbiz.model.Perusahaan;
 import com.ivanbiz.service.GlobalSession;
+import java.awt.Dialog.ModalExclusionType;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -50,7 +52,7 @@ public class DaftarKelasReport {
     SimpleDateFormat simpleDateFormat;
     SimpleDateFormat simpleDateFormatFrom;
 
-    public void previewAndCetakTagihan(List<DaftarKelas> listDaftarKelas, String previewOrCetak, String kelulusan) {
+    public void previewAndCetakDaftarKelas(List<DaftarKelas> listDaftarKelas, String previewOrCetak, String kelulusan) {
         try {
             listDaftarKelases = new ArrayList<DaftarKelas>();
             simpleDateFormat = new SimpleDateFormat("dd MMMMM yyyy");
@@ -96,6 +98,7 @@ public class DaftarKelasReport {
                 jasperViewer = new JasperViewer(report, false);
                 jasperViewer.setSize(800, 600);
                 jasperViewer.setAlwaysOnTop(true);
+                jasperViewer.setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
                 jasperViewer.setExtendedState(JFrame.MAXIMIZED_BOTH);
                 jasperViewer.setVisible(true);
             } else if (previewOrCetak.equals("cetak")) {
@@ -103,6 +106,25 @@ public class DaftarKelasReport {
             } else {
                 JasperExportManager.exportReportToPdfFile(report, System.getProperty("user.dir") + "\\report\\" + kelas.getTransactionReference() + ".pdf");
             }
+        } catch (JRException ex) {
+            Logger.getLogger(DaftarKelasReport.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void previewKelas(List<Kelas> listKelas, String judul) {
+        try {
+            simpleDateFormatFrom = new SimpleDateFormat("dd-MMM-yy");
+            perusahaan = new Perusahaan();
+            perusahaan.setAlamat(GlobalSession.getPerusahaan().getAlamat() + "\n" + "Ph  :" + GlobalSession.getPerusahaan().getTelephone() + "\n" + "Fax :" + GlobalSession.getPerusahaan().getFax());
+            inputStream = JRLoader.getFileInputStream(System.getProperty("user.dir") + "/report/KelasReport.jasper");
+            dataSource = new JRBeanCollectionDataSource(listKelas);
+            map = new HashMap();
+            map.put(JRParameter.REPORT_DATA_SOURCE, dataSource);
+            map.put("perusahaan.alamat", perusahaan.getAlamat());
+            map.put("judul", judul);
+            map.put("logo", System.getProperty("user.dir") + "\\image\\logo.jpg");            
+            report = JasperFillManager.fillReport(inputStream, map);
+            JasperExportManager.exportReportToPdfFile(report, System.getProperty("user.dir") + "\\report\\Kelas_" + simpleDateFormatFrom.format(new Date())+ ".pdf");
         } catch (JRException ex) {
             Logger.getLogger(DaftarKelasReport.class.getName()).log(Level.SEVERE, null, ex);
         }

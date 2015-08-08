@@ -23,6 +23,7 @@ public enum MenuAksesConstant {
     LIHAT_PENGGUNA("Lihat Pengguna"),
     LIHAT_PERUSAHAAN("Lihat Perusahaan"),
     LIHAT_TAGIHAN("Lihat Tagihan"),
+    LIHAT_BUAT_JADWAl_KELAS("Buat Jadwal Kelas"),
     LIHAT_GLACCOUNT("Lihat GL ACCOUNT"),
     LIHAT_PEMBAYARAN_TAGIHAN("Lihat Pembayaran Tagihan"),
     LIHAT_PEMBAYARAN_LAIN("Lihat Pembayaran Lain - Lain"),
@@ -76,15 +77,18 @@ public enum MenuAksesConstant {
     PROSES_SALDO_KAS("Proses Saldo Kas"),
     PROSES_TRANSFER_KREDITUR_TO_KREDITUR("Transfer Kreditur to Kreditur"),
     //Report
-    REPORT_DAFTAR_KELAS("Report Daftar Kelas"),
     REPORT_TAGIHAN("Report Tagihan"),
     REPORT_PEMBAYARAN_TAGIHAN("Report Pembayaran Tagihan"),
     REPORT_PEMBAYARAN_LAIN("Report Pembayaran Lain - Lain"),
-    REPORT_RECONSILE("Report Data Kelas / Reconsile"),
-    REPORT_JURNAL("Report Jurnal"),
+    REPORT_DAFTAR_KELAS("Report Daftar Kelas"),
     REPORT_KELULUSAN("Report Kelulusan"),
-    REPORT_KEUNTUNGAN("Report Keuntungan Kreditur"),
-    REPORT_KEUNTUNGAN_BIAYA_LAIN("Report Keuntungan Biaya Lain - Lain"),
+    REPORT_JURNAL("Report Jurnal"),
+    REPORT_RECONSILE("Reconsile Data Kelas"),
+//    REPORT_KEUNTUNGAN("Report Account Kreditur"),
+    REPORT_SUM_ACCOUNT_KREDITUR("Report Sum Account Kreditur"),
+//    REPORT_KEUNTUNGAN_BIAYA_LAIN("Report Account Biaya Lain - Lain"),
+    REPORT_PEMBAYARAN_SUM_LAIN("Report Sum Account Biaya Lain - Lain"),
+    REPORT_LABA_RUGI("Report Laba Rugi"),
     //Retur
     RETUR_TAGIHAN("Retur Tagihan");
 
