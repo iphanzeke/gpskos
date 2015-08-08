@@ -65,18 +65,22 @@ public class MainFrame extends JFrame {
             menuItemTagihanReport.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.REPORT_TAGIHAN, listAksesMatrix));
             menuItemPembayaranTagihan.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.LIHAT_PEMBAYARAN_TAGIHAN, listAksesMatrix));
             menuItemPembayaranTagihanReport.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.REPORT_PEMBAYARAN_TAGIHAN, listAksesMatrix));
-            menuItemDaftarKelasReport.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.REPORT_DAFTAR_KELAS, listAksesMatrix));
+            menuItemDaftarKelas.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.LIHAT_BUAT_JADWAl_KELAS, listAksesMatrix));
+            menuItemJadwalKelasReport.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.REPORT_DAFTAR_KELAS, listAksesMatrix));
             menuItemReconsile.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.REPORT_RECONSILE, listAksesMatrix));
             menuItemKelulusan.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.LIHAT_KELULUSAN, listAksesMatrix));
             menuItemKelulusanReport.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.REPORT_KELULUSAN, listAksesMatrix));
             menuItemPembayaranLain.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.LIHAT_PEMBAYARAN_LAIN, listAksesMatrix));
             menuItemPembayaranLainReport.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.REPORT_PEMBAYARAN_LAIN, listAksesMatrix));
-            menuItemKeuntunganReport.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.REPORT_KEUNTUNGAN, listAksesMatrix));
+//            menuItemKeuntunganReport.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.REPORT_KEUNTUNGAN, listAksesMatrix));
             menuItemSaldoKas.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.LIHAT_SALDO_KAS, listAksesMatrix));
-            menuItemKeuntunganBiayaLain.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.REPORT_KEUNTUNGAN_BIAYA_LAIN, listAksesMatrix));
+//            menuItemKeuntunganBiayaLain.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.REPORT_KEUNTUNGAN_BIAYA_LAIN, listAksesMatrix));
             menuItemReturTagihan.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.RETUR_TAGIHAN, listAksesMatrix));
             menuItemGLAccounts.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.LIHAT_GLACCOUNT, listAksesMatrix));
             menuItemKrediturToKreditur.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.PROSES_TRANSFER_KREDITUR_TO_KREDITUR, listAksesMatrix));
+            menuItemSumBiayaLain.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.REPORT_PEMBAYARAN_SUM_LAIN, listAksesMatrix));
+            menuItemLabaRugi.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.REPORT_LABA_RUGI, listAksesMatrix));
+            menuItemSumAccountKreditur.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.REPORT_SUM_ACCOUNT_KREDITUR, listAksesMatrix));
         } catch (Exception ex) {
             Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -119,15 +123,16 @@ public class MainFrame extends JFrame {
         menuPembayaranReport = new javax.swing.JMenu();
         menuItemPembayaranTagihanReport = new javax.swing.JMenuItem();
         menuItemPembayaranLainReport = new javax.swing.JMenuItem();
-        menuItemSumBiayaLain = new javax.swing.JMenuItem();
-        menuItemDaftarKelasReport = new javax.swing.JMenuItem();
-        menuItemReconsile = new javax.swing.JMenuItem();
-        menuItemJurnal = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        menuItemJadwalKelasReport = new javax.swing.JMenuItem();
         menuItemKelulusanReport = new javax.swing.JMenuItem();
-        menuItemSaldoKasReport = new javax.swing.JMenuItem();
         menuKeuntungan = new javax.swing.JMenu();
-        menuItemKeuntunganReport = new javax.swing.JMenuItem();
-        menuItemKeuntunganBiayaLain = new javax.swing.JMenuItem();
+        menuItemJurnal = new javax.swing.JMenuItem();
+        menuItemReconsile = new javax.swing.JMenuItem();
+        menuItemSumAccountKreditur = new javax.swing.JMenuItem();
+        menuItemSumBiayaLain = new javax.swing.JMenuItem();
+        menuItemLabaRugi = new javax.swing.JMenuItem();
+        menuItemSaldoKasReport = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setAlwaysOnTop(true);
@@ -368,43 +373,19 @@ public class MainFrame extends JFrame {
         });
         menuPembayaranReport.add(menuItemPembayaranLainReport);
 
-        menuItemSumBiayaLain.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/tagihan_lain2.jpg"))); // NOI18N
-        menuItemSumBiayaLain.setText("Sum Biaya Lain - Lain");
-        menuItemSumBiayaLain.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuItemSumBiayaLainActionPerformed(evt);
-            }
-        });
-        menuPembayaranReport.add(menuItemSumBiayaLain);
-
         menuLaporan.add(menuPembayaranReport);
 
-        menuItemDaftarKelasReport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/daftar_kelas.jpg"))); // NOI18N
-        menuItemDaftarKelasReport.setText("Daftar Kelas");
-        menuItemDaftarKelasReport.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuItemDaftarKelasReportActionPerformed(evt);
-            }
-        });
-        menuLaporan.add(menuItemDaftarKelasReport);
+        jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/kelas.jpg"))); // NOI18N
+        jMenu2.setText("Kelas");
 
-        menuItemReconsile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/perusahaan.jpg"))); // NOI18N
-        menuItemReconsile.setText("Data Kelas / Reconsile");
-        menuItemReconsile.addActionListener(new java.awt.event.ActionListener() {
+        menuItemJadwalKelasReport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/daftar_kelas.jpg"))); // NOI18N
+        menuItemJadwalKelasReport.setText("Daftar Kelas");
+        menuItemJadwalKelasReport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuItemReconsileActionPerformed(evt);
+                menuItemJadwalKelasReportActionPerformed(evt);
             }
         });
-        menuLaporan.add(menuItemReconsile);
-
-        menuItemJurnal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/jurnal.jpg"))); // NOI18N
-        menuItemJurnal.setText("Jurnal");
-        menuItemJurnal.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuItemJurnalActionPerformed(evt);
-            }
-        });
-        menuLaporan.add(menuItemJurnal);
+        jMenu2.add(menuItemJadwalKelasReport);
 
         menuItemKelulusanReport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/kelulusan.jpg"))); // NOI18N
         menuItemKelulusanReport.setText("Kelulusan");
@@ -413,7 +394,57 @@ public class MainFrame extends JFrame {
                 menuItemKelulusanReportActionPerformed(evt);
             }
         });
-        menuLaporan.add(menuItemKelulusanReport);
+        jMenu2.add(menuItemKelulusanReport);
+
+        menuLaporan.add(jMenu2);
+
+        menuKeuntungan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/keuntungan.jpg"))); // NOI18N
+        menuKeuntungan.setText("Umum");
+
+        menuItemJurnal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/jurnal.jpg"))); // NOI18N
+        menuItemJurnal.setText("Jurnal");
+        menuItemJurnal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemJurnalActionPerformed(evt);
+            }
+        });
+        menuKeuntungan.add(menuItemJurnal);
+
+        menuItemReconsile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/perusahaan.jpg"))); // NOI18N
+        menuItemReconsile.setText("Reconsile Data Kelas");
+        menuItemReconsile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemReconsileActionPerformed(evt);
+            }
+        });
+        menuKeuntungan.add(menuItemReconsile);
+
+        menuItemSumAccountKreditur.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/tagihan.jpg"))); // NOI18N
+        menuItemSumAccountKreditur.setText("Account Kreditur");
+        menuItemSumAccountKreditur.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemSumAccountKrediturActionPerformed(evt);
+            }
+        });
+        menuKeuntungan.add(menuItemSumAccountKreditur);
+
+        menuItemSumBiayaLain.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/tagihan_lain2.jpg"))); // NOI18N
+        menuItemSumBiayaLain.setText("Account Biaya Lain - Lain");
+        menuItemSumBiayaLain.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemSumBiayaLainActionPerformed(evt);
+            }
+        });
+        menuKeuntungan.add(menuItemSumBiayaLain);
+
+        menuItemLabaRugi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/jurnal.jpg"))); // NOI18N
+        menuItemLabaRugi.setText("Laba Rugi");
+        menuItemLabaRugi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemLabaRugiActionPerformed(evt);
+            }
+        });
+        menuKeuntungan.add(menuItemLabaRugi);
 
         menuItemSaldoKasReport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/saldoKas.jpg"))); // NOI18N
         menuItemSaldoKasReport.setText("Saldo Kas");
@@ -422,28 +453,7 @@ public class MainFrame extends JFrame {
                 menuItemSaldoKasReportActionPerformed(evt);
             }
         });
-        menuLaporan.add(menuItemSaldoKasReport);
-
-        menuKeuntungan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/keuntungan.jpg"))); // NOI18N
-        menuKeuntungan.setText("Keuntungan");
-
-        menuItemKeuntunganReport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/tagihan.jpg"))); // NOI18N
-        menuItemKeuntunganReport.setText("Kreditur");
-        menuItemKeuntunganReport.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuItemKeuntunganReportActionPerformed(evt);
-            }
-        });
-        menuKeuntungan.add(menuItemKeuntunganReport);
-
-        menuItemKeuntunganBiayaLain.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/tagihan_lain2.jpg"))); // NOI18N
-        menuItemKeuntunganBiayaLain.setText("Biaya Lain - Lain");
-        menuItemKeuntunganBiayaLain.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuItemKeuntunganBiayaLainActionPerformed(evt);
-            }
-        });
-        menuKeuntungan.add(menuItemKeuntunganBiayaLain);
+        menuKeuntungan.add(menuItemSaldoKasReport);
 
         menuLaporan.add(menuKeuntungan);
 
@@ -462,8 +472,8 @@ public class MainFrame extends JFrame {
             .addGap(0, 576, Short.MAX_VALUE)
         );
 
-        setSize(new java.awt.Dimension(816, 638));
-        setLocationRelativeTo(null);
+        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+        setBounds((screenSize.width-816)/2, (screenSize.height-638)/2, 816, 638);
     }// </editor-fold>//GEN-END:initComponents
 
     private void menuItemPengajarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemPengajarActionPerformed
@@ -523,10 +533,6 @@ public class MainFrame extends JFrame {
         new TagihanReportDialog().setVisible(true);
     }//GEN-LAST:event_menuItemTagihanReportActionPerformed
 
-    private void menuItemDaftarKelasReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemDaftarKelasReportActionPerformed
-        new DaftarKelasReportDialog("daftarKelas").setVisible(true);
-    }//GEN-LAST:event_menuItemDaftarKelasReportActionPerformed
-
     private void menuItemReconsileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemReconsileActionPerformed
         new ReconsileDialog().setVisible(true);
     }//GEN-LAST:event_menuItemReconsileActionPerformed
@@ -551,14 +557,6 @@ public class MainFrame extends JFrame {
         new PembayaranTagihanReportDialog().setVisible(true);
     }//GEN-LAST:event_menuItemPembayaranTagihanReportActionPerformed
 
-    private void menuItemPembayaranLainReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemPembayaranLainReportActionPerformed
-        new PembayaranLainReportDialog().setVisible(true);
-    }//GEN-LAST:event_menuItemPembayaranLainReportActionPerformed
-
-    private void menuItemKeuntunganReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemKeuntunganReportActionPerformed
-        new KeuntunganDialog().setVisible(true);
-    }//GEN-LAST:event_menuItemKeuntunganReportActionPerformed
-
     private void menuItemDaftarKelasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemDaftarKelasActionPerformed
         new KelasDialog("daftarKelas").setVisible(true);
     }//GEN-LAST:event_menuItemDaftarKelasActionPerformed
@@ -570,10 +568,6 @@ public class MainFrame extends JFrame {
     private void menuItemSaldoKasReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemSaldoKasReportActionPerformed
 //        new SaldoKasReportDialog().setVisible(true);
     }//GEN-LAST:event_menuItemSaldoKasReportActionPerformed
-
-    private void menuItemKeuntunganBiayaLainActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemKeuntunganBiayaLainActionPerformed
-        new KeuntunganBiayaLainDialog().setVisible(true);
-    }//GEN-LAST:event_menuItemKeuntunganBiayaLainActionPerformed
 
     private void menuItemReturTagihanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemReturTagihanActionPerformed
         new TagihanReturDialog().setVisible(true);
@@ -587,8 +581,24 @@ public class MainFrame extends JFrame {
         new BiayaLainSumDialog().setVisible(true);
     }//GEN-LAST:event_menuItemSumBiayaLainActionPerformed
 
+    private void menuItemJadwalKelasReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemJadwalKelasReportActionPerformed
+        new JadwalKelasDialog().setVisible(true);
+    }//GEN-LAST:event_menuItemJadwalKelasReportActionPerformed
+
+    private void menuItemLabaRugiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemLabaRugiActionPerformed
+        new LabaRugiDialog().setVisible(true);
+    }//GEN-LAST:event_menuItemLabaRugiActionPerformed
+
+    private void menuItemSumAccountKrediturActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemSumAccountKrediturActionPerformed
+        new AccountKrediturSumDialog().setVisible(true);
+    }//GEN-LAST:event_menuItemSumAccountKrediturActionPerformed
+
+    private void menuItemPembayaranLainReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemPembayaranLainReportActionPerformed
+        new PembayaranLainReportDialog().setVisible(true);
+    }//GEN-LAST:event_menuItemPembayaranLainReportActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JMenu menuAplikasi;
@@ -596,17 +606,16 @@ public class MainFrame extends JFrame {
     private javax.swing.JMenu menuHakAkses;
     private javax.swing.JMenuItem menuItemBank;
     private javax.swing.JMenuItem menuItemDaftarKelas;
-    private javax.swing.JMenuItem menuItemDaftarKelasReport;
     private javax.swing.JMenuItem menuItemGLAccounts;
     private javax.swing.JMenuItem menuItemGroup;
+    private javax.swing.JMenuItem menuItemJadwalKelasReport;
     private javax.swing.JMenuItem menuItemJurnal;
     private javax.swing.JMenuItem menuItemKelas;
     private javax.swing.JMenuItem menuItemKeluar;
     private javax.swing.JMenuItem menuItemKelulusan;
     private javax.swing.JMenuItem menuItemKelulusanReport;
-    private javax.swing.JMenuItem menuItemKeuntunganBiayaLain;
-    private javax.swing.JMenuItem menuItemKeuntunganReport;
     private javax.swing.JMenuItem menuItemKrediturToKreditur;
+    private javax.swing.JMenuItem menuItemLabaRugi;
     private javax.swing.JMenuItem menuItemMurid;
     private javax.swing.JMenuItem menuItemPassword;
     private javax.swing.JMenuItem menuItemPembayaranLain;
@@ -620,6 +629,7 @@ public class MainFrame extends JFrame {
     private javax.swing.JMenuItem menuItemReturTagihan;
     private javax.swing.JMenuItem menuItemSaldoKas;
     private javax.swing.JMenuItem menuItemSaldoKasReport;
+    private javax.swing.JMenuItem menuItemSumAccountKreditur;
     private javax.swing.JMenuItem menuItemSumBiayaLain;
     private javax.swing.JMenuItem menuItemTagihan;
     private javax.swing.JMenuItem menuItemTagihanReport;

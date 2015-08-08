@@ -7,6 +7,9 @@ package com.ivanbiz.dao;
 
 import com.ivanbiz.model.Bank;
 import com.ivanbiz.model.Kelas;
+import com.ivanbiz.model.Pengajar;
+import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -17,4 +20,8 @@ public interface KelasDAO extends GenericDAO {
     public String getLastNoTransaksi() throws Exception;
 
     public String getDataPeserta(Kelas kelas, Bank bank) throws Exception;
+
+    public List getData(Date start, Date end) throws Exception;
+
+    public List getData(Pengajar pengajar, Date dari, Date sampai) throws Exception;
 }

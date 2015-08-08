@@ -158,4 +158,9 @@ public class Kelas {
         this.transactionReference = transactionReference;
     }
 
+    @Override
+    public String toString() {
+        return "Kelas{" + "id=" + id + "NIK=" + NIK + "deskripsi=" + deskripsi + "tanggalKelas=" + tanggalKelas + "tanggalKelas2=" + tanggalKelas2 + "tempatKelas=" + tempatKelas + "alamatKelas=" + alamatKelas + "pengajar=" + pengajar + "statusKelas=" + statusKelas + "transactionReference=" + transactionReference + '}';
+    }
+
 }

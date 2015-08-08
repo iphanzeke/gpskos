@@ -8,9 +8,15 @@ package com.ivanbiz.dao.impl;
 import com.ivanbiz.dao.KelasDAO;
 import com.ivanbiz.model.Bank;
 import com.ivanbiz.model.Kelas;
+import com.ivanbiz.model.Pengajar;
 import com.ivanbiz.service.HibernateUtil;
+import java.util.Date;
+import java.util.List;
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 
 /**
  *
@@ -61,5 +67,53 @@ public class KelasDAOImpl extends GenericDAOImpl implements KelasDAO {
         } finally {
             HibernateUtil.closeSession();
         }
+    }
+
+    @Override
+    public List getData(Date start, Date end) throws Exception {
+        List list = null;
+        try {
+            Session session = HibernateUtil.getSession();
+            HibernateUtil.beginTransaction();
+            start.setHours(0);
+            start.setMinutes(0);
+            start.setSeconds(0);
+            end.setHours(0);
+            end.setMinutes(0);
+            end.setSeconds(0);
+            Criteria crit = session.createCriteria(Kelas.class).add(Restrictions.ge("tanggalKelas", start)).add(Restrictions.le("tanggalKelas", end)).addOrder(Order.asc("pengajar.id")).addOrder(Order.asc("tanggalKelas"));
+            list = crit.list();
+            HibernateUtil.commitTransaction();
+        } catch (Exception e) {
+            HibernateUtil.rollbackTransaction();
+            throw e;
+        } finally {
+            HibernateUtil.closeSession();
+        }
+        return list;
+    }
+
+    @Override
+    public List getData(Pengajar pengajar, Date start, Date end) throws Exception {
+        List list = null;
+        try {
+            Session session = HibernateUtil.getSession();
+            HibernateUtil.beginTransaction();
+            start.setHours(0);
+            start.setMinutes(0);
+            start.setSeconds(0);
+            end.setHours(0);
+            end.setMinutes(0);
+            end.setSeconds(0);
+            Criteria crit = session.createCriteria(Kelas.class).add(Restrictions.eq("pengajar.id", pengajar.getId())).add(Restrictions.ge("tanggalKelas", start)).add(Restrictions.le("tanggalKelas", end));
+            list = crit.list();
+            HibernateUtil.commitTransaction();
+        } catch (Exception e) {
+            HibernateUtil.rollbackTransaction();
+            throw e;
+        } finally {
+            HibernateUtil.closeSession();
+        }
+        return list;
     }
 }

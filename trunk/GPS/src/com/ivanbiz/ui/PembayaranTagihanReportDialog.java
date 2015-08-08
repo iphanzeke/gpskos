@@ -15,14 +15,13 @@ import com.ivanbiz.dao.impl.PembayaranDAOImpl;
 import com.ivanbiz.model.Pembayaran;
 import com.ivanbiz.report.PembayaranReport;
 import com.ivanbiz.service.ServiceHelper;
-import java.io.IOException;
 import java.text.NumberFormat;
 import java.util.List;
-import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 
 /**
  *
@@ -64,9 +63,10 @@ public class PembayaranTagihanReportDialog extends JDialog {
         textCari = new javax.swing.JTextField();
 
         setAlwaysOnTop(true);
+        setModal(true);
         setResizable(false);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24));
         jLabel1.setText("Laporan Pembayaran Tagihan");
 
         tablePembayaran.setModel(new javax.swing.table.DefaultTableModel(
@@ -159,24 +159,24 @@ public class PembayaranTagihanReportDialog extends JDialog {
                 .addContainerGap())
         );
 
-        setSize(new java.awt.Dimension(816, 638));
-        setLocationRelativeTo(null);
+        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+        setBounds((screenSize.width-816)/2, (screenSize.height-638)/2, 816, 638);
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonPreviewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPreviewActionPerformed
         if (tablePembayaran.getSelectedRow() == -1) {
             JOptionPane.showMessageDialog(this, "Pilih data yang akan dilihat", "warning", JOptionPane.WARNING_MESSAGE);
         } else {
-            try {
+//            try {
                 new PembayaranReport().previewAndCetakTagihan(listPembayaran.get(tablePembayaran.getSelectedRow()), "preview");
-                Pembayaran pembayaran = listPembayaran.get(tablePembayaran.getSelectedRow());
-                Properties ftpProperties = new Properties();
-                ftpProperties.load(ClassLoader.getSystemResourceAsStream("ftp.properties"));
-                String sb = "ftp://" + ftpProperties.getProperty("user") + ":" + ftpProperties.getProperty("password") + "@" + ftpProperties.getProperty("ip") + "/INBOX/" + pembayaran.getTransactionReference() + ".JPG;type=i";
-                new PembayaranBuktiDialog(null, true, sb, pembayaran, "report");
-            } catch (IOException ex) {
-                Logger.getLogger(PembayaranTagihanReportDialog.class.getName()).log(Level.SEVERE, null, ex);
-            }
+//                Pembayaran pembayaran = listPembayaran.get(tablePembayaran.getSelectedRow());
+//                Properties ftpProperties = new Properties();
+//                ftpProperties.load(ClassLoader.getSystemResourceAsStream("ftp.properties"));
+//                String sb = "ftp://" + ftpProperties.getProperty("user") + ":" + ftpProperties.getProperty("password") + "@" + ftpProperties.getProperty("ip") + "/INBOX/" + pembayaran.getTransactionReference() + ".JPG;type=i";
+//                PembayaranBuktiDialog pembayaranBuktiDialog = new PembayaranBuktiDialog(null, true, sb, pembayaran, "report");
+//            } catch (IOException ex) {
+//                Logger.getLogger(PembayaranTagihanReportDialog.class.getName()).log(Level.SEVERE, null, ex);
+//            }
         }
     }//GEN-LAST:event_buttonPreviewActionPerformed
 
@@ -233,7 +233,7 @@ public class PembayaranTagihanReportDialog extends JDialog {
             isi[x][6] = pembayaran.getDeskripsi();
             x++;
         }
-        tablePembayaran.setAutoResizeMode(tablePembayaran.AUTO_RESIZE_OFF);
+        tablePembayaran.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         new ServiceHelper().setAutoRize(isi, judul, tablePembayaran);
     }
 }

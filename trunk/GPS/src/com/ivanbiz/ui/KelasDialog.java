@@ -253,6 +253,7 @@ public class KelasDialog extends JDialog {
 
     private void renderButtonAkses(List<AksesMatrix> listAksesMatrix) {
         buttonTambah.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.TAMBAH_KELAS, listAksesMatrix));
+        buttonUbah.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.UBAH_KELAS, listAksesMatrix));
         buttonHapus.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.HAPUS_KELAS, listAksesMatrix));
         buttonTutup.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.TUTUP_KELAS, listAksesMatrix));
     }

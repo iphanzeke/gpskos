@@ -54,6 +54,7 @@ public class PenggunaUpdateDialog extends javax.swing.JDialog {
         labelPengguna.setText("Ubah Pengguna");
         textKode.setText(pengguna.getKode());
         textUserName.setText(pengguna.getUserName());
+        textEmail.setText(pengguna.getEmail());
         comboGroup.setSelectedItem(pengguna.getGroups().getNama());
     }
 
@@ -74,6 +75,8 @@ public class PenggunaUpdateDialog extends javax.swing.JDialog {
         comboGroup = new javax.swing.JComboBox();
         jLabel4 = new javax.swing.JLabel();
         textKode = new javax.swing.JTextField();
+        textEmail = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         buttonSimpan = new javax.swing.JButton();
         buttonBatal = new javax.swing.JButton();
@@ -99,6 +102,10 @@ public class PenggunaUpdateDialog extends javax.swing.JDialog {
         textKode.setDocument(new JTextFieldLimit(10));
         textKode.setEditable(false);
 
+        textEmail.setDocument(new JTextFieldLimit(50));
+
+        jLabel6.setText("Email :");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -108,15 +115,17 @@ public class PenggunaUpdateDialog extends javax.swing.JDialog {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
                     .addComponent(textUserName, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE)
-                    .addComponent(comboGroup, 0, 354, Short.MAX_VALUE)
-                    .addComponent(jLabel5)
                     .addComponent(jLabel4)
-                    .addComponent(textKode, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE))
+                    .addComponent(textKode, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE)
+                    .addComponent(jLabel6)
+                    .addComponent(textEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE)
+                    .addComponent(comboGroup, 0, 354, Short.MAX_VALUE)
+                    .addComponent(jLabel5))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -125,11 +134,15 @@ public class PenggunaUpdateDialog extends javax.swing.JDialog {
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(textUserName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(textEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(comboGroup, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addGap(52, 52, 52))
         );
 
         buttonSimpan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/simpan.jpg"))); // NOI18N
@@ -159,7 +172,7 @@ public class PenggunaUpdateDialog extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(labelPengguna, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -168,14 +181,14 @@ public class PenggunaUpdateDialog extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(labelPengguna)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-416)/2, (screenSize.height-304)/2, 416, 304);
+        setBounds((screenSize.width-416)/2, (screenSize.height-343)/2, 416, 343);
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSimpanActionPerformed
@@ -186,6 +199,7 @@ public class PenggunaUpdateDialog extends javax.swing.JDialog {
         pengguna.setKode(textKode.getText());
         pengguna.setUserName(textUserName.getText());
         pengguna.setPassword(md5.asHex());
+        pengguna.setEmail(textEmail.getText());
         pengguna.setGroups(listGroups.get(comboGroup.getSelectedIndex()));
         validate(pengguna);
 }//GEN-LAST:event_buttonSimpanActionPerformed
@@ -200,9 +214,11 @@ public class PenggunaUpdateDialog extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JLabel labelPengguna;
+    private javax.swing.JTextField textEmail;
     private javax.swing.JTextField textKode;
     private javax.swing.JTextField textUserName;
     // End of variables declaration//GEN-END:variables

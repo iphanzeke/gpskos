@@ -18,6 +18,15 @@ public class GlobalSession {
     private static Perusahaan perusahaan;
     private static List<AksesMatrix> listAksesMatrix;
     private static Pengguna pengguna;
+    private static List<Pengguna> listGroups;
+
+    public static List<Pengguna> getListGroups() {
+        return listGroups;
+    }
+
+    public static void setListGroups(List<Pengguna> listGroups) {
+        GlobalSession.listGroups = listGroups;
+    }
 
     public static Pengguna getPengguna() {
         return pengguna;
@@ -42,5 +51,4 @@ public class GlobalSession {
     public static void setPerusahaan(Perusahaan perusahaan) {
         GlobalSession.perusahaan = perusahaan;
     }
-
 }

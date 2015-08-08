@@ -18,4 +18,6 @@ public interface PenggunaDAO extends GenericDAO {
     public Pengguna login(String penggunaName, String password) throws Exception;
 
     public String getLastKode() throws Exception;
+
+    public List<Pengguna> getDataByGroups(String groups) throws Exception;
 }

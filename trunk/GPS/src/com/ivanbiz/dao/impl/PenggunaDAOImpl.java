@@ -74,4 +74,20 @@ public class PenggunaDAOImpl extends GenericDAOImpl implements PenggunaDAO {
         }
         return kode;
     }
+
+    @Override
+    public List<Pengguna> getDataByGroups(String groups) throws Exception {
+        try {
+            Session session = HibernateUtil.getSession();
+            Query query = (Query) session.createQuery("from Pengguna p where p.groups.nama = :groups");
+            query.setParameter("groups", groups);
+            List list = query.list();
+            return list;
+        } catch (Exception e) {
+            HibernateUtil.rollbackTransaction();
+            throw e;
+        } finally {
+            HibernateUtil.closeSession();
+        }
+    }
 }

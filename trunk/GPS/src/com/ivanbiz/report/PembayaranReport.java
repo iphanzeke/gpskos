@@ -12,6 +12,7 @@ import com.ivanbiz.model.Pembayaran;
 import com.ivanbiz.model.Perusahaan;
 import com.ivanbiz.service.GlobalSession;
 import com.ivanbiz.service.ServiceHelper;
+import java.awt.Dialog.ModalExclusionType;
 import java.io.InputStream;
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -84,6 +85,7 @@ public class PembayaranReport {
                 jasperViewer = new JasperViewer(report, false);
                 jasperViewer.setSize(800, 600);
                 jasperViewer.setAlwaysOnTop(true);
+                jasperViewer.setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
                 jasperViewer.setExtendedState(JFrame.MAXIMIZED_BOTH);
                 jasperViewer.setVisible(true);
             } else {

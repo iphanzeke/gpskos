@@ -37,6 +37,7 @@ public class LoginDialog extends javax.swing.JDialog {
     Pengguna pengguna;
     PenggunaDAO penggunaDAO;
     List<Perusahaan> listPerusahaan;
+    List<Pengguna> listGroups;
 
     /**
      * Creates new form LoginDialog
@@ -71,7 +72,7 @@ public class LoginDialog extends javax.swing.JDialog {
         setAlwaysOnTop(true);
         setModal(true);
 
-        labelPerusahaan.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        labelPerusahaan.setFont(new java.awt.Font("Tahoma", 1, 24));
         labelPerusahaan.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelPerusahaan.setText("GPS");
 
@@ -88,8 +89,8 @@ public class LoginDialog extends javax.swing.JDialog {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(textPassword, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE)
-                    .addComponent(textUser, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE)
+                    .addComponent(textPassword, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 346, Short.MAX_VALUE)
+                    .addComponent(textUser, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 346, Short.MAX_VALUE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING))
                 .addContainerGap())
@@ -134,8 +135,8 @@ public class LoginDialog extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(labelPerusahaan, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE))
+                    .addComponent(labelPerusahaan, javax.swing.GroupLayout.DEFAULT_SIZE, 372, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 372, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -150,8 +151,8 @@ public class LoginDialog extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        setSize(new java.awt.Dimension(408, 244));
-        setLocationRelativeTo(null);
+        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+        setBounds((screenSize.width-408)/2, (screenSize.height-244)/2, 408, 244);
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonLoginActionPerformed
@@ -209,6 +210,8 @@ public class LoginDialog extends javax.swing.JDialog {
                 GlobalSession.setPerusahaan(perusahaans);
             }
             labelPerusahaan.setText(GlobalSession.getPerusahaan() == null ? " " : GlobalSession.getPerusahaan().getNama());
+            listGroups = penggunaDAO.getDataByGroups("Admin");
+            GlobalSession.setListGroups(listGroups);
         } catch (Exception ex) {
             Logger.getLogger(LoginDialog.class.getName()).log(Level.SEVERE, null, ex);
         }

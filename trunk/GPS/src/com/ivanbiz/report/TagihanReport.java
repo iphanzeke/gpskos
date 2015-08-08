@@ -15,6 +15,7 @@ import com.ivanbiz.model.Murid;
 import com.ivanbiz.model.Perusahaan;
 import com.ivanbiz.service.GlobalSession;
 import com.ivanbiz.service.ServiceHelper;
+import java.awt.Dialog.ModalExclusionType;
 import java.io.InputStream;
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -115,11 +116,12 @@ public class TagihanReport {
                 jasperViewer = new JasperViewer(report, false);
                 jasperViewer.setSize(800, 600);
                 jasperViewer.setAlwaysOnTop(true);
+                jasperViewer.setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
                 jasperViewer.setExtendedState(JFrame.MAXIMIZED_BOTH);
-                new DaftarKelasReport().previewAndCetakTagihan(listDaftarKelas, "preview", "daftarKelas");
+                new DaftarKelasReport().previewAndCetakDaftarKelas(listDaftarKelas, "preview", "daftarKelas");
                 jasperViewer.setVisible(true);
             } else {
-                new DaftarKelasReport().previewAndCetakTagihan(listDaftarKelas, "print", "daftarKelas");
+                new DaftarKelasReport().previewAndCetakDaftarKelas(listDaftarKelas, "print", "daftarKelas");
                 JasperPrintManager.printReport(report, false);
             }
         } catch (Exception ex) {

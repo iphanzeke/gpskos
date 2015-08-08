@@ -186,8 +186,8 @@ public class PenggunaDialog extends javax.swing.JDialog {
     }
 
     private void updateTablePengguna() {
-        String[] judul = {"No", "Kode", "User Name", "Group"};
-        Object[][] isi = new Object[listPengguna.size()][4];
+        String[] judul = {"No", "Kode", "User Name", "Email", "Group"};
+        Object[][] isi = new Object[listPengguna.size()][5];
         int x = 0;
         int no = 0;
         for (Pengguna penggunas : listPengguna) {
@@ -195,7 +195,8 @@ public class PenggunaDialog extends javax.swing.JDialog {
             isi[x][0] = no;
             isi[x][1] = penggunas.getKode();
             isi[x][2] = penggunas.getUserName();
-            isi[x][3] = penggunas.getGroups().getNama();
+            isi[x][3] = penggunas.getEmail();
+            isi[x][4] = penggunas.getGroups().getNama();
             x++;
         }
         new ServiceHelper().setAutoRize(isi, judul, tablePengguna);
