@@ -173,6 +173,8 @@ public class LabaRugiReportDialog extends javax.swing.JDialog {
 
         jLabel4.setText("Total Pendapatan :");
         jPanel1.add(jLabel4);
+
+        textTotalPendapatan.setEditable(false);
         jPanel1.add(textTotalPendapatan);
         jPanel1.add(jLabel7);
         jPanel1.add(jLabel8);
@@ -182,6 +184,8 @@ public class LabaRugiReportDialog extends javax.swing.JDialog {
 
         jLabel6.setText("Total Cash Balance :");
         jPanel4.add(jLabel6);
+
+        textTotalCashBalance.setEditable(false);
         jPanel4.add(textTotalCashBalance);
         jPanel4.add(jLabel11);
         jPanel4.add(jLabel10);
@@ -200,10 +204,14 @@ public class LabaRugiReportDialog extends javax.swing.JDialog {
 
         jLabel5.setText("Total Cash Balance + Pendapatan :");
         jPanel5.add(jLabel5);
+
+        textTotalCashBalanceAndPendapatan.setEditable(false);
         jPanel5.add(textTotalCashBalanceAndPendapatan);
 
         jLabel9.setText("Total Pengeluaran :");
         jPanel5.add(jLabel9);
+
+        textTotalPengeluaran.setEditable(false);
         jPanel5.add(textTotalPengeluaran);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -275,7 +283,7 @@ public class LabaRugiReportDialog extends javax.swing.JDialog {
                 String password = perusahaan.getPassEmail();
                 String from = perusahaan.getEmail();
                 String to = emails;
-                String subject = "Daftar Kelas " + jLabelJudul.getText();
+                String subject = "Laporan Laba Rugi " + jLabelJudul.getText();
                 String message = "Kepada Yth " + nama + "\n\n" + "Laporan Laba Rugi anda " + jLabelJudul.getText() + " terlampir. \n\n\n" + "Terimakasih\n\n" + perusahaan.getNama();
                 String[] attachments = {file.getAbsolutePath()};
                 email.sendMail(from, password, from, to, subject, message, attachments);

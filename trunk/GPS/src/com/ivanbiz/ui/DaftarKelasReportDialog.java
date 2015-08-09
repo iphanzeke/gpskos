@@ -237,49 +237,53 @@ public class DaftarKelasReportDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_buttonCetakActionPerformed
 
     private void buttonKirimEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonKirimEmailActionPerformed
-        try {
-            Perusahaan perusahaan = GlobalSession.getPerusahaan();
-            listDaftarKelas = daftarKelasDAO.getDataByEqualsOrderByBankAndNama(listKelas.get(tableKelas.getSelectedRow()).getTransactionReference());
-            DaftarKelasReport daftarKelasReport = new DaftarKelasReport();
-            daftarKelasReport.previewAndCetakDaftarKelas(listDaftarKelas, "email", "daftarKelas");
+        if (tableKelas.getSelectedRow() == -1) {
+            JOptionPane.showMessageDialog(this, "Pilih data yang akan dikirim email", "warning", JOptionPane.WARNING_MESSAGE);
+        } else {
+            try {
+                Perusahaan perusahaan = GlobalSession.getPerusahaan();
+                listDaftarKelas = daftarKelasDAO.getDataByEqualsOrderByBankAndNama(listKelas.get(tableKelas.getSelectedRow()).getTransactionReference());
+                DaftarKelasReport daftarKelasReport = new DaftarKelasReport();
+                daftarKelasReport.previewAndCetakDaftarKelas(listDaftarKelas, "email", "daftarKelas");
 
-            Kelas kelas = listKelas.get(tableKelas.getSelectedRow());
-            File file = daftarKelasReport.getReportFile();
+                Kelas kelas = listKelas.get(tableKelas.getSelectedRow());
+                File file = daftarKelasReport.getReportFile();
 //            File file = new File(System.getProperty("user.dir") + "\\report\\" + kelas.getTransactionReference() + ".pdf");
-            if (!file.exists()) {
-                JOptionPane.showMessageDialog(null, "file gagal dibuat");
-            } else if (perusahaan.getEmail().isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Email Perusahaan kosong");
-            } else if (kelas.getPengajar().getEmail().isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Email Pengajar kosong");
-            } else {
-                Email email = new Email();
-                String password = perusahaan.getPassEmail();
-                String from = perusahaan.getEmail();
-                String to = kelas.getPengajar().getEmail();
-                String subject = "Jadwal Kelas " + kelas.getTransactionReference() + " Tanggal " + kelas.getTanggalKelas();
-                String message =
-                        "Kepada Yth " + kelas.getPengajar().getNama() + "\n\n"
-                        + "Detail Kelas anda sebagai berikut : \n"
-                        + "No Kelas  = " + kelas.getTransactionReference() + "\n"
-                        + "Deskripsi =" + kelas.getDeskripsi() + "\n"
-                        + "Tanggal   =" + sdf.format(kelas.getTanggalKelas()) + "\n"
-                        + (null == kelas.getTanggalKelas2() ? "" : "Tanggal 2 =" + kelas.getTanggalKelas2()) + "\n"
-                        + "Tempat    =" + kelas.getTempatKelas() + "\n"
-                        + "Alamat    =" + kelas.getAlamatKelas() + "\n\n"
-                        + "Terimakasih\n\n"
-                        + perusahaan.getNama();
+                if (!file.exists()) {
+                    JOptionPane.showMessageDialog(null, "file gagal dibuat");
+                } else if (perusahaan.getEmail().isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Email Perusahaan kosong");
+                } else if (kelas.getPengajar().getEmail().isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Email Pengajar kosong");
+                } else {
+                    Email email = new Email();
+                    String password = perusahaan.getPassEmail();
+                    String from = perusahaan.getEmail();
+                    String to = kelas.getPengajar().getEmail();
+                    String subject = "Jadwal Kelas " + kelas.getTransactionReference() + " Tanggal " + kelas.getTanggalKelas();
+                    String message =
+                            "Kepada Yth " + kelas.getPengajar().getNama() + "\n\n"
+                            + "Detail Kelas anda sebagai berikut : \n"
+                            + "No Kelas  = " + kelas.getTransactionReference() + "\n"
+                            + "Deskripsi =" + kelas.getDeskripsi() + "\n"
+                            + "Tanggal   =" + sdf.format(kelas.getTanggalKelas()) + "\n"
+                            + (null == kelas.getTanggalKelas2() ? "" : "Tanggal 2 =" + kelas.getTanggalKelas2()) + "\n"
+                            + "Tempat    =" + kelas.getTempatKelas() + "\n"
+                            + "Alamat    =" + kelas.getAlamatKelas() + "\n\n"
+                            + "Terimakasih\n\n"
+                            + perusahaan.getNama();
 
-                String[] attachments = {file.getAbsolutePath()};
+                    String[] attachments = {file.getAbsolutePath()};
 
-                email.sendMail(from, password, from, to, subject, message, attachments);
-                file.delete();
+                    email.sendMail(from, password, from, to, subject, message, attachments);
+                    file.delete();
 
-                JOptionPane.showMessageDialog(rootPane, "Jadwal Kelas sudah dikirim");
+                    JOptionPane.showMessageDialog(rootPane, "Jadwal Kelas sudah dikirim");
+                }
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+                Logger.getLogger(DaftarKelasReportDialog.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(rootPane, ex.getMessage());
-            Logger.getLogger(DaftarKelasReportDialog.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_buttonKirimEmailActionPerformed
 
