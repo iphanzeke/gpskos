@@ -18,7 +18,13 @@ import com.ivanbiz.dao.impl.GLAccountDAOImpl;
 import com.ivanbiz.dao.impl.JurnalDAOImpl;
 import com.ivanbiz.model.CashBalance;
 import com.ivanbiz.model.GLAccount;
+import com.ivanbiz.model.Pengguna;
+import com.ivanbiz.model.Perusahaan;
+import com.ivanbiz.report.LabaRugiReport;
+import com.ivanbiz.service.Email;
+import com.ivanbiz.service.GlobalSession;
 import com.ivanbiz.service.ServiceHelper;
+import java.io.File;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -26,6 +32,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.mail.MessagingException;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -45,6 +53,9 @@ public class LabaRugiReportDialog extends javax.swing.JDialog {
     Date sampaiTanggal;
     CashBalanceDAO cashBalanceDAO;
     CashBalance cashBalance;
+    double totalKredit;
+    double totalBalance;
+    double biayalain;
 
     LabaRugiReportDialog(Date dariTanggal, Date sampaiTanggal) {
         try {
@@ -185,13 +196,13 @@ public class LabaRugiReportDialog extends javax.swing.JDialog {
         jPanel6.add(buttonEmail);
 
         jPanel5.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jPanel5.setLayout(new java.awt.GridLayout());
+        jPanel5.setLayout(new java.awt.GridLayout(1, 0));
 
         jLabel5.setText("Total Cash Balance + Pendapatan :");
         jPanel5.add(jLabel5);
         jPanel5.add(textTotalCashBalanceAndPendapatan);
 
-        jLabel9.setText("Total Pengeluaran");
+        jLabel9.setText("Total Pengeluaran :");
         jPanel5.add(jLabel9);
         jPanel5.add(textTotalPengeluaran);
 
@@ -238,45 +249,41 @@ public class LabaRugiReportDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEmailActionPerformed
-        System.out.println(listPendapatan.toString());
-        System.out.println(listGLAccountBiayaLain.toString());
-       
-
-        //        List<Pengguna> listGroups = GlobalSession.getListGroups();
-//        String emails = "";
-//        String nama = "";
-//        for (Pengguna pengguna : listGroups) {
-//            if (pengguna.getEmail() != null) {
-//                emails += pengguna.getEmail() + ",";
-//                nama += pengguna.getUserName() + ",";
-//            }
-//        }
-//        Perusahaan perusahaan = GlobalSession.getPerusahaan();
-//        dateFormat = new SimpleDateFormat("dd-MMM-yy");
-//        laporan();
-//        File file = new File(System.getProperty("user.dir") + "\\report\\Kelas_" + dateFormat.format(new Date()) + ".pdf");
-//        if (!file.exists()) {
-//            JOptionPane.showMessageDialog(null, "file gagal dibuat");
-//        } else if (perusahaan.getEmail().isEmpty()) {
-//            JOptionPane.showMessageDialog(null, "Email Perusahaan kosong");
-//        } else if (emails.isEmpty()) {
-//            JOptionPane.showMessageDialog(null, "Email Pengajar kosong");
-//        } else {
-//            try {
-//                Email email = new Email();
-//                String password = perusahaan.getPassEmail();
-//                String from = perusahaan.getEmail();
-//                String to = emails;
-//                String subject = "Daftar Kelas " + jLabelJudul.getText();
-//                String message = "Kepada Yth " + nama + "\n\n" + "Laporan Laba Rugi anda " + jLabelJudul.getText() + " terlampir. \n\n\n" + "Terimakasih\n\n" + perusahaan.getNama();
-//                String[] attachments = {file.getAbsolutePath()};
-//                email.sendMail(from, password, from, to, subject, message, attachments);
-//                file.delete();
-//                JOptionPane.showMessageDialog(rootPane, "Laporan sudah dikirim");
-//            } catch (MessagingException ex) {
-//                Logger.getLogger(DaftarKelasReportDialog.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//        }
+        List<Pengguna> listGroups = GlobalSession.getListGroups();
+        String emails = "";
+        String nama = "";
+        for (Pengguna pengguna : listGroups) {
+            if (pengguna.getEmail() != null) {
+                emails += pengguna.getEmail() + ",";
+                nama += pengguna.getUserName() + ",";
+            }
+        }
+        Perusahaan perusahaan = GlobalSession.getPerusahaan();
+        dateFormat = new SimpleDateFormat("dd-MMM-yy");
+        LabaRugiReport labaRugiReport = new LabaRugiReport();
+        labaRugiReport.getLabaRugiReport(listPendapatan, listGLAccountBiayaLain, totalKredit, totalBalance, biayalain, jLabelJudul.getText());
+        File file = labaRugiReport.getReportFile();
+        if (!file.exists()) {
+            JOptionPane.showMessageDialog(null, "file gagal dibuat");
+        } else if (perusahaan.getEmail().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Email Perusahaan kosong");
+        } else if (emails.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Email Pengajar kosong");
+        } else {
+            try {
+                Email email = new Email();
+                String password = perusahaan.getPassEmail();
+                String from = perusahaan.getEmail();
+                String to = emails;
+                String subject = "Daftar Kelas " + jLabelJudul.getText();
+                String message = "Kepada Yth " + nama + "\n\n" + "Laporan Laba Rugi anda " + jLabelJudul.getText() + " terlampir. \n\n\n" + "Terimakasih\n\n" + perusahaan.getNama();
+                String[] attachments = {file.getAbsolutePath()};
+                email.sendMail(from, password, from, to, subject, message, attachments);
+                JOptionPane.showMessageDialog(rootPane, "Laporan sudah dikirim");
+            } catch (MessagingException ex) {
+                Logger.getLogger(DaftarKelasReportDialog.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }//GEN-LAST:event_buttonEmailActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonEmail;
@@ -313,8 +320,8 @@ public class LabaRugiReportDialog extends javax.swing.JDialog {
         Object[][] isi = new Object[listGLAccountKreditur.size()][5];
         int x = 0;
         int no = 0;
-        double totalKredit = 0;
-        double totalBalance = 0;
+        totalKredit = 0;
+        totalBalance = 0;
         for (GLAccount gLAccount : listGLAccountKreditur) {
             if (!gLAccount.getNameGL().startsWith("KAS")) {
                 no += 1;
@@ -328,7 +335,8 @@ public class LabaRugiReportDialog extends javax.swing.JDialog {
                 totalBalance += cashBalance == null ? new Double("0") : cashBalance.getBalance();
                 GLAccount glAccount = new GLAccount();
                 glAccount = gLAccount;
-                glAccount.setCashBalance(cashBalance == null ? new Double("0") :cashBalance.getBalance());
+                glAccount.setCashBalance(cashBalance == null ? new Double("0") : cashBalance.getBalance());
+                glAccount.setJumlah(jurnalDAO.getSumCreditGLAccount(formatDate.format(dariTanggal), formatDate.format(sampaiTanggal), gLAccount.getNoGL()));
                 listPendapatan.add(glAccount);
             } else {
                 listGLAccountBiayaLain.add(gLAccount);
@@ -346,20 +354,18 @@ public class LabaRugiReportDialog extends javax.swing.JDialog {
         Object[][] isi = new Object[listGLAccountBiayaLain.size()][4];
         int x = 0;
         int no = 0;
-        double biayalain = 0;
+        biayalain = 0;
         for (GLAccount gLAccount : listGLAccountBiayaLain) {
             no += 1;
             isi[x][0] = no;
             isi[x][1] = gLAccount.getNoGL();
             isi[x][2] = gLAccount.getNameGL();
-            isi[x][3] = numberFormat.format(jurnalDAO.getSumCreditGLAccount(formatDate.format(dariTanggal), formatDate.format(sampaiTanggal), gLAccount.getNoGL()));
+            gLAccount.setJumlah(jurnalDAO.getSumCreditGLAccount(formatDate.format(dariTanggal), formatDate.format(sampaiTanggal), gLAccount.getNoGL()));
+            isi[x][3] = numberFormat.format(gLAccount.getJumlah());
             biayalain += jurnalDAO.getSumCreditGLAccount(formatDate.format(dariTanggal), formatDate.format(sampaiTanggal), gLAccount.getNoGL());
             x++;
         }
         textTotalPengeluaran.setText(numberFormat.format(biayalain));
         new ServiceHelper().setAutoRize(isi, judul, tablePengeluaran);
-    }
-
-    private void laporan() {
     }
 }

@@ -116,7 +116,7 @@
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
 					</textElement>
-				<text><![CDATA[Transaksi Reference]]></text>
+				<text><![CDATA[No Kelas]]></text>
 				</staticText>
 				<staticText>
 					<reportElement

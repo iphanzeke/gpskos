@@ -26,6 +26,74 @@ public class GlobalReport {
     private Pembayaran pembayaran;
     private List<DaftarKelas> listDaftarKelas;
     private DaftarKelas daftarKelas;
+    private String noGLPendapatan;
+    private String nameGLPendapatan;
+    private double jumlahPendapatan;
+    private String cashBPendapatan;
+    private String noGLPengeluaran;
+    private String nameGLPengeluaran;
+    private double jumlahPengeluaran;
+
+    @Override
+    public String toString() {
+        return "GlobalReport{" + "namaGLDebitur=" + namaGLDebitur + "namaGLKreditur=" + namaGLKreditur + "noGLPendapatan=" + noGLPendapatan + "nameGLPendapatan=" + nameGLPendapatan + "jumlahPendapatan=" + jumlahPendapatan + "cashBPendapatan=" + cashBPendapatan + "noGLPengeluaran=" + noGLPengeluaran + "nameGLPengeluaran=" + nameGLPengeluaran + "jumlahPengeluaran=" + jumlahPengeluaran + '}';
+    }
+
+    public String getNameGLPendapatan() {
+        return nameGLPendapatan;
+    }
+
+    public void setNameGLPendapatan(String nameGLPendapatan) {
+        this.nameGLPendapatan = nameGLPendapatan;
+    }
+
+    public String getNameGLPengeluaran() {
+        return nameGLPengeluaran;
+    }
+
+    public void setNameGLPengeluaran(String nameGLPengeluaran) {
+        this.nameGLPengeluaran = nameGLPengeluaran;
+    }
+
+    public String getCashBPendapatan() {
+        return cashBPendapatan;
+    }
+
+    public void setCashBPendapatan(String cashBPendapatan) {
+        this.cashBPendapatan = cashBPendapatan;
+    }
+
+    public double getJumlahPendapatan() {
+        return jumlahPendapatan;
+    }
+
+    public void setJumlahPendapatan(double jumlahPendapatan) {
+        this.jumlahPendapatan = jumlahPendapatan;
+    }
+
+    public double getJumlahPengeluaran() {
+        return jumlahPengeluaran;
+    }
+
+    public void setJumlahPengeluaran(double jumlahPengeluaran) {
+        this.jumlahPengeluaran = jumlahPengeluaran;
+    }
+
+    public String getNoGLPendapatan() {
+        return noGLPendapatan;
+    }
+
+    public void setNoGLPendapatan(String noGLPendapatan) {
+        this.noGLPendapatan = noGLPendapatan;
+    }
+
+    public String getNoGLPengeluaran() {
+        return noGLPengeluaran;
+    }
+
+    public void setNoGLPengeluaran(String noGLPengeluaran) {
+        this.noGLPengeluaran = noGLPengeluaran;
+    }
 
     public DaftarKelas getDaftarKelas() {
         return daftarKelas;
