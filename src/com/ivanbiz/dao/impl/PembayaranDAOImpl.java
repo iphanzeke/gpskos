@@ -155,9 +155,9 @@ public class PembayaranDAOImpl extends GenericDAOImpl implements PembayaranDAO {
         HibernateUtil.beginTransaction();
         try {
             Session session = HibernateUtil.getSession();
-            pembayaran.setTransactionReference(pembayaran.getInvoice().getNII());
+            //pembayaran.setTransactionReference(pembayaran.getInvoice().getNII());
             pembayaran.setStatus("8");
-            session.update(pembayaran);
+            session.save(pembayaran);
             JurnalDAO jurnalDAO = new JurnalDAOImpl();
             jurnalDAO.saveJurnal("888888", pembayaran.getJumlah(), "KAS_KECIL", pembayaran.getDebitBankAccount().getNoGL(), pembayaran.getKreditBankAccount().getNoGL(), session);
             HibernateUtil.commitTransaction();
