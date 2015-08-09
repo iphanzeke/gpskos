@@ -18,6 +18,15 @@ public class GLAccount {
     private String nameGL;
     private String groupACC;
     private double cashBalance;
+    private double jumlah;
+
+    public double getJumlah() {
+        return jumlah;
+    }
+
+    public void setJumlah(double jumlah) {
+        this.jumlah = jumlah;
+    }
 
     /**
      * @return the id

@@ -62,9 +62,10 @@ public class PembayaranLainReportDialog extends JDialog {
         buttonPreview = new javax.swing.JButton();
 
         setAlwaysOnTop(true);
+        setModal(true);
         setResizable(false);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24));
         jLabel1.setText("Laporan Pembayaran Lain - Lain");
 
         tablePembayaran.setModel(new javax.swing.table.DefaultTableModel(
@@ -113,8 +114,8 @@ public class PembayaranLainReportDialog extends JDialog {
                 .addContainerGap())
         );
 
-        setSize(new java.awt.Dimension(816, 638));
-        setLocationRelativeTo(null);
+        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+        setBounds((screenSize.width-816)/2, (screenSize.height-638)/2, 816, 638);
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonPreviewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPreviewActionPerformed

@@ -11,6 +11,9 @@ import com.ivanbiz.model.Murid;
 import com.ivanbiz.model.Perusahaan;
 import com.ivanbiz.service.GlobalSession;
 import java.awt.Dialog.ModalExclusionType;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -51,6 +54,15 @@ public class DaftarKelasReport {
     List<DaftarKelas> listDaftarKelases;
     SimpleDateFormat simpleDateFormat;
     SimpleDateFormat simpleDateFormatFrom;
+    File reportFile;
+
+    public File getReportFile() {
+        return reportFile;
+    }
+
+    public void setReportFile(File reportFile) {
+        this.reportFile = reportFile;
+    }
 
     public void previewAndCetakDaftarKelas(List<DaftarKelas> listDaftarKelas, String previewOrCetak, String kelulusan) {
         try {
@@ -104,8 +116,12 @@ public class DaftarKelasReport {
             } else if (previewOrCetak.equals("cetak")) {
                 JasperPrintManager.printReport(report, false);
             } else {
-                JasperExportManager.exportReportToPdfFile(report, System.getProperty("user.dir") + "\\report\\" + kelas.getTransactionReference() + ".pdf");
+                reportFile = File.createTempFile(kelas.getTransactionReference(), ".pdf");
+                JasperExportManager.exportReportToPdfStream(report, new FileOutputStream(reportFile));
+//                JasperExportManager.exportReportToPdfFile(report, System.getProperty("user.dir") + "\\report\\" + kelas.getTransactionReference() + ".pdf");
             }
+        } catch (IOException ex) {
+            Logger.getLogger(DaftarKelasReport.class.getName()).log(Level.SEVERE, null, ex);
         } catch (JRException ex) {
             Logger.getLogger(DaftarKelasReport.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -122,9 +138,14 @@ public class DaftarKelasReport {
             map.put(JRParameter.REPORT_DATA_SOURCE, dataSource);
             map.put("perusahaan.alamat", perusahaan.getAlamat());
             map.put("judul", judul);
-            map.put("logo", System.getProperty("user.dir") + "\\image\\logo.jpg");            
+            map.put("logo", System.getProperty("user.dir") + "\\image\\logo.jpg");
             report = JasperFillManager.fillReport(inputStream, map);
-            JasperExportManager.exportReportToPdfFile(report, System.getProperty("user.dir") + "\\report\\Kelas_" + simpleDateFormatFrom.format(new Date())+ ".pdf");
+
+            reportFile = File.createTempFile("Kelas_" + simpleDateFormatFrom.format(new Date()) + "_", ".pdf");
+            JasperExportManager.exportReportToPdfStream(report, new FileOutputStream(reportFile));
+//            JasperExportManager.exportReportToPdfFile(report, System.getProperty("user.dir") + "\\report\\Kelas_" + simpleDateFormatFrom.format(new Date())+ ".pdf");
+        } catch (IOException ex) {
+            Logger.getLogger(DaftarKelasReport.class.getName()).log(Level.SEVERE, null, ex);
         } catch (JRException ex) {
             Logger.getLogger(DaftarKelasReport.class.getName()).log(Level.SEVERE, null, ex);
         }

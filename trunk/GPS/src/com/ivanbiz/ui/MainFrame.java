@@ -248,7 +248,7 @@ public class MainFrame extends JFrame {
         menuItemPembayaranLain.setText("Lain - Lain");
         menuItemPembayaranLain.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuItemPembayaranLainActionPerformed(evt);
+                menuItemPembayaranLainReportActionPerformed(evt);
             }
         });
         jMenu1.add(menuItemPembayaranLain);
@@ -540,10 +540,6 @@ public class MainFrame extends JFrame {
     private void menuItemPembayaranTagihanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemPembayaranTagihanActionPerformed
         new PembayaranTagihanDialog().setVisible(true);
     }//GEN-LAST:event_menuItemPembayaranTagihanActionPerformed
-
-    private void menuItemPembayaranLainActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemPembayaranLainActionPerformed
-        new PembayaranLainDialog().setVisible(true);
-    }//GEN-LAST:event_menuItemPembayaranLainActionPerformed
 
     private void menuItemKelulusanReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemKelulusanReportActionPerformed
         new DaftarKelasReportDialog("kelulusan").setVisible(true);

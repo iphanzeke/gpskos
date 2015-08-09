@@ -42,14 +42,14 @@ public class DaftarKelasDialog extends javax.swing.JDialog {
         daftarKelasDAO = new DaftarKelasDAOImpl();
         this.kelas = kelas;
         renderButtonAkses(GlobalSession.getListAksesMatrix());
-        textKelas.setText(kelas.getTransactionReference());
+        textKelas.setText(kelas.getTransactionReference() + " (" + kelas.getDeskripsi() + ")");
         refresh(kelas);
         buttonKelulusan.setVisible(false);
     }
 
     public DaftarKelasDialog(Kelas kelas, List<DaftarKelas> listDaftarKelas) {
         initComponents();
-        textKelas.setText(kelas.getTransactionReference());
+        textKelas.setText(kelas.getTransactionReference() + " (" + kelas.getDeskripsi() + ")");
         this.listDaftarKelas = listDaftarKelas;
         updateTableDaftarKelasInvoice();
         buttonTambah.setVisible(false);
@@ -62,7 +62,7 @@ public class DaftarKelasDialog extends javax.swing.JDialog {
         this.lulus = lulus;
         this.kelas = kelas;
         daftarKelasDAO = new DaftarKelasDAOImpl();
-        textKelas.setText(kelas.getTransactionReference());
+        textKelas.setText(kelas.getTransactionReference() + " (" + kelas.getDeskripsi() + ")");
         refreshKelulusan(kelas);
         buttonTambah.setVisible(false);
         buttonHapus.setVisible(false);
@@ -260,7 +260,6 @@ public class DaftarKelasDialog extends javax.swing.JDialog {
             }
         }
     }//GEN-LAST:event_tableDaftarKelasMouseClicked
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonHapus;
     private javax.swing.JButton buttonKelulusan;
@@ -276,7 +275,7 @@ public class DaftarKelasDialog extends javax.swing.JDialog {
 
     private void refresh(Kelas kelas) {
         try {
-            listDaftarKelas = daftarKelasDAO.getDataByEqualsOrderByBankAndNama(textKelas.getText());
+            listDaftarKelas = daftarKelasDAO.getDataByEqualsOrderByBankAndNama(kelas.getTransactionReference());
             updateTableDaftarKelas();
         } catch (Exception ex) {
             Logger.getLogger(DaftarKelasDialog.class.getName()).log(Level.SEVERE, null, ex);
@@ -305,7 +304,7 @@ public class DaftarKelasDialog extends javax.swing.JDialog {
 
     private void refreshKelulusan(Kelas kelas) {
         try {
-            listDaftarKelas = daftarKelasDAO.getDataByEqualsOrderByBankAndNama(textKelas.getText());
+            listDaftarKelas = daftarKelasDAO.getDataByEqualsOrderByBankAndNama(kelas.getTransactionReference());
             updateTableDaftarKelulusanKelas();
         } catch (Exception ex) {
             Logger.getLogger(DaftarKelasDialog.class.getName()).log(Level.SEVERE, null, ex);

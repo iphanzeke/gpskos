@@ -22,6 +22,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 
 /**
  *
@@ -252,7 +253,7 @@ public class TagihanReportDialog extends javax.swing.JDialog {
             isi[x][11] = invoices.getStatus().equals("1") ? "N" : "Y";
             x++;
         }
-        tableTagihan.setAutoResizeMode(tableTagihan.AUTO_RESIZE_OFF);
+        tableTagihan.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         new ServiceHelper().setAutoRize(isi, judul, tableTagihan);
     }
 

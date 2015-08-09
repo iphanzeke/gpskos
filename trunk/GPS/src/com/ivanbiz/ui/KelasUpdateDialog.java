@@ -133,7 +133,7 @@ public class KelasUpdateDialog extends JDialog {
 
         jPanel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jLabel2.setText("Transaksi Reference :");
+        jLabel2.setText("Kelas Reference :");
 
         jTextFieldNIK.setDocument(new JTextFieldLimit(10));
 
@@ -203,7 +203,7 @@ public class KelasUpdateDialog extends JDialog {
                             .addComponent(jLabel10)
                             .addComponent(jLabel4)
                             .addComponent(jLabel8))
-                        .addGap(0, 249, Short.MAX_VALUE)))
+                        .addGap(0, 269, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(

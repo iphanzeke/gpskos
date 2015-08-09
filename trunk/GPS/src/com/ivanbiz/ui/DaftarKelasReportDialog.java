@@ -150,7 +150,7 @@ public class DaftarKelasReportDialog extends javax.swing.JDialog {
         jPanel1.add(buttonCetak);
 
         buttonKirimEmail.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/transfer.jpg"))); // NOI18N
-        buttonKirimEmail.setText("Kirim Email Daftar Kelas Terseleksi");
+        buttonKirimEmail.setText("Kirim Email Kelas Terseleksi");
         buttonKirimEmail.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonKirimEmailActionPerformed(evt);
@@ -176,9 +176,9 @@ public class DaftarKelasReportDialog extends javax.swing.JDialog {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 1004, Short.MAX_VALUE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 1004, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 1004, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 830, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 830, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 830, Short.MAX_VALUE)
                     .addComponent(jLabelJudul, javax.swing.GroupLayout.Alignment.LEADING))
                 .addContainerGap())
         );
@@ -190,14 +190,14 @@ public class DaftarKelasReportDialog extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabelJudul)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 575, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 475, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-1040)/2, (screenSize.height-738)/2, 1040, 738);
+        setBounds((screenSize.width-866)/2, (screenSize.height-638)/2, 866, 638);
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonPreviewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPreviewActionPerformed
@@ -240,9 +240,12 @@ public class DaftarKelasReportDialog extends javax.swing.JDialog {
         try {
             Perusahaan perusahaan = GlobalSession.getPerusahaan();
             listDaftarKelas = daftarKelasDAO.getDataByEqualsOrderByBankAndNama(listKelas.get(tableKelas.getSelectedRow()).getTransactionReference());
-            new DaftarKelasReport().previewAndCetakDaftarKelas(listDaftarKelas, "email", "daftarKelas");
+            DaftarKelasReport daftarKelasReport = new DaftarKelasReport();
+            daftarKelasReport.previewAndCetakDaftarKelas(listDaftarKelas, "email", "daftarKelas");
+
             Kelas kelas = listKelas.get(tableKelas.getSelectedRow());
-            File file = new File(System.getProperty("user.dir") + "\\report\\" + kelas.getTransactionReference() + ".pdf");
+            File file = daftarKelasReport.getReportFile();
+//            File file = new File(System.getProperty("user.dir") + "\\report\\" + kelas.getTransactionReference() + ".pdf");
             if (!file.exists()) {
                 JOptionPane.showMessageDialog(null, "file gagal dibuat");
             } else if (perusahaan.getEmail().isEmpty()) {
@@ -258,12 +261,12 @@ public class DaftarKelasReportDialog extends javax.swing.JDialog {
                 String message =
                         "Kepada Yth " + kelas.getPengajar().getNama() + "\n\n"
                         + "Detail Kelas anda sebagai berikut : \n"
-                        + "Transaksi Reference = " + kelas.getTransactionReference() + "\n"
+                        + "No Kelas  = " + kelas.getTransactionReference() + "\n"
                         + "Deskripsi =" + kelas.getDeskripsi() + "\n"
-                        + "Tanggal=" + sdf.format(kelas.getTanggalKelas()) + "\n"
-                        + (null == kelas.getTanggalKelas2() ? "" : "Tanggal 2=" + kelas.getTanggalKelas2()) + "\n"
-                        + "Tempat=" + kelas.getTempatKelas() + "\n"
-                        + "Alamat=" + kelas.getAlamatKelas() + "\n\n"
+                        + "Tanggal   =" + sdf.format(kelas.getTanggalKelas()) + "\n"
+                        + (null == kelas.getTanggalKelas2() ? "" : "Tanggal 2 =" + kelas.getTanggalKelas2()) + "\n"
+                        + "Tempat    =" + kelas.getTempatKelas() + "\n"
+                        + "Alamat    =" + kelas.getAlamatKelas() + "\n\n"
                         + "Terimakasih\n\n"
                         + perusahaan.getNama();
 
@@ -272,7 +275,7 @@ public class DaftarKelasReportDialog extends javax.swing.JDialog {
                 email.sendMail(from, password, from, to, subject, message, attachments);
                 file.delete();
 
-                JOptionPane.showMessageDialog(rootPane, "Jadwal sudah dikirim");
+                JOptionPane.showMessageDialog(rootPane, "Jadwal Kelas sudah dikirim");
             }
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(rootPane, ex.getMessage());
@@ -283,8 +286,10 @@ public class DaftarKelasReportDialog extends javax.swing.JDialog {
     private void buttonKirimEmailAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonKirimEmailAllActionPerformed
         Perusahaan perusahaan = GlobalSession.getPerusahaan();
         sdf = new SimpleDateFormat("dd-MMM-yy");
-        new DaftarKelasReport().previewKelas(listKelas, jLabelJudul.getText());
-        File file = new File(System.getProperty("user.dir") + "\\report\\Kelas_" + sdf.format(new Date()) + ".pdf");
+        DaftarKelasReport daftarKelasReport = new DaftarKelasReport();
+        daftarKelasReport.previewKelas(listKelas, jLabelJudul.getText());
+        File file = daftarKelasReport.getReportFile();
+//        File file = new File(System.getProperty("user.dir") + "\\report\\Kelas_" + sdf.format(new Date()) + ".pdf");
         if (!file.exists()) {
             JOptionPane.showMessageDialog(null, "file gagal dibuat");
         } else if (perusahaan.getEmail().isEmpty()) {
@@ -301,7 +306,7 @@ public class DaftarKelasReportDialog extends javax.swing.JDialog {
                 String message = "Kepada Yth " + pengajar.getNama() + "\n\n" + "Detail Kelas " + jLabelJudul.getText() + " terlampir. \n\n\n" + "Terimakasih\n\n" + perusahaan.getNama();
                 String[] attachments = {file.getAbsolutePath()};
                 email.sendMail(from, password, from, to, subject, message, attachments);
-                file.delete();
+//                file.delete();
                 JOptionPane.showMessageDialog(rootPane, "Jadwal sudah dikirim");
             } catch (MessagingException ex) {
                 Logger.getLogger(DaftarKelasReportDialog.class.getName()).log(Level.SEVERE, null, ex);
@@ -330,7 +335,7 @@ public class DaftarKelasReportDialog extends javax.swing.JDialog {
     }
 
     private void updateTableDaftarKelas() {
-        String[] judul = {"No", "Transaksi Reference", "Deskripsi", "Pengajar", "Tanggal", "Tanggal 2", "Tempat", "Alamat"};
+        String[] judul = {"No", "No Kelas", "Deskripsi", "Pengajar", "Tanggal", "Tanggal 2", "Tempat", "Alamat"};
         Object[][] isi = new Object[listKelas.size()][8];
         int x = 0;
         int no = 0;
