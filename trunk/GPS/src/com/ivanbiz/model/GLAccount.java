@@ -9,6 +9,7 @@ package com.ivanbiz.model;
  * @author City_Z
  */
 public class GLAccount {
+
     private long id;
     private String nama;
     private String deskripsi;
@@ -16,6 +17,8 @@ public class GLAccount {
     private String noGL;
     private String nameGL;
     private String groupACC;
+    private double cashBalance;
+
     /**
      * @return the id
      */
@@ -113,5 +116,18 @@ public class GLAccount {
     public void setKode(String kode) {
         this.kode = kode;
     }
-    
+
+    /**
+     * @return the cashBalance
+     */
+    public double getCashBalance() {
+        return cashBalance;
+    }
+
+    /**
+     * @param cashBalance the cashBalance to set
+     */
+    public void setCashBalance(double cashBalance) {
+        this.cashBalance = cashBalance;
+    }
 }
