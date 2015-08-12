@@ -220,8 +220,8 @@ public class SaldoKasDialog extends javax.swing.JDialog {
 
     private void renderButtonAkses(List<AksesMatrix> listAksesMatrix) {
         buttonTambah.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.TAMBAH_SALDO_KAS, listAksesMatrix));
-        buttonUbah.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.UBAH_SALDO_KAS, listAksesMatrix));
+//        buttonUbah.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.UBAH_SALDO_KAS, listAksesMatrix));
         buttonHapus.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.HAPUS_SALDO_KAS, listAksesMatrix));
-        buttonHapus.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.PROSES_SALDO_KAS, listAksesMatrix));
+//        buttonHapus.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.PROSES_SALDO_KAS, listAksesMatrix));
     }
 }

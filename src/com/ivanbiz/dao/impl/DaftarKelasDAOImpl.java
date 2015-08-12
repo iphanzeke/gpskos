@@ -87,7 +87,6 @@ public class DaftarKelasDAOImpl extends GenericDAOImpl implements DaftarKelasDAO
             Session session = HibernateUtil.getSession();
             for (int x = 0; x < listDaftarKelas.size(); x++) {
                 DaftarKelas daftarKelas = (DaftarKelas) listDaftarKelas.get(x);
-                System.out.println("===" + daftarKelas.isChoose());
                 if (!daftarKelas.isChoose()) {
                     daftarKelas.setStatus("0");
                     session.update(daftarKelas);

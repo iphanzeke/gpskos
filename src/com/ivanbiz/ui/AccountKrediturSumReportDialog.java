@@ -15,6 +15,7 @@ import com.ivanbiz.dao.JurnalDAO;
 import com.ivanbiz.dao.impl.GLAccountDAOImpl;
 import com.ivanbiz.dao.impl.JurnalDAOImpl;
 import com.ivanbiz.model.GLAccount;
+import com.ivanbiz.service.RenderingKanan;
 import com.ivanbiz.service.ServiceHelper;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
@@ -172,5 +173,6 @@ public class AccountKrediturSumReportDialog extends javax.swing.JDialog {
             x++;
         }
         new ServiceHelper().setAutoRize(isi, judul, tableJurnal);
+        tableJurnal.getColumnModel().getColumn(3).setCellRenderer(new RenderingKanan());
     }
 }

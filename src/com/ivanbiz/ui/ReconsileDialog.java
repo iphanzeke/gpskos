@@ -19,6 +19,7 @@ import com.ivanbiz.model.Invoice;
 import com.ivanbiz.model.Jurnal;
 import com.ivanbiz.model.Kelas;
 import com.ivanbiz.model.Pembayaran;
+import com.ivanbiz.service.RenderingKanan;
 import com.ivanbiz.service.ServiceHelper;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
@@ -128,6 +129,7 @@ public class ReconsileDialog extends javax.swing.JFrame {
         jLabel6.setText("Jumlah Peserta :");
 
         textPeserta.setEditable(false);
+        textPeserta.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -210,6 +212,7 @@ public class ReconsileDialog extends javax.swing.JFrame {
         jLabel8.setText("Total Tagihan :");
 
         textInvoice.setEditable(false);
+        textInvoice.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
 
         tableTagihan.setAutoCreateRowSorter(true);
         tableTagihan.setModel(new javax.swing.table.DefaultTableModel(
@@ -260,6 +263,7 @@ public class ReconsileDialog extends javax.swing.JFrame {
         jLabel7.setText("Total Pembayaran :");
 
         textPembayaran.setEditable(false);
+        textPembayaran.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
 
         tablePembayaran.setAutoCreateRowSorter(true);
         tablePembayaran.setModel(new javax.swing.table.DefaultTableModel(
@@ -324,7 +328,7 @@ public class ReconsileDialog extends javax.swing.JFrame {
         );
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 24));
-        jLabel9.setText("Laporan Data Kelas / Reconsile");
+        jLabel9.setText("Laporan Reconsile Kelas");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -342,7 +346,7 @@ public class ReconsileDialog extends javax.swing.JFrame {
                             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel9)
-                        .addGap(0, 623, Short.MAX_VALUE)))
+                        .addGap(0, 707, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -471,6 +475,7 @@ public class ReconsileDialog extends javax.swing.JFrame {
         }
         textInvoice.setText(numberFormat.format(total));
         new ServiceHelper().setAutoRize(isi, judul, tableTagihan);
+        tableTagihan.getColumnModel().getColumn(4).setCellRenderer(new RenderingKanan());
     }
 
     private void updateTablePembayaran() {
@@ -491,6 +496,7 @@ public class ReconsileDialog extends javax.swing.JFrame {
         }
         textPembayaran.setText(numberFormat.format(total));
         new ServiceHelper().setAutoRize(isi, judul, tablePembayaran);
+        tablePembayaran.getColumnModel().getColumn(3).setCellRenderer(new RenderingKanan());
     }
 
     private void updateTableJurnal() {
@@ -521,5 +527,7 @@ public class ReconsileDialog extends javax.swing.JFrame {
             x++;
         }
         new ServiceHelper().setAutoRize(isi, judul, tableJurnal);
+        tableJurnal.getColumnModel().getColumn(5).setCellRenderer(new RenderingKanan());
+        tableJurnal.getColumnModel().getColumn(6).setCellRenderer(new RenderingKanan());
     }
 }

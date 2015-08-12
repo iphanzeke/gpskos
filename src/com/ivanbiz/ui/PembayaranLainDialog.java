@@ -16,6 +16,7 @@ import com.ivanbiz.model.AksesMatrix;
 import com.ivanbiz.model.Pembayaran;
 import com.ivanbiz.service.GlobalSession;
 import com.ivanbiz.service.MenuAksesConstant;
+import com.ivanbiz.service.RenderingKanan;
 import com.ivanbiz.service.ServiceHelper;
 import java.text.NumberFormat;
 import java.util.List;
@@ -234,11 +235,13 @@ public class PembayaranLainDialog extends JDialog {
             x++;
         }
         new ServiceHelper().setAutoRize(isi, judul, tablePembayaran);
+        tablePembayaran.getColumnModel().getColumn(5).setCellRenderer(new RenderingKanan());
     }
 
     private void renderButtonAkses(List<AksesMatrix> listAksesMatrix) {
-        buttonTambah.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.TAMBAH_PEMBAYARAN_TAGIHAN, listAksesMatrix));
-        buttonUbah.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.UBAH_PEMBAYARAN_TAGIHAN, listAksesMatrix));
-        buttonHapus.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.HAPUS_PEMBAYARAN_TAGIHAN, listAksesMatrix));
+        buttonTambah.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.TAMBAH_PEMBAYARAN_LAIN, listAksesMatrix));
+        buttonUbah.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.UBAH_PEMBAYARAN_LAIN, listAksesMatrix));
+        buttonHapus.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.HAPUS_PEMBAYARAN_LAIN, listAksesMatrix));
+        buttonProcess.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.PROSES_PEMBAYARAN_LAIN, listAksesMatrix));
     }
 }

@@ -14,11 +14,13 @@ import com.ivanbiz.dao.CashBalanceDAO;
 import com.ivanbiz.dao.ReconDAO;
 import com.ivanbiz.dao.impl.CashBalanceDAOImpl;
 import com.ivanbiz.dao.impl.ReconDAOImpl;
+import com.ivanbiz.model.AksesMatrix;
 import com.ivanbiz.model.CashBalance;
 import com.ivanbiz.model.GLAccount;
 import com.ivanbiz.model.Jurnal;
-import com.ivanbiz.model.Pengguna;
 import com.ivanbiz.service.GlobalSession;
+import com.ivanbiz.service.MenuAksesConstant;
+import com.ivanbiz.service.RenderingKanan;
 import com.ivanbiz.service.ServiceHelper;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
@@ -45,11 +47,7 @@ public class KeuntunganReportDialog extends javax.swing.JDialog {
     public KeuntunganReportDialog(GLAccount gLAccount, Date dari, Date sampai) {
         try {
             initComponents();
-            Pengguna pengguna = GlobalSession.getPengguna();
-            System.out.println("pengguna="+pengguna.getUserName()+pengguna.getGroups().getNama());
-            if(!pengguna.getGroups().getNama().equals("Admin")){
-                buttonTutup.setVisible(false);
-            }
+            renderButtonAkses(GlobalSession.getListAksesMatrix());
             this.glAccount = gLAccount;
             CashBalanceDAO cashBalanceDAO = new CashBalanceDAOImpl();
             cashBalance = cashBalanceDAO.getBalanceByOrderDate(gLAccount.getId());
@@ -118,17 +116,20 @@ public class KeuntunganReportDialog extends javax.swing.JDialog {
 
         jPanel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jLabel2.setText("Total  Kredit :");
+        jLabel2.setText("Total  Kredit         :");
 
         textFieldKredit.setEditable(false);
+        textFieldKredit.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
 
-        jLabel4.setText("Total Debet :");
+        jLabel4.setText("Total Debet          :");
 
         textFieldDebet.setEditable(false);
+        textFieldDebet.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
 
         jLabel1.setText("Total Keuntungan :");
 
         textFieldKeuntungan.setEditable(false);
+        textFieldKeuntungan.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -142,10 +143,9 @@ public class KeuntunganReportDialog extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(textFieldKeuntungan, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel2))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
@@ -175,24 +175,26 @@ public class KeuntunganReportDialog extends javax.swing.JDialog {
 
         jPanel2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jLabel5.setText("Cash Balance :");
+        jLabel5.setText("Saldo Kas              :");
 
         textCashBalance.setEditable(false);
+        textCashBalance.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         textCashBalance.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 textCashBalanceKeyReleased(evt);
             }
         });
 
-        buttonTutup.setText("Tutup Cash Balance");
+        buttonTutup.setText("Tutup Saldo Kas");
         buttonTutup.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonTutupActionPerformed(evt);
             }
         });
 
-        jLabel6.setText("Jumlah :");
+        jLabel6.setText("Jumlah                  :");
 
+        textJumlah.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         textJumlah.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 textJumlahKeyReleased(evt);
@@ -206,14 +208,14 @@ public class KeuntunganReportDialog extends javax.swing.JDialog {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addContainerGap()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel6)
+                                .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(textJumlah, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel5)
+                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(textCashBalance, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
@@ -224,7 +226,7 @@ public class KeuntunganReportDialog extends javax.swing.JDialog {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(9, 9, 9)
+                .addGap(11, 11, 11)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textCashBalance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
@@ -249,9 +251,9 @@ public class KeuntunganReportDialog extends javax.swing.JDialog {
                     .addComponent(labelLaporan, javax.swing.GroupLayout.DEFAULT_SIZE, 772, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 455, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, 0, 317, Short.MAX_VALUE)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -261,7 +263,7 @@ public class KeuntunganReportDialog extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabelJudul)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 291, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 289, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -357,6 +359,9 @@ public class KeuntunganReportDialog extends javax.swing.JDialog {
 //        textJumlah.setText(String.valueOf(new Double(jumlah).intValue()));
         textJumlah.setText(numberFormat.format(jumlah));
         new ServiceHelper().setAutoRize(isi, judul, tableJurnal);
+        tableJurnal.getColumnModel().getColumn(4).setCellRenderer(new RenderingKanan());
+        tableJurnal.getColumnModel().getColumn(5).setCellRenderer(new RenderingKanan());
+        tableJurnal.getColumnModel().getColumn(4).setWidth(250);
     }
 
     private void validate(CashBalance cashBalanceSave) {
@@ -371,9 +376,7 @@ public class KeuntunganReportDialog extends javax.swing.JDialog {
                 CashBalanceDAO cashBalanceDAO = new CashBalanceDAOImpl();
                 if (cashBalanceDAO.validateSameDate(cashBalanceSave.getGlAccount().getId(), cashBalanceSave.getDateBalance())) {
                     JOptionPane.showMessageDialog(this, "Close Balance suda dilakukan untuk tanggal " + dateFormat1.format(cashBalanceSave.getDateBalance()));
-                    System.out.println("no");
                 } else {
-                    System.out.println("ok");
                     cashBalanceDAO.saveOrUpdate(cashBalanceSave);
                     dispose();
                 }
@@ -381,5 +384,9 @@ public class KeuntunganReportDialog extends javax.swing.JDialog {
                 Logger.getLogger(KeuntunganReportDialog.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+    }
+
+    private void renderButtonAkses(List<AksesMatrix> listAksesMatrix) {
+        buttonTutup.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.TUTUP_SALDO_KAS, listAksesMatrix));
     }
 }

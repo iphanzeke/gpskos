@@ -15,6 +15,7 @@ import com.ivanbiz.dao.impl.PembayaranDAOImpl;
 import com.ivanbiz.model.Pembayaran;
 import com.ivanbiz.model.Perusahaan;
 import com.ivanbiz.service.GlobalSession;
+import com.ivanbiz.service.RenderingKanan;
 import com.ivanbiz.service.ServiceHelper;
 import java.text.NumberFormat;
 import java.util.List;
@@ -22,7 +23,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
 
 /**
  *
@@ -166,5 +166,6 @@ public class PembayaranLainReportDialog extends JDialog {
             x++;
         }
         new ServiceHelper().setAutoRize(isi, judul, tablePembayaran);
+        tablePembayaran.getColumnModel().getColumn(5).setCellRenderer(new RenderingKanan());
     }
 }
