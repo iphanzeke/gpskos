@@ -41,7 +41,7 @@ public class DaftarKelasDialog extends javax.swing.JDialog {
         initComponents();
         daftarKelasDAO = new DaftarKelasDAOImpl();
         this.kelas = kelas;
-        renderButtonAkses(GlobalSession.getListAksesMatrix());
+//        renderButtonAkses(GlobalSession.getListAksesMatrix());
         textKelas.setText(kelas.getTransactionReference() + " (" + kelas.getDeskripsi() + ")");
         refresh(kelas);
         buttonKelulusan.setVisible(false);
@@ -283,8 +283,8 @@ public class DaftarKelasDialog extends javax.swing.JDialog {
     }
 
     private void renderButtonAkses(List<AksesMatrix> listAksesMatrix) {
-        buttonTambah.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.TAMBAH_DAFTAR_KELAS, listAksesMatrix));
-        buttonHapus.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.HAPUS_DAFTAR_KELAS, listAksesMatrix));
+//        buttonTambah.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.TAMBAH_DAFTAR_KELAS, listAksesMatrix));
+//        buttonHapus.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.HAPUS_DAFTAR_KELAS, listAksesMatrix));
     }
 
     private void updateTableDaftarKelas() {
@@ -381,6 +381,6 @@ public class DaftarKelasDialog extends javax.swing.JDialog {
     }
 
     private void renderButtonAksesKelulusan(List<AksesMatrix> listAksesMatrix) {
-        buttonKelulusan.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.UBAH_KELULUSAN, listAksesMatrix));
+//        buttonKelulusan.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.UBAH_KELULUSAN, listAksesMatrix));
     }
 }

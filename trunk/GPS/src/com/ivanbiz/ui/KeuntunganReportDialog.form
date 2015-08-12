@@ -34,9 +34,9 @@
                   <Component id="labelLaporan" alignment="0" pref="772" max="32767" attributes="0"/>
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace min="0" pref="455" max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jPanel2" alignment="1" min="-2" max="-2" attributes="0"/>
-                          <Component id="jPanel1" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="jPanel2" alignment="1" min="0" pref="317" max="32767" attributes="1"/>
+                          <Component id="jPanel1" alignment="1" max="32767" attributes="1"/>
                       </Group>
                   </Group>
               </Group>
@@ -51,7 +51,7 @@
               <EmptySpace min="-2" max="-2" attributes="0"/>
               <Component id="jLabelJudul" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="jScrollPane1" pref="291" max="32767" attributes="0"/>
+              <Component id="jScrollPane1" pref="289" max="32767" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="jPanel1" min="-2" pref="109" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
@@ -118,10 +118,9 @@
                           <Component id="textFieldKeuntungan" pref="195" max="32767" attributes="1"/>
                       </Group>
                       <Group type="102" attributes="0">
-                          <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                              <Component id="jLabel2" max="32767" attributes="1"/>
+                              <Component id="jLabel4" alignment="1" pref="92" max="32767" attributes="1"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -163,22 +162,24 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="jLabel2">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Total  Kredit :"/>
+            <Property name="text" type="java.lang.String" value="Total  Kredit         :"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="textFieldKredit">
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
+            <Property name="horizontalAlignment" type="int" value="4"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel4">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Total Debet :"/>
+            <Property name="text" type="java.lang.String" value="Total Debet          :"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="textFieldDebet">
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
+            <Property name="horizontalAlignment" type="int" value="4"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JSeparator" name="jSeparator1">
@@ -191,6 +192,7 @@
         <Component class="javax.swing.JTextField" name="textFieldKeuntungan">
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
+            <Property name="horizontalAlignment" type="int" value="4"/>
           </Properties>
         </Component>
       </SubComponents>
@@ -210,15 +212,15 @@
               <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="1" attributes="0">
-                                  <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Group type="102" alignment="1" attributes="1">
+                                  <Component id="jLabel6" max="32767" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="textJumlah" min="-2" pref="196" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
-                                  <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel5" min="-2" pref="93" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="textCashBalance" min="-2" pref="196" max="-2" attributes="0"/>
                               </Group>
@@ -236,7 +238,7 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="textCashBalance" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -256,12 +258,13 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="jLabel5">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Cash Balance :"/>
+            <Property name="text" type="java.lang.String" value="Saldo Kas              :"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="textCashBalance">
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
+            <Property name="horizontalAlignment" type="int" value="4"/>
           </Properties>
           <Events>
             <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="textCashBalanceKeyReleased"/>
@@ -269,7 +272,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="buttonTutup">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Tutup Cash Balance"/>
+            <Property name="text" type="java.lang.String" value="Tutup Saldo Kas"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonTutupActionPerformed"/>
@@ -277,10 +280,13 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel6">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Jumlah :"/>
+            <Property name="text" type="java.lang.String" value="Jumlah                  :"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="textJumlah">
+          <Properties>
+            <Property name="horizontalAlignment" type="int" value="4"/>
+          </Properties>
           <Events>
             <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="textJumlahKeyReleased"/>
           </Events>

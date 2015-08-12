@@ -14,6 +14,7 @@ import com.ivanbiz.dao.ReconDAO;
 import com.ivanbiz.dao.impl.ReconDAOImpl;
 import com.ivanbiz.model.GLAccount;
 import com.ivanbiz.model.Jurnal;
+import com.ivanbiz.service.RenderingKanan;
 import com.ivanbiz.service.ServiceHelper;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
@@ -102,14 +103,17 @@ public class KeuntunganReportBiayaLainDialog extends javax.swing.JDialog {
         jLabel2.setText("Total  Kredit :");
 
         textFieldKredit.setEditable(false);
+        textFieldKredit.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
 
         jLabel4.setText("Total Debet :");
 
         textFieldDebet.setEditable(false);
+        textFieldDebet.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
 
         jLabel1.setText("Total Keuntungan :");
 
         textFieldKeuntungan.setEditable(false);
+        textFieldKeuntungan.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -225,5 +229,8 @@ public class KeuntunganReportBiayaLainDialog extends javax.swing.JDialog {
         totalKeuntungan = totalKredit - totalDebet;
         textFieldKeuntungan.setText(numberFormat.format(totalKeuntungan));
         new ServiceHelper().setAutoRize(isi, judul, tableJurnal);
+        tableJurnal.getColumnModel().getColumn(4).setCellRenderer(new RenderingKanan());
+        tableJurnal.getColumnModel().getColumn(5).setCellRenderer(new RenderingKanan());
+        tableJurnal.getColumnModel().getColumn(4).setWidth(250);
     }
 }

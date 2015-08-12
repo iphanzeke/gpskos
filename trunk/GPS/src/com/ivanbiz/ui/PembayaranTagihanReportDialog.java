@@ -14,6 +14,7 @@ import com.ivanbiz.dao.PembayaranDAO;
 import com.ivanbiz.dao.impl.PembayaranDAOImpl;
 import com.ivanbiz.model.Pembayaran;
 import com.ivanbiz.report.PembayaranReport;
+import com.ivanbiz.service.RenderingKanan;
 import com.ivanbiz.service.ServiceHelper;
 import java.text.NumberFormat;
 import java.util.List;
@@ -235,5 +236,6 @@ public class PembayaranTagihanReportDialog extends JDialog {
         }
         tablePembayaran.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         new ServiceHelper().setAutoRize(isi, judul, tablePembayaran);
+        tablePembayaran.getColumnModel().getColumn(5).setCellRenderer(new RenderingKanan());
     }
 }

@@ -72,8 +72,6 @@ public class FileUpload {
                     }
                 }
             }
-        } else {
-            System.out.println("Input not available.");
         }
     }
 
@@ -128,8 +126,6 @@ public class FileUpload {
                     }
                 }
             }
-        } else {
-            System.out.println("Input not available");
         }
     }
 }

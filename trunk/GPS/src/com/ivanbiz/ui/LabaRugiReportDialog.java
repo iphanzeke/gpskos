@@ -23,6 +23,7 @@ import com.ivanbiz.model.Perusahaan;
 import com.ivanbiz.report.LabaRugiReport;
 import com.ivanbiz.service.Email;
 import com.ivanbiz.service.GlobalSession;
+import com.ivanbiz.service.RenderingKanan;
 import com.ivanbiz.service.ServiceHelper;
 import java.io.File;
 import java.text.NumberFormat;
@@ -100,22 +101,22 @@ public class LabaRugiReportDialog extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
-        textTotalPendapatan = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        textTotalCashBalance = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
-        jLabel6 = new javax.swing.JLabel();
-        textTotalCashBalance = new javax.swing.JTextField();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        textTotalPendapatan = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        textTotalPengeluaran = new javax.swing.JTextField();
         jPanel6 = new javax.swing.JPanel();
         buttonEmail = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         textTotalCashBalanceAndPendapatan = new javax.swing.JTextField();
-        jLabel9 = new javax.swing.JLabel();
-        textTotalPengeluaran = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setAlwaysOnTop(true);
@@ -171,24 +172,31 @@ public class LabaRugiReportDialog extends javax.swing.JDialog {
         jPanel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel1.setLayout(new java.awt.GridLayout(1, 0));
 
-        jLabel4.setText("Total Pendapatan :");
-        jPanel1.add(jLabel4);
+        jLabel6.setText("Total Saldo Kas :");
+        jPanel1.add(jLabel6);
 
-        textTotalPendapatan.setEditable(false);
-        jPanel1.add(textTotalPendapatan);
+        textTotalCashBalance.setEditable(false);
+        textTotalCashBalance.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jPanel1.add(textTotalCashBalance);
         jPanel1.add(jLabel7);
         jPanel1.add(jLabel8);
 
         jPanel4.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel4.setLayout(new java.awt.GridLayout(1, 0));
 
-        jLabel6.setText("Total Cash Balance :");
-        jPanel4.add(jLabel6);
+        jLabel4.setText("Total Pendapatan :");
+        jPanel4.add(jLabel4);
 
-        textTotalCashBalance.setEditable(false);
-        jPanel4.add(textTotalCashBalance);
-        jPanel4.add(jLabel11);
-        jPanel4.add(jLabel10);
+        textTotalPendapatan.setEditable(false);
+        textTotalPendapatan.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jPanel4.add(textTotalPendapatan);
+
+        jLabel9.setText("Total Pengeluaran :");
+        jPanel4.add(jLabel9);
+
+        textTotalPengeluaran.setEditable(false);
+        textTotalPengeluaran.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jPanel4.add(textTotalPengeluaran);
 
         buttonEmail.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/transfer.jpg"))); // NOI18N
         buttonEmail.setText("Email");
@@ -202,17 +210,14 @@ public class LabaRugiReportDialog extends javax.swing.JDialog {
         jPanel5.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel5.setLayout(new java.awt.GridLayout(1, 0));
 
-        jLabel5.setText("Total Cash Balance + Pendapatan :");
+        jLabel5.setText("Total Saldo Kas + Pendapatan :");
         jPanel5.add(jLabel5);
 
         textTotalCashBalanceAndPendapatan.setEditable(false);
+        textTotalCashBalanceAndPendapatan.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jPanel5.add(textTotalCashBalanceAndPendapatan);
-
-        jLabel9.setText("Total Pengeluaran :");
-        jPanel5.add(jLabel9);
-
-        textTotalPengeluaran.setEditable(false);
-        jPanel5.add(textTotalPengeluaran);
+        jPanel5.add(jLabel11);
+        jPanel5.add(jLabel10);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -272,7 +277,7 @@ public class LabaRugiReportDialog extends javax.swing.JDialog {
         labaRugiReport.getLabaRugiReport(listPendapatan, listGLAccountBiayaLain, totalKredit, totalBalance, biayalain, jLabelJudul.getText());
         File file = labaRugiReport.getReportFile();
         if (!file.exists()) {
-            JOptionPane.showMessageDialog(null, "file gagal dibuat");
+            JOptionPane.showMessageDialog(null, "File gagal dibuat");
         } else if (perusahaan.getEmail().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Email Perusahaan kosong");
         } else if (emails.isEmpty()) {
@@ -324,7 +329,7 @@ public class LabaRugiReportDialog extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
 
     private void updateTablePendapatan() throws Exception {
-        String[] judul = {"No", "No GL", "Nama GL", "Jumlah", "Cash Balance"};
+        String[] judul = {"No", "No GL", "Nama GL", "Jumlah", "Saldo Kas"};
         Object[][] isi = new Object[listGLAccountKreditur.size()][5];
         int x = 0;
         int no = 0;
@@ -355,6 +360,8 @@ public class LabaRugiReportDialog extends javax.swing.JDialog {
         textTotalCashBalance.setText(numberFormat.format(totalBalance));
         textTotalCashBalanceAndPendapatan.setText(numberFormat.format(totalBalance + totalKredit));
         new ServiceHelper().setAutoRize(isi, judul, tablePendapatan);
+        tablePendapatan.getColumnModel().getColumn(3).setCellRenderer(new RenderingKanan());
+        tablePendapatan.getColumnModel().getColumn(4).setCellRenderer(new RenderingKanan());
     }
 
     private void updateTablePengeluaran() throws Exception {
@@ -375,5 +382,6 @@ public class LabaRugiReportDialog extends javax.swing.JDialog {
         }
         textTotalPengeluaran.setText(numberFormat.format(biayalain));
         new ServiceHelper().setAutoRize(isi, judul, tablePengeluaran);
+        tablePengeluaran.getColumnModel().getColumn(3).setCellRenderer(new RenderingKanan());
     }
 }

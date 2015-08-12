@@ -49,6 +49,7 @@ public class KelasDialog extends JDialog {
         initComponents();
         refresh();
         this.lulus = lulusOrDaftarKelas;
+        renderButtonAkses(GlobalSession.getListAksesMatrix());
         if (lulusOrDaftarKelas.contentEquals("kelulusan")) {
             buttonTambah.setVisible(false);
             buttonUbah.setVisible(false);

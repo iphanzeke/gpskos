@@ -170,7 +170,7 @@
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
 					</textElement>
-				<text><![CDATA[Cash Balance]]></text>
+				<text><![CDATA[Saldo Kas]]></text>
 				</staticText>
 			</band>
 		</columnHeader>
@@ -328,7 +328,7 @@
 					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font/>
 					</textElement>
-				<text><![CDATA[Total Cash Balance :]]></text>
+				<text><![CDATA[Total Saldo Kas]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
@@ -341,7 +341,7 @@
 					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font/>
 					</textElement>
-				<text><![CDATA[Total Cash Balance + Pendapatan :]]></text>
+				<text><![CDATA[Total Saldo Kas + Pendapatan :]]></text>
 				</staticText>
 				<textField isStretchWithOverflow="false" pattern="#,##0" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement

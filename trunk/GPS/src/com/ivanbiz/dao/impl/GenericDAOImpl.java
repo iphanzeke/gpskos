@@ -207,8 +207,6 @@ public class GenericDAOImpl implements GenericDAO {
             Iterator iterator = map.entrySet().iterator();
             while (iterator.hasNext()) {
                 Map.Entry mapEntry = (Map.Entry) iterator.next();
-                System.out.println("The key is: " + mapEntry.getKey()
-                        + ",value is :" + mapEntry.getValue());
                 crit.add(Restrictions.eq(mapEntry.getKey().toString(), mapEntry.getValue().toString()));
             }
             // crit.add(Restrictions.eq(variable, input));
@@ -233,8 +231,6 @@ public class GenericDAOImpl implements GenericDAO {
             Iterator iterator = map.entrySet().iterator();
             while (iterator.hasNext()) {
                 Map.Entry mapEntry = (Map.Entry) iterator.next();
-                System.out.println("The key is: " + mapEntry.getKey()
-                        + ",value is :" + mapEntry.getValue());
                 crit.add(Restrictions.eq(mapEntry.getKey().toString(), mapEntry.getValue().toString()));
             }
             obj = crit.uniqueResult();

@@ -13,6 +13,7 @@ package com.ivanbiz.ui;
 import com.ivanbiz.dao.JurnalDAO;
 import com.ivanbiz.dao.impl.JurnalDAOImpl;
 import com.ivanbiz.model.Jurnal;
+import com.ivanbiz.service.RenderingKanan;
 import com.ivanbiz.service.ServiceHelper;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
@@ -149,5 +150,7 @@ public class JurnalReportDialog extends javax.swing.JDialog {
             x++;
         }
         new ServiceHelper().setAutoRize(isi, judul, tableJurnal);
+        tableJurnal.getColumnModel().getColumn(5).setCellRenderer(new RenderingKanan());
+        tableJurnal.getColumnModel().getColumn(6).setCellRenderer(new RenderingKanan());
     }
 }
