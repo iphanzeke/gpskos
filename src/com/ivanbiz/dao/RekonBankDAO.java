@@ -12,4 +12,6 @@ import java.util.List;
  */
 public interface RekonBankDAO extends GenericDAO {
     public String saveRekonByList(List list)throws Exception;
+    public List getByDate(String startDate,String endDate,String kreditur)throws Exception;
+         
 }
