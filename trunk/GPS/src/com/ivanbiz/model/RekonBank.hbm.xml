@@ -8,7 +8,7 @@
     <property column="DATA" length="250" name="data" type="string"/>
     <property column="START_DATE" name="startDate" type="date"/>
     <property column="END_DATE" name="endDate" type="date"/>
-    <property column="KREDITUR" length="50" name="email" type="string"/>
+    <property column="KREDITUR" length="50" name="kreditur" type="string"/>
     
   </class>
 </hibernate-mapping>
