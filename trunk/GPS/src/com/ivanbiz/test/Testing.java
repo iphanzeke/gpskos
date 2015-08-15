@@ -4,11 +4,13 @@ import com.ivanbiz.dao.AksesMatrixDAO;
 import com.ivanbiz.dao.BankDAO;
 import com.ivanbiz.dao.GroupAccDAO;
 import com.ivanbiz.dao.GroupsDAO;
+import com.ivanbiz.dao.JurnalDAO;
 import com.ivanbiz.dao.PenggunaDAO;
 import com.ivanbiz.dao.impl.AksesMatrixDAOImpl;
 import com.ivanbiz.dao.impl.BankDAOImpl;
 import com.ivanbiz.dao.impl.GroupAccDAOImpl;
 import com.ivanbiz.dao.impl.GroupsDAOImpl;
+import com.ivanbiz.dao.impl.JurnalDAOImpl;
 import com.ivanbiz.dao.impl.PenggunaDAOImpl;
 import com.ivanbiz.model.AksesMatrix;
 import com.ivanbiz.model.Bank;
@@ -31,7 +33,14 @@ public class Testing {
     BankDAO bankDAO = new BankDAOImpl();
 
     public static void main(String[] args) {
-        new Testing().saveData();
+         JurnalDAO jurnalDAO = new JurnalDAOImpl();
+        try {
+            double a = jurnalDAO.getSumDebetGLAccount("2014-01-14","2014-11-14", "GLSUSPENS"); 
+            System.out.println(a);
+    //        new Testing().saveData();
+        } catch (Exception ex) {
+            Logger.getLogger(Testing.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     private void deleteData() {
