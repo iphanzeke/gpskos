@@ -11,8 +11,8 @@ package com.ivanbiz.model;
 public class ParamBank {
     private long id;
     private String kreditur;
-    private String key;
-    private int index;
+    private String kunci;
+    private int urutan;
 
     /**
      * @return the id
@@ -43,32 +43,33 @@ public class ParamBank {
     }
 
     /**
-     * @return the key
+     * @return the kunci
      */
-    public String getKey() {
-        return key;
+    public String getKunci() {
+        return kunci;
     }
 
     /**
-     * @param key the key to set
+     * @param kunci the kunci to set
      */
-    public void setKey(String key) {
-        this.key = key;
+    public void setKunci(String kunci) {
+        this.kunci = kunci;
     }
 
     /**
-     * @return the index
+     * @return the urutan
      */
-    public int getIndex() {
-        return index;
+    public int getUrutan() {
+        return urutan;
     }
 
     /**
-     * @param index the index to set
+     * @param urutan the urutan to set
      */
-    public void setIndex(int index) {
-        this.index = index;
+    public void setUrutan(int urutan) {
+        this.urutan = urutan;
     }
-    
+
+   
     
 }
