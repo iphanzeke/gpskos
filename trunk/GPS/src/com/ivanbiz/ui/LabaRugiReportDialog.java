@@ -141,6 +141,11 @@ public class LabaRugiReportDialog extends javax.swing.JDialog {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tablePendapatan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablePendapatanMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tablePendapatan);
 
         jPanel2.add(jScrollPane1);
@@ -157,6 +162,11 @@ public class LabaRugiReportDialog extends javax.swing.JDialog {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tablePengeluaran.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablePengeluaranMouseClicked(evt);
+            }
+        });
         jScrollPane3.setViewportView(tablePengeluaran);
 
         jPanel2.add(jScrollPane3);
@@ -298,6 +308,18 @@ public class LabaRugiReportDialog extends javax.swing.JDialog {
             }
         }
     }//GEN-LAST:event_buttonEmailActionPerformed
+
+    private void tablePendapatanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablePendapatanMouseClicked
+        if (evt.getClickCount() == 2) {
+            new KeuntunganReportDialog(listPendapatan.get(tablePendapatan.getSelectedRow()), dariTanggal, sampaiTanggal).setVisible(true);
+        }
+    }//GEN-LAST:event_tablePendapatanMouseClicked
+
+    private void tablePengeluaranMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablePengeluaranMouseClicked
+        if (evt.getClickCount() == 2) {
+            new KeuntunganReportBiayaLainDialog(listGLAccountBiayaLain.get(tablePengeluaran.getSelectedRow()), dariTanggal, sampaiTanggal).setVisible(true);
+        }
+    }//GEN-LAST:event_tablePengeluaranMouseClicked
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonEmail;
     private javax.swing.JLabel jLabel1;
