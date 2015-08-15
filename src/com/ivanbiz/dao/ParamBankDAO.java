@@ -4,12 +4,10 @@
  */
 package com.ivanbiz.dao;
 
-import java.util.List;
-
 /**
  *
  * @author City_Z
  */
-public interface RekonBankDAO extends GenericDAO {
-    public String saveRekonByList(List list)throws Exception;
+public interface ParamBankDAO extends GenericDAO {
+    
 }

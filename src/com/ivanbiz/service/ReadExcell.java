@@ -4,8 +4,10 @@
  */
 package com.ivanbiz.service;
 
+import com.ivanbiz.model.RekonBank;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import jxl.Cell;
 import jxl.CellType;
@@ -18,7 +20,7 @@ import jxl.Workbook;
  */
 public class ReadExcell {
 
-    public List readExcell(String inputFile) {
+    public List readExcell(String inputFile,Date startDate,Date endDate,String kreditur) {
         List list = new ArrayList();
         File inputWorkbook = new File(inputFile);
         Workbook w;
@@ -26,14 +28,21 @@ public class ReadExcell {
         try {
             w = Workbook.getWorkbook(inputWorkbook);
             Sheet sheet = w.getSheet(0);
-            StringBuffer objDataColumn = new StringBuffer();
+           
             for (int j = 1; j < sheet.getColumns(); j++) {
                 for (int i = 0; i < sheet.getRows(); i++) {
                     Cell cell = sheet.getCell(j, i);
                     CellType type = cell.getType();
+                    StringBuffer objDataColumn = new StringBuffer();
                     objDataColumn.append(cell.getContents()+"^");
                     System.out.println(cell.getContents() + "===");
-                    list.add(objDataColumn);
+                    
+                    RekonBank rekonBank = new RekonBank();
+                    rekonBank.setStartDate(startDate);
+                    rekonBank.setEndDate(endDate);
+                    rekonBank.setKreditur(kreditur);
+                    rekonBank.setData(objDataColumn.substring(0,objDataColumn.length()-1));
+                    list.add(rekonBank);
                 }
             }
 
@@ -42,5 +51,10 @@ public class ReadExcell {
             e.printStackTrace();
         }
         return list;
+    }
+    
+    public Object readDelimiter(String value,int index){
+        String[] val = value.split("^");        
+        return val[index];
     }
 }
