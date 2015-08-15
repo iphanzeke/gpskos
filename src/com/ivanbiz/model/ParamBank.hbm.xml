@@ -5,7 +5,7 @@
     <id column="ID" name="id">
       <generator class="native"/>
     </id>    
-    <property column="KREDITUR" length="50" name="email" type="string"/>
+    <property column="KREDITUR" length="50" name="kreditur" type="string"/>
     <property column="KEY" length="50" name="key" type="string"/>
     <property column="INDEX" length="2" name="index" type="integer"/>
   </class>
