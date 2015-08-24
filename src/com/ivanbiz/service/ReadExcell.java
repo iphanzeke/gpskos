@@ -62,8 +62,8 @@ public class ReadExcell {
         return list;
     }
 
-    public Object readDelimiter(String value, int index) {
-        String[] val = value.split("^");
+    public Object readDelimiter(String value, int index,String aksara) {
+        String[] val = value.split(aksara);
         return val[index];
     }
 
