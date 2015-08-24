@@ -31,7 +31,7 @@ public class ReadExcell {
            
             for (int j = 0; j < sheet.getColumns(); j++) {
                 StringBuffer objDataColumn = new StringBuffer();
-                for (int i = 0; i < sheet.getRows(); i++) {
+                for (int i = 1; i < sheet.getRows(); i++) {
                     Cell cell = sheet.getCell(j, i);
                     CellType type = cell.getType();
                     
