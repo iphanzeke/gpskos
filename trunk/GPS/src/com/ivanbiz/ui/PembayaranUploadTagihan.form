@@ -30,9 +30,9 @@
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="jScrollPane1" alignment="0" pref="780" max="32767" attributes="0"/>
-                  <Component id="jPanel2" alignment="0" pref="780" max="32767" attributes="0"/>
-                  <Component id="jLabel5" alignment="0" pref="780" max="32767" attributes="0"/>
+                  <Component id="jScrollPane1" alignment="0" pref="788" max="32767" attributes="0"/>
+                  <Component id="jPanel2" alignment="0" pref="788" max="32767" attributes="0"/>
+                  <Component id="jLabel5" alignment="0" pref="788" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="jPanel1" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -54,7 +54,7 @@
                   <Component id="jPanel3" alignment="1" min="-2" max="-2" attributes="1"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jScrollPane1" pref="384" max="32767" attributes="0"/>
+              <Component id="jScrollPane1" pref="393" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
           </Group>
@@ -77,8 +77,8 @@
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="jDateChooserDariTanggal" alignment="0" pref="313" max="32767" attributes="1"/>
-                      <Component id="jDateChooserSampaiTanggal" alignment="0" pref="313" max="32767" attributes="1"/>
+                      <Component id="jDateChooserDariTanggal" alignment="0" pref="316" max="32767" attributes="1"/>
+                      <Component id="jDateChooserSampaiTanggal" alignment="0" pref="316" max="32767" attributes="1"/>
                       <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -97,7 +97,7 @@
                   <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jDateChooserSampaiTanggal" min="-2" max="-2" attributes="1"/>
-                  <EmptySpace pref="18" max="32767" attributes="0"/>
+                  <EmptySpace pref="20" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -170,12 +170,12 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
-                          <Component id="textFile" pref="314" max="32767" attributes="0"/>
+                          <Component id="textFile" pref="317" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="buttonBrowse" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="comboBank" alignment="1" pref="409" max="32767" attributes="0"/>
+                      <Component id="comboBank" alignment="1" pref="414" max="32767" attributes="0"/>
                       <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
