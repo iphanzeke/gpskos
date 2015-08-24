@@ -28,7 +28,7 @@ public class ReadExcell {
     public List readExcell(String inputFile, Date startDate, Date endDate, String kreditur) {
         List list = new ArrayList();
         File inputWorkbook = new File(inputFile);
-        Workbook w;
+        Workbook w = null;
 
         try {
             w = Workbook.getWorkbook(inputWorkbook);
@@ -56,6 +56,8 @@ public class ReadExcell {
 
         } catch (Exception e) {
             e.printStackTrace();
+        }finally{
+            w.close();
         }
         return list;
     }
