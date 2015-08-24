@@ -26,6 +26,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFileChooser;
 import javax.swing.JTable;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -45,7 +46,7 @@ public class PembayaranUploadTagihan extends javax.swing.JDialog {
             jDateChooserSampaiTanggal.setDate(new Date());
             jDateChooserDariTanggal.setDate(new Date());
             listRekonBank = new ArrayList();
-            updateTableFile(listRekonBank);
+          //  updateTableFile(listRekonBank);
             bankDAO = new BankDAOImpl();
             listBank = bankDAO.getAll(Bank.class);
             updateComboBank();
@@ -258,18 +259,25 @@ public class PembayaranUploadTagihan extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
 
     private void updateTableFile(List<RekonBank> listRekonBank) {
-        String[] judul = {"No", "Data"};
-        Object[][] isi = new Object[listRekonBank.size()][2];
+       
+        RekonBank rekonBank1 = (RekonBank) listRekonBank.get(0);
+        String[] valHeader = rekonBank1.getData().split(","); 
+         String[] judul = new String[valHeader.length];
+        Object[][] isi = new Object[listRekonBank.size()][valHeader.length];
         int x = 0;
         int no = 0;
         for (RekonBank rekonBank : listRekonBank) {
             no += 1;
-            isi[x][0] = no;
-            isi[x][1] = rekonBank.getData();
+            String[] val = rekonBank.getData().split(","); 
+            for (int z=0;z<val.length;z++){
+                 isi[x][z] = val[z];                
+            }
+           
             x++;
         }
         tableFile.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        new ServiceHelper().setAutoRize(isi, judul, tableFile);
+        tableFile.setModel(new DefaultTableModel(isi, judul));
+      //  new ServiceHelper().setAutoRize(isi, judul, tableFile);
     }
 
     private void updateComboBank() {
