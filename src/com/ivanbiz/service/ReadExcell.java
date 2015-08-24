@@ -29,21 +29,23 @@ public class ReadExcell {
             w = Workbook.getWorkbook(inputWorkbook);
             Sheet sheet = w.getSheet(0);
            
-            for (int j = 1; j < sheet.getColumns(); j++) {
+            for (int j = 0; j < sheet.getColumns(); j++) {
+                StringBuffer objDataColumn = new StringBuffer();
                 for (int i = 0; i < sheet.getRows(); i++) {
                     Cell cell = sheet.getCell(j, i);
                     CellType type = cell.getType();
-                    StringBuffer objDataColumn = new StringBuffer();
-                    objDataColumn.append(cell.getContents()+"^");
-                    System.out.println(cell.getContents() + "===");
                     
+                    objDataColumn.append(cell.getContents()+"^");
+                    //System.out.print(cell.getContents() + "===");
+                   // System.out.println(objDataColumn);
+                
+                }
                     RekonBank rekonBank = new RekonBank();
                     rekonBank.setStartDate(startDate);
                     rekonBank.setEndDate(endDate);
                     rekonBank.setKreditur(kreditur);
                     rekonBank.setData(objDataColumn.substring(0,objDataColumn.length()-1));
                     list.add(rekonBank);
-                }
             }
 
 
