@@ -81,7 +81,8 @@ public class MainFrame extends JFrame {
             menuItemSumBiayaLain.setVisible(MenuAksesConstant.validate(MenuAksesConstant.REPORT_PEMBAYARAN_SUM_LAIN, listAksesMatrix));
             menuItemLabaRugi.setVisible(MenuAksesConstant.validate(MenuAksesConstant.REPORT_LABA_RUGI, listAksesMatrix));
             menuItemSumAccountKreditur.setVisible(MenuAksesConstant.validate(MenuAksesConstant.REPORT_SUM_ACCOUNT_KREDITUR, listAksesMatrix));
-            if (menuItemPembayaranTagihan.isVisible() == Boolean.valueOf("true") || menuItemPembayaranLain.isVisible() == Boolean.valueOf("true")) {
+            menuItemPembayaranUploadFile.setVisible(MenuAksesConstant.validate(MenuAksesConstant.LIHAT_PEMBAYARAN_UPLOAD_FILE, listAksesMatrix));
+            if (menuItemPembayaranTagihan.isVisible() == Boolean.valueOf("true") || menuItemPembayaranLain.isVisible() == Boolean.valueOf("true") || menuItemPembayaranUploadFile.isVisible()==Boolean.valueOf(true)) {
                 menuPembayaran.setVisible(true);
             } else {
                 menuPembayaran.setVisible(false);
@@ -130,6 +131,7 @@ public class MainFrame extends JFrame {
         menuTransaksi = new javax.swing.JMenu();
         menuItemTagihan = new javax.swing.JMenuItem();
         menuPembayaran = new javax.swing.JMenu();
+        menuItemPembayaranUploadFile = new javax.swing.JMenuItem();
         menuItemPembayaranTagihan = new javax.swing.JMenuItem();
         menuItemPembayaranLain = new javax.swing.JMenuItem();
         menuItemKelulusan = new javax.swing.JMenuItem();
@@ -259,6 +261,15 @@ public class MainFrame extends JFrame {
 
         menuPembayaran.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/pembayaran.jpg"))); // NOI18N
         menuPembayaran.setText("Pembayaran");
+
+        menuItemPembayaranUploadFile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/tagihan.jpg"))); // NOI18N
+        menuItemPembayaranUploadFile.setText("Upload File");
+        menuItemPembayaranUploadFile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemPembayaranUploadFileActionPerformed(evt);
+            }
+        });
+        menuPembayaran.add(menuItemPembayaranUploadFile);
 
         menuItemPembayaranTagihan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/tagihan.jpg"))); // NOI18N
         menuItemPembayaranTagihan.setText("Tagihan");
@@ -621,6 +632,11 @@ public class MainFrame extends JFrame {
     private void menuItemPembayaranLainActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemPembayaranLainActionPerformed
         new PembayaranLainDialog().setVisible(true);
     }//GEN-LAST:event_menuItemPembayaranLainActionPerformed
+
+    private void menuItemPembayaranUploadFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemPembayaranUploadFileActionPerformed
+        new PembayaranUploadTagihan().setVisible(true);
+    }//GEN-LAST:event_menuItemPembayaranUploadFileActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
@@ -645,6 +661,7 @@ public class MainFrame extends JFrame {
     private javax.swing.JMenuItem menuItemPembayaranLainReport;
     private javax.swing.JMenuItem menuItemPembayaranTagihan;
     private javax.swing.JMenuItem menuItemPembayaranTagihanReport;
+    private javax.swing.JMenuItem menuItemPembayaranUploadFile;
     private javax.swing.JMenuItem menuItemPengajar;
     private javax.swing.JMenuItem menuItemPengguna;
     private javax.swing.JMenuItem menuItemPerusahaan;
