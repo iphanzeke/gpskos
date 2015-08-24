@@ -22,6 +22,7 @@ public enum MenuAksesConstant {
     LIHAT_GLACCOUNT("Menu GL Account"),
     //Transaksi
     LIHAT_TAGIHAN("Menu Tagihan"),
+    LIHAT_PEMBAYARAN_UPLOAD_FILE("Menu Pembayaran Upload File"),
     LIHAT_PEMBAYARAN_TAGIHAN("Menu Pembayaran Tagihan"),
     LIHAT_PEMBAYARAN_LAIN("Menu Pembayaran Lain - Lain"),
     LIHAT_KELULUSAN("Menu Kelulusan/Kehadiran/Tanggal Ujian"),
