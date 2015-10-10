@@ -11,4 +11,5 @@ import com.ivanbiz.dao.AksesMatrixDAO;
  * @author Administrator
  */
 public class AksesMatrixDAOImpl extends GenericDAOImpl implements AksesMatrixDAO {
+    
 }
