@@ -91,6 +91,7 @@ public class ReadExcell {
                     rekonBank.setEndDate(endDate);
                     rekonBank.setKreditur(kreditur);
                     rekonBank.setData(line);
+                    list.add(rekonBank);
                 }
 
             }

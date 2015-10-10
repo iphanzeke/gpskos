@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class name="com.ivanbiz.model.Pengajar" table="Pengajar">
+    <id column="ID" name="id">
+      <generator class="native"/>
+    </id>
+    <property column="NIP" length="10" name="NIP" type="string"/>
+    <property column="NAMA" length="30" name="nama" type="string"/>
+    <property column="EMAIL" length="50" name="email" type="string"/>
+    <property column="ALAMAT" length="100" name="alamat" type="string"/>
+    <property column="TELP" length="20" name="telp" type="string"/>
+    <property column="HANDPHONE" length="20" name="handphone" type="string"/>
+    <property column="DATE" name="date" type="date"/>
+  </class>
+</hibernate-mapping>

@@ -75,8 +75,8 @@ public class ServiceHelper {
                 width = Math.max(width, preferedWidth);
             }
             header.setResizingColumn(column); // this line is very important
-            column.setWidth(width + jTable.getIntercellSpacing().width);          
-        }        
+            column.setWidth(width + jTable.getIntercellSpacing().width);
+        }
     }
 
     public static String bilang(long uang) {

@@ -11,12 +11,21 @@ import java.util.Date;
  * @author City_Z
  */
 public class RekonBank {
-    
+
     private long id;
     private String data;
     private Date startDate;
     private Date endDate;
     private String kreditur;
+    private boolean choose;
+
+    public boolean isChoose() {
+        return choose;
+    }
+
+    public void setChoose(boolean choose) {
+        this.choose = choose;
+    }
 
     /**
      * @return the id
@@ -87,6 +96,4 @@ public class RekonBank {
     public void setKreditur(String kreditur) {
         this.kreditur = kreditur;
     }
-    
-    
 }

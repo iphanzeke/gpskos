@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class name="com.ivanbiz.model.GLAccount" table="GL_ACCOUNT">
+    <id column="ID" name="id">
+      <generator class="native"/>
+    </id>
+    <property column="NAMA" length="30" name="nama" type="string"/>
+    <property column="DESKRIPSI" length="250" name="deskripsi" type="string"/>
+    <property column="KODE" length="3" name="kode" type="string"/>
+    <property column="NO_GL" length="30" name="noGL" type="string"/>
+    <property column="NAME_GL" length="30" name="nameGL" type="string"/>
+    <property column="GROUP_ACC" length="30" name="groupACC" type="string"/>
+  </class>
+</hibernate-mapping>

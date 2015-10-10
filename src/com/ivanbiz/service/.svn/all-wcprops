@@ -1,0 +1,71 @@
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/!svn/ver/287/trunk/GPS/src/com/ivanbiz/service
+END
+MD5.java
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/156/trunk/GPS/src/com/ivanbiz/service/MD5.java
+END
+FileUpload.java
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/272/trunk/GPS/src/com/ivanbiz/service/FileUpload.java
+END
+RenderingTengah.java
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/272/trunk/GPS/src/com/ivanbiz/service/RenderingTengah.java
+END
+MenuAksesConstant.java
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/!svn/ver/287/trunk/GPS/src/com/ivanbiz/service/MenuAksesConstant.java
+END
+Email.java
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/266/trunk/GPS/src/com/ivanbiz/service/Email.java
+END
+ReadExcell.java
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/286/trunk/GPS/src/com/ivanbiz/service/ReadExcell.java
+END
+RenderingKanan.java
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/272/trunk/GPS/src/com/ivanbiz/service/RenderingKanan.java
+END
+JTextFieldLimit.java
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/71/trunk/GPS/src/com/ivanbiz/service/JTextFieldLimit.java
+END
+HibernateUtil.java
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/238/trunk/GPS/src/com/ivanbiz/service/HibernateUtil.java
+END
+ServiceHelper.java
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/272/trunk/GPS/src/com/ivanbiz/service/ServiceHelper.java
+END
+GlobalSession.java
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/266/trunk/GPS/src/com/ivanbiz/service/GlobalSession.java
+END

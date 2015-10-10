@@ -10,8 +10,11 @@
  */
 package com.ivanbiz.ui;
 
+import com.ivanbiz.dao.GLAccountDAO;
 import com.ivanbiz.dao.JurnalDAO;
+import com.ivanbiz.dao.impl.GLAccountDAOImpl;
 import com.ivanbiz.dao.impl.JurnalDAOImpl;
+import com.ivanbiz.model.GLAccount;
 import com.ivanbiz.model.Jurnal;
 import com.ivanbiz.service.RenderingKanan;
 import com.ivanbiz.service.ServiceHelper;
@@ -32,6 +35,7 @@ public class JurnalReportDialog extends javax.swing.JDialog {
     JurnalDAO jurnalDAO;
     SimpleDateFormat dateFormat;
     NumberFormat numberFormat;
+    GLAccountDAO gLAccountDAO;
 
     /**
      * Creates new form LaporanJurnalFrame
@@ -42,6 +46,7 @@ public class JurnalReportDialog extends javax.swing.JDialog {
     public JurnalReportDialog(Date dariTanggal, Date sampaiTanggal) {
         try {
             initComponents();
+            gLAccountDAO = new GLAccountDAOImpl();
             jurnalDAO = new JurnalDAOImpl();
             dateFormat = new SimpleDateFormat("dd-MMMM-yyyy");
             numberFormat = NumberFormat.getNumberInstance();
@@ -123,31 +128,37 @@ public class JurnalReportDialog extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
 
     private void updateTableJurnal() {
-        String[] judul = {"No", "Date Reference", "Transaction Reference", "Accounting Reference", "Currency", "Debet", "Credit", "GL Account"};
-        Object[][] isi = new Object[listJurnal.size()][8];
+        String[] judul = {"No", "Date Reference", "Transaction Reference", "Accounting Reference", "Currency", "Debet", "Credit", "GL Account", "Nama GL"};
+        Object[][] isi = new Object[listJurnal.size()][9];
         int x = 0;
         int no = 0;
         String kode = "";
         for (Jurnal jurnal : listJurnal) {
-            if (!kode.equals(jurnal.getTransactionReference())) {
-                no += 1;
-                kode = jurnal.getTransactionReference();
-                isi[x][0] = no;
-                isi[x][1] = dateFormat.format(jurnal.getDateReference());
-                isi[x][2] = kode;
-                isi[x][3] = jurnal.getAccountingReference();
-                isi[x][4] = jurnal.getCurrency();
-            } else {
-                isi[x][0] = "";
-                isi[x][1] = "";
-                isi[x][2] = "";
-                isi[x][3] = "";
-                isi[x][4] = "";
+            try {
+                if (!kode.equals(jurnal.getTransactionReference())) {
+                    no += 1;
+                    kode = jurnal.getTransactionReference();
+                    isi[x][0] = no;
+                    isi[x][1] = dateFormat.format(jurnal.getDateReference());
+                    isi[x][2] = kode;
+                    isi[x][3] = jurnal.getAccountingReference();
+                    isi[x][4] = jurnal.getCurrency();
+                } else {
+                    isi[x][0] = "";
+                    isi[x][1] = "";
+                    isi[x][2] = "";
+                    isi[x][3] = "";
+                    isi[x][4] = "";
+                }
+                isi[x][5] = numberFormat.format(jurnal.getDebit());
+                isi[x][6] = numberFormat.format(jurnal.getCredit());
+                GLAccount gLAccount = (GLAccount) gLAccountDAO.getDataByEqual(GLAccount.class, "noGL", jurnal.getGLAccount());
+                isi[x][7] = jurnal.getGLAccount();
+                isi[x][8] = gLAccount == null ? "" : gLAccount.getNameGL();
+                x++;
+            } catch (Exception ex) {
+                Logger.getLogger(JurnalReportDialog.class.getName()).log(Level.SEVERE, null, ex);
             }
-            isi[x][5] = numberFormat.format(jurnal.getDebit());
-            isi[x][6] = numberFormat.format(jurnal.getCredit());
-            isi[x][7] = jurnal.getGLAccount();
-            x++;
         }
         new ServiceHelper().setAutoRize(isi, judul, tableJurnal);
         tableJurnal.getColumnModel().getColumn(5).setCellRenderer(new RenderingKanan());

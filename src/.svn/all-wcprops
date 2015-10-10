@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 31
+/svn/!svn/ver/287/trunk/GPS/src
+END
+hibernate.cfg.xml
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/!svn/ver/276/trunk/GPS/src/hibernate.cfg.xml
+END
+log4j.properties
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/!svn/ver/2/trunk/GPS/src/log4j.properties
+END

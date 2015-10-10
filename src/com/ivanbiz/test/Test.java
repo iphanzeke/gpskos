@@ -4,12 +4,23 @@
  */
 package com.ivanbiz.test;
 
+import com.ivanbiz.model.RekonBank;
+import com.ivanbiz.service.ReadExcell;
+import java.util.Date;
+import java.util.List;
+
 /**
  *
  * @author City_Z
  */
 public class Test {
     public static void main(String args[]){
-        System.out.println("testingggg");
+        ReadExcell re = new ReadExcell();
+        List list = re.readExcell("C:/cimb.xls", new Date(), new Date(), "001");
+        for(int x=0;x<list.size();x++){
+            RekonBank rb = (RekonBank)list.get(x);
+            System.out.println(rb.getData());
+        }
+      //  System.out.println(list.toString());
     }
 }

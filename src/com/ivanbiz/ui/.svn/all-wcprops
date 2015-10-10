@@ -1,0 +1,653 @@
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/!svn/ver/287/trunk/GPS/src/com/ivanbiz/ui
+END
+GLAccountDialog.form
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/141/trunk/GPS/src/com/ivanbiz/ui/GLAccountDialog.form
+END
+GroupUpdateDialog.form
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/141/trunk/GPS/src/com/ivanbiz/ui/GroupUpdateDialog.form
+END
+JurnalReportDialog.java
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/272/trunk/GPS/src/com/ivanbiz/ui/JurnalReportDialog.java
+END
+MuridDialog.java
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/263/trunk/GPS/src/com/ivanbiz/ui/MuridDialog.java
+END
+BankUpdateDialog.java
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/141/trunk/GPS/src/com/ivanbiz/ui/BankUpdateDialog.java
+END
+KelasDialog.java
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/272/trunk/GPS/src/com/ivanbiz/ui/KelasDialog.java
+END
+PembayaranTagihanDialog.form
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/256/trunk/GPS/src/com/ivanbiz/ui/PembayaranTagihanDialog.form
+END
+KeuntunganBiayaLainDialog.java
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/!svn/ver/166/trunk/GPS/src/com/ivanbiz/ui/KeuntunganBiayaLainDialog.java
+END
+PembayaranLainUpdateDialog.form
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/253/trunk/GPS/src/com/ivanbiz/ui/PembayaranLainUpdateDialog.form
+END
+TransferKrediturToKrediturDialog.form
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/!svn/ver/249/trunk/GPS/src/com/ivanbiz/ui/TransferKrediturToKrediturDialog.form
+END
+ReconsileDialog.java
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/272/trunk/GPS/src/com/ivanbiz/ui/ReconsileDialog.java
+END
+SaldoKasUpdateDialog.java
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/169/trunk/GPS/src/com/ivanbiz/ui/SaldoKasUpdateDialog.java
+END
+BankDialog.java
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/141/trunk/GPS/src/com/ivanbiz/ui/BankDialog.java
+END
+BiayaLainDialog.java
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/243/trunk/GPS/src/com/ivanbiz/ui/BiayaLainDialog.java
+END
+DaftarKelasUpdateDataDialog.java
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/238/trunk/GPS/src/com/ivanbiz/ui/DaftarKelasUpdateDataDialog.java
+END
+PembayaranUploadTagihan.form
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/288/trunk/GPS/src/com/ivanbiz/ui/PembayaranUploadTagihan.form
+END
+PembayaranTagihanReportDialog.java
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/!svn/ver/272/trunk/GPS/src/com/ivanbiz/ui/PembayaranTagihanReportDialog.java
+END
+PenggunaUpdateDialog.java
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/266/trunk/GPS/src/com/ivanbiz/ui/PenggunaUpdateDialog.java
+END
+PembayaranLainDialog.form
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/256/trunk/GPS/src/com/ivanbiz/ui/PembayaranLainDialog.form
+END
+TransferKrediturToKrediturReportDialog.java
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/!svn/ver/256/trunk/GPS/src/com/ivanbiz/ui/TransferKrediturToKrediturReportDialog.java
+END
+SaldoKasDialog.java
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/272/trunk/GPS/src/com/ivanbiz/ui/SaldoKasDialog.java
+END
+AccountKrediturSumDialog.java
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/!svn/ver/266/trunk/GPS/src/com/ivanbiz/ui/AccountKrediturSumDialog.java
+END
+TagihanUpdateDialog.java
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/264/trunk/GPS/src/com/ivanbiz/ui/TagihanUpdateDialog.java
+END
+PembayaranLainReportDialog.java
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/272/trunk/GPS/src/com/ivanbiz/ui/PembayaranLainReportDialog.java
+END
+LabaRugiReportDialog.java
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/281/trunk/GPS/src/com/ivanbiz/ui/LabaRugiReportDialog.java
+END
+PerusahaanDialog.java
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/263/trunk/GPS/src/com/ivanbiz/ui/PerusahaanDialog.java
+END
+KelasUpdateDialog.form
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/270/trunk/GPS/src/com/ivanbiz/ui/KelasUpdateDialog.form
+END
+DaftarKelasDialog.java
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/272/trunk/GPS/src/com/ivanbiz/ui/DaftarKelasDialog.java
+END
+LoginDialog.form
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/266/trunk/GPS/src/com/ivanbiz/ui/LoginDialog.form
+END
+TagihanDialog.java
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/272/trunk/GPS/src/com/ivanbiz/ui/TagihanDialog.java
+END
+JurnalReportDialog.form
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/256/trunk/GPS/src/com/ivanbiz/ui/JurnalReportDialog.form
+END
+BankUpdateDialog.form
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/141/trunk/GPS/src/com/ivanbiz/ui/BankUpdateDialog.form
+END
+MuridDialog.form
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/254/trunk/GPS/src/com/ivanbiz/ui/MuridDialog.form
+END
+BiayaLainSumReportDialog.java
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/!svn/ver/272/trunk/GPS/src/com/ivanbiz/ui/BiayaLainSumReportDialog.java
+END
+KelasDialog.form
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/270/trunk/GPS/src/com/ivanbiz/ui/KelasDialog.form
+END
+KeuntunganBiayaLainDialog.form
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/!svn/ver/166/trunk/GPS/src/com/ivanbiz/ui/KeuntunganBiayaLainDialog.form
+END
+GroupDialog.java
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/141/trunk/GPS/src/com/ivanbiz/ui/GroupDialog.java
+END
+ReconsileDialog.form
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/272/trunk/GPS/src/com/ivanbiz/ui/ReconsileDialog.form
+END
+SaldoKasUpdateDialog.form
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/169/trunk/GPS/src/com/ivanbiz/ui/SaldoKasUpdateDialog.form
+END
+BankDialog.form
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/141/trunk/GPS/src/com/ivanbiz/ui/BankDialog.form
+END
+KeuntunganDialog.java
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/159/trunk/GPS/src/com/ivanbiz/ui/KeuntunganDialog.java
+END
+BiayaLainDialog.form
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/243/trunk/GPS/src/com/ivanbiz/ui/BiayaLainDialog.form
+END
+DaftarKelasUpdateDataDialog.form
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/226/trunk/GPS/src/com/ivanbiz/ui/DaftarKelasUpdateDataDialog.form
+END
+LabaRugiDialog.java
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/266/trunk/GPS/src/com/ivanbiz/ui/LabaRugiDialog.java
+END
+PembayaranTagihanReportDialog.form
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/!svn/ver/266/trunk/GPS/src/com/ivanbiz/ui/PembayaranTagihanReportDialog.form
+END
+PenggunaUpdateDialog.form
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/266/trunk/GPS/src/com/ivanbiz/ui/PenggunaUpdateDialog.form
+END
+TransferKrediturToKrediturReportDialog.form
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/!svn/ver/230/trunk/GPS/src/com/ivanbiz/ui/TransferKrediturToKrediturReportDialog.form
+END
+SaldoKasDialog.form
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/256/trunk/GPS/src/com/ivanbiz/ui/SaldoKasDialog.form
+END
+PengajarUpdateDialog.java
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/225/trunk/GPS/src/com/ivanbiz/ui/PengajarUpdateDialog.java
+END
+BiayaLainReportDialog.java
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/!svn/ver/256/trunk/GPS/src/com/ivanbiz/ui/BiayaLainReportDialog.java
+END
+BiayaLainSumDialog.java
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/266/trunk/GPS/src/com/ivanbiz/ui/BiayaLainSumDialog.java
+END
+MuridUpdateDialog.java
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/252/trunk/GPS/src/com/ivanbiz/ui/MuridUpdateDialog.java
+END
+AccountKrediturSumDialog.form
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/!svn/ver/266/trunk/GPS/src/com/ivanbiz/ui/AccountKrediturSumDialog.form
+END
+TagihanUpdateDialog.form
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/256/trunk/GPS/src/com/ivanbiz/ui/TagihanUpdateDialog.form
+END
+PembayaranBuktiDialog.java
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/!svn/ver/265/trunk/GPS/src/com/ivanbiz/ui/PembayaranBuktiDialog.java
+END
+MainFrame.java
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/287/trunk/GPS/src/com/ivanbiz/ui/MainFrame.java
+END
+PembayaranLainReportDialog.form
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/270/trunk/GPS/src/com/ivanbiz/ui/PembayaranLainReportDialog.form
+END
+LabaRugiReportDialog.form
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/281/trunk/GPS/src/com/ivanbiz/ui/LabaRugiReportDialog.form
+END
+PerusahaanDialog.form
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/263/trunk/GPS/src/com/ivanbiz/ui/PerusahaanDialog.form
+END
+PengajarDialog.java
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/225/trunk/GPS/src/com/ivanbiz/ui/PengajarDialog.java
+END
+SaldoKasReportDialog.java
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/272/trunk/GPS/src/com/ivanbiz/ui/SaldoKasReportDialog.java
+END
+DaftarKelasDialog.form
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/270/trunk/GPS/src/com/ivanbiz/ui/DaftarKelasDialog.form
+END
+TagihanDialog.form
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/272/trunk/GPS/src/com/ivanbiz/ui/TagihanDialog.form
+END
+AccountKrediturSumReportDialog.java
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/!svn/ver/272/trunk/GPS/src/com/ivanbiz/ui/AccountKrediturSumReportDialog.java
+END
+BiayaLainSumReportDialog.form
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/!svn/ver/266/trunk/GPS/src/com/ivanbiz/ui/BiayaLainSumReportDialog.form
+END
+GroupDialog.form
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/141/trunk/GPS/src/com/ivanbiz/ui/GroupDialog.form
+END
+DaftarKelasReportDialog.java
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/271/trunk/GPS/src/com/ivanbiz/ui/DaftarKelasReportDialog.java
+END
+PasswordDialog.java
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/156/trunk/GPS/src/com/ivanbiz/ui/PasswordDialog.java
+END
+TagihanReportDialog.java
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/272/trunk/GPS/src/com/ivanbiz/ui/TagihanReportDialog.java
+END
+KeuntunganDialog.form
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/141/trunk/GPS/src/com/ivanbiz/ui/KeuntunganDialog.form
+END
+TagihanReturDialog.java
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/272/trunk/GPS/src/com/ivanbiz/ui/TagihanReturDialog.java
+END
+LabaRugiDialog.form
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/266/trunk/GPS/src/com/ivanbiz/ui/LabaRugiDialog.form
+END
+JurnalDialog.java
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/141/trunk/GPS/src/com/ivanbiz/ui/JurnalDialog.java
+END
+GLAccountUpdateDialog.java
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/!svn/ver/238/trunk/GPS/src/com/ivanbiz/ui/GLAccountUpdateDialog.java
+END
+PenggunaDialog.java
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/272/trunk/GPS/src/com/ivanbiz/ui/PenggunaDialog.java
+END
+PengajarUpdateDialog.form
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/225/trunk/GPS/src/com/ivanbiz/ui/PengajarUpdateDialog.form
+END
+PembayaranTagihanUpdateDialog.java
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/!svn/ver/253/trunk/GPS/src/com/ivanbiz/ui/PembayaranTagihanUpdateDialog.java
+END
+JadwalKelasDialog.java
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/266/trunk/GPS/src/com/ivanbiz/ui/JadwalKelasDialog.java
+END
+KeuntunganReportDialog.java
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/!svn/ver/272/trunk/GPS/src/com/ivanbiz/ui/KeuntunganReportDialog.java
+END
+KeuntunganReportBiayaLainDialog.java
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/!svn/ver/272/trunk/GPS/src/com/ivanbiz/ui/KeuntunganReportBiayaLainDialog.java
+END
+BiayaLainReportDialog.form
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/!svn/ver/256/trunk/GPS/src/com/ivanbiz/ui/BiayaLainReportDialog.form
+END
+BiayaLainSumDialog.form
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/266/trunk/GPS/src/com/ivanbiz/ui/BiayaLainSumDialog.form
+END
+MuridUpdateDialog.form
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/228/trunk/GPS/src/com/ivanbiz/ui/MuridUpdateDialog.form
+END
+PembayaranBuktiDialog.form
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/!svn/ver/265/trunk/GPS/src/com/ivanbiz/ui/PembayaranBuktiDialog.form
+END
+MainFrame.form
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/287/trunk/GPS/src/com/ivanbiz/ui/MainFrame.form
+END
+GLAccountDialog.java
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/141/trunk/GPS/src/com/ivanbiz/ui/GLAccountDialog.java
+END
+GroupUpdateDialog.java
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/141/trunk/GPS/src/com/ivanbiz/ui/GroupUpdateDialog.java
+END
+PengajarDialog.form
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/225/trunk/GPS/src/com/ivanbiz/ui/PengajarDialog.form
+END
+PembayaranTagihanDialog.java
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/272/trunk/GPS/src/com/ivanbiz/ui/PembayaranTagihanDialog.java
+END
+SaldoKasReportDialog.form
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/272/trunk/GPS/src/com/ivanbiz/ui/SaldoKasReportDialog.form
+END
+PembayaranLainUpdateDialog.java
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/253/trunk/GPS/src/com/ivanbiz/ui/PembayaranLainUpdateDialog.java
+END
+TransferKrediturToKrediturDialog.java
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/!svn/ver/249/trunk/GPS/src/com/ivanbiz/ui/TransferKrediturToKrediturDialog.java
+END
+AccountKrediturSumReportDialog.form
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/!svn/ver/266/trunk/GPS/src/com/ivanbiz/ui/AccountKrediturSumReportDialog.form
+END
+PembayaranUploadTagihan.java
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/288/trunk/GPS/src/com/ivanbiz/ui/PembayaranUploadTagihan.java
+END
+DaftarKelasReportDialog.form
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/270/trunk/GPS/src/com/ivanbiz/ui/DaftarKelasReportDialog.form
+END
+PembayaranLainDialog.java
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/272/trunk/GPS/src/com/ivanbiz/ui/PembayaranLainDialog.java
+END
+PasswordDialog.form
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/156/trunk/GPS/src/com/ivanbiz/ui/PasswordDialog.form
+END
+TagihanReportDialog.form
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/272/trunk/GPS/src/com/ivanbiz/ui/TagihanReportDialog.form
+END
+TagihanReturDialog.form
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/272/trunk/GPS/src/com/ivanbiz/ui/TagihanReturDialog.form
+END
+JurnalDialog.form
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/141/trunk/GPS/src/com/ivanbiz/ui/JurnalDialog.form
+END
+GLAccountUpdateDialog.form
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/!svn/ver/238/trunk/GPS/src/com/ivanbiz/ui/GLAccountUpdateDialog.form
+END
+PenggunaDialog.form
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/272/trunk/GPS/src/com/ivanbiz/ui/PenggunaDialog.form
+END
+KelasUpdateDialog.java
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/270/trunk/GPS/src/com/ivanbiz/ui/KelasUpdateDialog.java
+END
+PembayaranTagihanUpdateDialog.form
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/!svn/ver/253/trunk/GPS/src/com/ivanbiz/ui/PembayaranTagihanUpdateDialog.form
+END
+JadwalKelasDialog.form
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/266/trunk/GPS/src/com/ivanbiz/ui/JadwalKelasDialog.form
+END
+KeuntunganReportDialog.form
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/!svn/ver/272/trunk/GPS/src/com/ivanbiz/ui/KeuntunganReportDialog.form
+END
+KeuntunganReportBiayaLainDialog.form
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/!svn/ver/272/trunk/GPS/src/com/ivanbiz/ui/KeuntunganReportBiayaLainDialog.form
+END
+LoginDialog.java
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/266/trunk/GPS/src/com/ivanbiz/ui/LoginDialog.java
+END

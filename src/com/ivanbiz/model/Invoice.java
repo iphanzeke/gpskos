@@ -26,6 +26,15 @@ public class Invoice {
     private String jatuhTempo;
     private String deskripsiUntuk;
     private String terbilang;
+    private boolean choose;
+
+    public boolean isChoose() {
+        return choose;
+    }
+
+    public void setChoose(boolean choose) {
+        this.choose = choose;
+    }
 
     public String getTerbilang() {
         return terbilang;
@@ -202,5 +211,4 @@ public class Invoice {
     public void setJumlahTagihan(double jumlahTagihan) {
         this.jumlahTagihan = jumlahTagihan;
     }
-
 }

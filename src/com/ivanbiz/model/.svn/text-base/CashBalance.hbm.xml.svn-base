@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class name="com.ivanbiz.model.CashBalance" table="CASH_BALANCE">
+    <id column="ID" name="id">
+      <generator class="native"/>
+    </id>
+    <many-to-one class="com.ivanbiz.model.GLAccount" column="GL_ACCOUNT_ID" lazy="false" name="glAccount"/>
+    <property column="DATE_BALANCE" name="dateBalance" type="date"/>
+    <property column="BALANCE" length="12" name="balance" type="double"/>
+    <property column="STATUS" length="1" name="status" type="string"/>
+  </class>
+</hibernate-mapping>

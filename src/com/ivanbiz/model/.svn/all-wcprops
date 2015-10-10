@@ -1,0 +1,245 @@
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/!svn/ver/280/trunk/GPS/src/com/ivanbiz/model
+END
+Jurnal.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/120/trunk/GPS/src/com/ivanbiz/model/Jurnal.hbm.xml
+END
+Pengguna.java
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/266/trunk/GPS/src/com/ivanbiz/model/Pengguna.java
+END
+SettingGL.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/120/trunk/GPS/src/com/ivanbiz/model/SettingGL.hbm.xml
+END
+Perusahaan.java
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/253/trunk/GPS/src/com/ivanbiz/model/Perusahaan.java
+END
+ProCode.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/37/trunk/GPS/src/com/ivanbiz/model/ProCode.hbm.xml
+END
+GLAccount.java
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/270/trunk/GPS/src/com/ivanbiz/model/GLAccount.java
+END
+DaftarKelas.java
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/238/trunk/GPS/src/com/ivanbiz/model/DaftarKelas.java
+END
+Bank.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/37/trunk/GPS/src/com/ivanbiz/model/Bank.hbm.xml
+END
+Pembayaran.java
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/233/trunk/GPS/src/com/ivanbiz/model/Pembayaran.java
+END
+GroupAcc.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/37/trunk/GPS/src/com/ivanbiz/model/GroupAcc.hbm.xml
+END
+Kelas.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/266/trunk/GPS/src/com/ivanbiz/model/Kelas.hbm.xml
+END
+Pengajar.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/51/trunk/GPS/src/com/ivanbiz/model/Pengajar.hbm.xml
+END
+AksesMatrix.java
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/51/trunk/GPS/src/com/ivanbiz/model/AksesMatrix.java
+END
+SettingGL.java
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/55/trunk/GPS/src/com/ivanbiz/model/SettingGL.java
+END
+Groups.java
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/26/trunk/GPS/src/com/ivanbiz/model/Groups.java
+END
+Pengguna.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/266/trunk/GPS/src/com/ivanbiz/model/Pengguna.hbm.xml
+END
+BankAccount.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/37/trunk/GPS/src/com/ivanbiz/model/BankAccount.hbm.xml
+END
+RekonBank.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/278/trunk/GPS/src/com/ivanbiz/model/RekonBank.hbm.xml
+END
+Groups.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/51/trunk/GPS/src/com/ivanbiz/model/Groups.hbm.xml
+END
+Invoice.java
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/194/trunk/GPS/src/com/ivanbiz/model/Invoice.java
+END
+AksesMatrix.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/39/trunk/GPS/src/com/ivanbiz/model/AksesMatrix.hbm.xml
+END
+CashBalance.java
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/88/trunk/GPS/src/com/ivanbiz/model/CashBalance.java
+END
+ParamBank.java
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/280/trunk/GPS/src/com/ivanbiz/model/ParamBank.java
+END
+Pengajar.java
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/4/trunk/GPS/src/com/ivanbiz/model/Pengajar.java
+END
+Murid.java
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/225/trunk/GPS/src/com/ivanbiz/model/Murid.java
+END
+Kelas.java
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/266/trunk/GPS/src/com/ivanbiz/model/Kelas.java
+END
+GroupAcc.java
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/2/trunk/GPS/src/com/ivanbiz/model/GroupAcc.java
+END
+Pembayaran.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/233/trunk/GPS/src/com/ivanbiz/model/Pembayaran.hbm.xml
+END
+Murid.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/51/trunk/GPS/src/com/ivanbiz/model/Murid.hbm.xml
+END
+Bank.java
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/33/trunk/GPS/src/com/ivanbiz/model/Bank.java
+END
+ProCode.java
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/2/trunk/GPS/src/com/ivanbiz/model/ProCode.java
+END
+GLAccount.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/93/trunk/GPS/src/com/ivanbiz/model/GLAccount.hbm.xml
+END
+DaftarKelas.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/266/trunk/GPS/src/com/ivanbiz/model/DaftarKelas.hbm.xml
+END
+CashBalance.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/120/trunk/GPS/src/com/ivanbiz/model/CashBalance.hbm.xml
+END
+ParamBank.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/280/trunk/GPS/src/com/ivanbiz/model/ParamBank.hbm.xml
+END
+Perusahaan.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/253/trunk/GPS/src/com/ivanbiz/model/Perusahaan.hbm.xml
+END
+Invoice.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/120/trunk/GPS/src/com/ivanbiz/model/Invoice.hbm.xml
+END
+RekonBank.java
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/274/trunk/GPS/src/com/ivanbiz/model/RekonBank.java
+END
+Jurnal.java
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/96/trunk/GPS/src/com/ivanbiz/model/Jurnal.java
+END
+BankAccount.java
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/14/trunk/GPS/src/com/ivanbiz/model/BankAccount.java
+END
