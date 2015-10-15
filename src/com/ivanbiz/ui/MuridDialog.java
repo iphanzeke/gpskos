@@ -75,6 +75,7 @@ public class MuridDialog extends JDialog {
         jScrollPane1 = new javax.swing.JScrollPane();
         tableMurid = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
+        buttonUpload = new javax.swing.JButton();
         buttonTambah = new javax.swing.JButton();
         buttonUbah = new javax.swing.JButton();
         buttonHapus = new javax.swing.JButton();
@@ -132,6 +133,15 @@ public class MuridDialog extends JDialog {
             }
         });
         jScrollPane1.setViewportView(tableMurid);
+
+        buttonUpload.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/tambah.jpg"))); // NOI18N
+        buttonUpload.setText("Upload Murid");
+        buttonUpload.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonUploadActionPerformed(evt);
+            }
+        });
+        jPanel2.add(buttonUpload);
 
         buttonTambah.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/tambah.jpg"))); // NOI18N
         buttonTambah.setText("Tambah Murid Baru");
@@ -195,6 +205,7 @@ public class MuridDialog extends JDialog {
         buttonTambah.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.TAMBAH_MURID, listAksesMatrix));
         buttonUbah.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.UBAH_MURID, listAksesMatrix));
         buttonHapus.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.HAPUS_MURID, listAksesMatrix));
+        buttonUpload.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.UPLOAD_MURID, listAksesMatrix));
     }
 
     private void textCariKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textCariKeyReleased
@@ -267,10 +278,16 @@ public class MuridDialog extends JDialog {
         }
     }//GEN-LAST:event_tableMuridMouseClicked
 
+    private void buttonUploadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonUploadActionPerformed
+        new MuridUploadDialog().setVisible(true);
+        refresh();
+    }//GEN-LAST:event_buttonUploadActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonHapus;
     private javax.swing.JButton buttonTambah;
     private javax.swing.JButton buttonUbah;
+    private javax.swing.JButton buttonUpload;
     private javax.swing.JComboBox comboBoxCari;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
