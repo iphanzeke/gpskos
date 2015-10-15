@@ -67,6 +67,7 @@ public class DaftarKelasDialog extends javax.swing.JDialog {
         buttonTambah.setVisible(false);
         buttonHapus.setVisible(false);
         buttonKelulusan.setVisible(false);
+        buttonUpload.setVisible(false);
         renderButtonAksesKelulusan(GlobalSession.getListAksesMatrix());
     }
 
@@ -89,6 +90,7 @@ public class DaftarKelasDialog extends javax.swing.JDialog {
         buttonTambah = new javax.swing.JButton();
         buttonHapus = new javax.swing.JButton();
         buttonKelulusan = new javax.swing.JButton();
+        buttonUpload = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setAlwaysOnTop(true);
@@ -148,6 +150,14 @@ public class DaftarKelasDialog extends javax.swing.JDialog {
             }
         });
 
+        buttonUpload.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/tambah.jpg"))); // NOI18N
+        buttonUpload.setText("Upload Murid");
+        buttonUpload.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonUploadActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -167,8 +177,10 @@ public class DaftarKelasDialog extends javax.swing.JDialog {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(buttonHapus)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(buttonKelulusan)))
-                        .addGap(0, 176, Short.MAX_VALUE)))
+                                .addComponent(buttonKelulusan)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(buttonUpload)))
+                        .addGap(0, 51, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
@@ -180,12 +192,14 @@ public class DaftarKelasDialog extends javax.swing.JDialog {
                 .addComponent(textKelas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(buttonKelulusan, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(buttonKelulusan, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(buttonUpload))
                     .addComponent(buttonTambah, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(buttonHapus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel12))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 438, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 431, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -260,10 +274,17 @@ public class DaftarKelasDialog extends javax.swing.JDialog {
             }
         }
     }//GEN-LAST:event_tableDaftarKelasMouseClicked
+
+    private void buttonUploadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonUploadActionPerformed
+        new MuridUploadDialog().setVisible(true);
+
+    }//GEN-LAST:event_buttonUploadActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonHapus;
     private javax.swing.JButton buttonKelulusan;
     private javax.swing.JButton buttonTambah;
+    private javax.swing.JButton buttonUpload;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
