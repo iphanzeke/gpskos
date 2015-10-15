@@ -53,8 +53,8 @@ public class KirimLaporanLabaRugi {
 
     public static void main(String[] args) {
         Date dari = new Date();
+        dari.setDate(dari.getDate() - 7);
         Date sampai = new Date();
-        sampai.setDate(dari.getDate() + 7);
         KirimLaporanLabaRugi kirimLaporanLabaRugi = new KirimLaporanLabaRugi(dari, sampai);
     }
 
