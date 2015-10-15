@@ -28,4 +28,6 @@ public interface DaftarKelasDAO extends GenericDAO {
     public String updateByKehadiran(List<DaftarKelas> listDaftarKelas) throws Exception;
 
     public List<DaftarKelas> getDataByEqualsOrderByBankAndNama(String transactionReference) throws Exception;
+    
+    public String saveUploadMurid(List<Murid> listMurid,DaftarKelas daftarKelas)throws Exception;
 }

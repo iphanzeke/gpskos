@@ -151,4 +151,54 @@ public class DaftarKelasDAOImpl extends GenericDAOImpl implements DaftarKelasDAO
             HibernateUtil.closeSession();
         }
     }
+
+    @Override
+    public String saveUploadMurid(List<Murid> listMurid, DaftarKelas daftarKelas) throws Exception {
+        String status = "";
+        try{
+            HibernateUtil.beginTransaction();
+            
+            Session session = HibernateUtil.getSession();
+            for(Murid murid : listMurid){
+                DaftarKelas dk1 = new DaftarKelas();
+                Murid muridValidate = (Murid) session.createQuery("from com.ivanbiz.model.Murid m where m.HANDPHONE = "+murid.getHandphone()+" OR m.email ="+murid.getEmail()+"").uniqueResult();
+                if(muridValidate == null){
+                     session.save(murid);
+                     session.flush();
+                     dk1.setKelas(daftarKelas.getKelas());
+                     dk1.setMurid(murid);
+                     dk1.setKehadiran(daftarKelas.getKehadiran());
+                     dk1.setKehadiran2(daftarKelas.getKehadiran2());
+                     dk1.setKeterangan(daftarKelas.getKeterangan());
+                     dk1.setKeterangan2(daftarKelas.getKeterangan2());
+                     dk1.setTransactionReference(daftarKelas.getTransactionReference());
+                     dk1.setStatus(daftarKelas.getStatus());
+                     dk1.setUjian(daftarKelas.getUjian());
+                    
+                }else{
+                     dk1.setKelas(daftarKelas.getKelas());
+                     dk1.setMurid(muridValidate);
+                     dk1.setKehadiran(daftarKelas.getKehadiran());
+                     dk1.setKehadiran2(daftarKelas.getKehadiran2());
+                     dk1.setKeterangan(daftarKelas.getKeterangan());
+                     dk1.setKeterangan2(daftarKelas.getKeterangan2());
+                     dk1.setTransactionReference(daftarKelas.getTransactionReference());
+                     dk1.setStatus(daftarKelas.getStatus());
+                     dk1.setUjian(daftarKelas.getUjian());                  
+                }
+                
+               session.save(dk1);
+                     
+                
+            }
+            HibernateUtil.commitTransaction();
+            status = "sukses";
+        }catch(Exception e){
+            status = "error";
+            HibernateUtil.rollbackTransaction();
+        }finally{
+            HibernateUtil.closeSession();
+        }
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
