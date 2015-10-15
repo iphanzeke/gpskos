@@ -57,8 +57,11 @@ public class PembayaranTagihanUpdateDialog extends JDialog {
         buttonBrowse.setVisible(false);
     }
 
-    public PembayaranTagihanUpdateDialog(MainFrame mainFrame, boolean modal, Pembayaran pembayaran) {
+    public PembayaranTagihanUpdateDialog(MainFrame mainFrame, boolean modal, Pembayaran pembayaran, String action) {
         initComponents();
+        if (action.equals("upload")) {
+            comboInvoice.setEnabled(false);
+        }
         this.pembayaran = pembayaran;
         labelPembayaran.setText("Ubah Pembayaran Tagihan");
         dateChooserPosting.setDate(pembayaran.getDatePosting());

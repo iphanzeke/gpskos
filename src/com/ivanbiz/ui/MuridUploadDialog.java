@@ -14,23 +14,16 @@ import com.ivanbiz.dao.BankDAO;
 import com.ivanbiz.dao.GLAccountDAO;
 import com.ivanbiz.dao.InvoiceDAO;
 import com.ivanbiz.dao.impl.BankDAOImpl;
-import com.ivanbiz.dao.impl.GLAccountDAOImpl;
-import com.ivanbiz.dao.impl.InvoiceDAOImpl;
 import com.ivanbiz.model.Bank;
-import com.ivanbiz.model.GLAccount;
 import com.ivanbiz.model.Invoice;
-import com.ivanbiz.model.Pembayaran;
 import com.ivanbiz.model.RekonBank;
 import com.ivanbiz.service.ReadExcell;
-import com.ivanbiz.service.RenderingKanan;
 import com.ivanbiz.service.ServiceHelper;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
@@ -42,7 +35,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  *
  * @author IW20149X
  */
-public class PembayaranUploadTagihan extends javax.swing.JDialog {
+public class MuridUploadDialog extends javax.swing.JDialog {
 
     SimpleDateFormat sdf;
     List<RekonBank> listRekonBank;
@@ -53,7 +46,7 @@ public class PembayaranUploadTagihan extends javax.swing.JDialog {
     NumberFormat numberFormat;
     GLAccountDAO gLAccountDAO;
 
-    public PembayaranUploadTagihan() {
+    public MuridUploadDialog() {
         try {
             initComponents();
             numberFormat = NumberFormat.getNumberInstance();
@@ -65,11 +58,9 @@ public class PembayaranUploadTagihan extends javax.swing.JDialog {
             Bank bank = new Bank();
             bank.setNama("Pilih");
             listBank.set(0, bank);
-            updateComboBank();
-            listInvoice = new ArrayList();
-            updateTableInvoice();
+            updateComboBank();            
         } catch (Exception ex) {
-            Logger.getLogger(PembayaranUploadTagihan.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MuridUploadDialog.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -86,17 +77,14 @@ public class PembayaranUploadTagihan extends javax.swing.JDialog {
         buttonSave = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
-        jPanel4 = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tableInvoice = new javax.swing.JTable();
-        jLabel4 = new javax.swing.JLabel();
-        comboBank = new javax.swing.JComboBox();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableFile = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         textFile = new javax.swing.JTextField();
         buttonBrowse = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        comboBank = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setAlwaysOnTop(true);
@@ -111,60 +99,10 @@ public class PembayaranUploadTagihan extends javax.swing.JDialog {
         });
         jPanel2.add(buttonSave);
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 24));
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel5.setText("Upload File");
 
         jPanel5.setLayout(new java.awt.GridLayout(1, 0));
-
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Invoice"));
-
-        tableInvoice.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane2.setViewportView(tableInvoice);
-
-        jLabel4.setText("Bank :");
-
-        comboBank.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboBankActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 358, Short.MAX_VALUE)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(comboBank, 0, 324, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(comboBank, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 439, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        jPanel5.add(jPanel4);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("File"));
 
@@ -184,6 +122,11 @@ public class PembayaranUploadTagihan extends javax.swing.JDialog {
         jLabel1.setText("Name :");
 
         textFile.setEditable(false);
+        textFile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textFileActionPerformed(evt);
+            }
+        });
 
         buttonBrowse.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/process.jpg"))); // NOI18N
         buttonBrowse.setText("Browse");
@@ -193,31 +136,43 @@ public class PembayaranUploadTagihan extends javax.swing.JDialog {
             }
         });
 
+        jLabel4.setText("Bank :");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 358, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 748, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel4))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(textFile, javax.swing.GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonBrowse, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(comboBank, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(textFile)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(buttonBrowse)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(textFile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(buttonBrowse))
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(comboBank, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 440, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(textFile))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(buttonBrowse)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -231,12 +186,12 @@ public class PembayaranUploadTagihan extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, 780, Short.MAX_VALUE)
+                        .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 761, Short.MAX_VALUE)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 761, Short.MAX_VALUE))
+                            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(29, 29, 29))))
         );
         layout.setVerticalGroup(
@@ -245,13 +200,13 @@ public class PembayaranUploadTagihan extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, 511, Short.MAX_VALUE)
+                .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-816)/2, (screenSize.height-638)/2, 816, 638);
+        setSize(new java.awt.Dimension(808, 627));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonBrowseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBrowseActionPerformed
@@ -269,56 +224,22 @@ public class PembayaranUploadTagihan extends javax.swing.JDialog {
             } else {
                 listRekonBank = readExcell.readExcell(textFile.getText(), new Date(), new Date(), comboBank.getSelectedItem().toString());
             }
+         
             updateTableFile(listRekonBank);
         }
     }//GEN-LAST:event_buttonBrowseActionPerformed
 
-    private void comboBankActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBankActionPerformed
-        try {
-            invoiceDAO = new InvoiceDAOImpl();
-            Map map = new HashMap();
-            map.put("status", "1");
-            map.put("bank.id", listBank.get(comboBank.getSelectedIndex()).getId());
-            listInvoice = invoiceDAO.getDataByEqualsMore(Invoice.class, map);
-            updateTableInvoice();
-        } catch (Exception ex) {
-            Logger.getLogger(PembayaranUploadTagihan.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_comboBankActionPerformed
-
     private void buttonSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSaveActionPerformed
         try {
-            this.setVisible(false);
-            Pembayaran pembayaran = new Pembayaran();
-            pembayaran.setDatePosting(new Date());
-
-            for (int x = 0; x < listInvoice.size(); x++) {
-                Invoice invoice = listInvoice.get(x);
-                if ((Boolean) tableInvoice.getValueAt(x, 0)) {
-                    pembayaran.setInvoice(invoice);
-                }
-            }
-
-            String[] kepada = pembayaran.getInvoice().getDeskripsiKepada().split("#");
-            gLAccountDAO = new GLAccountDAOImpl();
-            GLAccount glDebitur = (GLAccount) gLAccountDAO.getDataByEqual(GLAccount.class, "noGL", kepada[0]);
-            pembayaran.setDebitBankAccount(glDebitur);
-
-            String untuk[] = pembayaran.getInvoice().getDeskripsiUntuk().split("#");
-            GLAccount glKreditur = (GLAccount) gLAccountDAO.getDataByEqual(GLAccount.class, "noGL", untuk[0]);
-            pembayaran.setKreditBankAccount(glKreditur);
-        
-            pembayaran.setJumlah(0);
-            pembayaran.setPathImage("");
-            pembayaran.setStatusPajak("0");
-            pembayaran.setBiayaPajak((double) 0);
-            pembayaran.setStatus("0");
-
-            new PembayaranTagihanUpdateDialog(null, true, pembayaran, "upload").setVisible(true);
+            this.setVisible(false);            
         } catch (Exception ex) {
-            Logger.getLogger(PembayaranUploadTagihan.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MuridUploadDialog.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_buttonSaveActionPerformed
+
+    private void textFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFileActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textFileActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonBrowse;
@@ -329,19 +250,16 @@ public class PembayaranUploadTagihan extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tableFile;
-    private javax.swing.JTable tableInvoice;
     private javax.swing.JTextField textFile;
     // End of variables declaration//GEN-END:variables
 
     private void updateTableFile(List<RekonBank> listRekonBank) {
-
+        System.out.println("heee");
         RekonBank rekonBank1 = (RekonBank) listRekonBank.get(0);
-        String[] valHeader = rekonBank1.getData().split("\",\"");
+        String[] valHeader = rekonBank1.getData().split(";");
         String[] header = new String[valHeader.length + 1];
         for (int x = 0; x < valHeader.length + 1; x++) {
             if (x == 0) {
@@ -356,7 +274,7 @@ public class PembayaranUploadTagihan extends javax.swing.JDialog {
         for (RekonBank rekonBank : listRekonBank) {
             no += 1;
             boolean temp = false;
-            String[] val = rekonBank.getData().split("\",\"");
+            String[] val = rekonBank.getData().split(";");
             Object[] valtemp = new Object[val.length + 1];
             for (int y = 0; y < valtemp.length; y++) {
                 if (y == 0) {
@@ -364,8 +282,7 @@ public class PembayaranUploadTagihan extends javax.swing.JDialog {
                 } else {
                     valtemp[y] = val[y - 1];
                 }
-            }        
-
+            }            
             for (int z = 0; z < valtemp.length; z++) {
                 isi[x][z] = valtemp[z];
             }
@@ -386,21 +303,5 @@ public class PembayaranUploadTagihan extends javax.swing.JDialog {
         comboBank.setModel(new DefaultComboBoxModel(data));
     }
 
-    private void updateTableInvoice() {
-        String[] judul = {"Choose", "NII", "Kelas", "Jumlah Tagihan"};
-        Object[][] isi = new Object[listInvoice.size()][4];
-        int x = 0;
-        int no = 0;
-        for (Invoice invoices : listInvoice) {
-            no += 1;
-            isi[x][0] = invoices.isChoose();
-            isi[x][1] = invoices.getNII();
-            isi[x][2] = invoices.getKelas().getTransactionReference();
-            isi[x][3] = numberFormat.format(invoices.getJumlahTagihan());
-            x++;
-        }
-        tableInvoice.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        new ServiceHelper().setAutoRize(isi, judul, tableInvoice);
-        tableInvoice.getColumnModel().getColumn(3).setCellRenderer(new RenderingKanan());
-    }
+    
 }

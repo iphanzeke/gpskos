@@ -61,6 +61,7 @@ public class PembayaranTagihanDialog extends JDialog {
         jScrollPane1 = new javax.swing.JScrollPane();
         tablePembayaran = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
+        buttonUpload = new javax.swing.JButton();
         buttonTambah = new javax.swing.JButton();
         buttonUbah = new javax.swing.JButton();
         buttonHapus = new javax.swing.JButton();
@@ -85,6 +86,15 @@ public class PembayaranTagihanDialog extends JDialog {
             }
         ));
         jScrollPane1.setViewportView(tablePembayaran);
+
+        buttonUpload.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/tambah.jpg"))); // NOI18N
+        buttonUpload.setText("Upload Pembayaran");
+        buttonUpload.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonUploadActionPerformed(evt);
+            }
+        });
+        jPanel2.add(buttonUpload);
 
         buttonTambah.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ivanbiz/ui/icon/tambah.jpg"))); // NOI18N
         buttonTambah.setText("Tambah Pembayaran Baru");
@@ -129,9 +139,9 @@ public class PembayaranTagihanDialog extends JDialog {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 880, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 880, Short.MAX_VALUE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -140,7 +150,7 @@ public class PembayaranTagihanDialog extends JDialog {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 489, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -156,7 +166,7 @@ public class PembayaranTagihanDialog extends JDialog {
         } else {
             try {
                 pembayaran = listPembayaran.get(tablePembayaran.getSelectedRow());
-                new PembayaranTagihanUpdateDialog(null, true, pembayaran).setVisible(true);
+                new PembayaranTagihanUpdateDialog(null, true, pembayaran, "update").setVisible(true);
                 refresh();
             } catch (Exception ex) {
                 Logger.getLogger(PembayaranTagihanDialog.class.getName()).log(Level.SEVERE, null, ex);
@@ -199,11 +209,16 @@ public class PembayaranTagihanDialog extends JDialog {
             }
         }
     }//GEN-LAST:event_buttonProcessActionPerformed
+
+    private void buttonUploadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonUploadActionPerformed
+        new PembayaranUploadTagihan().setVisible(true);
+    }//GEN-LAST:event_buttonUploadActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonHapus;
     private javax.swing.JButton buttonProcess;
     private javax.swing.JButton buttonTambah;
     private javax.swing.JButton buttonUbah;
+    private javax.swing.JButton buttonUpload;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
@@ -243,8 +258,9 @@ public class PembayaranTagihanDialog extends JDialog {
     }
 
     private void renderButtonAkses(List<AksesMatrix> listAksesMatrix) {
-        buttonTambah.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.TAMBAH_PEMBAYARAN_TAGIHAN, listAksesMatrix));
-        buttonUbah.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.UBAH_PEMBAYARAN_TAGIHAN, listAksesMatrix));
+        buttonUpload.setVisible(MenuAksesConstant.validate(MenuAksesConstant.UPLOAD_PEMBAYARAN_TAGIHAN, listAksesMatrix));
+        buttonTambah.setVisible(MenuAksesConstant.validate(MenuAksesConstant.TAMBAH_PEMBAYARAN_TAGIHAN, listAksesMatrix));
+        buttonUbah.setVisible(MenuAksesConstant.validate(MenuAksesConstant.UBAH_PEMBAYARAN_TAGIHAN, listAksesMatrix));
         buttonHapus.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.HAPUS_PEMBAYARAN_TAGIHAN, listAksesMatrix));
         buttonProcess.setEnabled(MenuAksesConstant.validate(MenuAksesConstant.PROSES_PEMBAYARAN_TAGIHAN, listAksesMatrix));
     }
