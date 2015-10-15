@@ -29,30 +29,34 @@ public class ReadExcell {
         List list = new ArrayList();
         File inputWorkbook = new File(inputFile);
         Workbook w = null;
-
         try {
             w = Workbook.getWorkbook(inputWorkbook);
             Sheet sheet = w.getSheet(0);
-
-            for (int j = 0; j < sheet.getColumns(); j++) {
+            String temp = "";           
+            int valCol = sheet.getColumns();
+            int counterValCol = 0;
+            //System.out.println(valCol);
+//            for (int j = 0; j < sheet.getColumns(); j++) {
                 StringBuffer objDataColumn = new StringBuffer();
-                for (int i = 1; i < sheet.getRows(); i++) {
-                    Cell cell = sheet.getCell(j, i);
-                    CellType type = cell.getType();
-
-                    objDataColumn.append(cell.getContents() + "^");
-                    //System.out.print(cell.getContents() + "===");
-                    // System.out.println(objDataColumn);
-
-                }
-                RekonBank rekonBank = new RekonBank();
+                for (int i = 0; i < sheet.getRows(); i++) {
+                    System.out.println(i);
+                    for (int j = 0; j < sheet.getColumns(); j++) {
+                         Cell cell = sheet.getCell(j, i);
+                          CellType type = cell.getType();
+                           temp += cell.getContents() + ";";                            
+                    }                      
+                    
+                   objDataColumn.append(temp+"\n");                  
+                  temp = "";
+                  RekonBank rekonBank = new RekonBank();
                 rekonBank.setStartDate(startDate);
                 rekonBank.setEndDate(endDate);
                 rekonBank.setKreditur(kreditur);
-                rekonBank.setData(objDataColumn.substring(0, objDataColumn.length() - 1));
-                list.add(rekonBank);
-            }
+                rekonBank.setData(objDataColumn.substring(0, objDataColumn.length() - 2));
+                list.add(rekonBank);                           
+                objDataColumn = new StringBuffer();
 
+                }          
 
         } catch (Exception e) {
             e.printStackTrace();
