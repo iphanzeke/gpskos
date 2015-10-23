@@ -16,7 +16,8 @@ import java.util.List;
 public class Test {
     public static void main(String args[]){
         ReadExcell re = new ReadExcell();
-        List list = re.readExcell("C:/cimb.xls", new Date(), new Date(), "001");
+        List list = re.readExcell("C:/1.xls", new Date(), new Date(), "001");
+       System.out.println(list);
         for(int x=0;x<list.size();x++){
             RekonBank rb = (RekonBank)list.get(x);
             System.out.println(rb.getData());
